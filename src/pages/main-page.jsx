@@ -1,16 +1,11 @@
 import React from 'react';
-import { Link } from '@reach/router';
 
 export function MainPage() {
   return (
-    <div className="App">
+    <div className="container">
       <h1>Shopit</h1>
-      <p>
-        Edit <code>src/App.js</code> and save to reload.
-      </p>
-      <div>
-        <Link to="/profile">Profile</Link>
-      </div>
+      <p>The best shopping site in the web that would saves you most money.</p>
+      <p>Because you can't buy anything here.</p>
     </div>
   );
 }
