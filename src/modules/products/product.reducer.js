@@ -2,7 +2,9 @@ import * as actionKeys from './product.action-keys';
 
 const DEFAULT_STATE = {
   productsByKey: {},
-  productIds: []
+  productIds: [],
+  currentPage: 0,
+  hasMore: true
 };
 
 export function productReducer(state = DEFAULT_STATE, action) {
@@ -20,7 +22,11 @@ export function productReducer(state = DEFAULT_STATE, action) {
             {}
           )
         },
-        productIds: action.payload.map(product => product.id)
+        productIds: state.productIds.concat(
+          action.payload.map(product => product.id)
+        ),
+        currentPage: state.currentPage + 1,
+        hasMore: action.payload.length !== 0
       };
 
     default:

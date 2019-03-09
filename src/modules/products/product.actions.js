@@ -1,4 +1,5 @@
 import * as actionKeys from './product.action-keys';
+import { selectCurrentPage } from './product.selectors';
 import { getProducts } from './product.service';
 
 export const addProducts = products => ({
@@ -6,7 +7,8 @@ export const addProducts = products => ({
   payload: products
 });
 
-export const loadProducts = (page = 1) => dispatch => {
+export const loadProducts = () => (dispatch, getState) => {
+  const page = selectCurrentPage(getState()) + 1;
   return getProducts(page).then(products => {
     dispatch(addProducts(products));
   });
