@@ -1,0 +1,53 @@
+@keyframes color-switch {
+  0% {
+    color: #6d1b7b;
+  }
+  25% {
+    color: #ab003c;
+  }
+  75% {
+    color: #ff1744;
+  }
+}
+
+.spinner {
+  text-align: center;
+  color: #6d1b7b;
+  animation: color-switch 4.5s steps(3) infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner-inner {
+  display: inline-block;
+  width: 44px;
+  height: 44px;
+  margin: 0 auto;
+  animation: rotate 1.5s ease-in-out infinite;
+}
+
+@keyframes circular-dash {
+  0% {
+    stroke-dasharray: 1px, 200px;
+    stroke-dashoffset: 0px;
+  }
+  50% {
+    stroke-dasharray: 100px, 200px;
+    stroke-dasharray: -15px;
+  }
+  100% {
+    stroke-dasharray: 100px, 200px;
+    stroke-dashoffset: -120px;
+  }
+}
+
+.spinner-inner circle {
+  stroke: currentColor;
+  animation: circular-dash 1.5s ease-in-out infinite;
+  stroke-dasharray: 80px, 200px;
+  stroke-dashoffset: 0px;
+}

@@ -2,13 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Jumbotron } from '../components/jumbotron';
 import { ProductBox } from '../components/product-box';
+import { Spinner } from '../components/spinner';
 import { loadProducts } from '../modules/products/product.actions';
 import { selectProducts } from '../modules/products/product.selectors';
 import './main-page.css';
 
 function MainPageContent({ loadProducts, products }) {
+  const [isLoading, setIsLoading] = React.useState(products.length === 0);
+
   React.useEffect(() => {
-    loadProducts();
+    if (products.length === 0) {
+      loadProducts().then(() => setIsLoading(false));
+    }
   }, []);
 
   return (
@@ -25,6 +30,7 @@ function MainPageContent({ loadProducts, products }) {
           <p>Show them what a crazy can do.</p>
         </Jumbotron>
         <div className="main-page-product-grid">
+          {isLoading && <Spinner />}
           {products.map(product => (
             <ProductBox {...product} key={product.id} />
           ))}
