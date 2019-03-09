@@ -29,6 +29,15 @@ export function productReducer(state = DEFAULT_STATE, action) {
         hasMore: action.payload.length !== 0
       };
 
+    case actionKeys.Set_Product_Details:
+      return {
+        ...state,
+        productsByKey: {
+          ...state.productsByKey,
+          [action.payload.id]: action.payload
+        }
+      };
+
     default:
       return state;
   }

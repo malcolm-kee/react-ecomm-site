@@ -1,6 +1,18 @@
-.product-image {
-  text-align: center;
-  flex: 1;
+.product-box {
+  margin-bottom: 0;
+  text-decoration: none;
+  position: relative;
+  bottom: 0;
+  transition: bottom 250ms 30ms ease-in-out;
+  color: rgb(35, 39, 41);
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+}
+
+.product-box:hover {
+  color: rgb(35, 39, 41);
+  text-decoration: none;
+  bottom: 3px;
 }
 
 .product-box-name {
@@ -12,4 +24,10 @@
 .product-box-body {
   display: flex;
   flex-flow: column;
+  padding: 0;
+}
+
+.product-box-desc {
+  text-align: center;
+  padding: 4px;
 }

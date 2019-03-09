@@ -2,9 +2,10 @@ import { Router } from '@reach/router';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { Navbar } from './components/navbar';
-import { MainPage } from './pages/main-page';
-import { ProfilePage } from './pages/profile-page';
 import { configureStore } from './config/configure-store';
+import { MainPage } from './pages/main-page';
+import { ProductPage } from './pages/product-page';
+import { ProfilePage } from './pages/profile-page';
 
 const store = configureStore();
 
@@ -15,6 +16,7 @@ function App() {
         <Navbar />
         <Router>
           <MainPage path="/" />
+          <ProductPage path="/product/:productId" />
           <ProfilePage path="/profile" />
         </Router>
       </div>

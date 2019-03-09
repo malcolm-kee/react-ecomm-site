@@ -11,3 +11,7 @@ export function getProducts(page, limit = 10) {
     }
   });
 }
+
+export function getProduct(productId) {
+  return ajax(`${PRODUCT_BASE_URL}/${productId}`);
+}

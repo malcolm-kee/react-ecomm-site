@@ -40,10 +40,12 @@ function MainPageContent({ loadProducts, products, hasMoreProduct }) {
     <div>
       <div className="container">
         <h1>Shopit</h1>
-        <p>
-          The best shopping site in the web that would saves you most money.
-        </p>
-        <p>Because you can't buy anything here.</p>
+        <blockquote>
+          <p>
+            The best shopping site in the web that would saves you most money.
+          </p>
+          <small>Because you can't buy anything here.</small>
+        </blockquote>
         <Jumbotron>
           <p>It's only crazy until you buy it.</p>
           <h1>Just Buy It.</h1>
