@@ -1,7 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Jumbotron } from '../components/jumbotron';
+import { loadProducts } from '../modules/products/product.actions';
+import { selectProducts } from '../modules/products/product.selectors';
 
-export function MainPage() {
+function MainPageContent({ loadProducts }) {
+  React.useEffect(() => {
+    loadProducts();
+  }, []);
+
   return (
     <div>
       <div className="container">
@@ -19,3 +26,16 @@ export function MainPage() {
     </div>
   );
 }
+
+const mapStates = state => ({
+  products: selectProducts(state)
+});
+
+const mapDispatch = {
+  loadProducts
+};
+
+export const MainPage = connect(
+  mapStates,
+  mapDispatch
+)(MainPageContent);
