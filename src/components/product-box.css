@@ -1,0 +1,15 @@
+.product-image {
+  text-align: center;
+  flex: 1;
+}
+
+.product-box-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.product-box-body {
+  display: flex;
+  flex-flow: column;
+}

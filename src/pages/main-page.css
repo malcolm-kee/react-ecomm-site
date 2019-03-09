@@ -1,0 +1,5 @@
+.main-page-product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-column-gap: 4px;
+}
