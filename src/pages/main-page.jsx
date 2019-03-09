@@ -20,17 +20,21 @@ function MainPageContent({ loadProducts, products, hasMoreProduct }) {
     }
   }, []);
 
-  useWindowEvent('scroll', () => {
-    if (
-      hasMoreProduct &&
-      window.innerHeight + window.scrollY > document.body.clientHeight - 300
-    ) {
-      if (!isLoading) {
-        setIsLoading(true);
-        loadProducts().then(() => setIsLoading(false));
+  useWindowEvent(
+    'scroll',
+    () => {
+      if (
+        hasMoreProduct &&
+        window.innerHeight + window.scrollY > document.body.clientHeight - 300
+      ) {
+        if (!isLoading) {
+          setIsLoading(true);
+          loadProducts().then(() => setIsLoading(false));
+        }
       }
-    }
-  });
+    },
+    { wait: 200 }
+  );
 
   return (
     <div>

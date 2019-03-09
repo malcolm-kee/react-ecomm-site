@@ -4,7 +4,7 @@ import { throttle } from '../lib/throttle';
 export function useWindowEvent(
   eventType,
   callback,
-  { wait = 200, deps = [] } = {}
+  { wait = 0, deps = [] } = {}
 ) {
   const savedCallback = React.useRef();
 
