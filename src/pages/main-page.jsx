@@ -6,14 +6,18 @@ import { Spinner } from '../components/spinner';
 import { loadProducts } from '../modules/products/product.actions';
 import {
   selectProducts,
-  selectHasMoreProduct
+  selectHasMoreProduct,
+  selectProductIsLoading
 } from '../modules/products/product.selectors';
 import { useWindowEvent } from '../hooks/use-window-event';
 import './main-page.css';
 
-function MainPageContent({ loadProducts, products, hasMoreProduct }) {
-  const isLoading = React.useRef(false);
-
+function MainPageContent({
+  loadProducts,
+  products,
+  hasMoreProduct,
+  isLoading
+}) {
   React.useEffect(() => {
     if (products.length === 0) {
       loadProducts();
@@ -27,9 +31,8 @@ function MainPageContent({ loadProducts, products, hasMoreProduct }) {
         hasMoreProduct &&
         window.innerHeight + window.scrollY > document.body.clientHeight - 300
       ) {
-        if (!isLoading.current) {
-          isLoading.current = true;
-          loadProducts().then(() => (isLoading.current = false));
+        if (!isLoading) {
+          loadProducts();
         }
       }
     },
@@ -64,7 +67,8 @@ function MainPageContent({ loadProducts, products, hasMoreProduct }) {
 
 const mapStates = state => ({
   products: selectProducts(state),
-  hasMoreProduct: selectHasMoreProduct(state)
+  hasMoreProduct: selectHasMoreProduct(state),
+  isLoading: selectProductIsLoading(state)
 });
 
 const mapDispatch = {

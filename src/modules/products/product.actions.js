@@ -12,6 +12,10 @@ export const addProducts = products => ({
   payload: products
 });
 
+export const loadingProducts = () => ({
+  type: actionKeys.Loading_Products
+});
+
 export const setProductDetails = product => ({
   type: actionKeys.Set_Product_Details,
   payload: product
@@ -29,6 +33,7 @@ export const addProductComment = comment => ({
 
 export const loadProducts = () => (dispatch, getState) => {
   const page = selectCurrentPage(getState()) + 1;
+  dispatch(loadingProducts());
   return getProducts(page).then(products => dispatch(addProducts(products)));
 };
 

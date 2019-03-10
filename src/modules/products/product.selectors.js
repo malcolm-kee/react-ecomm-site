@@ -5,6 +5,9 @@ export const selectProducts = state => {
   return productStore.productIds.map(id => productStore.productsByKey[id]);
 };
 
+export const selectProductIsLoading = state =>
+  selectProductStore(state).loadingProducts;
+
 export const selectProduct = (state, productId) =>
   selectProductStore(state).productsByKey[productId];
 

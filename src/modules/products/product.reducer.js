@@ -5,7 +5,8 @@ const DEFAULT_STATE = {
   productIds: [],
   productComments: {},
   currentPage: 0,
-  hasMore: true
+  hasMore: true,
+  loadingProducts: false
 };
 
 export function productReducer(state = DEFAULT_STATE, action) {
@@ -24,12 +25,17 @@ export function productReducer(state = DEFAULT_STATE, action) {
           )
         },
         productIds: state.productIds.concat(
-          action.payload
-            .map(product => product.id)
-            .filter(productId => state.productIds.indexOf(productId) === -1)
+          action.payload.map(product => product.id)
         ),
         currentPage: state.currentPage + 1,
-        hasMore: action.payload.length !== 0
+        hasMore: action.payload.length !== 0,
+        loadingProducts: false
+      };
+
+    case actionKeys.Loading_Products:
+      return {
+        ...state,
+        loadingProducts: true
       };
 
     case actionKeys.Set_Product_Details:
