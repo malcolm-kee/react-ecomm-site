@@ -8,6 +8,9 @@ export const selectProducts = state => {
 export const selectProduct = (state, productId) =>
   selectProductStore(state).productsByKey[productId];
 
+export const selectProductComments = (state, productId) =>
+  selectProductStore(state).productComments[productId];
+
 export const selectCurrentPage = state => selectProductStore(state).currentPage;
 
 export const selectHasMoreProduct = state => selectProductStore(state).hasMore;

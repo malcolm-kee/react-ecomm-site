@@ -12,11 +12,11 @@ import { useWindowEvent } from '../hooks/use-window-event';
 import './main-page.css';
 
 function MainPageContent({ loadProducts, products, hasMoreProduct }) {
-  const [isLoading, setIsLoading] = React.useState(products.length === 0);
+  const isLoading = React.useRef(false);
 
   React.useEffect(() => {
     if (products.length === 0) {
-      loadProducts().then(() => setIsLoading(false));
+      loadProducts();
     }
   }, []);
 
@@ -27,9 +27,9 @@ function MainPageContent({ loadProducts, products, hasMoreProduct }) {
         hasMoreProduct &&
         window.innerHeight + window.scrollY > document.body.clientHeight - 300
       ) {
-        if (!isLoading) {
-          setIsLoading(true);
-          loadProducts().then(() => setIsLoading(false));
+        if (!isLoading.current) {
+          isLoading.current = true;
+          loadProducts().then(() => (isLoading.current = false));
         }
       }
     },
@@ -55,8 +55,8 @@ function MainPageContent({ loadProducts, products, hasMoreProduct }) {
           {products.map(product => (
             <ProductBox {...product} key={product.id} />
           ))}
-          {isLoading && <Spinner />}
         </div>
+        <div>{hasMoreProduct && <Spinner />}</div>
       </div>
     </div>
   );

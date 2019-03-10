@@ -1,0 +1,8 @@
+.product-comment {
+  padding: 8px 0;
+}
+
+.product-comment-content {
+  font-size: 1.5rem;
+  white-space: pre-wrap;
+}

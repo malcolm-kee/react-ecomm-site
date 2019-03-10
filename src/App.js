@@ -1,6 +1,7 @@
 import { Router } from '@reach/router';
 import React from 'react';
 import { Provider } from 'react-redux';
+import { Footer } from './components/footer';
 import { Navbar } from './components/navbar';
 import { configureStore } from './config/configure-store';
 import { MainPage } from './pages/main-page';
@@ -19,6 +20,7 @@ function App() {
           <ProductPage path="/product/:productId" />
           <ProfilePage path="/profile" />
         </Router>
+        <Footer />
       </div>
     </Provider>
   );

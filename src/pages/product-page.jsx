@@ -1,20 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { ProductImage } from '../components/product-image';
+import { Spinner } from '../components/spinner';
 import { loadProductDetail } from '../modules/products/product.actions';
 import { selectProduct } from '../modules/products/product.selectors';
-import { Spinner } from '../components/spinner';
-import { ProductImage } from '../components/product-image';
 import './product-page.css';
 
-function ProductPageContent({ details, loadDetails }) {
+const ProductComments = React.lazy(() =>
+  import(/* webpackChunkName: "ProductComments" */ '../components/product-comments')
+);
+
+function ProductPageContent({ productId, details, loadDetails }) {
   React.useEffect(() => {
     if (!details) {
       loadDetails();
     }
-  }, [details]);
+  }, [productId, details]);
 
   return (
-    <div className="container">
+    <article className="container">
       {details ? (
         <>
           <h1 className="visible-xs">{details.name}</h1>
@@ -36,13 +40,17 @@ function ProductPageContent({ details, loadDetails }) {
               {details.descriptions && details.descriptions.length > 0 && (
                 <blockquote>{details.descriptions.join(', ')}</blockquote>
               )}
+              <h2 className="h3">Reviews</h2>
+              <React.Suspense fallback={<Spinner />}>
+                <ProductComments productId={productId} />
+              </React.Suspense>
             </div>
           </div>
         </>
       ) : (
         <Spinner />
       )}
-    </div>
+    </article>
   );
 }
 

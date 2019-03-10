@@ -3,6 +3,7 @@ import * as actionKeys from './product.action-keys';
 const DEFAULT_STATE = {
   productsByKey: {},
   productIds: [],
+  productComments: {},
   currentPage: 0,
   hasMore: true
 };
@@ -35,6 +36,26 @@ export function productReducer(state = DEFAULT_STATE, action) {
         productsByKey: {
           ...state.productsByKey,
           [action.payload.id]: action.payload
+        }
+      };
+
+    case actionKeys.Set_Product_Comments:
+      return {
+        ...state,
+        productComments: {
+          ...state.productComments,
+          [action.payload.productId]: action.payload.comments
+        }
+      };
+
+    case actionKeys.Add_Product_Comment:
+      return {
+        ...state,
+        productComments: {
+          ...state.productComments,
+          [action.payload.productId]: (
+            state.productComments[action.payload.productId] || []
+          ).concat(action.payload)
         }
       };
 
