@@ -10,6 +10,11 @@ export function Navbar() {
             Shopit
           </Link>
           <div className="navbar-text">
+            <Link to="/cart" className="navbar-link">
+              Cart
+            </Link>
+          </div>
+          <div className="navbar-text">
             <Link to="/profile" className="navbar-link">
               Profile
             </Link>

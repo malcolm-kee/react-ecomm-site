@@ -40,6 +40,11 @@ function ProductPageContent({ productId, details, loadDetails }) {
               {details.descriptions && details.descriptions.length > 0 && (
                 <blockquote>{details.descriptions.join(', ')}</blockquote>
               )}
+              <div>
+                <button className="btn btn-success btn-lg" type="button">
+                  Add to Cart
+                </button>
+              </div>
               <h2 className="h3">Reviews</h2>
               <React.Suspense fallback={<Spinner />}>
                 <ProductComments productId={productId} />

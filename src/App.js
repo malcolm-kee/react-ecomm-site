@@ -7,6 +7,7 @@ import { configureStore } from './config/configure-store';
 import { MainPage } from './pages/main-page';
 import { ProductPage } from './pages/product-page';
 import { ProfilePage } from './pages/profile-page';
+import { NotFoundPage } from './pages/not-found-page';
 
 const store = configureStore();
 
@@ -19,6 +20,7 @@ function App() {
           <MainPage path="/" />
           <ProductPage path="/product/:productId" />
           <ProfilePage path="/profile" />
+          <NotFoundPage default />
         </Router>
         <Footer />
       </div>
