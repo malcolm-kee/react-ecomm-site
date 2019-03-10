@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Textarea from 'react-textarea-autosize';
-
-import { submitAddProductComment } from '../modules/products/product.actions';
-import { Spinner } from './spinner';
+import { Spinner } from '../../../components/spinner';
+import { submitAddProductComment } from '../product.actions';
 
 function ProductCommentFormContent({ productId, submitForm }) {
   const [submitting, setSubmitting] = React.useState(false);

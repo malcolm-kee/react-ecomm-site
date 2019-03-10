@@ -32,6 +32,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "react-styleguidist": "^9.0.4",
     "react-testing-library": "^6.0.0"
   }
 }

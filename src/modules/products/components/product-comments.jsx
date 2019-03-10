@@ -1,10 +1,10 @@
 import format from 'date-fns/format';
 import React from 'react';
 import { connect } from 'react-redux';
-import { loadProductComments } from '../modules/products/product.actions';
-import { selectProductComments } from '../modules/products/product.selectors';
+import { Spinner } from '../../../components/spinner';
+import { loadProductComments } from '../product.actions';
+import { selectProductComments } from '../product.selectors';
 import { ProductCommentForm } from './product-comment-form';
-import { Spinner } from './spinner';
 import './product-comments.css';
 
 function ProductComment({ userName, content, createdOn }) {

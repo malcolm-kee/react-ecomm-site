@@ -9,7 +9,7 @@ import { selectProduct } from '../modules/products/product.selectors';
 import './product-page.css';
 
 const ProductComments = React.lazy(() =>
-  import(/* webpackChunkName: "ProductComments" */ '../components/product-comments')
+  import(/* webpackChunkName: "ProductComments" */ '../modules/products/components/product-comments')
 );
 
 function ProductPageContent({ productId, details, loadDetails, addToCart }) {
