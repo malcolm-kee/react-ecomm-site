@@ -24,7 +24,9 @@ export function productReducer(state = DEFAULT_STATE, action) {
           )
         },
         productIds: state.productIds.concat(
-          action.payload.map(product => product.id)
+          action.payload
+            .map(product => product.id)
+            .filter(productId => state.productIds.indexOf(productId) === -1)
         ),
         currentPage: state.currentPage + 1,
         hasMore: action.payload.length !== 0

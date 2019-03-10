@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 import { ProductImage } from '../components/product-image';
 import { Spinner } from '../components/spinner';
+import { addProductToCart } from '../modules/cart/cart.actions';
 import { loadProductDetail } from '../modules/products/product.actions';
 import { selectProduct } from '../modules/products/product.selectors';
 import './product-page.css';
@@ -10,7 +12,7 @@ const ProductComments = React.lazy(() =>
   import(/* webpackChunkName: "ProductComments" */ '../components/product-comments')
 );
 
-function ProductPageContent({ productId, details, loadDetails }) {
+function ProductPageContent({ productId, details, loadDetails, addToCart }) {
   React.useEffect(() => {
     if (!details) {
       loadDetails();
@@ -41,7 +43,11 @@ function ProductPageContent({ productId, details, loadDetails }) {
                 <blockquote>{details.descriptions.join(', ')}</blockquote>
               )}
               <div>
-                <button className="btn btn-success btn-lg" type="button">
+                <button
+                  onClick={addToCart}
+                  className="btn btn-success btn-lg"
+                  type="button"
+                >
                   Add to Cart
                 </button>
               </div>
@@ -64,7 +70,14 @@ const mapStates = (state, ownProps) => ({
 });
 
 const mapDispatch = (dispatch, ownProps) => ({
-  loadDetails: () => dispatch(loadProductDetail(ownProps.productId))
+  loadDetails: () => dispatch(loadProductDetail(ownProps.productId)),
+  addToCart: () => {
+    toast('Added to Cart', {
+      type: 'success',
+      autoClose: 2000
+    });
+    return dispatch(addProductToCart(ownProps.productId));
+  }
 });
 
 export const ProductPage = connect(

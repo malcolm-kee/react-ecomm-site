@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from '@reach/router';
+import { CartLink } from '../modules/cart/components/cart-link';
 
 export function Navbar() {
   return (
@@ -9,16 +10,10 @@ export function Navbar() {
           <Link className="navbar-brand" to="/">
             Shopit
           </Link>
-          <div className="navbar-text">
-            <Link to="/cart" className="navbar-link">
-              Cart
-            </Link>
-          </div>
-          <div className="navbar-text">
-            <Link to="/profile" className="navbar-link">
-              Profile
-            </Link>
-          </div>
+          <CartLink to="/cart" className="navbar-brand" />
+          <Link to="/profile" className="navbar-brand">
+            Profile
+          </Link>
         </div>
       </div>
     </nav>

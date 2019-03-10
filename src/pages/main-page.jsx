@@ -47,7 +47,7 @@ function MainPageContent({ loadProducts, products, hasMoreProduct }) {
           <small>Because you can't buy anything here.</small>
         </blockquote>
         <Jumbotron>
-          <p>It's only crazy until you buy it.</p>
+          <p className="text-muted">It's only crazy until you buy it.</p>
           <h1>Just Buy It.</h1>
           <p>Show them what a crazy can do.</p>
         </Jumbotron>
