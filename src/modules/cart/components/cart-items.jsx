@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ProductImage } from '../../../components/product-image';
+import { ProductImage } from '../../products/components/product-image';
 import {
   incrementItemQty,
   decrementItemQty,

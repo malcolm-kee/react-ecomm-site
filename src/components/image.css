@@ -1,0 +1,9 @@
+.image {
+  text-align: center;
+  flex: 1;
+}
+
+.image picture,
+.image img {
+  max-width: 100%;
+}

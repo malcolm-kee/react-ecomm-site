@@ -1,9 +1,0 @@
-.product-image {
-  text-align: center;
-  flex: 1;
-}
-
-.product-image picture,
-.product-image img {
-  max-width: 100%;
-}

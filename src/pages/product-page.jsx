@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
-import { ProductImage } from '../components/product-image';
 import { Spinner } from '../components/spinner';
 import { addProductToCart } from '../modules/cart/cart.actions';
+import { ProductImage } from '../modules/products/components/product-image';
 import { loadProductDetail } from '../modules/products/product.actions';
 import { selectProduct } from '../modules/products/product.selectors';
-import './product-page.css';
 
 const ProductComments = React.lazy(() =>
   import(/* webpackChunkName: "ProductComments" */ '../modules/products/components/product-comments')
@@ -31,7 +30,6 @@ function ProductPageContent({ productId, details, loadDetails, addToCart }) {
                   url={details.images.standard}
                   webpUrl={details.images.webp}
                   alt={details.name}
-                  className="product-page-image"
                 />
               </div>
             )}

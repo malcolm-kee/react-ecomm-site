@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Jumbotron } from '../components/jumbotron';
-import { ProductBox } from '../components/product-box';
 import { Spinner } from '../components/spinner';
+import { useWindowEvent } from '../hooks/use-window-event';
+import { ProductBox } from '../modules/products/components/product-box';
 import { loadProducts } from '../modules/products/product.actions';
 import {
-  selectProducts,
   selectHasMoreProduct,
-  selectProductIsLoading
+  selectProductIsLoading,
+  selectProducts
 } from '../modules/products/product.selectors';
-import { useWindowEvent } from '../hooks/use-window-event';
 import './main-page.css';
 
 function MainPageContent({
