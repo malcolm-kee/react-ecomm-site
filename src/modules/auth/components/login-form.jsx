@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Button } from '../../../components/button';
 import { Form } from '../../../components/form';
 import { Spinner } from '../../../components/spinner';
 import { attemptLogin, attemptLogout } from '../auth.actions';
@@ -14,9 +15,9 @@ function LoginFormContent({ status, error, login, logout }) {
       <div className="alert alert-success">
         You're already login!
         <div>
-          <button onClick={logout} className="btn btn-danger" type="button">
+          <Button onClick={logout} color="danger">
             Logout
-          </button>
+          </Button>
         </div>
       </div>
     );
@@ -43,9 +44,9 @@ function LoginFormContent({ status, error, login, logout }) {
           disabled={isSubmitting}
         />
       </div>
-      <button className="btn btn-primary" type="submit" disabled={isSubmitting}>
+      <Button color="primary" type="submit" disabled={isSubmitting}>
         Login
-      </button>
+      </Button>
     </Form>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
+import { Button } from '../components/button';
 import { Spinner } from '../components/spinner';
 import { addProductToCart } from '../modules/cart/cart.actions';
 import { ProductImage } from '../modules/products/components/product-image';
@@ -41,13 +42,9 @@ function ProductPageContent({ productId, details, loadDetails, addToCart }) {
                 <blockquote>{details.descriptions.join(', ')}</blockquote>
               )}
               <div>
-                <button
-                  onClick={addToCart}
-                  className="btn btn-success btn-lg"
-                  type="button"
-                >
+                <Button onClick={addToCart} color="success" size="lg">
                   Add to Cart
-                </button>
+                </Button>
               </div>
               <h2 className="h3">Reviews</h2>
               <React.Suspense fallback={<Spinner />}>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Textarea from 'react-textarea-autosize';
+import { Button } from '../../../components/button';
 import { Spinner } from '../../../components/spinner';
 import { selectUser } from '../../auth/auth.selectors';
 import { submitAddProductComment } from '../product.actions';
@@ -54,9 +55,9 @@ function ProductCommentFormContent({ productId, submitForm, user }) {
         {submitting ? (
           <Spinner />
         ) : (
-          <button className="btn btn-primary" type="submit">
+          <Button color="primary" type="submit">
             Add
-          </button>
+          </Button>
         )}
       </div>
     </form>

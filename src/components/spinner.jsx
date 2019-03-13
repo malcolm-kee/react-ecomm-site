@@ -1,6 +1,9 @@
 import React from 'react';
 import './spinner.css';
 
+/**
+ * Spinner is used to indicate busy status, e.g. waiting for API response
+ */
 export function Spinner() {
   return (
     <div className="spinner" role="progressbar">
