@@ -2,12 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Textarea from 'react-textarea-autosize';
 import { Spinner } from '../../../components/spinner';
+import { selectUser } from '../../auth/auth.selectors';
 import { submitAddProductComment } from '../product.actions';
 
-function ProductCommentFormContent({ productId, submitForm }) {
+function ProductCommentFormContent({ productId, submitForm, user }) {
   const [submitting, setSubmitting] = React.useState(false);
+  const [userName, setUserName] = React.useState(user ? user.name : '');
   const [content, setContent] = React.useState('');
-  const [userName, setUserName] = React.useState('');
 
   function handleSubmit(ev) {
     ev.preventDefault();
@@ -28,6 +29,16 @@ function ProductCommentFormContent({ productId, submitForm }) {
     <form onSubmit={handleSubmit}>
       <legend>Add Your Review</legend>
       <div className="form-group">
+        <label>Your Name</label>
+        <input
+          className="form-control"
+          value={userName}
+          onChange={ev => setUserName(ev.target.value)}
+          disabled={submitting}
+          required
+        />
+      </div>
+      <div className="form-group">
         <label htmlFor="product-comment-form-content">Your Review</label>
         <Textarea
           id="product-comment-form-content"
@@ -35,16 +46,6 @@ function ProductCommentFormContent({ productId, submitForm }) {
           value={content}
           onChange={ev => setContent(ev.target.value)}
           minRows={3}
-          disabled={submitting}
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label>Your Name</label>
-        <input
-          className="form-control"
-          value={userName}
-          onChange={ev => setUserName(ev.target.value)}
           disabled={submitting}
           required
         />
@@ -62,11 +63,15 @@ function ProductCommentFormContent({ productId, submitForm }) {
   );
 }
 
+const mapStates = state => ({
+  user: selectUser(state)
+});
+
 const mapDispatch = {
   submitForm: submitAddProductComment
 };
 
 export const ProductCommentForm = connect(
-  null,
+  mapStates,
   mapDispatch
 )(ProductCommentFormContent);

@@ -1,11 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Form } from '../../../components/form';
 import { Spinner } from '../../../components/spinner';
 import { attemptLogin, attemptLogout } from '../auth.actions';
 import { AuthStatus } from '../auth.constants';
 import { selectAuthError, selectAuthStatus } from '../auth.selectors';
 
 function LoginFormContent({ status, error, login, logout }) {
+  const [email, setEmail] = React.useState('');
+
   if (status === AuthStatus.Authenticated) {
     return (
       <div className="alert alert-success">
@@ -19,8 +22,6 @@ function LoginFormContent({ status, error, login, logout }) {
     );
   }
 
-  const [email, setEmail] = React.useState('');
-
   const onSubmit = ev => {
     ev.preventDefault();
     login(email);
@@ -28,8 +29,7 @@ function LoginFormContent({ status, error, login, logout }) {
   const isSubmitting = status === AuthStatus.Authenticating;
 
   return (
-    <form onSubmit={onSubmit}>
-      <legend>Login</legend>
+    <Form title="Login" onSubmit={onSubmit}>
       {isSubmitting && <Spinner />}
       {error && <div className="alert alert-danger">{error}</div>}
       <div className="form-group">
@@ -46,7 +46,7 @@ function LoginFormContent({ status, error, login, logout }) {
       <button className="btn btn-primary" type="submit" disabled={isSubmitting}>
         Login
       </button>
-    </form>
+    </Form>
   );
 }
 

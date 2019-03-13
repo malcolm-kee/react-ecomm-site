@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Form } from '../../../components/form';
 import { Spinner } from '../../../components/spinner';
 import { register, attemptLogout } from '../auth.actions';
 import { AuthStatus } from '../auth.constants';
@@ -29,8 +30,7 @@ function RegisterFormContent({ status, error, register, logout }) {
   const isSubmitting = status === AuthStatus.Authenticating;
 
   return (
-    <form onSubmit={onSubmit}>
-      <legend>Signup</legend>
+    <Form title="Signup" onSubmit={onSubmit}>
       {isSubmitting && <Spinner />}
       {error && <div className="alert alert-danger">{error}</div>}
       <div className="form-group">
@@ -58,7 +58,7 @@ function RegisterFormContent({ status, error, register, logout }) {
       <button className="btn btn-primary" type="submit" disabled={isSubmitting}>
         Signup
       </button>
-    </form>
+    </Form>
   );
 }
 
