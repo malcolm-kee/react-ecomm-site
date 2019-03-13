@@ -3,7 +3,7 @@ import React from 'react';
 import { ProductImage } from './product-image';
 import './product-box.css';
 
-export function ProductBox({ id, name, images, descriptions }) {
+export function ProductBox({ id, name, images, price }) {
   return (
     <Link to={`/product/${id}`} className="panel panel-default product-box">
       <div className="panel-heading product-box-name">{name}</div>
@@ -17,9 +17,9 @@ export function ProductBox({ id, name, images, descriptions }) {
             height={188}
           />
         )}
-        {descriptions && descriptions.length > 0 && (
+        {price && (
           <div className="product-box-desc">
-            <p>{descriptions.join(', ')}</p>
+            <p>RM {price}</p>
           </div>
         )}
       </div>

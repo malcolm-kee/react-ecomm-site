@@ -1,0 +1,24 @@
+.product-page-related-products {
+  padding: 4px 0px;
+  overflow-y: auto;
+}
+
+.product-page-related-products > * {
+  margin: 0 4px;
+  display: inline-block;
+  min-width: 190px;
+}
+
+.product-page-related-products > :first-child {
+  margin-left: 0;
+}
+
+.product-page-related-products > :last-child {
+  margin-right: 0;
+}
+
+@media (min-width: 600px) {
+  .product-page-related-products > * {
+    margin: 0 8px;
+  }
+}

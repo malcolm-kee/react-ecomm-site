@@ -7,6 +7,8 @@ import { addProductToCart } from '../modules/cart/cart.actions';
 import { ProductImage } from '../modules/products/components/product-image';
 import { loadProductDetail } from '../modules/products/product.actions';
 import { selectProduct } from '../modules/products/product.selectors';
+import { ProductBoxContainer } from '../modules/products/components/product-box-container';
+import './product-page.css';
 
 const ProductComments = React.lazy(() =>
   import(/* webpackChunkName: "ProductComments" */ '../modules/products/components/product-comments')
@@ -38,6 +40,7 @@ function ProductPageContent({ productId, details, loadDetails, addToCart }) {
               <h1 className="visible-sm visible-md visible-lg">
                 {details.name}
               </h1>
+              {details.price && <h3>RM {details.price}</h3>}
               {details.descriptions && details.descriptions.length > 0 && (
                 <blockquote>{details.descriptions.join(', ')}</blockquote>
               )}
@@ -46,6 +49,25 @@ function ProductPageContent({ productId, details, loadDetails, addToCart }) {
                   Add to Cart
                 </Button>
               </div>
+            </div>
+          </div>
+          {details.related && details.related.length > 0 && (
+            <div className="row">
+              <div className="col-xs-12">
+                <h2 className="h3">Related Products</h2>
+                <div className="product-page-related-products">
+                  {details.related.map(productId => (
+                    <ProductBoxContainer
+                      productId={productId}
+                      key={productId}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+          <div className="row">
+            <div className="col-xs-12">
               <h2 className="h3">Reviews</h2>
               <React.Suspense fallback={<Spinner />}>
                 <ProductComments productId={productId} />

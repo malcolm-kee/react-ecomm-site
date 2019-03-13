@@ -41,7 +41,7 @@ function MainPageContent({
 
   return (
     <div>
-      <div className="container">
+      <div className="container-fluid">
         <h1>Shopit</h1>
         <blockquote>
           <p>
