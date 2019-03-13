@@ -41,6 +41,7 @@ function RegisterFormContent({ status, error, register, logout }) {
           value={name}
           onChange={ev => setName(ev.target.value)}
           disabled={isSubmitting}
+          required
         />
       </div>
       <div className="form-group">
@@ -51,6 +52,7 @@ function RegisterFormContent({ status, error, register, logout }) {
           value={email}
           onChange={ev => setEmail(ev.target.value)}
           disabled={isSubmitting}
+          required
         />
       </div>
       <button className="btn btn-primary" type="submit" disabled={isSubmitting}>

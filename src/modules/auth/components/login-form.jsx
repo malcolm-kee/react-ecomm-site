@@ -39,6 +39,7 @@ function LoginFormContent({ status, error, login, logout }) {
           type="email"
           value={email}
           onChange={ev => setEmail(ev.target.value)}
+          required
           disabled={isSubmitting}
         />
       </div>
