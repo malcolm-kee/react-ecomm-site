@@ -1,6 +1,7 @@
 import { Link } from '@reach/router';
 import { formatMoney } from 'accounting';
 import React from 'react';
+import { Button } from '../../../components/button';
 import { ProductImage } from '../../products/components/product-image';
 
 export function CartItem({ index, item, onDecrement, onIncrement, onDelete }) {
@@ -23,35 +24,27 @@ export function CartItem({ index, item, onDecrement, onIncrement, onDelete }) {
       </td>
       <td className="text-right">{item.product.price}</td>
       <td>
-        <button
+        <Button
           onClick={onDecrement}
-          className="btn btn-primary btn-sm"
+          color="primary"
+          size="sm"
           disabled={item.qty === 1}
-          type="button"
         >
           -
-        </button>{' '}
+        </Button>{' '}
         {item.qty}{' '}
-        <button
-          onClick={onIncrement}
-          className="btn btn-primary btn-sm"
-          type="button"
-        >
+        <Button onClick={onIncrement} color="primary" size="sm">
           +
-        </button>
+        </Button>
       </td>
       <td className="text-right">
         {item.product.price &&
           formatMoney(Number(item.product.price) * item.qty, '')}
       </td>
       <td>
-        <button
-          onClick={onDelete}
-          className="btn btn-danger btn-sm"
-          type="button"
-        >
+        <Button onClick={onDelete} color="danger" size="sm">
           Remove
-        </button>
+        </Button>
       </td>
     </tr>
   );
