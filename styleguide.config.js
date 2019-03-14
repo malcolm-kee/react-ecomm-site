@@ -1,4 +1,5 @@
 module.exports = {
+  components: 'src/components/**/*.{jsx,tsx}',
   template: {
     head: {
       links: [

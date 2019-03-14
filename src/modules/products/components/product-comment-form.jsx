@@ -1,8 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Textarea from 'react-textarea-autosize';
 import { Button } from '../../../components/button';
+import { Field } from '../../../components/field';
+import { Form } from '../../../components/form';
+import { Label } from '../../../components/label';
 import { Spinner } from '../../../components/spinner';
+import { TextField } from '../../../components/text-field';
+import { Textarea } from '../../../components/textarea';
 import { selectUser } from '../../auth/auth.selectors';
 import { submitAddProductComment } from '../product.actions';
 
@@ -27,30 +31,26 @@ function ProductCommentFormContent({ productId, submitForm, user }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <legend>Add Your Review</legend>
-      <div className="form-group">
-        <label>Your Name</label>
-        <input
-          className="form-control"
-          value={userName}
-          onChange={ev => setUserName(ev.target.value)}
-          disabled={submitting}
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="product-comment-form-content">Your Review</label>
+    <Form title="Add Your Review" onSubmit={handleSubmit}>
+      <TextField
+        label="Your Name"
+        value={userName}
+        onChangeValue={setUserName}
+        disabled={submitting}
+        required
+      />
+      <Field>
+        <Label>Your Review</Label>
         <Textarea
           id="product-comment-form-content"
           className="form-control"
           value={content}
-          onChange={ev => setContent(ev.target.value)}
+          onChangeValue={setContent}
           minRows={3}
           disabled={submitting}
           required
         />
-      </div>
+      </Field>
       <div>
         {submitting ? (
           <Spinner />
@@ -60,7 +60,7 @@ function ProductCommentFormContent({ productId, submitForm, user }) {
           </Button>
         )}
       </div>
-    </form>
+    </Form>
   );
 }
 

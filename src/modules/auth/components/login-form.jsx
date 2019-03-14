@@ -1,7 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from '../../../components/button';
+import { Field } from '../../../components/field';
 import { Form } from '../../../components/form';
+import { Input } from '../../../components/input';
+import { Label } from '../../../components/label';
 import { Spinner } from '../../../components/spinner';
 import { attemptLogin, attemptLogout } from '../auth.actions';
 import { AuthStatus } from '../auth.constants';
@@ -33,17 +36,19 @@ function LoginFormContent({ status, error, login, logout }) {
     <Form title="Login" onSubmit={onSubmit}>
       {isSubmitting && <Spinner />}
       {error && <div className="alert alert-danger">{error}</div>}
-      <div className="form-group">
-        <label htmlFor="email">Email</label>
-        <input
-          className="form-control"
-          type="email"
-          value={email}
-          onChange={ev => setEmail(ev.target.value)}
-          required
-          disabled={isSubmitting}
-        />
-      </div>
+      <Field>
+        <Label>Email</Label>
+        <div className="input-group">
+          <span className="input-group-addon">@</span>
+          <Input
+            type="email"
+            value={email}
+            onChangeValue={setEmail}
+            required
+            disabled={isSubmitting}
+          />
+        </div>
+      </Field>
       <Button color="primary" type="submit" disabled={isSubmitting}>
         Login
       </Button>
