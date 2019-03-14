@@ -46,7 +46,7 @@ function ProductPageContent({ productId, details, loadDetails, addToCart }) {
               )}
               <div>
                 <Button onClick={addToCart} color="success" size="lg">
-                  Add to Cart
+                  Add To Cart
                 </Button>
               </div>
             </div>

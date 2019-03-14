@@ -1,10 +1,9 @@
 import { Router } from '@reach/router';
+import { connect } from 'react-redux';
 import React from 'react';
-import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { Footer } from './components/footer';
-import { configureStore } from './config/configure-store';
 import { initAuthStatus } from './modules/auth/auth.actions';
 import { CartPage } from './pages/cart-page';
 import { Login } from './pages/login';
@@ -15,31 +14,36 @@ import { ProfilePage } from './pages/profile-page';
 import { Signup } from './pages/signup';
 import { SiteNav } from './site-nav';
 
-const store = configureStore();
-
-function App() {
+function AppContainer({ initAuthStatus }) {
   React.useEffect(() => {
-    store.dispatch(initAuthStatus());
+    initAuthStatus();
   }, []);
 
   return (
-    <Provider store={store}>
-      <div>
-        <SiteNav />
-        <Router>
-          <MainPage path="/" />
-          <ProductPage path="/product/:productId" />
-          <ProfilePage path="/profile" />
-          <CartPage path="/cart" />
-          <Login path="/login" />
-          <Signup path="/signup" />
-          <NotFoundPage default />
-        </Router>
-        <Footer />
-        <ToastContainer hideProgressBar />
-      </div>
-    </Provider>
+    <div>
+      <SiteNav />
+      <Router>
+        <MainPage path="/" />
+        <ProductPage path="/product/:productId" />
+        <ProfilePage path="/profile" />
+        <CartPage path="/cart" />
+        <Login path="/login" />
+        <Signup path="/signup" />
+        <NotFoundPage default />
+      </Router>
+      <Footer />
+      <ToastContainer hideProgressBar />
+    </div>
   );
 }
+
+const mapDispatch = {
+  initAuthStatus
+};
+
+const App = connect(
+  null,
+  mapDispatch
+)(AppContainer);
 
 export default App;

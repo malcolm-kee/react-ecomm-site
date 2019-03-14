@@ -9,5 +9,14 @@ export function configureStore() {
     composeWithDevTools(applyMiddleware(ReduxThunk))
   );
 
+  if (process.env.NODE_ENV !== 'production') {
+    if (module.hot) {
+      module.hot.accept('../modules/root-reducer', () => {
+        const nextRootReducer = require('../modules/root-reducer').rootReducer;
+        store.replaceReducer(nextRootReducer);
+      });
+    }
+  }
+
   return store;
 }

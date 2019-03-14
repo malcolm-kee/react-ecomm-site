@@ -1,9 +1,11 @@
 import React from 'react';
-import { render } from 'react-testing-library';
 import App from './App';
+import { renderWithRedux } from './lib/test-util';
 
 describe('<App />', () => {
   it('renders without crashing', () => {
-    render(<App />);
+    const { getByText } = renderWithRedux(<App />);
+
+    expect(getByText('Shopit')).not.toBeNull();
   });
 });
