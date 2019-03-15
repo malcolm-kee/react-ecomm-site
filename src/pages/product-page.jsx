@@ -33,6 +33,7 @@ function ProductPageContent({ productId, details, loadDetails, addToCart }) {
                   url={details.images.standard}
                   webpUrl={details.images.webp}
                   alt={details.name}
+                  key={details.images.standard}
                 />
               </div>
             )}

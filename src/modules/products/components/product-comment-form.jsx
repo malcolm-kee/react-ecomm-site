@@ -43,7 +43,6 @@ function ProductCommentFormContent({ productId, submitForm, user }) {
         <Label>Your Review</Label>
         <Textarea
           id="product-comment-form-content"
-          className="form-control"
           value={content}
           onChangeValue={setContent}
           minRows={3}
