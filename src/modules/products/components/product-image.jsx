@@ -5,8 +5,13 @@ function getImageUrl(url) {
   return `https://ecomm-db.herokuapp.com/images/${url}`;
 }
 
-export function ProductImage({ url, webpUrl, ...props }) {
+export function ProductImage({ url, webpUrl, blurUrl, ...props }) {
   return (
-    <Image src={getImageUrl(url)} webpSrc={getImageUrl(webpUrl)} {...props} />
+    <Image
+      src={getImageUrl(url)}
+      webpSrc={getImageUrl(webpUrl)}
+      blurSrc={blurUrl && getImageUrl(blurUrl)}
+      {...props}
+    />
   );
 }

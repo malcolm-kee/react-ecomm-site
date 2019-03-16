@@ -8,11 +8,12 @@ export function CartItem({ index, item, onDecrement, onIncrement, onDelete }) {
   return (
     <tr>
       <td>{index + 1}</td>
-      <td>
+      <td className="col-xs-2 col-lg-1">
         {item.product.images && (
           <ProductImage
             url={item.product.images['thumb-standard']}
             webpUrl={item.product.images['thumb-webp']}
+            blurUrl={item.product.images['thumb-blur']}
             alt={item.product.name}
             width={188}
             height={188}

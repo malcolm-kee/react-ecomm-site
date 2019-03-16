@@ -7,10 +7,10 @@ import './image.css';
  * Image is a component that allows you to specify image with its standard format (jpg/png/gif)
  * and webp format. It will fallback to use the standard format if browser doesn't support webp.
  */
-export function Image({ src, webpSrc, alt, width, height, ...props }) {
+export function Image({ src, webpSrc, blurSrc, alt, width, height, ...props }) {
   const [isLoading, setIsLoading] = React.useState(true);
 
-  function onImageLoad() {
+  function onImageLoaded() {
     if (isLoading) {
       setIsLoading(false);
     }
@@ -19,23 +19,25 @@ export function Image({ src, webpSrc, alt, width, height, ...props }) {
   return (
     <div className="image">
       {isLoading && (
-        <div
-          style={{
-            width,
-            height,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
-        >
+        <div className="image-spinner-container">
           <Spinner />
         </div>
       )}
-      <picture onLoad={onImageLoad}>
-        <source srcSet={webpSrc} type="image/webp" />
-        <source srcSet={src} type="image/jpeg" />
-        <img onLoad={onImageLoad} alt={alt} src={src} {...props} />
-      </picture>
+      {blurSrc && (
+        <img
+          className="image-blur"
+          onLoad={onImageLoaded}
+          src={blurSrc}
+          alt={alt}
+        />
+      )}
+      {(!blurSrc || !isLoading) && ( // show the fulll image if not blur image or blur image is loaded
+        <picture onLoad={onImageLoaded}>
+          {webpSrc && <source srcSet={webpSrc} type="image/webp" />}
+          <source srcSet={src} type="image/jpeg" />
+          <img onLoad={onImageLoaded} alt={alt} src={src} {...props} />
+        </picture>
+      )}
     </div>
   );
 }
@@ -49,6 +51,11 @@ Image.propTypes = {
    * Src for the webp version of the image
    */
   webpSrc: PropTypes.string,
+  /**
+   * Src for the blur version of the image.
+   * If this is available, it will be loaded before the image at `src` is loaded
+   */
+  blurSrc: PropTypes.string,
   /**
    * Description for the image, important for accessibility
    */
