@@ -11,9 +11,9 @@ export function CartItem({ index, item, onDecrement, onIncrement, onDelete }) {
       <td className="col-xs-2 col-lg-1">
         {item.product.images && (
           <ProductImage
-            url={item.product.images['thumb-standard']}
-            webpUrl={item.product.images['thumb-webp']}
-            blurUrl={item.product.images['thumb-blur']}
+            url={item.product.images.thumbStandard}
+            webpUrl={item.product.images.thumbWebp}
+            blurUrl={item.product.images.thumbBlur}
             alt={item.product.name}
             width={188}
             height={188}
