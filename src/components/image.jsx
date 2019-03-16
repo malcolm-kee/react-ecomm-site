@@ -27,12 +27,13 @@ export function Image({ src, webpSrc, blurSrc, alt, width, height, ...props }) {
         <img
           className="image-blur"
           onLoad={onImageLoaded}
+          onError={onImageLoaded}
           src={blurSrc}
           alt={alt}
         />
       )}
       {(!blurSrc || !isLoading) && ( // show the fulll image if not blur image or blur image is loaded
-        <picture onLoad={onImageLoaded}>
+        <picture onLoad={onImageLoaded} onError={onImageLoaded}>
           {webpSrc && <source srcSet={webpSrc} type="image/webp" />}
           <source srcSet={src} type="image/jpeg" />
           <img onLoad={onImageLoaded} alt={alt} src={src} {...props} />

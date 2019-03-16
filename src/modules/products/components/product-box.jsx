@@ -10,9 +10,9 @@ export function ProductBox({ id, name, images, price }) {
       <div className="panel-body product-box-body">
         {images ? (
           <ProductImage
-            url={images['thumb-standard']}
-            webpUrl={images['thumb-webp']}
-            blurUrl={images['thumb-blur']}
+            url={images.thumbStandard}
+            webpUrl={images.thumbWebp}
+            blurUrl={images.thumbBlur}
             alt={name}
             width={188}
             height={188}
