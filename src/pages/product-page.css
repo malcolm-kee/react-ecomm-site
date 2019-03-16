@@ -1,12 +1,14 @@
 .product-page-related-products {
   padding: 4px 0px;
   overflow-y: auto;
+  display: flex;
 }
 
 .product-page-related-products > * {
   margin: 0 4px;
   display: inline-block;
-  min-width: 190px;
+  flex-shrink: 0;
+  width: 190px;
 }
 
 .product-page-related-products > :first-child {
