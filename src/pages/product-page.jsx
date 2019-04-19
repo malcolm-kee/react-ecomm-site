@@ -1,13 +1,12 @@
+import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Button } from '../components/button';
 import { Spinner } from '../components/spinner';
 import { addProductToCart } from '../modules/cart/cart.actions';
-import { ProductImage } from '../modules/products/components/product-image';
-import { loadProductDetail } from '../modules/products/product.actions';
-import { selectProduct } from '../modules/products/product.selectors';
 import { ProductBoxContainer } from '../modules/products/components/product-box-container';
+import { ProductImage } from '../modules/products/components/product-image';
 import './product-page.css';
 
 const ProductComments = React.lazy(() =>
@@ -47,7 +46,11 @@ function ProductPageContent({ productId, details, loadDetails, addToCart }) {
                 <blockquote>{details.descriptions.join(', ')}</blockquote>
               )}
               <div>
-                <Button onClick={addToCart} color="success" size="lg">
+                <Button
+                  onClick={() => addToCart(details)}
+                  color="success"
+                  size="lg"
+                >
                   Add To Cart
                 </Button>
               </div>
@@ -84,22 +87,35 @@ function ProductPageContent({ productId, details, loadDetails, addToCart }) {
   );
 }
 
-const mapStates = (state, ownProps) => ({
-  details: selectProduct(state, ownProps.productId)
-});
-
-const mapDispatch = (dispatch, ownProps) => ({
-  loadDetails: () => dispatch(loadProductDetail(ownProps.productId)),
-  addToCart: () => {
+const mapDispatch = dispatch => ({
+  addToCart: product => {
     toast('Added to Cart', {
       type: 'success',
       autoClose: 2000
     });
-    return dispatch(addProductToCart(ownProps.productId));
+    return dispatch(addProductToCart(product));
   }
 });
 
 export const ProductPage = connect(
-  mapStates,
+  null,
   mapDispatch
-)(ProductPageContent);
+)(
+  inject('product')(
+    observer(function ProductPage({
+      product: { loadProductDetail, getProduct },
+      productId: productIdVal,
+      addToCart
+    }) {
+      const productId = Number(productIdVal);
+      return (
+        <ProductPageContent
+          productId={productId}
+          details={getProduct(productId)}
+          loadDetails={() => loadProductDetail(productId)}
+          addToCart={addToCart}
+        />
+      );
+    })
+  )
+);

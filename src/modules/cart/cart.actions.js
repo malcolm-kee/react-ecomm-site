@@ -1,5 +1,4 @@
 import * as actionKeys from './cart.action-keys';
-import { selectProduct } from '../products/product.selectors';
 
 export const addItem = (product, qty = 1) => ({
   type: actionKeys.Add_Item,
@@ -28,5 +27,5 @@ export const clearCart = () => ({
   type: actionKeys.Clear_Cart
 });
 
-export const addProductToCart = productId => (dispatch, getState) =>
-  dispatch(addItem(selectProduct(getState(), productId)));
+export const addProductToCart = product => dispatch =>
+  dispatch(addItem(product));

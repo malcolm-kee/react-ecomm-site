@@ -1,6 +1,5 @@
 import { inject, observer } from 'mobx-react';
 import React from 'react';
-import { connect } from 'react-redux';
 import { Button } from '../../../components/button';
 import { Field } from '../../../components/field';
 import { Form } from '../../../components/form';
@@ -8,7 +7,6 @@ import { Label } from '../../../components/label';
 import { Spinner } from '../../../components/spinner';
 import { TextField } from '../../../components/text-field';
 import { Textarea } from '../../../components/textarea';
-import { submitAddProductComment } from '../product.actions';
 
 function ProductCommentFormContent({ productId, submitForm, user }) {
   const [submitting, setSubmitting] = React.useState(false);
@@ -63,17 +61,21 @@ function ProductCommentFormContent({ productId, submitForm, user }) {
   );
 }
 
-const mapDispatch = {
-  submitForm: submitAddProductComment
-};
-
-export const ProductCommentForm = connect(
-  null,
-  mapDispatch
-)(
-  inject('auth')(
-    observer(function ProductCommentForm({ auth: { user }, ...restProps }) {
-      return <ProductCommentFormContent user={user} {...restProps} />;
-    })
-  )
+export const ProductCommentForm = inject(({ auth, product }) => ({
+  auth,
+  product
+}))(
+  observer(function ProductCommentForm({
+    auth: { user },
+    product: { createProductComment },
+    ...restProps
+  }) {
+    return (
+      <ProductCommentFormContent
+        user={user}
+        submitForm={createProductComment}
+        {...restProps}
+      />
+    );
+  })
 );
