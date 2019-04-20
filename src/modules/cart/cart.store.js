@@ -5,7 +5,10 @@ import { formatMoney } from 'accounting';
  * Cart MobX Store
  */
 export class CartStore {
-  items = [];
+  constructor(productStore) {
+    this.productStore = productStore;
+    this.items = [];
+  }
 
   get totalItemCount() {
     return this.items.length;
@@ -15,15 +18,23 @@ export class CartStore {
     return this.items.length === 0;
   }
 
-  getItemByProduct = product =>
-    this.items.find(item => item.product.id === product.id);
+  get totalPrice() {
+    return formatMoney(
+      this.items.reduce((total, item) => total + item.totalPriceValue, 0),
+      ''
+    );
+  }
 
-  addItem = product => {
-    const item = this.getItemByProduct(product);
+  getItemByProductId = productId =>
+    this.items.find(item => item.productId === productId);
+
+  addItem = productId => {
+    const item = this.getItemByProductId(productId);
+
     if (item) {
       item.incrementQty();
     } else {
-      this.items.push(new CartItem(product));
+      this.items.push(new CartItem(this.productStore, productId));
     }
   };
 
@@ -48,21 +59,34 @@ decorate(CartStore, {
 });
 
 class CartItem {
-  product = null;
+  productStore = null;
+  productId = null;
   qty = 0;
 
-  constructor(product, qty = 1) {
-    this.product = product;
+  constructor(productStore, productId, qty = 1) {
+    this.productStore = productStore;
     this.qty = qty;
+    this.productId = productId;
   }
 
   get canDecrement() {
     return this.qty > 1;
   }
 
+  get product() {
+    return this.productStore.getProduct(this.productId);
+  }
+
+  get totalPriceValue() {
+    if (this.product && this.product.price) {
+      return Number(this.product.price) * this.qty;
+    }
+    return 0;
+  }
+
   get totalPrice() {
     if (this.product && this.product.price) {
-      return formatMoney(Number(this.product.price) * this.qty, '');
+      return formatMoney(this.totalPriceValue, '');
     }
     return '';
   }
@@ -79,9 +103,11 @@ class CartItem {
 }
 
 decorate(CartItem, {
-  product: observable.shallow,
+  productId: observable,
+  product: computed,
   qty: observable,
   canDecrement: computed,
+  totalPriceValue: computed,
   totalPrice: computed,
   incrementQty: action,
   decrementQty: action

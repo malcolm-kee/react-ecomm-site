@@ -6,7 +6,9 @@ const CartItem = React.lazy(() =>
   import(/* webpackChunkName: "CartItem" */ './cart-item')
 );
 
-function CartItemsContent({ cart: { items, isEmpty, removeItem } }) {
+function CartItemsContent({
+  cart: { items, isEmpty, removeItem, totalPrice }
+}) {
   return (
     <div className="cart-items">
       {isEmpty ? (
@@ -35,6 +37,15 @@ function CartItemsContent({ cart: { items, isEmpty, removeItem } }) {
                   />
                 ))}
               </tbody>
+              <tfoot>
+                <tr>
+                  <th colSpan={5} className="text-right">
+                    Grand Total
+                  </th>
+                  <th className="text-right">{totalPrice}</th>
+                  <th />
+                </tr>
+              </tfoot>
             </table>
           </div>
         </React.Suspense>

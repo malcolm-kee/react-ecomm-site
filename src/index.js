@@ -1,6 +1,5 @@
 import { configure } from 'mobx';
 import { Provider } from 'mobx-react';
-import DevTools from 'mobx-react-devtools';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
@@ -12,18 +11,15 @@ configure({
   enforceActions: 'observed'
 });
 
-const auth = new AuthStore();
-const product = new ProductStore();
-const cart = new CartStore();
+const authStore = new AuthStore();
+const productStore = new ProductStore();
+const cartStore = new CartStore(productStore);
 
 function renderApp(AppComponent) {
   return ReactDOM.render(
-    <>
-      <Provider auth={auth} product={product} cart={cart}>
-        <AppComponent />
-      </Provider>
-      <DevTools />
-    </>,
+    <Provider auth={authStore} product={productStore} cart={cartStore}>
+      <AppComponent />
+    </Provider>,
     document.getElementById('root')
   );
 }

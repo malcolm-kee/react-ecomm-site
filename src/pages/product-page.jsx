@@ -103,7 +103,7 @@ export const ProductPage = inject('product', 'cart')(
             type: 'success',
             autoClose: 2000
           });
-          addItem(product);
+          addItem(productId);
         }}
       />
     );
