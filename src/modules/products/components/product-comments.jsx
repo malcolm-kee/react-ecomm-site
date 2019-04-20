@@ -1,9 +1,7 @@
 import format from 'date-fns/format';
+import { inject, observer } from 'mobx-react';
 import React from 'react';
-import { connect } from 'react-redux';
 import { Spinner } from '../../../components/spinner';
-import { loadProductComments } from '../product.actions';
-import { selectProductComments } from '../product.selectors';
 import { ProductCommentForm } from './product-comment-form';
 import './product-comments.css';
 
@@ -45,17 +43,19 @@ function ProductCommentsContent({ productId, loadComments, comments }) {
   );
 }
 
-const mapStates = (state, ownProps) => ({
-  comments: selectProductComments(state, ownProps.productId) || []
-});
-
-const mapDispatch = (dispatch, ownProps) => ({
-  loadComments: () => dispatch(loadProductComments(ownProps.productId))
-});
-
-export const ProductComments = connect(
-  mapStates,
-  mapDispatch
-)(ProductCommentsContent);
+export const ProductComments = inject('product')(
+  observer(function ProductComments({
+    product: { getProductComments, loadProductComments },
+    productId
+  }) {
+    return (
+      <ProductCommentsContent
+        productId={productId}
+        comments={getProductComments(productId)}
+        loadComments={() => loadProductComments(productId)}
+      />
+    );
+  })
+);
 
 export default ProductComments;

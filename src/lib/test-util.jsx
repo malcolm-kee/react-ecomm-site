@@ -1,14 +1,34 @@
+import {
+  createHistory,
+  createMemorySource,
+  LocationProvider
+} from '@reach/router';
 import React from 'react';
 import { render } from 'react-testing-library';
-import { Provider } from 'react-redux';
-import { configureStore } from '../config/configure-store';
+import { Provider } from 'mobx-react';
+import { AuthStore } from '../modules/auth/auth.store';
+import { CartStore } from '../modules/cart/cart.store';
+import { ProductStore } from '../modules/products/product.store';
 
-export function renderWithRedux(ui, { actions = [] } = {}) {
-  const store = configureStore();
-  actions.forEach(action => store.dispatch(action));
+export function renderWithMobXAndRouter(
+  ui,
+  { route = '/', history = createHistory(createMemorySource(route)) } = {}
+) {
+  const authStore = new AuthStore();
+  const productStore = new ProductStore();
+  const cartStore = new CartStore(productStore);
 
   return {
-    store,
-    ...render(<Provider store={store}>{ui}</Provider>)
+    authStore,
+    productStore,
+    cartStore,
+    history,
+    ...render(
+      <LocationProvider history={history}>
+        <Provider auth={authStore} product={productStore} cart={cartStore}>
+          {ui}
+        </Provider>
+      </LocationProvider>
+    )
   };
 }

@@ -1,15 +1,9 @@
+import { inject, observer } from 'mobx-react';
 import React from 'react';
-import { connect } from 'react-redux';
 import { Jumbotron } from '../components/jumbotron';
 import { Spinner } from '../components/spinner';
 import { useWindowEvent } from '../hooks/use-window-event';
 import { ProductBox } from '../modules/products/components/product-box';
-import { loadProducts } from '../modules/products/product.actions';
-import {
-  selectHasMoreProduct,
-  selectProductIsLoading,
-  selectProducts
-} from '../modules/products/product.selectors';
 import './main-page.css';
 
 function MainPageContent({
@@ -65,17 +59,17 @@ function MainPageContent({
   );
 }
 
-const mapStates = state => ({
-  products: selectProducts(state),
-  hasMoreProduct: selectHasMoreProduct(state),
-  isLoading: selectProductIsLoading(state)
-});
-
-const mapDispatch = {
-  loadProducts
-};
-
-export const MainPage = connect(
-  mapStates,
-  mapDispatch
-)(MainPageContent);
+export const MainPage = inject('product')(
+  observer(function MainPage({
+    product: { products, hasMore, loadingProducts, loadProducts }
+  }) {
+    return (
+      <MainPageContent
+        products={products}
+        hasMoreProduct={hasMore}
+        isLoading={loadingProducts}
+        loadProducts={loadProducts}
+      />
+    );
+  })
+);

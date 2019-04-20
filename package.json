@@ -8,6 +8,9 @@
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
     "date-fns": "^1.30.1",
+    "mobx": "^5.9.4",
+    "mobx-react": "^5.4.3",
+    "mobx-react-devtools": "^6.1.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
@@ -23,6 +26,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:ci": "react-scripts test --coverage --ci",
     "eject": "react-scripts eject",
     "start:docs": "styleguidist server",
     "build:docs": "styleguidist build"
