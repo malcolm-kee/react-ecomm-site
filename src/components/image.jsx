@@ -30,13 +30,20 @@ export function Image({ src, webpSrc, blurSrc, alt, width, height, ...props }) {
           onError={onImageLoaded}
           src={blurSrc}
           alt={alt}
+          loading="lazy"
         />
       )}
       {(!blurSrc || !isLoading) && ( // show the fulll image if not blur image or blur image is loaded
         <picture onLoad={onImageLoaded} onError={onImageLoaded}>
           {webpSrc && <source srcSet={webpSrc} type="image/webp" />}
           <source srcSet={src} type="image/jpeg" />
-          <img onLoad={onImageLoaded} alt={alt} src={src} {...props} />
+          <img
+            onLoad={onImageLoaded}
+            alt={alt}
+            src={src}
+            loading="lazy"
+            {...props}
+          />
         </picture>
       )}
     </div>
