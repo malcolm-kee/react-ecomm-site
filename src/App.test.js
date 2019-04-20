@@ -3,6 +3,7 @@ import { fireEvent, waitForElement } from 'react-testing-library';
 import App from './App';
 import { renderWithMobXAndRouter } from './lib/test-util';
 
+jest.mock('./modules/marketing/marketing.service');
 jest.mock('./modules/products/product.service');
 
 function loadApp({ url = '/' } = {}) {

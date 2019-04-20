@@ -4,6 +4,7 @@ import { renderWithMobXAndRouter } from '../lib/test-util';
 import { MainPage } from './main-page';
 
 jest.mock('../modules/products/product.service');
+jest.mock('../modules/marketing/marketing.service');
 
 describe('<MainPage />', () => {
   it('renders without crashing', () => {

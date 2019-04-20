@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { AuthStore } from './modules/auth/auth.store';
 import { CartStore } from './modules/cart/cart.store';
+import { MarketingStore } from './modules/marketing/marketing.store';
 import { ProductStore } from './modules/products/product.store';
 
 configure({
@@ -14,10 +15,16 @@ configure({
 const authStore = new AuthStore();
 const productStore = new ProductStore();
 const cartStore = new CartStore(productStore);
+const marketingStore = new MarketingStore();
 
 function renderApp(AppComponent) {
   return ReactDOM.render(
-    <Provider auth={authStore} product={productStore} cart={cartStore}>
+    <Provider
+      auth={authStore}
+      product={productStore}
+      cart={cartStore}
+      marketing={marketingStore}
+    >
       <AppComponent />
     </Provider>,
     document.getElementById('root')
