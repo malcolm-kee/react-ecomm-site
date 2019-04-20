@@ -1,112 +1,68 @@
 import React from 'react';
 import { useInterval } from '../../hooks/use-interval';
 
-const initState = initialSlide => ({
-  currentSlide: initialSlide,
-  slides: []
-});
+// modulus in JS is different from modules in Maths, thus this
+function modulus(number, mod) {
+  return ((number % mod) + mod) % mod;
+}
 
-const carouselReducer = (state, action) => {
-  switch (action.type) {
-    case 'next':
-      return {
-        ...state,
-        currentSlide:
-          state.currentSlide && state.currentSlide === state.slides.length - 1
-            ? 0
-            : state.currentSlide + 1
-      };
+export const useCarouselState = (interval, initialSlide = 0) => {
+  const [activeIndex, setActiveIndex] = React.useState(initialSlide);
+  const [totalSlides, setTotalSlides] = React.useState(0);
 
-    case 'prev':
-      return {
-        ...state,
-        currentSlide:
-          state.currentSlide && state.currentSlide !== 0
-            ? state.currentSlide - 1
-            : state.slides.length - 1
-      };
-
-    case 'addSlide':
-      return {
-        ...state,
-        slides: state.slides.concat(action.payload)
-      };
-
-    case 'removeSlide':
-      return {
-        ...state,
-        slides: state.slides.filter(slideId => slideId === action.payload)
-      };
-
-    default:
-      throw new Error('unexpected action in carouselReducer');
-  }
-};
-
-export const useCarouselState = (interval, initialSlide) => {
-  const [state, dispatch] = React.useReducer(
-    carouselReducer,
-    initialSlide,
-    initState
-  );
   const [isPause, setIsPause] = React.useState(false);
 
-  const dispatchNext = React.useCallback(() => {
-    dispatch({ type: 'next' });
-  }, [dispatch]);
+  function nextSlide() {
+    setActiveIndex(currentIndex => currentIndex + 1);
+  }
+
+  function prevSlide() {
+    setActiveIndex(currentIndex => currentIndex - 1);
+  }
 
   const reset = useInterval(
     () => {
-      dispatchNext();
+      nextSlide();
     },
     isPause ? null : interval
   );
 
   const next = React.useCallback(() => {
-    dispatchNext();
+    nextSlide();
     reset();
-  }, [dispatchNext, reset]);
+  }, []);
 
-  const prev = React.useCallback(() => dispatch({ type: 'prev' }), [dispatch]);
+  const prev = React.useCallback(() => {
+    prevSlide();
+    reset();
+  }, []);
 
-  const addSlide = React.useCallback(
-    slideId =>
-      dispatch({
-        type: 'addSlide',
-        payload: slideId
-      }),
-    [dispatch]
-  );
-
-  const removeSlide = React.useCallback(
-    slideId => dispatch({ type: 'removeSlide', payload: slideId }),
-    [dispatch]
-  );
-
-  const pause = React.useCallback(() => setIsPause(true), [setIsPause]);
-  const unPause = React.useCallback(() => setIsPause(false), [setIsPause]);
+  const pause = React.useCallback(() => setIsPause(true), []);
+  const unPause = React.useCallback(() => setIsPause(false), []);
 
   const carouSelContextValue = React.useMemo(
     () => ({
       next,
       prev,
-      addSlide,
-      removeSlide,
-      currentSlide: state.slides[state.currentSlide],
+      totalSlides,
+      setTotalSlides,
+      activeIndex: modulus(activeIndex, totalSlides),
+      setActiveIndex: function(newIndex) {
+        setActiveIndex(newIndex);
+        reset();
+      },
       pause,
       unPause
     }),
     [
-      state.slides,
-      state.currentSlide,
+      activeIndex,
       next,
       prev,
-      dispatch,
       setIsPause,
-      addSlide,
-      removeSlide,
       pause,
-      unPause
+      unPause,
+      totalSlides,
+      setTotalSlides
     ]
   );
 

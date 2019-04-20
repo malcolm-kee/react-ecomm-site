@@ -3,11 +3,12 @@ import React from 'react';
 function noop() {}
 
 export const CarouselContext = React.createContext({
-  currentSlide: undefined,
+  activeIndex: 0,
+  setActiveIndex: noop,
+  totalSlides: 0,
+  setTotalSlides: noop,
   next: noop,
   prev: noop,
-  addSlide: noop,
-  removeSlide: noop,
   pause: noop,
   unPause: noop
 });
