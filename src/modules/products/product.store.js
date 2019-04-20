@@ -20,10 +20,10 @@ export class ProductStore {
     runInAction('addProducts', () => {
       this.currentPage = nextPage;
       this.hasMore = products.length !== 0;
-      this.loadingProducts = false;
       products.forEach(product => {
         this.products.push(product);
       });
+      this.loadingProducts = false;
     });
   };
 

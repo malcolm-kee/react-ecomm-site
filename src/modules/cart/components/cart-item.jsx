@@ -34,7 +34,7 @@ function CartItem({ cart: { items }, index, onDelete }) {
         >
           -
         </Button>
-        {item.qty}
+        <span data-testid={`qty-for-${item.product.id}`}>{item.qty}</span>
         <Button onClick={item.incrementQty} color="primary" size="sm">
           +
         </Button>
