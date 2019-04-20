@@ -1,13 +1,12 @@
+import { configure } from 'mobx';
+import { Provider } from 'mobx-react';
+import DevTools from 'mobx-react-devtools';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { configure } from 'mobx';
-import DevTools from 'mobx-react-devtools';
-import { Provider as MobxProvider } from 'mobx-react';
-import { AuthStore } from './modules/auth/auth.store';
-import { ProductStore } from './modules/products/product.store';
-import { configureStore } from './config/configure-store';
 import App from './App';
+import { AuthStore } from './modules/auth/auth.store';
+import { CartStore } from './modules/cart/cart.store';
+import { ProductStore } from './modules/products/product.store';
 
 configure({
   enforceActions: 'observed'
@@ -15,17 +14,14 @@ configure({
 
 const auth = new AuthStore();
 const product = new ProductStore();
-
-const store = configureStore();
+const cart = new CartStore();
 
 function renderApp(AppComponent) {
   return ReactDOM.render(
     <>
-      <MobxProvider auth={auth} product={product}>
-        <Provider store={store}>
-          <AppComponent />
-        </Provider>
-      </MobxProvider>
+      <Provider auth={auth} product={product} cart={cart}>
+        <AppComponent />
+      </Provider>
       <DevTools />
     </>,
     document.getElementById('root')

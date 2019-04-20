@@ -1,10 +1,8 @@
 import { inject, observer } from 'mobx-react';
 import React from 'react';
-import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Button } from '../components/button';
 import { Spinner } from '../components/spinner';
-import { addProductToCart } from '../modules/cart/cart.actions';
 import { ProductBoxContainer } from '../modules/products/components/product-box-container';
 import { ProductImage } from '../modules/products/components/product-image';
 import './product-page.css';
@@ -87,35 +85,27 @@ function ProductPageContent({ productId, details, loadDetails, addToCart }) {
   );
 }
 
-const mapDispatch = dispatch => ({
-  addToCart: product => {
-    toast('Added to Cart', {
-      type: 'success',
-      autoClose: 2000
-    });
-    return dispatch(addProductToCart(product));
-  }
-});
-
-export const ProductPage = connect(
-  null,
-  mapDispatch
-)(
-  inject('product')(
-    observer(function ProductPage({
-      product: { loadProductDetail, getProduct },
-      productId: productIdVal,
-      addToCart
-    }) {
-      const productId = Number(productIdVal);
-      return (
-        <ProductPageContent
-          productId={productId}
-          details={getProduct(productId)}
-          loadDetails={() => loadProductDetail(productId)}
-          addToCart={addToCart}
-        />
-      );
-    })
-  )
+export const ProductPage = inject('product', 'cart')(
+  observer(function ProductPage({
+    product: { loadProductDetail, getProduct },
+    cart: { addItem },
+    productId: productIdVal
+  }) {
+    const productId = Number(productIdVal);
+    const product = getProduct(productId);
+    return (
+      <ProductPageContent
+        productId={productId}
+        details={product}
+        loadDetails={() => loadProductDetail(productId)}
+        addToCart={() => {
+          toast('Added to Cart', {
+            type: 'success',
+            autoClose: 2000
+          });
+          addItem(product);
+        }}
+      />
+    );
+  })
 );

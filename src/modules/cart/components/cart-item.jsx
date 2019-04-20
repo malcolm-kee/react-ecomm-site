@@ -1,10 +1,11 @@
 import { Link } from '@reach/router';
-import { formatMoney } from 'accounting';
+import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { Button } from '../../../components/button';
 import { ProductImage } from '../../products/components/product-image';
 
-export function CartItem({ index, item, onDecrement, onIncrement, onDelete }) {
+function CartItem({ cart: { items }, index, onDelete }) {
+  const item = items[index];
   return (
     <tr>
       <td>{index + 1}</td>
@@ -26,22 +27,19 @@ export function CartItem({ index, item, onDecrement, onIncrement, onDelete }) {
       <td className="text-right">{item.product.price}</td>
       <td>
         <Button
-          onClick={onDecrement}
+          onClick={item.decrementQty}
           color="primary"
           size="sm"
-          disabled={item.qty === 1}
+          disabled={!item.canDecrement}
         >
           -
-        </Button>{' '}
-        {item.qty}{' '}
-        <Button onClick={onIncrement} color="primary" size="sm">
+        </Button>
+        {item.qty}
+        <Button onClick={item.incrementQty} color="primary" size="sm">
           +
         </Button>
       </td>
-      <td className="text-right">
-        {item.product.price &&
-          formatMoney(Number(item.product.price) * item.qty, '')}
-      </td>
+      <td className="text-right">{item.totalPrice}</td>
       <td>
         <Button onClick={onDelete} color="danger" size="sm">
           Remove
@@ -51,4 +49,4 @@ export function CartItem({ index, item, onDecrement, onIncrement, onDelete }) {
   );
 }
 
-export default CartItem;
+export default inject('cart')(observer(CartItem));

@@ -1,27 +1,15 @@
+import { inject, observer } from 'mobx-react';
 import React from 'react';
-import { connect } from 'react-redux';
 import { Spinner } from '../../../components/spinner';
-import {
-  decrementItemQty,
-  incrementItemQty,
-  removeItem
-} from '../cart.actions';
-import { selectCartItemCount, selectCartItems } from '../cart.selectors';
 
 const CartItem = React.lazy(() =>
   import(/* webpackChunkName: "CartItem" */ './cart-item')
 );
 
-function CartItemsContent({
-  cartItems,
-  itemCount,
-  incrementItem,
-  decrementItem,
-  removeItem
-}) {
+function CartItemsContent({ cart: { items, isEmpty, removeItem } }) {
   return (
     <div className="cart-items">
-      {itemCount === 0 ? (
+      {isEmpty ? (
         <p>There is nothing in your shopping cart.</p>
       ) : (
         <React.Suspense fallback={<Spinner />}>
@@ -39,12 +27,9 @@ function CartItemsContent({
                 </tr>
               </thead>
               <tbody>
-                {cartItems.map((item, index) => (
+                {items.map((item, index) => (
                   <CartItem
-                    item={item}
-                    onIncrement={incrementItem(index)}
-                    onDecrement={decrementItem(index)}
-                    onDelete={removeItem(index)}
+                    onDelete={() => removeItem(item)}
                     index={index}
                     key={index}
                   />
@@ -57,19 +42,4 @@ function CartItemsContent({
     </div>
   );
 }
-
-const mapStates = state => ({
-  cartItems: selectCartItems(state),
-  itemCount: selectCartItemCount(state)
-});
-
-const mapDispatch = dispatch => ({
-  incrementItem: itemIndex => () => dispatch(incrementItemQty(itemIndex)),
-  decrementItem: itemIndex => () => dispatch(decrementItemQty(itemIndex)),
-  removeItem: itemIndex => () => dispatch(removeItem(itemIndex))
-});
-
-export const CartItems = connect(
-  mapStates,
-  mapDispatch
-)(CartItemsContent);
+export const CartItems = inject('cart')(observer(CartItemsContent));
