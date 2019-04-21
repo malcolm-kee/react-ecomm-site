@@ -1,14 +1,14 @@
 import React from 'react';
-import { render, fireEvent } from 'react-testing-library';
+import { act, fireEvent, render } from 'react-testing-library';
 import { Carousel } from './carousel';
 import { CarouselBtn } from './carousel-btn';
 import { CarouselIndicators } from './carousel-indicators';
-import { Slides } from './slides';
 import { Slide } from './slide';
+import { Slides } from './slides';
 
-function renderCarousel({ additionUi, initialSlide } = {}) {
+function renderCarousel({ additionUi, initialSlide, interval } = {}) {
   const renderResults = render(
-    <Carousel initialSlide={initialSlide}>
+    <Carousel initialSlide={initialSlide} interval={interval}>
       <CarouselIndicators />
       <Slides>
         <Slide>Something</Slide>
@@ -19,20 +19,32 @@ function renderCarousel({ additionUi, initialSlide } = {}) {
     </Carousel>
   );
 
-  const { getAllByTestId, getByTestId } = renderResults;
+  const { getAllByTestId, getByTestId, container } = renderResults;
 
   return {
     ...renderResults,
     getIndicatorsCount: () => getAllByTestId('carousel-indicator').length,
-    getSlide1: () => getByTestId('slide-0'),
-    getSlide2: () => getByTestId('slide-1'),
-    getSlide3: () => getByTestId('slide-2'),
+    isSlide1Active: () => getByTestId('slide-0').className === 'item active',
+    isSlide2Active: () => getByTestId('slide-1').className === 'item active',
+    isSlide3Active: () => getByTestId('slide-2').className === 'item active',
+    moveCursorOntoActiveSlide: () =>
+      fireEvent.mouseEnter(
+        container.querySelector('.carousel-inner > .item.active')
+      ),
+    moveCursorAwayFromActiveSlide: () =>
+      fireEvent.mouseLeave(
+        container.querySelector('.carousel-inner > .item.active')
+      ),
     clickIndicator: index =>
       fireEvent.click(getAllByTestId('carousel-indicator')[index])
   };
 }
 
 describe('<Carousel />', () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
   it('auto sync number of indicator with number of slides', () => {
     const { getIndicatorsCount, rerender } = renderCarousel();
 
@@ -52,36 +64,41 @@ describe('<Carousel />', () => {
   });
 
   it('shows correct slide given initialSlide', () => {
-    const { getSlide2 } = renderCarousel({
+    const { isSlide2Active } = renderCarousel({
       initialSlide: 1
     });
 
-    expect(getSlide2().className).toBe('item active');
+    expect(isSlide2Active()).toBe(true);
   });
 
   it('able to navigate with indicator', () => {
     const {
       clickIndicator,
-      getSlide1,
-      getSlide2,
-      getSlide3
+      isSlide1Active,
+      isSlide2Active,
+      isSlide3Active
     } = renderCarousel();
 
     clickIndicator(1);
 
-    expect(getSlide1().className).toBe('item');
-    expect(getSlide2().className).toBe('item active');
-    expect(getSlide3().className).toBe('item');
+    expect(isSlide1Active()).toBe(false);
+    expect(isSlide2Active()).toBe(true);
+    expect(isSlide3Active()).toBe(false);
 
     clickIndicator(0);
 
-    expect(getSlide1().className).toBe('item active');
-    expect(getSlide2().className).toBe('item');
-    expect(getSlide3().className).toBe('item');
+    expect(isSlide1Active()).toBe(true);
+    expect(isSlide2Active()).toBe(false);
+    expect(isSlide3Active()).toBe(false);
   });
 
   it('able to navigate with CarouselBtn', () => {
-    const { getByText, getSlide1, getSlide2, getSlide3 } = renderCarousel({
+    const {
+      getByText,
+      isSlide1Active,
+      isSlide2Active,
+      isSlide3Active
+    } = renderCarousel({
       additionUi: (
         <>
           <CarouselBtn />
@@ -98,38 +115,100 @@ describe('<Carousel />', () => {
       fireEvent.click(getByText('Previous'));
     }
 
-    expect(getSlide1().className).toBe('item active');
-    expect(getSlide2().className).toBe('item');
-    expect(getSlide3().className).toBe('item');
+    expect(isSlide1Active()).toBe(true);
+    expect(isSlide2Active()).toBe(false);
+    expect(isSlide3Active()).toBe(false);
 
     clickNext();
 
-    expect(getSlide1().className).toBe('item');
-    expect(getSlide2().className).toBe('item active');
-    expect(getSlide3().className).toBe('item');
+    expect(isSlide1Active()).toBe(false);
+    expect(isSlide2Active()).toBe(true);
+    expect(isSlide3Active()).toBe(false);
 
     clickNext();
 
-    expect(getSlide1().className).toBe('item');
-    expect(getSlide2().className).toBe('item');
-    expect(getSlide3().className).toBe('item active');
+    expect(isSlide1Active()).toBe(false);
+    expect(isSlide2Active()).toBe(false);
+    expect(isSlide3Active()).toBe(true);
 
     clickNext();
 
-    expect(getSlide1().className).toBe('item active');
-    expect(getSlide2().className).toBe('item');
-    expect(getSlide3().className).toBe('item');
+    expect(isSlide1Active()).toBe(true);
+    expect(isSlide2Active()).toBe(false);
+    expect(isSlide3Active()).toBe(false);
 
     clickPrev();
 
-    expect(getSlide1().className).toBe('item');
-    expect(getSlide2().className).toBe('item');
-    expect(getSlide3().className).toBe('item active');
+    expect(isSlide1Active()).toBe(false);
+    expect(isSlide2Active()).toBe(false);
+    expect(isSlide3Active()).toBe(true);
 
     clickPrev();
 
-    expect(getSlide1().className).toBe('item');
-    expect(getSlide2().className).toBe('item active');
-    expect(getSlide3().className).toBe('item');
+    expect(isSlide1Active()).toBe(false);
+    expect(isSlide2Active()).toBe(true);
+    expect(isSlide3Active()).toBe(false);
+  });
+
+  it('will navigate to next every specific interval', async () => {
+    const { isSlide1Active, isSlide2Active, isSlide3Active } = renderCarousel({
+      interval: 10
+    });
+
+    expect(isSlide1Active()).toBe(true);
+    expect(isSlide2Active()).toBe(false);
+    expect(isSlide3Active()).toBe(false);
+
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
+
+    expect(isSlide1Active()).toBe(false);
+    expect(isSlide2Active()).toBe(true);
+    expect(isSlide3Active()).toBe(false);
+
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
+
+    expect(isSlide1Active()).toBe(false);
+    expect(isSlide2Active()).toBe(false);
+    expect(isSlide3Active()).toBe(true);
+  });
+
+  it('will not navigate when hover', async () => {
+    const {
+      moveCursorOntoActiveSlide,
+      moveCursorAwayFromActiveSlide,
+      isSlide1Active,
+      isSlide2Active,
+      isSlide3Active
+    } = renderCarousel({
+      interval: 10
+    });
+
+    expect(isSlide1Active()).toBe(true);
+    expect(isSlide2Active()).toBe(false);
+    expect(isSlide3Active()).toBe(false);
+
+    moveCursorOntoActiveSlide();
+
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
+
+    expect(isSlide1Active()).toBe(true);
+    expect(isSlide2Active()).toBe(false);
+    expect(isSlide3Active()).toBe(false);
+
+    moveCursorAwayFromActiveSlide();
+
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
+
+    expect(isSlide1Active()).toBe(false);
+    expect(isSlide2Active()).toBe(true);
+    expect(isSlide3Active()).toBe(false);
   });
 });

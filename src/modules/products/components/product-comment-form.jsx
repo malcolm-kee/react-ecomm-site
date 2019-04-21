@@ -54,7 +54,11 @@ function ProductCommentFormContent({ productId, submitForm, user }) {
         {submitting ? (
           <Spinner />
         ) : (
-          <Button color="primary" type="submit">
+          <Button
+            color="primary"
+            type="submit"
+            data-testid="product-comment-submit-btn"
+          >
             Add
           </Button>
         )}

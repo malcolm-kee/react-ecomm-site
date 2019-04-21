@@ -6,7 +6,7 @@ function modulus(number, mod) {
   return ((number % mod) + mod) % mod;
 }
 
-export const useCarouselState = (interval, initialSlide = 0) => {
+export const useCarouselState = (interval, initialSlide) => {
   const [activeIndex, setActiveIndex] = React.useState(initialSlide);
   const [totalSlides, setTotalSlides] = React.useState(0);
 

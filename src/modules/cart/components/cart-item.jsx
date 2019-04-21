@@ -32,8 +32,8 @@ export function CartItem({ index, item, onDecrement, onIncrement, onDelete }) {
           disabled={item.qty === 1}
         >
           -
-        </Button>{' '}
-        {item.qty}{' '}
+        </Button>
+        <span data-testid={`qty-for-${item.product.id}`}>{item.qty}</span>
         <Button onClick={onIncrement} color="primary" size="sm">
           +
         </Button>
