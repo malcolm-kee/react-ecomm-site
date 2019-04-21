@@ -1,11 +1,4 @@
-import {
-  action,
-  computed,
-  decorate,
-  observable,
-  reaction,
-  runInAction
-} from 'mobx';
+import { action, computed, decorate, observable, reaction } from 'mobx';
 import { clear, load, save } from '../../lib/storage';
 import * as authService from './auth.service';
 
@@ -40,14 +33,16 @@ export class AuthStore {
     );
   }
 
+  updateUser = user => {
+    this.user = user;
+    this.error = '';
+  };
+
   register = async ({ email, name }) => {
     this.pending = true;
     try {
       const user = await authService.register({ name, email });
-      runInAction(() => {
-        this.user = user;
-        this.error = '';
-      });
+      this.updateUser(user);
     } catch (e) {
       this.handleError(e);
     }
@@ -57,10 +52,17 @@ export class AuthStore {
     this.pending = true;
     try {
       const user = await authService.login({ email });
-      runInAction(() => {
-        this.user = user;
-        this.error = '';
-      });
+      this.updateUser(user);
+    } catch (e) {
+      this.handleError(e);
+    }
+  };
+
+  updateProfile = async user => {
+    this.pending = true;
+    try {
+      const updatedUser = await authService.update(user);
+      this.updateUser(updatedUser);
     } catch (e) {
       this.handleError(e);
     }
@@ -81,8 +83,10 @@ decorate(AuthStore, {
   user: observable.shallow,
   isAuthenticated: computed,
   error: observable,
+  updateUser: action,
   register: action,
   login: action,
+  updateProfile: action,
   handleError: action,
   logout: action
 });

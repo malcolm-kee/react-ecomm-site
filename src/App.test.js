@@ -12,7 +12,13 @@ function loadApp({ url = '/' } = {}) {
     route: url
   });
 
-  const { getByText, getByTestId, queryByTestId } = renderResult;
+  const {
+    getByText,
+    getByTestId,
+    queryByTestId,
+    getByLabelText,
+    container
+  } = renderResult;
 
   const getAddToCartBtn = () => getByText('Add To Cart');
 
@@ -27,7 +33,18 @@ function loadApp({ url = '/' } = {}) {
     queryCartItem: id => queryByTestId(`qty-for-${id}`),
     addMoreCartItem: id => fireEvent.click(getByTestId(`add-${id}`)),
     reduceCartItem: id => fireEvent.click(getByTestId(`reduce-${id}`)),
-    removeCartItem: id => fireEvent.click(getByTestId(`remove-${id}`))
+    removeCartItem: id => fireEvent.click(getByTestId(`remove-${id}`)),
+    inputName: name =>
+      fireEvent.change(getByLabelText('Name'), {
+        target: { value: name }
+      }),
+    inputEmail: email =>
+      fireEvent.change(getByLabelText('Email'), {
+        target: { value: email }
+      }),
+    submitForm: () =>
+      fireEvent.click(container.querySelector('button[type="submit"]')),
+    logout: () => fireEvent.click(getByText('Logout'))
   };
 }
 
@@ -36,23 +53,6 @@ describe('<App />', () => {
     const { getByText } = loadApp();
 
     expect(getByText('Shopit')).not.toBeNull();
-  });
-
-  it('show login form at login url', () => {
-    const { getByLabelText, getByText } = loadApp({
-      url: '/login'
-    });
-
-    expect(getByText('Login')).not.toBeNull();
-    expect(getByLabelText('Email')).not.toBeNull();
-  });
-
-  it('shows signup page at signup url', () => {
-    const { getByText } = loadApp({
-      url: '/signup'
-    });
-
-    expect(getByText('Signup')).not.toBeNull();
   });
 
   it('show page not found for invalid url', () => {
@@ -114,18 +114,18 @@ describe('<App />', () => {
       history,
       getByLabelText,
       getByText,
-      container,
-      waitForProductPageFinishLoading
+      waitForProductPageFinishLoading,
+      inputEmail,
+      submitForm,
+      logout
     } = loadApp({
       url: '/login'
     });
 
     await wait();
 
-    fireEvent.change(getByLabelText('Email'), {
-      target: { value: 'mk@test.com' }
-    });
-    fireEvent.click(container.querySelector('button[type="submit"]'));
+    inputEmail('mk@test.com');
+    submitForm();
 
     await waitForElement(() => getByText("You're already login!"));
 
@@ -135,30 +135,28 @@ describe('<App />', () => {
 
     expect(getByLabelText('Your Name').value).not.toBe('');
 
-    fireEvent.click(getByText('Logout'));
+    logout();
   });
 
   it('can signup and logout', async () => {
     const {
-      getByLabelText,
-      container,
+      inputEmail,
+      inputName,
+      submitForm,
       history,
       getByText,
       queryByText,
-      waitForProductPageFinishLoading
+      waitForProductPageFinishLoading,
+      logout
     } = loadApp({
       url: '/signup'
     });
 
     await wait();
 
-    fireEvent.change(getByLabelText('Name'), {
-      target: { value: 'Malcolm Kee' }
-    });
-    fireEvent.change(getByLabelText('Email'), {
-      target: { value: 'mk@test.com' }
-    });
-    fireEvent.click(container.querySelector('button[type="submit"]'));
+    inputName('Malcolm Kee');
+    inputEmail('mk@test.com');
+    submitForm();
 
     await waitForElement(() => getByText("You're already login!"));
 
@@ -169,9 +167,38 @@ describe('<App />', () => {
     expect(getByText('Logout')).not.toBeNull();
     expect(queryByText('Login')).toBeNull();
 
-    fireEvent.click(getByText('Logout'));
+    logout();
 
     expect(getByText('Login')).not.toBeNull();
     expect(queryByText('Logout')).toBeNull();
+  });
+
+  it('can update user profile', async () => {
+    const {
+      history,
+      inputEmail,
+      inputName,
+      submitForm,
+      logout,
+      getByText
+    } = loadApp({
+      url: '/login'
+    });
+
+    await wait();
+
+    inputEmail('mk@test.com');
+    submitForm();
+
+    await waitForElement(() => getByText("You're already login!"));
+
+    await history.navigate('/profile');
+
+    inputName('Malcolm Key');
+    submitForm();
+
+    await waitForElement(() => getByText('Profile Updated.'));
+
+    logout();
   });
 });

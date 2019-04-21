@@ -1,5 +1,6 @@
 import { Router } from '@reach/router';
 import React from 'react';
+// import DevTools from 'mobx-react-devtools';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { Footer } from './components/footer';
@@ -26,6 +27,7 @@ function App() {
         <NotFoundPage default />
       </Router>
       <Footer />
+      {/* <DevTools /> */}
       <ToastContainer hideProgressBar />
     </div>
   );

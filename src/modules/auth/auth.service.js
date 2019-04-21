@@ -38,3 +38,14 @@ export function login({ email }) {
     throw new Error('Invalid user');
   });
 }
+
+export function update({ id, name, email }) {
+  return ajax({
+    method: 'PATCH',
+    url: `${AUTH_BASE_URL}/${id}`,
+    data: {
+      name,
+      email
+    }
+  });
+}
