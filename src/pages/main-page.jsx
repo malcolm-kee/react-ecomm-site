@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Jumbotron } from '../components/jumbotron';
 import { Spinner } from '../components/spinner';
 import { useWindowEvent } from '../hooks/use-window-event';
+import { MarketingBanner } from '../modules/marketing/components/marketing-banner';
 import { ProductBox } from '../modules/products/components/product-box';
 import { loadProducts } from '../modules/products/product.actions';
 import {
@@ -41,18 +42,16 @@ function MainPageContent({
 
   return (
     <div>
+      <MarketingBanner />
       <div className="container-fluid">
-        <h1>Shopit</h1>
-        <blockquote>
-          <p>
-            The best shopping site in the web that would saves you most money.
-          </p>
-          <small>Because you can't buy anything here.</small>
-        </blockquote>
         <Jumbotron>
-          <p className="text-muted">It's only crazy until you buy it.</p>
-          <h1>Just Buy It.</h1>
-          <p>Show them what a crazy can do.</p>
+          <h1>Shopit</h1>
+          <blockquote>
+            <p>
+              The best shopping site in the web that would saves you most money.
+            </p>
+            <small>Because you can't buy anything here.</small>
+          </blockquote>
         </Jumbotron>
         <div className="main-page-product-grid">
           {products.map(product => (
