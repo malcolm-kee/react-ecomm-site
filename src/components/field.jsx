@@ -12,7 +12,7 @@ import { FieldStatus } from './prop-types';
  * Props not specified will be spreaded to the underlying `div` element.
  */
 export function Field({ status, className, ...props }) {
-  const [inputId, setInputId] = React.useState(getId());
+  const [inputId, setInputId] = React.useState(() => getId());
 
   return (
     <FieldContext.Provider value={{ inputId, setInputId }}>

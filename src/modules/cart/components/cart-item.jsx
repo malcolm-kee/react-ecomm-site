@@ -31,17 +31,28 @@ function CartItem({ cart: { items }, index, onDelete }) {
           color="primary"
           size="sm"
           disabled={!item.canDecrement}
+          data-testid={`reduce-${item.product.id}`}
         >
           -
         </Button>
         <span data-testid={`qty-for-${item.product.id}`}>{item.qty}</span>
-        <Button onClick={item.incrementQty} color="primary" size="sm">
+        <Button
+          onClick={item.incrementQty}
+          color="primary"
+          size="sm"
+          data-testid={`add-${item.product.id}`}
+        >
           +
         </Button>
       </td>
       <td className="text-right">{item.totalPrice}</td>
       <td>
-        <Button onClick={onDelete} color="danger" size="sm">
+        <Button
+          onClick={onDelete}
+          color="danger"
+          size="sm"
+          data-testid={`remove-${item.product.id}`}
+        >
           Remove
         </Button>
       </td>
