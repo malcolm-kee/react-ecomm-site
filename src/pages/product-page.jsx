@@ -2,6 +2,9 @@ import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { toast } from 'react-toastify';
 import { Button } from '../components/button';
+import { Field } from '../components/field';
+import { Input } from '../components/input';
+import { Label } from '../components/label';
 import { Spinner } from '../components/spinner';
 import { ProductBoxContainer } from '../modules/products/components/product-box-container';
 import { ProductImage } from '../modules/products/components/product-image';
@@ -11,12 +14,29 @@ const ProductComments = React.lazy(() =>
   import(/* webpackChunkName: "ProductComments" */ '../modules/products/components/product-comments')
 );
 
+function useQty(productId) {
+  const [qty, setQty] = React.useState(1);
+
+  // reset qty when product id change
+  React.useEffect(() => {
+    setQty(1);
+  }, [productId]);
+
+  return {
+    qty,
+    increment: () => setQty(q => q + 1),
+    decrement: () => setQty(q => q - 1)
+  };
+}
+
 function ProductPageContent({ productId, details, loadDetails, addToCart }) {
   React.useEffect(() => {
     if (!details) {
       loadDetails();
     }
   }, [productId, details]);
+
+  const { qty, increment, decrement } = useQty(productId);
 
   return (
     <article className="container">
@@ -44,8 +64,35 @@ function ProductPageContent({ productId, details, loadDetails, addToCart }) {
                 <blockquote>{details.descriptions.join(', ')}</blockquote>
               )}
               <div>
+                <Field>
+                  <Label>Quantity</Label>
+                  <div className="input-group">
+                    <div className="input-group-btn">
+                      <Button
+                        onClick={decrement}
+                        disabled={qty === 1}
+                        color="default"
+                        data-testid="reduce-qty-btn"
+                      >
+                        -
+                      </Button>
+                    </div>
+                    <Input type="number" value={qty} readOnly />
+                    <div className="input-group-btn">
+                      <Button
+                        onClick={increment}
+                        color="default"
+                        data-testid="add-qty-btn"
+                      >
+                        +
+                      </Button>
+                    </div>
+                  </div>
+                </Field>
+              </div>
+              <div>
                 <Button
-                  onClick={() => addToCart(details)}
+                  onClick={() => addToCart(qty)}
                   color="success"
                   size="lg"
                 >
@@ -98,12 +145,12 @@ export const ProductPage = inject('product', 'cart')(
         productId={productId}
         details={product}
         loadDetails={() => loadProductDetail(productId)}
-        addToCart={() => {
+        addToCart={qty => {
           toast('Added to Cart', {
             type: 'success',
             autoClose: 2000
           });
-          addItem(productId);
+          addItem(productId, qty);
         }}
       />
     );

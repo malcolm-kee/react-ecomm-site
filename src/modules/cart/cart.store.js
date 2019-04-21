@@ -1,5 +1,6 @@
 import { action, computed, decorate, observable } from 'mobx';
 import { formatMoney } from 'accounting';
+import { isNumber } from '../../lib/is';
 
 /**
  * Cart MobX Store
@@ -28,13 +29,13 @@ export class CartStore {
   getItemByProductId = productId =>
     this.items.find(item => item.productId === productId);
 
-  addItem = productId => {
+  addItem = (productId, qty) => {
     const item = this.getItemByProductId(productId);
 
     if (item) {
-      item.incrementQty();
+      item.incrementQty(qty);
     } else {
-      this.items.push(new CartItem(this.productStore, productId));
+      this.items.push(new CartItem(this.productStore, productId, qty));
     }
   };
 
@@ -91,8 +92,12 @@ class CartItem {
     return '';
   }
 
-  incrementQty = () => {
-    this.qty++;
+  incrementQty = amount => {
+    if (isNumber(amount)) {
+      this.qty += amount;
+    } else {
+      this.qty += 1;
+    }
   };
 
   decrementQty = () => {
