@@ -13,7 +13,7 @@ function SiteNavContent({ isAuthenticated, pending, user, logout }) {
       <CartLink to="/cart" className="navbar-brand" />
       {isAuthenticated ? (
         <>
-          <span className="navbar-brand">{user && user.name}</span>
+          <span className="navbar-brand hidden-xs">{user && user.name}</span>
           <button
             className="btn btn-danger btn-sm"
             onClick={logout}

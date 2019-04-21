@@ -2,8 +2,8 @@ import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { Jumbotron } from '../components/jumbotron';
 import { Spinner } from '../components/spinner';
-import { MarketingBanner } from '../modules/marketing/components/marketing-banner';
 import { useWindowEvent } from '../hooks/use-window-event';
+import { MarketingBanner } from '../modules/marketing/components/marketing-banner';
 import { ProductBox } from '../modules/products/components/product-box';
 import './main-page.css';
 
@@ -36,7 +36,9 @@ function MainPageContent({
 
   return (
     <div>
-      <MarketingBanner />
+      <div className="hidden-xs">
+        <MarketingBanner />
+      </div>
       <div className="container-fluid">
         <Jumbotron>
           <h1>Shopit</h1>

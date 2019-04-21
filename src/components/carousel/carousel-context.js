@@ -10,5 +10,6 @@ export const CarouselContext = React.createContext({
   next: noop,
   prev: noop,
   pause: noop,
-  unPause: noop
+  unPause: noop,
+  direction: 'right'
 });

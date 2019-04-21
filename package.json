@@ -16,7 +16,8 @@
     "react-dom": "^16.8.4",
     "react-scripts": "2.1.8",
     "react-textarea-autosize": "^7.1.0",
-    "react-toastify": "^4.5.2"
+    "react-toastify": "^4.5.2",
+    "react-transition-group": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
