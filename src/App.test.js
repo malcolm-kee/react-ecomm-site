@@ -21,6 +21,8 @@ function loadApp({ url = '/' } = {}) {
     addProductToCart: () => fireEvent.click(getAddToCartBtn()),
     waitForProductPageFinishLoading: () =>
       waitForElement(() => getAddToCartBtn()),
+    addQty: () => fireEvent.click(getByTestId('add-qty-btn')),
+    minusQty: () => fireEvent.click(getByTestId('reduce-qty-btn')),
     getCartItemQty: id => getByTestId(`qty-for-${id}`).innerHTML,
     queryCartItem: id => queryByTestId(`qty-for-${id}`),
     addMoreCartItem: id => fireEvent.click(getByTestId(`add-${id}`)),
@@ -64,6 +66,8 @@ describe('<App />', () => {
   it('tracks product added to cart', async () => {
     const {
       waitForProductPageFinishLoading,
+      addQty,
+      minusQty,
       addProductToCart,
       history,
       getCartItemQty,
@@ -76,6 +80,9 @@ describe('<App />', () => {
     });
 
     await waitForProductPageFinishLoading();
+    addQty();
+    addQty();
+    minusQty();
     addProductToCart();
 
     await history.navigate('/product/2');
@@ -87,13 +94,13 @@ describe('<App />', () => {
 
     await history.navigate('/cart');
 
-    expect(getCartItemQty('1')).toBe('1');
+    expect(getCartItemQty('1')).toBe('2');
     expect(getCartItemQty('2')).toBe('3');
 
     addMoreCartItem('1');
     reduceCartItem('2');
 
-    expect(getCartItemQty('1')).toBe('2');
+    expect(getCartItemQty('1')).toBe('3');
     expect(getCartItemQty('2')).toBe('2');
 
     removeCartItem('1');

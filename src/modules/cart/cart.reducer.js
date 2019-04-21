@@ -20,7 +20,7 @@ export function cartReducer(state = DEFAULT_STATE, action) {
               item.product === action.payload.product
                 ? {
                     ...item,
-                    qty: item.qty + 1
+                    qty: item.qty + action.payload.qty
                   }
                 : item
             )
