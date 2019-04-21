@@ -44,7 +44,10 @@ export class AuthStore {
     this.pending = true;
     try {
       const user = await authService.register({ name, email });
-      runInAction(() => (this.user = user));
+      runInAction(() => {
+        this.user = user;
+        this.error = '';
+      });
     } catch (e) {
       this.handleError(e);
     }
@@ -54,7 +57,10 @@ export class AuthStore {
     this.pending = true;
     try {
       const user = await authService.login({ email });
-      runInAction(() => (this.user = user));
+      runInAction(() => {
+        this.user = user;
+        this.error = '';
+      });
     } catch (e) {
       this.handleError(e);
     }

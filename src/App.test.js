@@ -1,8 +1,9 @@
 import React from 'react';
-import { fireEvent, waitForElement } from 'react-testing-library';
+import { fireEvent, wait, waitForElement } from 'react-testing-library';
 import App from './App';
 import { renderWithMobXAndRouter } from './lib/test-util';
 
+jest.mock('./modules/auth/auth.service');
 jest.mock('./modules/marketing/marketing.service');
 jest.mock('./modules/products/product.service');
 
@@ -40,6 +41,14 @@ describe('<App />', () => {
     expect(getByLabelText('Email')).not.toBeNull();
   });
 
+  it('shows signup page at signup url', () => {
+    const { getByText } = loadApp({
+      url: '/signup'
+    });
+
+    expect(getByText('Signup')).not.toBeNull();
+  });
+
   it('show page not found for invalid url', () => {
     const { getByText } = loadApp({
       url: '/wulala-weird-url'
@@ -48,7 +57,7 @@ describe('<App />', () => {
     expect(getByText('Page Not Found')).not.toBeNull();
   });
 
-  it('track product added to cart', async () => {
+  it('tracks product added to cart', async () => {
     const {
       waitForProductPageFinishLoading,
       addProductToCart,
@@ -72,5 +81,71 @@ describe('<App />', () => {
 
     expect(getCartItemQty('1')).toBe('1');
     expect(getCartItemQty('2')).toBe('3');
+  });
+
+  it('default customer name in comment form', async () => {
+    const {
+      history,
+      getByLabelText,
+      getByText,
+      container,
+      waitForProductPageFinishLoading
+    } = loadApp({
+      url: '/login'
+    });
+
+    await wait();
+
+    fireEvent.change(getByLabelText('Email'), {
+      target: { value: 'mk@test.com' }
+    });
+    fireEvent.click(container.querySelector('button[type="submit"]'));
+
+    await waitForElement(() => getByText("You're already login!"));
+
+    await history.navigate('/product/1');
+
+    await waitForProductPageFinishLoading();
+
+    expect(getByLabelText('Your Name').value).not.toBe('');
+
+    fireEvent.click(getByText('Logout'));
+  });
+
+  it('can signup and logout', async () => {
+    const {
+      getByLabelText,
+      container,
+      history,
+      getByText,
+      queryByText,
+      waitForProductPageFinishLoading
+    } = loadApp({
+      url: '/signup'
+    });
+
+    await wait();
+
+    fireEvent.change(getByLabelText('Name'), {
+      target: { value: 'Malcolm Kee' }
+    });
+    fireEvent.change(getByLabelText('Email'), {
+      target: { value: 'mk@test.com' }
+    });
+    fireEvent.click(container.querySelector('button[type="submit"]'));
+
+    await waitForElement(() => getByText("You're already login!"));
+
+    await history.navigate('/product/1');
+
+    await waitForProductPageFinishLoading();
+
+    expect(getByText('Logout')).not.toBeNull();
+    expect(queryByText('Login')).toBeNull();
+
+    fireEvent.click(getByText('Logout'));
+
+    expect(getByText('Login')).not.toBeNull();
+    expect(queryByText('Logout')).toBeNull();
   });
 });
