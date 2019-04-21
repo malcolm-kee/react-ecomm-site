@@ -1,5 +1,24 @@
-import cx from 'classnames';
+// import cx from 'classnames';
 import React from 'react';
+import { CSSTransition } from 'react-transition-group';
+
+const toRightTransitions = {
+  enter: 'item next',
+  enterActive: 'item next left',
+  enterDone: 'item active',
+  exit: 'item active left',
+  exitActive: 'item',
+  exitDone: 'item'
+};
+
+const toLeftTransitions = {
+  enter: 'item prev',
+  enterActive: 'item prev right',
+  enterDone: 'item active',
+  exit: 'item active right',
+  exitActive: 'item',
+  exitDone: 'item'
+};
 
 /**
  * `<Slide />` renders a specific section of `<Carousel />`.
@@ -11,18 +30,27 @@ export const Slide = ({
   isActive,
   pause,
   unPause,
+  direction,
   className,
   ...props
 }) => {
   return (
-    <div
-      className={cx('item', isActive && 'active', className)}
-      onMouseEnter={pause}
-      onMouseLeave={unPause}
-      {...props}
+    <CSSTransition
+      in={isActive}
+      timeout={600}
+      classNames={
+        direction === 'right' ? toRightTransitions : toLeftTransitions
+      }
     >
-      {children}
-    </div>
+      <div
+        className="item"
+        onMouseEnter={pause}
+        onMouseLeave={unPause}
+        {...props}
+      >
+        {children}
+      </div>
+    </CSSTransition>
   );
 };
 

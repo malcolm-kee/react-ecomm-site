@@ -7,9 +7,13 @@ import { CarouselContext } from './carousel-context';
  * `<Slides />` must be used within `<Carousel />` component.
  */
 export function Slides({ children }) {
-  const { activeIndex, setTotalSlides, pause, unPause } = React.useContext(
-    CarouselContext
-  );
+  const {
+    activeIndex,
+    direction,
+    setTotalSlides,
+    pause,
+    unPause
+  } = React.useContext(CarouselContext);
 
   const totalSlides = React.Children.count(children);
 
@@ -23,6 +27,7 @@ export function Slides({ children }) {
         React.cloneElement(child, {
           pause,
           unPause,
+          direction,
           isActive: index === activeIndex,
           'data-testid': `slide-${index}`
         })
