@@ -36,9 +36,7 @@ function MainPageContent({
 
   return (
     <div>
-      <div className="hidden-xs">
-        <MarketingBanner />
-      </div>
+      <MarketingBanner />
       <div className="container-fluid">
         <Jumbotron>
           <h1>Shopit</h1>
