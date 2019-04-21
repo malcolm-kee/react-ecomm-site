@@ -30,11 +30,17 @@ export function CartItem({ index, item, onDecrement, onIncrement, onDelete }) {
           color="primary"
           size="sm"
           disabled={item.qty === 1}
+          data-testid={`reduce-${item.product.id}`}
         >
           -
         </Button>
         <span data-testid={`qty-for-${item.product.id}`}>{item.qty}</span>
-        <Button onClick={onIncrement} color="primary" size="sm">
+        <Button
+          onClick={onIncrement}
+          color="primary"
+          size="sm"
+          data-testid={`add-${item.product.id}`}
+        >
           +
         </Button>
       </td>
@@ -43,7 +49,12 @@ export function CartItem({ index, item, onDecrement, onIncrement, onDelete }) {
           formatMoney(Number(item.product.price) * item.qty, '')}
       </td>
       <td>
-        <Button onClick={onDelete} color="danger" size="sm">
+        <Button
+          onClick={onDelete}
+          color="danger"
+          size="sm"
+          data-testid={`remove-${item.product.id}`}
+        >
           Remove
         </Button>
       </td>

@@ -3,6 +3,7 @@ import { render, fireEvent } from 'react-testing-library';
 import { Field } from './field';
 import { Input } from './input';
 import { Label } from './label';
+import { HelpText } from './help-text';
 
 describe('<Field />', () => {
   it('will associate Input and Label in it', () => {
@@ -31,5 +32,14 @@ describe('<Field />', () => {
     fireEvent.blur(getByLabelText('Age'));
 
     expect(onBlur).toHaveBeenCalledTimes(1);
+  });
+
+  it('associates helpText with input correctly', () => {
+    render(
+      <Field status="error">
+        <Input />
+        <HelpText>Required</HelpText>
+      </Field>
+    );
   });
 });

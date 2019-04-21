@@ -12,7 +12,7 @@ function loadApp({ url = '/' } = {}) {
     route: url
   });
 
-  const { getByText, getByTestId } = renderResult;
+  const { getByText, getByTestId, queryByTestId } = renderResult;
 
   const getAddToCartBtn = () => getByText('Add To Cart');
 
@@ -21,7 +21,11 @@ function loadApp({ url = '/' } = {}) {
     addProductToCart: () => fireEvent.click(getAddToCartBtn()),
     waitForProductPageFinishLoading: () =>
       waitForElement(() => getAddToCartBtn()),
-    getCartItemQty: id => getByTestId(`qty-for-${id}`).innerHTML
+    getCartItemQty: id => getByTestId(`qty-for-${id}`).innerHTML,
+    queryCartItem: id => queryByTestId(`qty-for-${id}`),
+    addMoreCartItem: id => fireEvent.click(getByTestId(`add-${id}`)),
+    reduceCartItem: id => fireEvent.click(getByTestId(`reduce-${id}`)),
+    removeCartItem: id => fireEvent.click(getByTestId(`remove-${id}`))
   };
 }
 
@@ -62,7 +66,11 @@ describe('<App />', () => {
       waitForProductPageFinishLoading,
       addProductToCart,
       history,
-      getCartItemQty
+      getCartItemQty,
+      queryCartItem,
+      addMoreCartItem,
+      reduceCartItem,
+      removeCartItem
     } = loadApp({
       url: '/product/1'
     });
@@ -81,6 +89,17 @@ describe('<App />', () => {
 
     expect(getCartItemQty('1')).toBe('1');
     expect(getCartItemQty('2')).toBe('3');
+
+    addMoreCartItem('1');
+    reduceCartItem('2');
+
+    expect(getCartItemQty('1')).toBe('2');
+    expect(getCartItemQty('2')).toBe('2');
+
+    removeCartItem('1');
+
+    expect(queryCartItem('1')).toBeNull();
+    expect(queryCartItem('2')).not.toBeNull();
   });
 
   it('default customer name in comment form', async () => {
