@@ -1,13 +1,13 @@
 import React from 'react';
 import { waitForElement, fireEvent } from 'react-testing-library';
-import { renderWithMobXAndRouter } from '../lib/test-util';
+import { renderWithStateMgmt } from '../lib/test-util';
 import { ProductPage } from './product-page';
 
 jest.mock('../modules/products/product.service');
 
 describe('<ProductPage />', () => {
   function loadProductPage() {
-    const renderResult = renderWithMobXAndRouter(<ProductPage productId="1" />);
+    const renderResult = renderWithStateMgmt(<ProductPage productId="1" />);
 
     const { getByText, getByLabelText, getByTestId } = renderResult;
 

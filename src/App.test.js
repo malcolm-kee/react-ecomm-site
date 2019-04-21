@@ -1,14 +1,14 @@
 import React from 'react';
 import { fireEvent, wait, waitForElement } from 'react-testing-library';
 import App from './App';
-import { renderWithMobXAndRouter } from './lib/test-util';
+import { renderWithStateMgmt } from './lib/test-util';
 
 jest.mock('./modules/auth/auth.service');
 jest.mock('./modules/marketing/marketing.service');
 jest.mock('./modules/products/product.service');
 
 function loadApp({ url = '/' } = {}) {
-  const renderResult = renderWithMobXAndRouter(<App />, {
+  const renderResult = renderWithStateMgmt(<App />, {
     route: url
   });
 

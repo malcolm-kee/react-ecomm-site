@@ -11,7 +11,7 @@ import { CartStore } from '../modules/cart/cart.store';
 import { MarketingStore } from '../modules/marketing/marketing.store';
 import { ProductStore } from '../modules/products/product.store';
 
-export function renderWithMobXAndRouter(
+export function renderWithStateMgmt(
   ui,
   { route = '/', history = createHistory(createMemorySource(route)) } = {}
 ) {
