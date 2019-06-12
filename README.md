@@ -2,9 +2,9 @@
 
 An e-commerce site SPA implemented with React.
 
-[Live](https://react-ecomm.netlify.com/)
+This is the branch that use redux as state management.
 
-[Component Library](https://react-ecomm-docs.netlify.com/)
+[Redux Live](https://redux.shopit.space/)
 
 ## State Management Library
 
