@@ -1,7 +1,7 @@
 import React from 'react';
 import { CartItems } from '../modules/cart/components/cart-items';
 
-export function CartPage() {
+function CartPage() {
   return (
     <div className="container">
       <h1>Your Shopping Cart</h1>
@@ -9,3 +9,5 @@ export function CartPage() {
     </div>
   );
 }
+
+export default CartPage;

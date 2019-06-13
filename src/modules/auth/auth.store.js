@@ -15,8 +15,11 @@ export class AuthStore {
   }
 
   constructor() {
-    this.user = load('user');
     this.setupSyncStorage();
+  }
+
+  init() {
+    this.user = load('user');
   }
 
   setupSyncStorage() {
@@ -83,10 +86,11 @@ decorate(AuthStore, {
   user: observable.shallow,
   isAuthenticated: computed,
   error: observable,
+  init: action,
   updateUser: action,
   register: action,
   login: action,
   updateProfile: action,
   handleError: action,
-  logout: action
+  logout: action,
 });

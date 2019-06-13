@@ -5,13 +5,13 @@ import { Spinner } from '../components/spinner';
 import { useWindowEvent } from '../hooks/use-window-event';
 import { MarketingBanner } from '../modules/marketing/components/marketing-banner';
 import { ProductBox } from '../modules/products/components/product-box';
-import './main-page.css';
+import './index.css';
 
 function MainPageContent({
   loadProducts,
   products,
   hasMoreProduct,
-  isLoading
+  isLoading,
 }) {
   React.useEffect(() => {
     if (products.length === 0) {
@@ -58,9 +58,9 @@ function MainPageContent({
   );
 }
 
-export const MainPage = inject('product')(
+const MainPage = inject('product')(
   observer(function MainPage({
-    product: { products, hasMore, loadingProducts, loadProducts }
+    product: { products, hasMore, loadingProducts, loadProducts },
   }) {
     return (
       <MainPageContent
@@ -72,3 +72,5 @@ export const MainPage = inject('product')(
     );
   })
 );
+
+export default MainPage;

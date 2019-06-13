@@ -2,7 +2,7 @@ import { Link } from '@reach/router';
 import React from 'react';
 import { LoginForm } from '../modules/auth/components/login-form';
 
-export function Login() {
+function Login() {
   return (
     <div className="container">
       <LoginForm />
@@ -12,3 +12,5 @@ export function Login() {
     </div>
   );
 }
+
+export default Login;

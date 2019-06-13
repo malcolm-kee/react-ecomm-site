@@ -7,12 +7,9 @@ import { Input } from '../components/input';
 import { Label } from '../components/label';
 import { Spinner } from '../components/spinner';
 import { ProductBoxContainer } from '../modules/products/components/product-box-container';
+import ProductComments from '../modules/products/components/product-comments';
 import { ProductImage } from '../modules/products/components/product-image';
 import './product-page.css';
-
-const ProductComments = React.lazy(() =>
-  import(/* webpackChunkName: "ProductComments" */ '../modules/products/components/product-comments')
-);
 
 function useQty(productId) {
   const [qty, setQty] = React.useState(1);
@@ -25,7 +22,7 @@ function useQty(productId) {
   return {
     qty,
     increment: () => setQty(q => q + 1),
-    decrement: () => setQty(q => q - 1)
+    decrement: () => setQty(q => q - 1),
   };
 }
 
@@ -136,7 +133,7 @@ export const ProductPage = inject('product', 'cart')(
   observer(function ProductPage({
     product: { loadProductDetail, getProduct },
     cart: { addItem },
-    productId: productIdVal
+    productId: productIdVal,
   }) {
     const productId = Number(productIdVal);
     const product = getProduct(productId);
@@ -148,7 +145,7 @@ export const ProductPage = inject('product', 'cart')(
         addToCart={qty => {
           toast('Added to Cart', {
             type: 'success',
-            autoClose: 2000
+            autoClose: 2000,
           });
           addItem(productId, qty);
         }}

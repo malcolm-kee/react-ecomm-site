@@ -1,7 +1,7 @@
 import React from 'react';
 import { UserProfileForm } from '../modules/auth/components/user-profile-form';
 
-export function ProfilePage() {
+function ProfilePage() {
   return (
     <div className="container">
       <h1>Your Account</h1>
@@ -9,3 +9,5 @@ export function ProfilePage() {
     </div>
   );
 }
+
+export default ProfilePage;
