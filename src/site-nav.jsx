@@ -1,4 +1,4 @@
-import { Link } from '@reach/router';
+import { Link } from 'gatsby';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { Navbar } from './components/navbar';
@@ -36,7 +36,7 @@ function SiteNavContent({ isAuthenticated, pending, user, logout }) {
 
 export const SiteNav = inject('auth')(
   observer(function SiteNav({
-    auth: { isAuthenticated, pending, user, logout }
+    auth: { isAuthenticated, pending, user, logout },
   }) {
     return (
       <SiteNavContent

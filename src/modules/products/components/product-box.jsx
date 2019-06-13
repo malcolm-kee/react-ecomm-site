@@ -1,4 +1,4 @@
-import { Link } from '@reach/router';
+import { Link } from 'gatsby';
 import React from 'react';
 import { ProductImage } from './product-image';
 import './product-box.css';

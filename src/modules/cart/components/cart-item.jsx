@@ -1,4 +1,4 @@
-import { Link } from '@reach/router';
+import { Link } from 'gatsby';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { Button } from '../../../components/button';
