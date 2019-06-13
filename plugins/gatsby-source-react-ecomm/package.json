@@ -1,0 +1,16 @@
+{
+  "name": "gatsby-source-react-ecomm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gatsby-node.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "date-fns": "^1.30.1",
+    "node-fetch": "^2.6.0"
+  }
+}
