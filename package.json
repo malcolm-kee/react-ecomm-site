@@ -5,7 +5,7 @@
   "scripts": {
     "start": "gatsby develop",
     "build": "gatsby build",
-    "postinstall": "cd plugins/gatsby-source-react-ecomm/ && npm install",
+    "postinstall": "cd plugins/gatsby-source-react-ecomm/ && yarn",
     "start:docs": "styleguidist server",
     "build:docs": "styleguidist build"
   },
