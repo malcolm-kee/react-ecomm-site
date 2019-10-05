@@ -3,9 +3,9 @@ import {
   createMemorySource,
   LocationProvider
 } from '@reach/router';
-import React from 'react';
-import { render } from 'react-testing-library';
+import { render } from '@testing-library/react';
 import { Provider } from 'mobx-react';
+import React from 'react';
 import { AuthStore } from '../modules/auth/auth.store';
 import { CartStore } from '../modules/cart/cart.store';
 import { MarketingStore } from '../modules/marketing/marketing.store';

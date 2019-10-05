@@ -1,5 +1,5 @@
+import { act, fireEvent, wait, waitForElement } from '@testing-library/react';
 import React from 'react';
-import { fireEvent, wait, waitForElement } from 'react-testing-library';
 import App from './App';
 import { renderWithStateMgmt } from './lib/test-util';
 
@@ -50,9 +50,9 @@ function loadApp({ url = '/' } = {}) {
 
 describe('<App />', () => {
   it('renders without crashing', () => {
-    const { getByText } = loadApp();
+    const { getAllByText } = loadApp();
 
-    expect(getByText('Shopit')).not.toBeNull();
+    expect(getAllByText('Shopit').length).toBeGreaterThan(0);
   });
 
   it('show page not found for invalid url', () => {
@@ -85,14 +85,14 @@ describe('<App />', () => {
     minusQty();
     addProductToCart();
 
-    await history.navigate('/product/2');
+    await act(() => history.navigate('/product/2'));
 
     await waitForProductPageFinishLoading();
     addProductToCart();
     addProductToCart();
     addProductToCart();
 
-    await history.navigate('/cart');
+    await act(() => history.navigate('/cart'));
 
     expect(getCartItemQty('1')).toBe('2');
     expect(getCartItemQty('2')).toBe('3');

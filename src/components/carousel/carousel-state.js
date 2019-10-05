@@ -65,22 +65,24 @@ export const useCarouselState = (interval, initialSlide) => {
   const [totalSlides, setTotalSlides] = React.useState(0);
   const [isPause, setIsPause] = React.useState(false);
 
-  const reset = useInterval(
+  const latestReset = useInterval(
     () => {
       dispatch(carouselActions.next());
     },
     isPause ? null : interval
   );
+  const resetRef = React.useRef(null);
+  resetRef.current = latestReset;
 
   const carouSelContextValue = React.useMemo(
     () => ({
       next: () => {
         dispatch(carouselActions.next());
-        reset();
+        resetRef.current();
       },
       prev: () => {
         dispatch(carouselActions.prev());
-        reset();
+        resetRef.current();
       },
       totalSlides,
       setTotalSlides,
@@ -92,7 +94,7 @@ export const useCarouselState = (interval, initialSlide) => {
       ),
       setActiveIndex: function(newIndex) {
         dispatch(carouselActions.override(newIndex));
-        reset();
+        resetRef.current();
       },
       pause: () => setIsPause(true),
       unPause: () => setIsPause(false)

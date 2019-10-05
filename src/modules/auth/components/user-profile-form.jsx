@@ -67,7 +67,7 @@ export const UserProfileForm = inject('auth')(
         error={error}
       />
     ) : (
-      <Redirect to="/" />
+      <Redirect to="/" noThrow />
     );
   })
 );

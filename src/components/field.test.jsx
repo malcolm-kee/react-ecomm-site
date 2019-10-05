@@ -1,9 +1,9 @@
+import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
-import { render, fireEvent } from 'react-testing-library';
 import { Field } from './field';
+import { HelpText } from './help-text';
 import { Input } from './input';
 import { Label } from './label';
-import { HelpText } from './help-text';
 
 describe('<Field />', () => {
   it('will associate Input and Label in it', () => {

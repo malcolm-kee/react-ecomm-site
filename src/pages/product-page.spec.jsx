@@ -1,5 +1,5 @@
+import { fireEvent, waitForElement, wait } from '@testing-library/react';
 import React from 'react';
-import { waitForElement, fireEvent } from 'react-testing-library';
 import { renderWithStateMgmt } from '../lib/test-util';
 import { ProductPage } from './product-page';
 
@@ -49,5 +49,7 @@ describe('<ProductPage />', () => {
     inputCommentorName('Malcolm Kee');
     inputComment('I like it');
     submitComment();
+
+    await wait(); // to suppress act() warning, I have no idea I am doing actually.
   });
 });

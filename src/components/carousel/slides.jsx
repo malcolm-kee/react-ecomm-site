@@ -19,7 +19,7 @@ export function Slides({ children }) {
 
   React.useEffect(() => {
     setTotalSlides(totalSlides);
-  }, [totalSlides]);
+  }, [totalSlides, setTotalSlides]);
 
   return (
     <div className="carousel-inner" role="listbox">
