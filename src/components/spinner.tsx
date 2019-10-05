@@ -1,11 +1,19 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import './spinner.css';
+
+export interface SpinnerProps {
+  /**
+   * wait time in milisecond before show the spinner.
+   *
+   * You want want to set this to avoid flashing spinner for quick network
+   */
+  delayShow?: number;
+}
 
 /**
  * Spinner is used to indicate busy status, e.g. waiting for API response
  */
-export function Spinner({ delayShow = 0 }) {
+export function Spinner({ delayShow = 0 }: SpinnerProps) {
   const [show, setShow] = React.useState(delayShow ? false : true);
 
   React.useEffect(() => {
@@ -24,14 +32,5 @@ export function Spinner({ delayShow = 0 }) {
     </div>
   ) : null;
 }
-
-Spinner.propTypes = {
-  /**
-   * wait time in milisecond before show the spinner.
-   *
-   * You want want to set this to avoid flashing spinner for quick network
-   */
-  delayShow: PropTypes.number
-};
 
 export default Spinner;
