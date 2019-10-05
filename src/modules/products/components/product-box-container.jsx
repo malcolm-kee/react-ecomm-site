@@ -9,9 +9,9 @@ function ProductBoxContainerContent({
 }) {
   React.useEffect(() => {
     if (!productDetails) {
-      loadDetails();
+      loadDetails(productId);
     }
-  }, [productId, productDetails]);
+  }, [productId, productDetails, loadDetails]);
 
   return productDetails ? <ProductBox {...productDetails} /> : null;
 }
@@ -20,8 +20,9 @@ export const ProductBoxContainer = inject('product')(
   observer(function ProductBoxContainer({ product, productId }) {
     return (
       <ProductBoxContainerContent
+        productId={productId}
         productDetails={product.getProduct(productId)}
-        loadDetails={() => product.loadProductDetail(productId)}
+        loadDetails={product.loadProductDetail}
       />
     );
   })

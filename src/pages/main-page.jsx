@@ -17,7 +17,7 @@ function MainPageContent({
     if (products.length === 0) {
       loadProducts();
     }
-  }, []);
+  }, [loadProducts, products.length]);
 
   useWindowEvent(
     'scroll',

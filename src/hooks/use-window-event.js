@@ -22,5 +22,6 @@ export function useWindowEvent(
     return function unsubWindowEvent() {
       window.removeEventListener(eventType, onWindowEvent);
     };
+    // eslint-disable-next-line
   }, deps);
 }

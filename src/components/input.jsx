@@ -24,7 +24,7 @@ export const Input = React.forwardRef(function Input(
     if (inputProps.id && inputProps.id !== inputId) {
       setInputId(inputProps.id);
     }
-  }, [inputProps.id]);
+  }, [inputProps.id, setInputId, inputId]);
 
   return (
     <input

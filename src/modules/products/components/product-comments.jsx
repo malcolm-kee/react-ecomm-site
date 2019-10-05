@@ -25,9 +25,9 @@ function ProductCommentsContent({ productId, loadComments, comments }) {
   React.useEffect(() => {
     if (comments.length === 0) {
       setIsLoading(true);
-      loadComments().then(() => setIsLoading(false));
+      loadComments(productId).then(() => setIsLoading(false));
     }
-  }, [productId, comments.length]);
+  }, [productId, comments.length, loadComments]);
 
   return (
     <div>
@@ -52,7 +52,7 @@ export const ProductComments = inject('product')(
       <ProductCommentsContent
         productId={productId}
         comments={getProductComments(productId)}
-        loadComments={() => loadProductComments(productId)}
+        loadComments={loadProductComments}
       />
     );
   })

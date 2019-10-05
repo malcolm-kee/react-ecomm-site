@@ -24,7 +24,7 @@ export const Textarea = React.forwardRef(function Textarea(
     if (textareaProps.id && textareaProps.id !== inputId) {
       setInputId(textareaProps.id);
     }
-  }, [textareaProps.id]);
+  }, [textareaProps.id, inputId, setInputId]);
 
   return (
     <TextareaAutosize

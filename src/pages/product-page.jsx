@@ -11,7 +11,9 @@ import { ProductImage } from '../modules/products/components/product-image';
 import './product-page.css';
 
 const ProductComments = React.lazy(() =>
-  import(/* webpackChunkName: "ProductComments" */ '../modules/products/components/product-comments')
+  import(
+    /* webpackChunkName: "ProductComments" */ '../modules/products/components/product-comments'
+  )
 );
 
 function useQty(productId) {
@@ -32,9 +34,9 @@ function useQty(productId) {
 function ProductPageContent({ productId, details, loadDetails, addToCart }) {
   React.useEffect(() => {
     if (!details) {
-      loadDetails();
+      loadDetails(productId);
     }
-  }, [productId, details]);
+  }, [productId, details, loadDetails]);
 
   const { qty, increment, decrement } = useQty(productId);
 
@@ -144,7 +146,7 @@ export const ProductPage = inject('product', 'cart')(
       <ProductPageContent
         productId={productId}
         details={product}
-        loadDetails={() => loadProductDetail(productId)}
+        loadDetails={loadProductDetail}
         addToCart={qty => {
           toast('Added to Cart', {
             type: 'success',
