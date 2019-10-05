@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitForElement } from 'react-testing-library';
+import { render, waitForElement } from '@testing-library/react';
 
 describe('entry point', () => {
   afterEach(() => {
@@ -7,12 +7,12 @@ describe('entry point', () => {
   });
 
   it('can renders', async () => {
-    const { getByText } = render(<div id="root" />);
+    const { getAllByText } = render(<div id="root" />);
 
     require('./index');
 
-    const shopName = await waitForElement(() => getByText('Shopit'));
+    const shopName = await waitForElement(() => getAllByText('Shopit'));
 
-    expect(shopName).not.toBeNull();
+    expect(shopName.length).toBeGreaterThan(0);
   });
 });

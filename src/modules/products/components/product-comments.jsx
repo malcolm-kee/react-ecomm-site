@@ -29,7 +29,7 @@ function ProductCommentsContent({ productId, loadComments, comments }) {
       setIsLoading(true);
       loadComments().then(() => setIsLoading(false));
     }
-  }, [productId, comments.length]);
+  }, [productId, comments.length, loadComments]);
 
   return (
     <div>

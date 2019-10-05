@@ -14,7 +14,9 @@ import { ProductBoxContainer } from '../modules/products/components/product-box-
 import './product-page.css';
 
 const ProductComments = React.lazy(() =>
-  import(/* webpackChunkName: "ProductComments" */ '../modules/products/components/product-comments')
+  import(
+    /* webpackChunkName: "ProductComments" */ '../modules/products/components/product-comments'
+  )
 );
 
 function useQty(productId) {
@@ -37,7 +39,7 @@ function ProductPageContent({ productId, details, loadDetails, addToCart }) {
     if (!details) {
       loadDetails();
     }
-  }, [productId, details]);
+  }, [productId, details, loadDetails]);
 
   const { qty, increment, decrement } = useQty(productId);
 

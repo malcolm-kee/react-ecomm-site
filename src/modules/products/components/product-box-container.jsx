@@ -13,7 +13,7 @@ function ProductBoxContainerContent({
     if (!productDetails) {
       loadDetails();
     }
-  }, [productId, productDetails]);
+  }, [productId, productDetails, loadDetails]);
 
   return productDetails ? <ProductBox {...productDetails} /> : null;
 }

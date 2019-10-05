@@ -17,7 +17,7 @@ import { SiteNav } from './site-nav';
 function AppContainer({ initAuthStatus }) {
   React.useEffect(() => {
     initAuthStatus();
-  }, []);
+  }, [initAuthStatus]);
 
   return (
     <div>

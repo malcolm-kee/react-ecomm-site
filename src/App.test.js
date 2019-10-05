@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, wait, waitForElement } from 'react-testing-library';
+import { act, fireEvent, wait, waitForElement } from '@testing-library/react';
 import App from './App';
 import { renderWithStateMgmt } from './lib/test-util';
 
@@ -33,26 +33,26 @@ function loadApp({ url = '/' } = {}) {
 
 describe('<App />', () => {
   it('renders without crashing', () => {
-    const { getByText } = loadApp();
+    const { getAllByText } = loadApp();
 
-    expect(getByText('Shopit')).not.toBeNull();
+    expect(getAllByText('Shopit').length).toBeGreaterThan(0);
   });
 
   it('show login form at login url', () => {
-    const { getByLabelText, getByText } = loadApp({
+    const { getByLabelText, getAllByText } = loadApp({
       url: '/login'
     });
 
-    expect(getByText('Login')).not.toBeNull();
+    expect(getAllByText('Login').length).toBeGreaterThan(0);
     expect(getByLabelText('Email')).not.toBeNull();
   });
 
   it('shows signup page at signup url', () => {
-    const { getByText } = loadApp({
+    const { getAllByText } = loadApp({
       url: '/signup'
     });
 
-    expect(getByText('Signup')).not.toBeNull();
+    expect(getAllByText('Signup').length).toBeGreaterThan(0);
   });
 
   it('show page not found for invalid url', () => {
@@ -85,14 +85,14 @@ describe('<App />', () => {
     minusQty();
     addProductToCart();
 
-    await history.navigate('/product/2');
+    await act(() => history.navigate('/product/2'));
 
     await waitForProductPageFinishLoading();
     addProductToCart();
     addProductToCart();
     addProductToCart();
 
-    await history.navigate('/cart');
+    await act(() => history.navigate('/cart'));
 
     expect(getCartItemQty('1')).toBe('2');
     expect(getCartItemQty('2')).toBe('3');

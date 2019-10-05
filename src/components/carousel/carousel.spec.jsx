@@ -1,10 +1,29 @@
 import React from 'react';
-import { act, fireEvent, render } from 'react-testing-library';
+import { act, fireEvent, render } from '@testing-library/react';
 import { Carousel } from './carousel';
 import { CarouselBtn } from './carousel-btn';
 import { CarouselIndicators } from './carousel-indicators';
 import { Slide } from './slide';
 import { Slides } from './slides';
+
+jest.mock('react-transition-group', () => {
+  const React = require('react');
+
+  const FakeTransition = jest.fn(({ children }) => children);
+  const FakeCSSTransition = jest.fn(props => (
+    <FakeTransition>
+      {React.Children.map(props.children, child =>
+        React.cloneElement(child, {
+          className:
+            props.classNames && props.in
+              ? props.classNames.enterDone
+              : props.classNames.exitDone
+        })
+      )}
+    </FakeTransition>
+  ));
+  return { CSSTransition: FakeCSSTransition, Transition: FakeTransition };
+});
 
 function renderCarousel({ additionUi, initialSlide, interval } = {}) {
   const renderResults = render(

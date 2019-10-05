@@ -1,5 +1,5 @@
 import React from 'react';
-import { act, fireEvent, waitForElement, wait } from 'react-testing-library';
+import { act, fireEvent, waitForElement, wait } from '@testing-library/react';
 import { renderWithStateMgmt } from '../lib/test-util';
 import { MainPage } from './main-page';
 
