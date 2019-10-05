@@ -26,7 +26,8 @@
     "test:ci": "react-scripts test --coverage --ci",
     "eject": "react-scripts eject",
     "start:docs": "styleguidist server",
-    "build:docs": "styleguidist build"
+    "build:docs": "styleguidist build",
+    "deploy:docs": "netlify deploy --dir=styleguide --prod"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -40,6 +41,7 @@
   "devDependencies": {
     "@testing-library/react": "^9.3.0",
     "@types/jest": "^24.0.18",
+    "netlify-cli": "^2.15.0",
     "react-styleguidist": "^9.1.16"
   }
 }
