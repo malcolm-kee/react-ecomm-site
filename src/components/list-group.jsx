@@ -35,6 +35,7 @@ export const ListGroup = ({ items, variant }) => {
             active && 'active',
             disabled && 'disabled'
           )}
+          disabled={disabled}
           {...buttonProps}
           key={index}
         >
