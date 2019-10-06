@@ -45,5 +45,3 @@ Button.propTypes = {
   size: PropTypes.oneOf(['lg', 'sm', 'xs']),
   children: PropTypes.node.isRequired
 };
-
-export default Button;

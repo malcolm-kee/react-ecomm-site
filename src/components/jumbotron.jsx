@@ -8,5 +8,3 @@ export function Jumbotron({ title, children }) {
     </div>
   );
 }
-
-export default Jumbotron;

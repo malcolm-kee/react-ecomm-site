@@ -31,5 +31,3 @@ Field.propTypes = {
    */
   status: FieldStatus
 };
-
-export default Field;

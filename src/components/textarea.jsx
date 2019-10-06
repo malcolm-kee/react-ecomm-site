@@ -50,5 +50,3 @@ Textarea.propTypes = {
    */
   onChangeValue: PropTypes.func
 };
-
-export default Textarea;

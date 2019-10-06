@@ -49,5 +49,3 @@ Input.propTypes = {
   onChangeValue: PropTypes.func,
   size: PropTypes.oneOf(['sm', 'lg'])
 };
-
-export default Input;

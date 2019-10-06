@@ -31,5 +31,3 @@ TextField.propTypes = {
   helpText: PropTypes.node,
   label: PropTypes.node
 };
-
-export default TextField;
