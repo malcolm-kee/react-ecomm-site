@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Alert } from '../../../components/alert';
 import { Button } from '../../../components/button';
 import { Field } from '../../../components/field';
 import { Form } from '../../../components/form';
@@ -15,14 +16,14 @@ function LoginFormContent({ status, error, login, logout }) {
 
   if (status === AuthStatus.Authenticated) {
     return (
-      <div className="alert alert-success">
+      <Alert color="success">
         You're already login!
         <div>
           <Button onClick={logout} color="danger">
             Logout
           </Button>
         </div>
-      </div>
+      </Alert>
     );
   }
 
@@ -35,7 +36,7 @@ function LoginFormContent({ status, error, login, logout }) {
   return (
     <Form title="Login" onSubmit={onSubmit}>
       {isSubmitting && <Spinner />}
-      {error && <div className="alert alert-danger">{error}</div>}
+      {error && <Alert color="danger">{error}</Alert>}
       <Field>
         <Label>Email</Label>
         <div className="input-group">
