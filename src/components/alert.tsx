@@ -1,8 +1,22 @@
 import cx from 'classnames';
-import PropTypes from 'prop-types';
 import React from 'react';
 
-export const Alert = ({ color, children, dismissible, className }) => {
+export interface AlertProps {
+  /**
+   * You're required to specify the color because "default alert" doesn't make too much sense.
+   */
+  color: 'success' | 'info' | 'warning' | 'danger';
+  dismissible?: boolean;
+  children: React.ReactNode;
+  className: string;
+}
+
+export const Alert = ({
+  color,
+  children,
+  dismissible,
+  className
+}: AlertProps) => {
   const [show, setShow] = React.useState(true);
 
   return show ? (
@@ -27,14 +41,4 @@ export const Alert = ({ color, children, dismissible, className }) => {
       {children}
     </div>
   ) : null;
-};
-
-Alert.propTypes = {
-  /**
-   * You're required to specify the color because "default alert" doesn't make too much sense.
-   */
-  color: PropTypes.oneOf(['success', 'info', 'warning', 'danger']).isRequired,
-  dismissible: PropTypes.bool,
-  children: PropTypes.node,
-  className: PropTypes.string
 };
