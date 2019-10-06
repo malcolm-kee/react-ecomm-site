@@ -1,12 +1,12 @@
-import React from 'react';
 import { inject, observer } from 'mobx-react';
+import React from 'react';
 import { Button } from '../../../components/button';
-import { Input } from '../../../components/input';
+import { Field } from '../../../components/field';
 import { Form } from '../../../components/form';
+import { Input } from '../../../components/input';
+import { Label } from '../../../components/label';
 import { Spinner } from '../../../components/spinner';
 import { TextField } from '../../../components/text-field';
-import Field from '../../../components/field';
-import Label from '../../../components/label';
 
 function RegisterFormContent({
   isAuthenticated,
