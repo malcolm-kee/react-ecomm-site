@@ -56,6 +56,13 @@ const ListGroupButtonExample = () => {
           label: 'Vue',
           active: activeItem === 'vue',
           onClick: () => toggleActiveItem('vue')
+        },
+        ,
+        {
+          label: 'Svelte',
+          active: activeItem === 'svelte',
+          onClick: () => toggleActiveItem('svelte'),
+          disabled: true
         }
       ]}
     />
