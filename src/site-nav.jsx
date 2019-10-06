@@ -19,6 +19,9 @@ function SiteNavContent({ status, user, logout }) {
           Login
         </Link>
       )}
+      <Link className="navbar-brand" to="/help">
+        Help
+      </Link>
       {status === AuthStatus.Authenticated && (
         <>
           <span className="navbar-brand hidden-xs">{user && user.name}</span>
