@@ -1,13 +1,14 @@
 import { Link } from '@reach/router';
 import React from 'react';
-import { ProductImage } from './product-image';
+import { PanelBody, PanelHeading } from '../../../components/panel';
 import './product-box.css';
+import { ProductImage } from './product-image';
 
 export function ProductBox({ id, name, images, price }) {
   return (
     <Link to={`/product/${id}`} className="panel panel-default product-box">
-      <div className="panel-heading product-box-name">{name}</div>
-      <div className="panel-body product-box-body">
+      <PanelHeading className="product-box-name">{name}</PanelHeading>
+      <PanelBody className="product-box-body">
         {images ? (
           <ProductImage
             url={images.thumbStandard}
@@ -25,7 +26,7 @@ export function ProductBox({ id, name, images, price }) {
             <p>RM {price}</p>
           </div>
         )}
-      </div>
+      </PanelBody>
     </Link>
   );
 }

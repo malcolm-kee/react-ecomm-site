@@ -69,5 +69,3 @@ Image.propTypes = {
    */
   alt: PropTypes.string.isRequired
 };
-
-export default Image;

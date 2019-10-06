@@ -13,5 +13,3 @@ export function Jumbotron({ title, children }: JumbotronProps) {
     </div>
   );
 }
-
-export default Jumbotron;

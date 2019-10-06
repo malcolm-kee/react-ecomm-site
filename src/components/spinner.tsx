@@ -32,5 +32,3 @@ export function Spinner({ delayShow = 0 }: SpinnerProps) {
     </div>
   ) : null;
 }
-
-export default Spinner;

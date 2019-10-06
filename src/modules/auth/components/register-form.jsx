@@ -1,15 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Alert } from '../../../components/alert';
 import { Button } from '../../../components/button';
-import { Input } from '../../../components/input';
+import { Field } from '../../../components/field';
 import { Form } from '../../../components/form';
+import { Input } from '../../../components/input';
+import { Label } from '../../../components/label';
 import { Spinner } from '../../../components/spinner';
 import { TextField } from '../../../components/text-field';
-import { register, attemptLogout } from '../auth.actions';
+import { attemptLogout, register } from '../auth.actions';
 import { AuthStatus } from '../auth.constants';
 import { selectAuthError, selectAuthStatus } from '../auth.selectors';
-import Field from '../../../components/field';
-import Label from '../../../components/label';
 
 function RegisterFormContent({ status, error, register, logout }) {
   const [email, setEmail] = React.useState('');
@@ -17,14 +18,14 @@ function RegisterFormContent({ status, error, register, logout }) {
 
   if (status === AuthStatus.Authenticated) {
     return (
-      <div className="alert alert-success">
+      <Alert color="success">
         You're already login!
         <div>
           <Button onClick={logout} color="danger">
             Logout
           </Button>
         </div>
-      </div>
+      </Alert>
     );
   }
 
@@ -37,7 +38,7 @@ function RegisterFormContent({ status, error, register, logout }) {
   return (
     <Form title="Signup" onSubmit={onSubmit}>
       {isSubmitting && <Spinner />}
-      {error && <div className="alert alert-danger">{error}</div>}
+      {error && <Alert color="danger">{error}</Alert>}
       <TextField
         label="Name"
         id="name"
