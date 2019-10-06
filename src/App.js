@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import { Footer } from './components/footer';
 import { initAuthStatus } from './modules/auth/auth.actions';
 import { CartPage } from './pages/cart-page';
+import { HelpPage } from './pages/help-page';
 import { Login } from './pages/login';
 import { MainPage } from './pages/main-page';
 import { NotFoundPage } from './pages/not-found-page';
@@ -29,6 +30,7 @@ function AppContainer({ initAuthStatus }) {
         <CartPage path="/cart" />
         <Login path="/login" />
         <Signup path="/signup" />
+        <HelpPage path="/help/*" />
         <NotFoundPage default />
       </Router>
       <Footer />
