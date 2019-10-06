@@ -33,5 +33,3 @@ Spinner.propTypes = {
    */
   delayShow: PropTypes.number
 };
-
-export default Spinner;

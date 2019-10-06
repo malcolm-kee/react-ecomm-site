@@ -13,5 +13,3 @@ export function HelpText({ className, ...props }) {
     />
   );
 }
-
-export default HelpText;

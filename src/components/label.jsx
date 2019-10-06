@@ -13,5 +13,3 @@ export function Label(props) {
 
   return <label htmlFor={inputId} {...props} />;
 }
-
-export default Label;
