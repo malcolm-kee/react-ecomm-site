@@ -1,6 +1,17 @@
 import cx from 'classnames';
-import PropTypes from 'prop-types';
 import React from 'react';
+
+export interface TableProps
+  extends React.DetailedHTMLProps<
+    React.TableHTMLAttributes<HTMLTableElement>,
+    HTMLTableElement
+  > {
+  bordered?: boolean;
+  condensed?: boolean;
+  hover?: boolean;
+  responsive?: boolean;
+  striped?: boolean;
+}
 
 /**
  * @see https://getbootstrap.com/docs/3.3/css/#tables
@@ -13,7 +24,7 @@ export const Table = ({
   striped,
   className,
   ...tableProps
-}) => {
+}: TableProps) => {
   const tableNode = (
     <table
       className={cx(
@@ -33,12 +44,4 @@ export const Table = ({
   ) : (
     tableNode
   );
-};
-
-Table.propTypes = {
-  bordered: PropTypes.bool,
-  condensed: PropTypes.bool,
-  hover: PropTypes.bool,
-  responsive: PropTypes.bool,
-  striped: PropTypes.bool
 };
