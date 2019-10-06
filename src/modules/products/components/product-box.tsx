@@ -1,12 +1,17 @@
 import { Link } from '@reach/router';
 import React from 'react';
-import { PanelBody, PanelHeading } from '../../../components/panel';
+import { Panel, PanelBody, PanelHeading } from '../../../components/panel';
+import { Product } from '../product-type';
 import './product-box.css';
 import { ProductImage } from './product-image';
 
-export function ProductBox({ id, name, images, price }) {
+export function ProductBox({ id, name, images, price }: Product) {
   return (
-    <Link to={`/product/${id}`} className="panel panel-default product-box">
+    <Panel
+      color="default"
+      className="product-box"
+      renderContainer={props => <Link to={`/product/${id}`} {...props} />}
+    >
       <PanelHeading className="product-box-name">{name}</PanelHeading>
       <PanelBody className="product-box-body">
         {images ? (
@@ -27,6 +32,6 @@ export function ProductBox({ id, name, images, price }) {
           </div>
         )}
       </PanelBody>
-    </Link>
+    </Panel>
   );
 }
