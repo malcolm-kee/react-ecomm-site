@@ -50,7 +50,7 @@ RadioGroup.propTypes = {
     PropsTypes.bool,
     PropsTypes.number,
     PropsTypes.object
-  ]).isRequired,
+  ]),
   onChangeValue: PropsTypes.func.isRequired,
   options: PropsTypes.arrayOf(
     PropsTypes.shape({
