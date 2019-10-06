@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { Footer } from './components/footer';
 import { CartPage } from './pages/cart-page';
+import { HelpPage } from './pages/help-page';
 import { Login } from './pages/login';
 import { MainPage } from './pages/main-page';
 import { NotFoundPage } from './pages/not-found-page';
@@ -24,6 +25,7 @@ function App() {
         <CartPage path="/cart" />
         <Login path="/login" />
         <Signup path="/signup" />
+        <HelpPage path="/help/*" />
         <NotFoundPage default />
       </Router>
       <Footer />

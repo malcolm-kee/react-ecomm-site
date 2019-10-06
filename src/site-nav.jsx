@@ -11,6 +11,9 @@ function SiteNavContent({ isAuthenticated, pending, user, logout }) {
         Shopit
       </Link>
       <CartLink to="/cart" className="navbar-brand" />
+      <Link className="navbar-brand" to="/help">
+        Help
+      </Link>
       {isAuthenticated ? (
         <>
           <Link to="/profile" className="navbar-brand hidden-xs">
