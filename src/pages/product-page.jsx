@@ -107,10 +107,13 @@ function ProductPageContent({
                 >
                   Add To Cart
                 </Button>
-                <ShareButton
-                  urlToShare={location.href}
-                  titleToShare={details.name}
-                />
+                {location && (
+                  <ShareButton
+                    urlToShare={location.href}
+                    titleToShare={details.name}
+                    size="lg"
+                  />
+                )}
               </div>
             </div>
           </div>
