@@ -149,7 +149,8 @@ export const ProductPage = inject('product', 'cart')(
   observer(function ProductPage({
     product: { loadProductDetail, getProduct },
     cart: { addItem },
-    productId: productIdVal
+    productId: productIdVal,
+    location
   }) {
     const productId = Number(productIdVal);
     const product = getProduct(productId);
@@ -165,6 +166,7 @@ export const ProductPage = inject('product', 'cart')(
           });
           addItem(productId, qty);
         }}
+        location={location}
       />
     );
   })
