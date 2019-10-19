@@ -1,4 +1,4 @@
-const copyTextFallback = textToCopy => {
+const copyTextFallback = (textToCopy: string) => {
   const currentActive = document.activeElement;
   const textarea = document.createElement('textarea');
   textarea.value = textToCopy;
@@ -16,11 +16,11 @@ const copyTextFallback = textToCopy => {
   document.body.removeChild(textarea);
 
   if (currentActive && currentActive !== document.body) {
-    currentActive.focus();
+    (currentActive as HTMLElement).focus();
   }
 };
 
-export const copyText = textToCopy => {
+export const copyText = (textToCopy: string): Promise<void> => {
   if (!navigator.clipboard) {
     try {
       copyTextFallback(textToCopy);
