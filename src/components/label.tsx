@@ -8,7 +8,7 @@ import { FieldContext } from './field-context';
  *
  * However, it will sync its `htmlFor` with the id of the input within same `Field` component
  */
-export function Label(props) {
+export function Label(props: JSX.IntrinsicElements['label']) {
   const { inputId } = React.useContext(FieldContext);
 
   return <label htmlFor={inputId} {...props} />;

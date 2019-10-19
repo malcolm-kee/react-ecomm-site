@@ -1,13 +1,13 @@
-export interface ProductImages {
+export type ProductImages = {
   standard: string;
   webp: string;
   thumbStandard: string;
   thumbWebp: string;
   blur: string;
   thumbBlur: string;
-}
+};
 
-export interface Product {
+export type Product = {
   id: number;
   name: string;
   description: string[];
@@ -16,4 +16,4 @@ export interface Product {
   price: string;
   related: number[];
   images: ProductImages | null;
-}
+};

@@ -1,17 +1,13 @@
 import cx from 'classnames';
 import React from 'react';
 
-export interface TableProps
-  extends React.DetailedHTMLProps<
-    React.TableHTMLAttributes<HTMLTableElement>,
-    HTMLTableElement
-  > {
+export type TableProps = {
   bordered?: boolean;
   condensed?: boolean;
   hover?: boolean;
   responsive?: boolean;
   striped?: boolean;
-}
+} & JSX.IntrinsicElements['table'];
 
 /**
  * @see https://getbootstrap.com/docs/3.3/css/#tables

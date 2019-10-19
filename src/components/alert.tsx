@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import React from 'react';
 
-export interface AlertProps {
+export type AlertProps = {
   /**
    * You're required to specify the color because "default alert" doesn't make too much sense.
    */
@@ -9,7 +9,7 @@ export interface AlertProps {
   dismissible?: boolean;
   children: React.ReactNode;
   className: string;
-}
+};
 
 export const Alert = ({
   color,

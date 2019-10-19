@@ -5,6 +5,8 @@ let tempId = Date.now();
  * There is no guarantee that this id is unique across session.
  * @param {boolean} number state if you want the id to be number
  */
+export function getId(number: true): number;
+export function getId(number?: false): string;
 export function getId(number = false) {
   return number ? tempId++ : `shopit-${tempId++}`;
 }

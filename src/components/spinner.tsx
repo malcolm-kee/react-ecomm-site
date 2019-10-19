@@ -1,14 +1,14 @@
 import React from 'react';
 import './spinner.css';
 
-export interface SpinnerProps {
+export type SpinnerProps = {
   /**
    * wait time in milisecond before show the spinner.
    *
    * You want want to set this to avoid flashing spinner for quick network
    */
   delayShow?: number;
-}
+};
 
 /**
  * Spinner is used to indicate busy status, e.g. waiting for API response

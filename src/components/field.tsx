@@ -2,7 +2,15 @@ import cx from 'classnames';
 import React from 'react';
 import { getId } from '../lib/id';
 import { FieldContext } from './field-context';
-import { FieldStatus } from './prop-types';
+import { FieldStatus } from './type';
+
+export type FieldProps = {
+  /**
+   * validation status of the field, which will styles related component
+   * within it, e.g. `Input` and `HelpText` accordingly
+   */
+  status?: FieldStatus;
+} & JSX.IntrinsicElements['div'];
 
 /**
  * `Field` is a component that provides contextual styling
@@ -11,7 +19,7 @@ import { FieldStatus } from './prop-types';
  *
  * Props not specified will be spreaded to the underlying `div` element.
  */
-export function Field({ status, className, ...props }) {
+export function Field({ status, className, ...props }: FieldProps) {
   const [inputId, setInputId] = React.useState(() => getId());
 
   return (
@@ -23,11 +31,3 @@ export function Field({ status, className, ...props }) {
     </FieldContext.Provider>
   );
 }
-
-Field.propTypes = {
-  /**
-   * validation status of the field, which will styles related component
-   * within it, e.g. `Input` and `HelpText` accordingly
-   */
-  status: FieldStatus
-};

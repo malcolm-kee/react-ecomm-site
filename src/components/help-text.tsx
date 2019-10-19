@@ -2,7 +2,10 @@ import cx from 'classnames';
 import React from 'react';
 import { FieldContext } from './field-context';
 
-export function HelpText({ className, ...props }) {
+export function HelpText({
+  className,
+  ...props
+}: JSX.IntrinsicElements['span']) {
   const { inputId } = React.useContext(FieldContext);
 
   return (

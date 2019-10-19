@@ -1,8 +1,8 @@
 import React from 'react';
 
-export interface NavbarProps {
+export type NavbarProps = {
   children: React.ReactNode;
-}
+};
 
 export function Navbar({ children }: NavbarProps) {
   return (
