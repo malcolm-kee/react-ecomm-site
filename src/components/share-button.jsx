@@ -13,7 +13,8 @@ export const ShareButton = ({
   urlToShare,
   color = 'primary',
   label = 'Share',
-  titleToShare = ''
+  titleToShare = '',
+  ...buttonProps
 }) => {
   const [copied, setCopied] = useTransientState(false);
 
@@ -30,7 +31,11 @@ export const ShareButton = ({
   };
 
   return (
-    <Button onClick={handleClick} color={copied ? 'success' : color}>
+    <Button
+      onClick={handleClick}
+      color={copied ? 'success' : color}
+      {...buttonProps}
+    >
       {copied ? 'Link copied!' : label}
     </Button>
   );

@@ -5,6 +5,7 @@ import { Button } from '../components/button';
 import { Field } from '../components/field';
 import { Input } from '../components/input';
 import { Label } from '../components/label';
+import { ShareButton } from '../components/share-button';
 import { Spinner } from '../components/spinner';
 import { ProductBoxContainer } from '../modules/products/components/product-box-container';
 import { ProductImage } from '../modules/products/components/product-image';
@@ -31,7 +32,13 @@ function useQty(productId) {
   };
 }
 
-function ProductPageContent({ productId, details, loadDetails, addToCart }) {
+function ProductPageContent({
+  productId,
+  details,
+  loadDetails,
+  addToCart,
+  location
+}) {
   React.useEffect(() => {
     if (!details) {
       loadDetails(productId);
@@ -92,7 +99,7 @@ function ProductPageContent({ productId, details, loadDetails, addToCart }) {
                   </div>
                 </Field>
               </div>
-              <div>
+              <div className="btn-toolbar">
                 <Button
                   onClick={() => addToCart(qty)}
                   color="success"
@@ -100,6 +107,10 @@ function ProductPageContent({ productId, details, loadDetails, addToCart }) {
                 >
                   Add To Cart
                 </Button>
+                <ShareButton
+                  urlToShare={location.href}
+                  titleToShare={details.name}
+                />
               </div>
             </div>
           </div>
