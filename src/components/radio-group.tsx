@@ -1,5 +1,6 @@
 import React from 'react';
-import { isPrimitive } from '../lib/typecheck';
+import { isPrimitive, isDefined } from '../lib/typecheck';
+import { getId } from '../lib/id';
 
 type Option<Value> = {
   value: Value;
@@ -7,11 +8,12 @@ type Option<Value> = {
 };
 
 export type RadioGroupProps<ValueType> = {
-  label?: React.ReactNode;
   value: ValueType;
   onChangeValue: (newValue: ValueType | null) => void;
-  name?: string;
   options: Array<Option<ValueType>>;
+  id?: string;
+  label?: React.ReactNode;
+  name?: string;
 };
 
 /**
@@ -23,21 +25,25 @@ export const RadioGroup = <Value extends any = string>({
   value,
   onChangeValue,
   name,
-  options = []
+  options = [],
+  id
 }: RadioGroupProps<Value>) => {
+  const [defaultId] = React.useState(() => getId());
+  const usedId = isDefined(id) ? id : name || defaultId;
+
   return (
-    <div className="form-group">
+    <div className="form-group" id={id}>
       {label && <label className="control-label">{label}</label>}
       <div>
         {options.map((option, index) => (
           <label
             className="radio-inline"
-            htmlFor={`${name}-${index}`}
+            htmlFor={`${usedId}-${index}`}
             key={index}
           >
             <input
               type="radio"
-              id={`${name}-${index}`}
+              id={`${usedId}-${index}`}
               value={isPrimitive(option.value) ? `${option.value}` : undefined}
               onChange={ev => {
                 if (ev.target.checked) {
