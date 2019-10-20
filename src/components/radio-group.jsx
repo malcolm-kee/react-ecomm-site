@@ -1,6 +1,7 @@
 import PropsTypes from 'prop-types';
 import React from 'react';
-import { isPrimitive } from '../lib/typecheck';
+import { isDefined, isPrimitive } from '../lib/typecheck';
+import { getId } from '../lib/id';
 
 /**
  * `RadioGroup` is like a `select`, but you can pass string, boolean, number, or object as value in `options`.
@@ -11,8 +12,12 @@ export const RadioGroup = ({
   value,
   onChangeValue,
   name,
-  options = []
+  options = [],
+  id
 }) => {
+  const [defaultId] = React.useState(() => getId());
+  const usedId = isDefined(id) ? id : name || defaultId;
+
   return (
     <div className="form-group">
       {label && <label className="control-label">{label}</label>}
@@ -20,12 +25,12 @@ export const RadioGroup = ({
         {options.map((option, index) => (
           <label
             className="radio-inline"
-            htmlFor={`${name}-${index}`}
+            htmlFor={`${usedId}-${index}`}
             key={index}
           >
             <input
               type="radio"
-              id={`${name}-${index}`}
+              id={`${usedId}-${index}`}
               value={isPrimitive(option.value) ? `${option.value}` : undefined}
               onChange={ev => {
                 if (ev.target.checked) {
