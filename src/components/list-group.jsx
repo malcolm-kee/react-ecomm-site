@@ -2,49 +2,60 @@ import { Link } from '@reach/router';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { isDefined } from '../lib/typecheck';
 
 /**
+ * `ListGroup` renders a list of items.
+ *
+ * All props except `variant` and `items` will be spreaded to the underlying container.
+ *
  * @see https://getbootstrap.com/docs/3.3/components/#list-group
  */
-export const ListGroup = ({ items, variant }) => {
+export const ListGroup = ({ items, variant, className, ...containerProps }) => {
   return variant === 'link' ? (
-    <div className="list-group">
-      {items.map(({ label, active, disabled, ...linkProps }, index) => (
-        <Link
-          getProps={({ isCurrent }) => ({
-            className: cx(
-              'list-group-item',
-              isCurrent && 'active',
-              disabled && 'disabled'
-            )
-          })}
-          {...linkProps}
-          key={index}
-        >
-          {label}
-        </Link>
-      ))}
+    <div className={cx('list-group', className)} {...containerProps}>
+      {items.map(
+        ({ label, active, disabled, variant, ...linkProps }, index) => (
+          <Link
+            getProps={({ isCurrent }) => ({
+              className: cx(
+                'list-group-item',
+                (isDefined(active) ? active : isCurrent) && 'active',
+                disabled && 'disabled',
+                variant && `list-group-item-${variant}`
+              )
+            })}
+            {...linkProps}
+            key={index}
+          >
+            {label}
+          </Link>
+        )
+      )}
     </div>
   ) : variant === 'button' ? (
-    <div className="list-group">
-      {items.map(({ label, active, disabled, ...buttonProps }, index) => (
-        <button
-          type="button"
-          className={cx(
-            'list-group-item',
-            active && 'active',
-            disabled && 'disabled'
-          )}
-          disabled={disabled}
-          {...buttonProps}
-          key={index}
-        >
-          {label}
-        </button>
-      ))}
+    <div className={cx('list-group', className)} {...containerProps}>
+      {items.map(
+        ({ label, active, disabled, variant, ...buttonProps }, index) => (
+          <button
+            type="button"
+            className={cx(
+              'list-group-item',
+              active && 'active',
+              disabled && 'disabled',
+              variant && `list-group-item-${variant}`
+            )}
+            disabled={disabled}
+            {...buttonProps}
+            key={index}
+          >
+            {label}
+          </button>
+        )
+      )}
     </div>
   ) : (
-    <ul className="list-group">
+    <ul className={cx('list-group', className)} {...containerProps}>
       {items.map((item, index) => (
         <li
           className={cx(
