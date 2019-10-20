@@ -15,14 +15,18 @@ export const ListGroup = ({ items, variant, className, ...containerProps }) => {
   return variant === 'link' ? (
     <div className={cx('list-group', className)} {...containerProps}>
       {items.map(
-        ({ label, active, disabled, variant, ...linkProps }, index) => (
+        (
+          { label, active, disabled, variant, className, ...linkProps },
+          index
+        ) => (
           <Link
             getProps={({ isCurrent }) => ({
               className: cx(
                 'list-group-item',
                 (isDefined(active) ? active : isCurrent) && 'active',
                 disabled && 'disabled',
-                variant && `list-group-item-${variant}`
+                variant && `list-group-item-${variant}`,
+                className
               )
             })}
             {...linkProps}
@@ -36,14 +40,18 @@ export const ListGroup = ({ items, variant, className, ...containerProps }) => {
   ) : variant === 'button' ? (
     <div className={cx('list-group', className)} {...containerProps}>
       {items.map(
-        ({ label, active, disabled, variant, ...buttonProps }, index) => (
+        (
+          { label, active, disabled, variant, className, ...buttonProps },
+          index
+        ) => (
           <button
             type="button"
             className={cx(
               'list-group-item',
               active && 'active',
               disabled && 'disabled',
-              variant && `list-group-item-${variant}`
+              variant && `list-group-item-${variant}`,
+              className
             )}
             disabled={disabled}
             {...buttonProps}
@@ -56,19 +64,26 @@ export const ListGroup = ({ items, variant, className, ...containerProps }) => {
     </div>
   ) : (
     <ul className={cx('list-group', className)} {...containerProps}>
-      {items.map((item, index) => (
-        <li
-          className={cx(
-            'list-group-item',
-            item.active && 'active',
-            item.disabled && 'disabled',
-            item.variant && `list-group-item-${item.variant}`
-          )}
-          key={index}
-        >
-          {item.label}
-        </li>
-      ))}
+      {items.map(
+        (
+          { label, active, disabled, variant, className, ...itemProps },
+          index
+        ) => (
+          <li
+            className={cx(
+              'list-group-item',
+              active && 'active',
+              disabled && 'disabled',
+              variant && `list-group-item-${variant}`,
+              className
+            )}
+            {...itemProps}
+            key={index}
+          >
+            {label}
+          </li>
+        )
+      )}
     </ul>
   );
 };
