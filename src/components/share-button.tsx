@@ -1,9 +1,15 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { useTransientState } from '../hooks/use-transient-state';
 import { copyText } from '../lib/copy';
 import { isShareSupported, share } from '../lib/share';
-import { Button } from './button';
+import { Button, ButtonProps } from './button';
+
+type ShareButtonProps = {
+  urlToShare: string;
+  label?: string;
+  /** title of the Share Popup. Note that this has no effect when we fallback to copy */
+  titleToShare?: string;
+} & Omit<ButtonProps, 'ref'>;
 
 /**
  * A button to share an URL using Web Share API.
@@ -15,7 +21,7 @@ export const ShareButton = ({
   label = 'Share',
   titleToShare = '',
   ...buttonProps
-}) => {
+}: ShareButtonProps) => {
   const [copied, setCopied] = useTransientState(false);
 
   const handleClick = () => {
@@ -39,20 +45,4 @@ export const ShareButton = ({
       {copied ? 'Link copied!' : label}
     </Button>
   );
-};
-
-ShareButton.propTypes = {
-  urlToShare: PropTypes.string.isRequired,
-  color: PropTypes.oneOf([
-    'default',
-    'primary',
-    'success',
-    'info',
-    'warning',
-    'danger',
-    'link'
-  ]),
-  label: PropTypes.node,
-  /** title of the Share Popup. Note that this has no effect when we fallback to copy */
-  titleToShare: PropTypes.string
 };

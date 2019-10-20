@@ -1,11 +1,14 @@
 import React from 'react';
 
-export const useTransientState = (steadyState, restorationTime = 1000) => {
+export const useTransientState = <T>(
+  steadyState: T,
+  restorationTime = 1000
+) => {
   const [state, setState] = React.useState(steadyState);
   const [calledTimes, setCallTimes] = React.useState(0);
 
   const setTemporaryState = React.useCallback(function setTemporaryState(
-    newValue
+    newValue: React.SetStateAction<T>
   ) {
     setState(newValue);
     setCallTimes(t => t + 1);
@@ -23,5 +26,5 @@ export const useTransientState = (steadyState, restorationTime = 1000) => {
     }
   }, [state, steadyState, restorationTime, calledTimes]);
 
-  return [state, setTemporaryState];
+  return [state, setTemporaryState] as const;
 };

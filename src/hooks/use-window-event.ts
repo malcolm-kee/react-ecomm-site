@@ -1,12 +1,12 @@
 import React from 'react';
 import { throttle } from '../lib/fn-lib';
 
-export function useWindowEvent(
-  eventType,
-  callback,
+export function useWindowEvent<EventType extends keyof WindowEventMap>(
+  eventType: EventType,
+  callback: (ev: WindowEventMap[EventType]) => any,
   { wait = 0, deps = [] } = {}
 ) {
-  const savedCallback = React.useRef();
+  const savedCallback = React.useRef<null | typeof callback>(null);
 
   React.useEffect(() => {
     savedCallback.current = callback;
