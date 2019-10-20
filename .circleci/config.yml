@@ -87,7 +87,7 @@ workflows:
   version: 2
   install-build-and-test:
     jobs:
-      - setup:
+      - setup
       - test:
           requires:
             - setup
