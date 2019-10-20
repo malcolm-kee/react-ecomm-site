@@ -1,6 +1,7 @@
 import { Link, LinkProps } from '@reach/router';
 import cx from 'classnames';
 import React from 'react';
+import { isDefined } from '../lib/typecheck';
 import { omit } from '../lib/object';
 
 type ItemBaseProps = {
@@ -50,7 +51,7 @@ export const ListGroup = (props: ListGroupProps) => {
             getProps={({ isCurrent }) => ({
               className: cx(
                 'list-group-item',
-                isCurrent && 'active',
+                (isDefined(active) ? active : isCurrent) && 'active',
                 disabled && 'disabled',
                 variant && `list-group-item-${variant}`,
                 className
