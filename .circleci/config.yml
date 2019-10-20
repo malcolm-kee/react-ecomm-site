@@ -1,12 +1,6 @@
 version: 2.0
 
 jobs:
-  noop:
-    docker:
-      - image: circleci/node:10.16.3 # the primary container, where your job's commands are run
-    steps:
-      - run: echo "Noop Do nothing."
-
   setup:
     docker:
       - image: circleci/node:10.16.3 # the primary container, where your job's commands are run
@@ -93,27 +87,13 @@ workflows:
   version: 2
   install-build-and-test:
     jobs:
-      - noop:
-          filters:
-            branches:
-              ignore: master
-
       - setup:
-          filters:
-            branches:
-              only: master
       - test:
           requires:
             - setup
-          filters:
-            branches:
-              only: master
       - build:
           requires:
             - setup
-          filters:
-            branches:
-              only: master
       - deploy:
           requires:
             - build
