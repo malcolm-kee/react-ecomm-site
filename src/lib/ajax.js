@@ -1,18 +1,77 @@
-// eslint-disable-next-line no-unused-vars
-import axios, { AxiosRequestConfig } from 'axios';
+const DEFAULT_RETRIES = [1000, 3000];
 
-/**
- *
- * @param {AxiosRequestConfig} request
- */
-export function ajax(request) {
-  return axios(request).then(function processResponse(res) {
-    if (res.status >= 200 && res.status < 300) {
-      return res.data;
-    } else {
-      console.error('Response status code not ok', res.status);
-      console.error(res);
-      throw new Error(res.statusText);
+export function fetchWithRetry(
+  url,
+  { retryDelays = DEFAULT_RETRIES, params, isJson = true, data, ...init } = {}
+) {
+  return new Promise((fulfill, reject) => {
+    let attemptCount = -1;
+    const requestUrl = url + stringifyParams(params);
+
+    function makeRequest() {
+      attemptCount++;
+      const request = fetch(
+        requestUrl,
+        data
+          ? {
+              ...init,
+              body: JSON.stringify(data)
+            }
+          : init
+      );
+
+      request
+        .then(res => {
+          if (res.status >= 200 && res.status < 300) {
+            fulfill(isJson ? res.json() : res);
+          } else if (shouldRetry(attemptCount)) {
+            retryRequest();
+          } else {
+            const error = new Error(
+              `fetchWithRetry: No success response after ${attemptCount} retries, give up!`
+            );
+            error.response = res;
+            reject(error);
+          }
+        })
+        .catch(err => {
+          if (shouldRetry(attemptCount)) {
+            retryRequest();
+          } else {
+            reject(err);
+          }
+        });
     }
+
+    function retryRequest() {
+      const retryDelay = retryDelays[attemptCount];
+      window.setTimeout(makeRequest, retryDelay);
+    }
+
+    function shouldRetry(attempt) {
+      return attempt <= retryDelays.length;
+    }
+
+    makeRequest();
   });
 }
+
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
+const stringifyParams = params => {
+  if (!params) {
+    return '';
+  }
+
+  let results = [];
+
+  for (let key in params) {
+    if (hasOwnProperty.call(params, key)) {
+      results.push(
+        `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
+      );
+    }
+  }
+
+  return `?${results.join('&')}`;
+};
