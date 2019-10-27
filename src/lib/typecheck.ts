@@ -6,3 +6,6 @@ export const isBoolean = (value: any): value is boolean =>
 
 export const isPrimitive = (value: any): value is string | number | boolean =>
   /^(b|st|n)/.test(typeof value);
+
+export const isFunction = (value: unknown): value is Function =>
+  typeof value === 'function';

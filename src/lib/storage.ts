@@ -1,6 +1,6 @@
 const PREFIX = 'react-ecomm-';
 
-export function save(key, value, prefix = PREFIX) {
+export function save(key: string, value: any, prefix = PREFIX): string | null {
   try {
     const savedValue = JSON.stringify(value);
     window.localStorage.setItem(`${prefix}${key}`, savedValue);
@@ -11,7 +11,7 @@ export function save(key, value, prefix = PREFIX) {
   }
 }
 
-export function load(key, parse = true, prefix = PREFIX) {
+export function load(key: string, parse = true, prefix = PREFIX): unknown {
   try {
     const value = window.localStorage.getItem(`${prefix}${key}`);
     return value && parse ? JSON.parse(value) : value;
@@ -21,11 +21,10 @@ export function load(key, parse = true, prefix = PREFIX) {
   }
 }
 
-export function clear(key, prefix = PREFIX) {
+export function clear(key: string, prefix = PREFIX): void {
   try {
     return window.localStorage.removeItem(`${prefix}${key}`);
   } catch (e) {
     console.error('Error in storage.clear', e);
-    return null;
   }
 }
