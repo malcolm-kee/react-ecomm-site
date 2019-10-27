@@ -2,7 +2,7 @@ const DEFAULT_RETRIES = [1000, 3000];
 
 export function fetchWithRetry(
   url,
-  { retryDelays = DEFAULT_RETRIES, params, isJson = true, data, ...init } = {}
+  { retryDelays = DEFAULT_RETRIES, params, data, ...init } = {}
 ) {
   return new Promise((fulfill, reject) => {
     let attemptCount = -1;
@@ -21,16 +21,16 @@ export function fetchWithRetry(
       );
 
       request
-        .then(res => {
-          if (res.status >= 200 && res.status < 300) {
-            fulfill(isJson ? res.json() : res);
+        .then(response => {
+          if (response.status >= 200 && response.status < 300) {
+            fulfill(response);
           } else if (shouldRetry(attemptCount)) {
             retryRequest();
           } else {
             const error = new Error(
               `fetchWithRetry: No success response after ${attemptCount} retries, give up!`
             );
-            error.response = res;
+            error.response = response;
             reject(error);
           }
         })
@@ -75,3 +75,7 @@ const stringifyParams = params => {
 
   return `?${results.join('&')}`;
 };
+
+export function fetchJson(url, options) {
+  return fetchWithRetry(url, options).then(response => response.json());
+}
