@@ -19,6 +19,13 @@ const toLeftTransitions = {
   exitDone: 'item'
 };
 
+export type SlideProps = {
+  isActive?: boolean;
+  pause?: () => void;
+  unPause?: () => void;
+  direction?: 'left' | 'right';
+} & JSX.IntrinsicElements['div'];
+
 /**
  * `<Slide />` renders a specific section of `<Carousel />`.
  *
@@ -32,7 +39,7 @@ export const Slide = ({
   direction,
   className,
   ...props
-}) => {
+}: SlideProps) => {
   return (
     <CSSTransition
       in={isActive}
@@ -52,5 +59,3 @@ export const Slide = ({
     </CSSTransition>
   );
 };
-
-export default Slide;

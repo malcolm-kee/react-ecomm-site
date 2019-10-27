@@ -1,12 +1,22 @@
 import React from 'react';
 import { useInterval } from '../../hooks/use-interval';
+import { ValueOf } from '../type';
+import { CarouselContextValue } from './carousel-context';
 
 // modulus in JS is different from modules in Maths, thus this
-function modulus(number, mod) {
+function modulus(number: number, mod: number) {
   return ((number % mod) + mod) % mod;
 }
 
-function carouselReducer(state, action) {
+type CarouselState = {
+  previousIndex: number | null;
+  activeIndex: number;
+};
+
+function carouselReducer(
+  state: CarouselState,
+  action: ReturnType<ValueOf<typeof carouselActions>>
+): CarouselState {
   switch (action.type) {
     case 'next':
       return {
@@ -32,14 +42,21 @@ function carouselReducer(state, action) {
 }
 
 const carouselActions = {
-  next: () => ({ type: 'next' }),
-  prev: () => ({ type: 'prev' }),
-  override: newIndex => ({ type: 'override', payload: newIndex })
+  next: () => ({ type: 'next' } as const),
+  prev: () => ({ type: 'prev' } as const),
+  override: (newIndex: number) =>
+    ({ type: 'override', payload: newIndex } as const)
 };
 
-function getTransitionDirection(newIndex, previousIndex, totalSlides) {
+function getTransitionDirection(
+  newIndex: number,
+  previousIndex: number | null,
+  totalSlides: number
+): 'left' | 'right' {
   const actualIndex = modulus(newIndex, totalSlides);
-  const actualOldIndex = modulus(previousIndex, totalSlides);
+  const actualOldIndex = previousIndex
+    ? modulus(previousIndex, totalSlides)
+    : 0;
 
   if (totalSlides === 0 || previousIndex === null) {
     return 'right';
@@ -54,7 +71,10 @@ function getTransitionDirection(newIndex, previousIndex, totalSlides) {
   return actualIndex > actualOldIndex ? 'right' : 'left';
 }
 
-export const useCarouselState = (interval, initialSlide) => {
+export const useCarouselState = (
+  interval: number | null,
+  initialSlide: number
+): CarouselContextValue => {
   const [{ activeIndex, previousIndex }, dispatch] = React.useReducer(
     carouselReducer,
     {
@@ -71,7 +91,7 @@ export const useCarouselState = (interval, initialSlide) => {
     },
     isPause ? null : interval
   );
-  const resetRef = React.useRef(null);
+  const resetRef = React.useRef<ReturnType<typeof useInterval>>(latestReset);
   resetRef.current = latestReset;
 
   const carouSelContextValue = React.useMemo(
@@ -92,7 +112,7 @@ export const useCarouselState = (interval, initialSlide) => {
         previousIndex,
         totalSlides
       ),
-      setActiveIndex: function(newIndex) {
+      setActiveIndex: function(newIndex: number) {
         dispatch(carouselActions.override(newIndex));
         resetRef.current();
       },

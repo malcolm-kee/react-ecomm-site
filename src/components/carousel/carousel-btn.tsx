@@ -1,9 +1,10 @@
 import cx from 'classnames';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { CarouselContext } from './carousel-context';
 
-export const CarouselBtn = ({ direction = 'next' }) => {
+export type CarouselBtnProps = { direction: 'next' | 'prev' };
+
+export const CarouselBtn = ({ direction = 'next' }: CarouselBtnProps) => {
   const { next, prev } = React.useContext(CarouselContext);
 
   const isNext = direction === 'next';
@@ -24,9 +25,3 @@ export const CarouselBtn = ({ direction = 'next' }) => {
     </button>
   );
 };
-
-CarouselBtn.propTypes = {
-  direction: PropTypes.oneOf(['next', 'prev'])
-};
-
-export default CarouselBtn;

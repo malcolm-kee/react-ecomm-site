@@ -58,7 +58,9 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             forwardedRef(ref);
           } else {
             if (forwardedRef) {
-              (forwardedRef as any).current = ref;
+              (forwardedRef as React.MutableRefObject<
+                HTMLTextAreaElement
+              >).current = ref;
             }
           }
         }}

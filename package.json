@@ -47,6 +47,7 @@
     "@types/reach__router": "^1.2.5",
     "@types/react": "^16.9.5",
     "@types/react-dom": "^16.9.1",
+    "@types/react-transition-group": "^4.2.3",
     "react-docgen-typescript": "^1.15.0",
     "react-styleguidist": "^9.0.4",
     "typescript": "^3.6.3"
