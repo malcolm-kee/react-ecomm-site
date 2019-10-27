@@ -1,14 +1,16 @@
 const DEFAULT_RETRIES = [1000, 3000];
 
+export class FetchError extends Error {
+  response?: Response;
+
+  constructor(message: string, response?: Response) {
+    super(message);
+    this.response = response;
+  }
+}
+
 type FetchInit = RequestInit & {
   params?: Record<string, string | number | boolean>;
-  /**
-   * state if the response is JSON. When `false`, the `Response` object will be returned.
-   *
-   * @default true
-   *
-   **/
-  isJson?: boolean;
   data?: any;
   /** delay in millisecond before retry again. Default to [1000, 3000] (wait 1 sec, then 3 secs) */
   retryDelays?: number[];
@@ -16,14 +18,8 @@ type FetchInit = RequestInit & {
 
 export function fetchWithRetry(
   url: string,
-  {
-    retryDelays = DEFAULT_RETRIES,
-    params,
-    isJson = true,
-    data,
-    ...init
-  }: FetchInit = {}
-) {
+  { retryDelays = DEFAULT_RETRIES, params, data, ...init }: FetchInit = {}
+): Promise<Response> {
   return new Promise((fulfill, reject) => {
     let attemptCount = -1;
     const requestUrl = url + stringifyParams(params);
@@ -41,16 +37,16 @@ export function fetchWithRetry(
       );
 
       request
-        .then(res => {
-          if (res.status >= 200 && res.status < 300) {
-            fulfill(isJson ? res.json() : res);
+        .then(response => {
+          if (response.status >= 200 && response.status < 300) {
+            fulfill(response);
           } else if (shouldRetry(attemptCount)) {
             retryRequest();
           } else {
-            const error: any = new Error(
-              `fetchWithRetry: No success response after ${attemptCount} retries, give up!`
+            const error = new FetchError(
+              `fetchWithRetry: No success response after ${attemptCount} retries, give up!`,
+              response
             );
-            error.response = res;
             reject(error);
           }
         })
@@ -95,3 +91,13 @@ const stringifyParams = (params: FetchInit['params']): string => {
 
   return `?${results.join('&')}`;
 };
+
+export function fetchJson(url: string, { headers, ...init }: FetchInit = {}) {
+  return fetchWithRetry(url, {
+    headers: {
+      Accept: 'application/json',
+      ...headers
+    },
+    ...init
+  }).then(res => res.json());
+}

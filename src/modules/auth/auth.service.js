@@ -1,15 +1,15 @@
-import { fetchWithRetry } from '../../lib/ajax';
+import { fetchJson } from '../../lib/ajax';
 
 const AUTH_BASE_URL = 'https://ecomm-db.herokuapp.com/users';
 
 export function register({ name, email }) {
-  return fetchWithRetry(AUTH_BASE_URL, {
+  return fetchJson(AUTH_BASE_URL, {
     params: {
       email
     }
   }).then(function checkEmailHasUsed(users) {
     if (users.length === 0) {
-      return fetchWithRetry(AUTH_BASE_URL, {
+      return fetchJson(AUTH_BASE_URL, {
         method: 'POST',
         data: {
           name,
@@ -24,7 +24,7 @@ export function register({ name, email }) {
 }
 
 export function login({ email }) {
-  return fetchWithRetry(AUTH_BASE_URL, {
+  return fetchJson(AUTH_BASE_URL, {
     params: {
       email
     }
