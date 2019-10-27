@@ -4,7 +4,5 @@ export const isDefined = <T>(value: T | undefined): value is T =>
 export const isBoolean = (value: any): value is boolean =>
   typeof value === 'boolean';
 
-export const isPrimitive = <Value>(
-  value: Value
-): value is Extract<Value, string | number | boolean> =>
+export const isPrimitive = (value: any): value is string | number | boolean =>
   /^(b|st|n)/.test(typeof value);

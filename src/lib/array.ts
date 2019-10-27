@@ -12,7 +12,7 @@ export function flattenArray<T>(nestedArray: NestedArray<T>): T[] {
   return result;
 }
 
-function flatten<T>(input: NestedArray<T>, result: NestedArray<T>) {
+function flatten<T>(input: NestedArray<T>, result: T[]) {
   let arrLen = input.length;
   let index = 0;
 
