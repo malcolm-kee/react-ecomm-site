@@ -3,7 +3,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Navbar } from './components/navbar';
 import { attemptLogout } from './modules/auth/auth.actions';
-import { AuthStatus } from './modules/auth/auth.constants';
 import { selectAuthStatus, selectUser } from './modules/auth/auth.selectors';
 import { CartLink } from './modules/cart/components/cart-link';
 
@@ -14,7 +13,7 @@ function SiteNavContent({ status, user, logout }) {
         Shopit
       </Link>
       <CartLink to="/cart" className="navbar-brand" />
-      {status === AuthStatus.Anonymous && (
+      {status === 'Anonymous' && (
         <Link to="/login" className="navbar-brand">
           Login
         </Link>
@@ -22,7 +21,7 @@ function SiteNavContent({ status, user, logout }) {
       <Link className="navbar-brand" to="/help">
         Help
       </Link>
-      {status === AuthStatus.Authenticated && (
+      {status === 'Authenticated' && (
         <>
           <span className="navbar-brand hidden-xs">{user && user.name}</span>
           <button

@@ -8,13 +8,12 @@ import { Input } from '../../../components/input';
 import { Label } from '../../../components/label';
 import { Spinner } from '../../../components/spinner';
 import { attemptLogin, attemptLogout } from '../auth.actions';
-import { AuthStatus } from '../auth.constants';
 import { selectAuthError, selectAuthStatus } from '../auth.selectors';
 
 function LoginFormContent({ status, error, login, logout }) {
   const [email, setEmail] = React.useState('');
 
-  if (status === AuthStatus.Authenticated) {
+  if (status === 'Authenticated') {
     return (
       <Alert color="success">
         You're already login!
@@ -31,7 +30,7 @@ function LoginFormContent({ status, error, login, logout }) {
     ev.preventDefault();
     login(email);
   };
-  const isSubmitting = status === AuthStatus.Authenticating;
+  const isSubmitting = status === 'Authenticating';
 
   return (
     <Form title="Login" onSubmit={onSubmit}>

@@ -9,14 +9,13 @@ import { Label } from '../../../components/label';
 import { Spinner } from '../../../components/spinner';
 import { TextField } from '../../../components/text-field';
 import { attemptLogout, register } from '../auth.actions';
-import { AuthStatus } from '../auth.constants';
 import { selectAuthError, selectAuthStatus } from '../auth.selectors';
 
 function RegisterFormContent({ status, error, register, logout }) {
   const [email, setEmail] = React.useState('');
   const [name, setName] = React.useState('');
 
-  if (status === AuthStatus.Authenticated) {
+  if (status === 'Authenticated') {
     return (
       <Alert color="success">
         You're already login!
@@ -33,7 +32,7 @@ function RegisterFormContent({ status, error, register, logout }) {
     ev.preventDefault();
     register({ name, email });
   };
-  const isSubmitting = status === AuthStatus.Authenticating;
+  const isSubmitting = status === 'Authenticating';
 
   return (
     <Form title="Signup" onSubmit={onSubmit}>

@@ -1,6 +1,7 @@
-import { createSlice } from 'redux-starter-kit';
+import { createSlice, PayloadAction } from 'redux-starter-kit';
+import { Product, ProductComment, ProductState } from './product.type';
 
-const DEFAULT_STATE = {
+const DEFAULT_STATE: ProductState = {
   productsByKey: {},
   productIds: [],
   productComments: {},
@@ -13,7 +14,7 @@ const productSlice = createSlice({
   name: 'product',
   initialState: DEFAULT_STATE,
   reducers: {
-    addProducts: (state, { payload }) => {
+    addProducts: (state, { payload }: PayloadAction<Product[]>) => {
       payload.forEach(product => {
         state.productsByKey[product.id] = product;
         state.productIds.push(product.id);
@@ -25,13 +26,18 @@ const productSlice = createSlice({
     loadingProducts: state => {
       state.loadingProducts = true;
     },
-    setProductDetails: (state, { payload }) => {
+    setProductDetails: (state, { payload }: PayloadAction<Product>) => {
       state.productsByKey[payload.id] = payload;
     },
-    setProductComments: (state, { payload }) => {
+    setProductComments: (
+      state,
+      {
+        payload
+      }: PayloadAction<{ productId: number; comments: ProductComment[] }>
+    ) => {
       state.productComments[payload.productId] = payload.comments;
     },
-    addProductComment: (state, { payload }) => {
+    addProductComment: (state, { payload }: PayloadAction<ProductComment>) => {
       if (state.productComments[payload.productId]) {
         state.productComments[payload.productId].push(payload);
       } else {

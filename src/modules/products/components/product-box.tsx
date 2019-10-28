@@ -1,7 +1,7 @@
 import { Link } from '@reach/router';
 import React from 'react';
 import { Panel, PanelBody, PanelHeading } from '../../../components/panel';
-import { Product } from '../product-type';
+import { Product } from '../product.type';
 import './product-box.css';
 import { ProductImage } from './product-image';
 

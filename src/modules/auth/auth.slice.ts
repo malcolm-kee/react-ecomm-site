@@ -1,8 +1,8 @@
-import { AuthStatus } from './auth.constants';
-import { createSlice } from 'redux-starter-kit';
+import { createSlice, PayloadAction } from 'redux-starter-kit';
+import { AuthState, AuthUser } from './auth.type';
 
-const DEFAULT_STATE = {
-  status: AuthStatus.Authenticating,
+const DEFAULT_STATE: AuthState = {
+  status: 'Authenticating',
   user: null,
   error: ''
 };
@@ -13,20 +13,20 @@ const authSlice = createSlice({
   reducers: {
     authenticating: state => {
       state.error = '';
-      state.status = AuthStatus.Authenticating;
+      state.status = 'Authenticating';
     },
-    login: (state, action) => {
+    login: (state, action: PayloadAction<AuthUser>) => {
       state.error = '';
-      state.status = AuthStatus.Authenticated;
+      state.status = 'Authenticated';
       state.user = action.payload;
     },
     logout: state => {
       state.error = '';
-      state.status = AuthStatus.Anonymous;
+      state.status = 'Anonymous';
       state.user = null;
     },
-    authError: (state, { payload }) => {
-      state.status = AuthStatus.Anonymous;
+    authError: (state, { payload }: PayloadAction<string | Error>) => {
+      state.status = 'Anonymous';
       state.error = payload instanceof Error ? payload.message : payload;
     }
   }

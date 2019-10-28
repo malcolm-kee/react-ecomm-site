@@ -1,6 +1,7 @@
-import { createSlice } from 'redux-starter-kit';
+import { createSlice, PayloadAction } from 'redux-starter-kit';
+import { CartState, CartItem } from './cart.type';
 
-const DEFAULT_STATE = {
+const DEFAULT_STATE: CartState = {
   items: []
 };
 
@@ -8,7 +9,12 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState: DEFAULT_STATE,
   reducers: {
-    addItem: (state, { payload: { product, qty = 1 } }) => {
+    addItem: (
+      state,
+      {
+        payload: { product, qty = 1 }
+      }: PayloadAction<{ product: CartItem['product']; qty?: number }>
+    ) => {
       const itemIndex = state.items.findIndex(
         item => item.product.id === product.id
       );
@@ -22,13 +28,13 @@ const cartSlice = createSlice({
         });
       }
     },
-    removeItem: (state, { payload }) => {
+    removeItem: (state, { payload }: PayloadAction<number>) => {
       state.items.splice(payload, 1);
     },
-    incrementItemQty: (state, { payload }) => {
+    incrementItemQty: (state, { payload }: PayloadAction<number>) => {
       state.items[payload].qty++;
     },
-    decrementItemQty: (state, { payload }) => {
+    decrementItemQty: (state, { payload }: PayloadAction<number>) => {
       state.items[payload].qty--;
     },
     clearCart: () => DEFAULT_STATE

@@ -277,21 +277,21 @@ const COMMENT_DB = [
   }
 ];
 
-export function getProducts(page, limit = 12) {
+export function getProducts(page: number, limit = 12) {
   return Promise.resolve(PRODUCT_DB.slice((page - 1) * 2, page * 2));
 }
 
-export function getProduct(productId) {
+export function getProduct(productId: number) {
   const foundProduct = PRODUCT_DB.find(
     product => product.id === Number(productId)
   );
   return Promise.resolve(foundProduct);
 }
 
-export function getProductComments(productId) {
+export function getProductComments(productId: number) {
   return Promise.resolve(COMMENT_DB);
 }
 
-export function createProductComment(comment) {
+export function createProductComment(comment: any) {
   return Promise.resolve(COMMENT_DB[0]);
 }

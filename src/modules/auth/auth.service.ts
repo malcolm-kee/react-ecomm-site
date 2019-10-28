@@ -1,8 +1,15 @@
 import { fetchJson } from '../../lib/ajax';
+import { AuthUser } from './auth.type';
 
 const AUTH_BASE_URL = 'https://ecomm-db.herokuapp.com/users';
 
-export function register({ name, email }) {
+export function register({
+  name,
+  email
+}: {
+  name: string;
+  email: string;
+}): Promise<AuthUser> {
   return fetchJson(AUTH_BASE_URL, {
     params: {
       email
@@ -23,7 +30,7 @@ export function register({ name, email }) {
   });
 }
 
-export function login({ email }) {
+export function login({ email }: { email: string }): Promise<AuthUser> {
   return fetchJson(AUTH_BASE_URL, {
     params: {
       email
