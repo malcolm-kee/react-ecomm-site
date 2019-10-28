@@ -1,14 +1,21 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
+import { RootState, ThunkDispatch } from '../../../type';
 import { loadProductDetail } from '../product.actions';
 import { selectProduct } from '../product.selectors';
 import { ProductBox } from './product-box';
+
+type ProductBoxContainerProps = {
+  productId: number;
+};
+
+type ReduxProps = ConnectedProps<typeof connector>;
 
 function ProductBoxContainerContent({
   productId,
   productDetails,
   loadDetails
-}) {
+}: ProductBoxContainerProps & ReduxProps) {
   React.useEffect(() => {
     if (!productDetails) {
       loadDetails();
@@ -18,15 +25,20 @@ function ProductBoxContainerContent({
   return productDetails ? <ProductBox {...productDetails} /> : null;
 }
 
-const mapStates = (state, ownProps) => ({
+const mapStates = (state: RootState, ownProps: ProductBoxContainerProps) => ({
   productDetails: selectProduct(state, ownProps.productId)
 });
 
-const mapDispatch = (dispatch, ownProps) => ({
+const mapDispatch = (
+  dispatch: ThunkDispatch,
+  ownProps: ProductBoxContainerProps
+) => ({
   loadDetails: () => dispatch(loadProductDetail(ownProps.productId))
 });
 
-export const ProductBoxContainer = connect(
+const connector = connect(
   mapStates,
   mapDispatch
-)(ProductBoxContainerContent);
+);
+
+export const ProductBoxContainer = connector(ProductBoxContainerContent);

@@ -2,7 +2,10 @@ import { AuthState } from './modules/auth/auth.type';
 import { CartState } from './modules/cart/cart.type';
 import { MarketingState } from './modules/marketing/marketing.type';
 import { ProductState } from './modules/products/product.type';
-import { ThunkAction as OriThunkAction } from 'redux-thunk';
+import {
+  ThunkAction as OriThunkAction,
+  ThunkDispatch as OriThunkDispatch
+} from 'redux-thunk';
 import { AnyAction } from 'redux';
 
 export type RootState = {
@@ -18,3 +21,5 @@ export type ThunkAction<Result> = OriThunkAction<
   void,
   AnyAction
 >;
+
+export type ThunkDispatch = OriThunkDispatch<RootState, undefined, AnyAction>;
