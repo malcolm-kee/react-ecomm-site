@@ -1,12 +1,16 @@
 import React from 'react';
 import { CarouselContext } from './carousel-context';
 
+export type SlidesProps = {
+  children: React.ReactNode;
+};
+
 /**
  * `<Slides />` is the component that wrap around `<Slide />`.
  *
  * `<Slides />` must be used within `<Carousel />` component.
  */
-export function Slides({ children }) {
+export function Slides({ children }: SlidesProps) {
   const {
     activeIndex,
     direction,
@@ -23,15 +27,19 @@ export function Slides({ children }) {
 
   return (
     <div className="carousel-inner" role="listbox">
-      {React.Children.map(children, (child, index) =>
-        React.cloneElement(child, {
+      {React.Children.map(children, (child, index) => {
+        if (!React.isValidElement(child)) {
+          return child;
+        }
+
+        return React.cloneElement(child, {
           pause,
           unPause,
           direction,
           isActive: index === activeIndex,
           'data-testid': `slide-${index}`
-        })
-      )}
+        });
+      })}
     </div>
   );
 }
