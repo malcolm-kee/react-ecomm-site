@@ -1,18 +1,21 @@
 import { Link } from '@reach/router';
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { Navbar } from './components/navbar';
 import { attemptLogout } from './modules/auth/auth.actions';
 import { selectAuthStatus, selectUser } from './modules/auth/auth.selectors';
 import { CartLink } from './modules/cart/components/cart-link';
+import { RootState } from './type';
 
-function SiteNavContent({ status, user, logout }) {
+type ReduxProps = ConnectedProps<typeof connector>;
+
+function SiteNavContent({ status, user, logout }: ReduxProps) {
   return (
     <Navbar>
       <Link className="navbar-brand" to="/">
         Shopit
       </Link>
-      <CartLink to="/cart" className="navbar-brand" />
+      <CartLink className="navbar-brand" />
       {status === 'Anonymous' && (
         <Link to="/login" className="navbar-brand">
           Login
@@ -37,7 +40,7 @@ function SiteNavContent({ status, user, logout }) {
   );
 }
 
-const mapStates = state => ({
+const mapStates = (state: RootState) => ({
   status: selectAuthStatus(state),
   user: selectUser(state)
 });
@@ -46,7 +49,9 @@ const mapDispatch = {
   logout: attemptLogout
 };
 
-export const SiteNav = connect(
+const connector = connect(
   mapStates,
   mapDispatch
-)(SiteNavContent);
+);
+
+export const SiteNav = connector(SiteNavContent);
