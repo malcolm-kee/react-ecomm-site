@@ -2,6 +2,6 @@
 
 declare namespace React {
   interface ImgHTMLAttributes {
-    loading: 'lazy' | 'eager' | 'auto';
+    loading?: 'lazy' | 'eager' | 'auto';
   }
 }

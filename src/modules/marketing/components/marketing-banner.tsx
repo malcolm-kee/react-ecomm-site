@@ -1,15 +1,18 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import {
   Carousel,
   CarouselIndicators,
   Slide,
   Slides
 } from '../../../components/carousel';
+import { RootState } from '../../../type';
 import { loadBanners } from '../marketing.actions';
 import { selectBanners, selectNoBanner } from '../marketing.selectors';
 
-class MarketingBannerView extends React.Component {
+type ReduxProps = ConnectedProps<typeof connector>;
+
+class MarketingBannerView extends React.Component<ReduxProps> {
   componentDidMount() {
     this.props.loadBanners();
   }
@@ -28,9 +31,7 @@ class MarketingBannerView extends React.Component {
           {banners.map(banner => (
             <Slide key={banner['500']}>
               <img
-                srcSet={`${banner['500']} 500w, ${banner['700']} 700w, ${
-                  banner['1242']
-                } 1242w`}
+                srcSet={`${banner['500']} 500w, ${banner['700']} 700w, ${banner['1242']} 1242w`}
                 src={banner['700']}
                 alt=""
               />
@@ -47,7 +48,7 @@ class MarketingBannerView extends React.Component {
   }
 }
 
-const mapState = state => ({
+const mapState = (state: RootState) => ({
   banners: selectBanners(state),
   noBanner: selectNoBanner(state)
 });
@@ -56,7 +57,9 @@ const mapDispatch = {
   loadBanners
 };
 
-export const MarketingBanner = connect(
+const connector = connect(
   mapState,
   mapDispatch
-)(MarketingBannerView);
+);
+
+export const MarketingBanner = connector(MarketingBannerView);
