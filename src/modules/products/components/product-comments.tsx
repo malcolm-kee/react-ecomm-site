@@ -1,13 +1,22 @@
 import format from 'date-fns/format';
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { Spinner } from '../../../components/spinner';
+import { RootState, ThunkDispatch } from '../../../type';
 import { loadProductComments } from '../product.actions';
 import { selectProductComments } from '../product.selectors';
 import { ProductCommentForm } from './product-comment-form';
 import './product-comments.css';
 
-function ProductComment({ userName, content, createdOn }) {
+function ProductComment({
+  userName,
+  content,
+  createdOn
+}: {
+  userName: string;
+  content: string;
+  createdOn: number;
+}) {
   return (
     <div className="product-comment">
       <div className="product-comment-info">
@@ -21,7 +30,17 @@ function ProductComment({ userName, content, createdOn }) {
   );
 }
 
-function ProductCommentsContent({ productId, loadComments, comments }) {
+type ProductCommentsProps = {
+  productId: number;
+};
+
+type ReduxProps = ConnectedProps<typeof connector>;
+
+function ProductCommentsContent({
+  productId,
+  loadComments,
+  comments
+}: ProductCommentsProps & ReduxProps) {
   const [isLoading, setIsLoading] = React.useState(false);
 
   React.useEffect(() => {
@@ -45,17 +64,22 @@ function ProductCommentsContent({ productId, loadComments, comments }) {
   );
 }
 
-const mapStates = (state, ownProps) => ({
+const mapStates = (state: RootState, ownProps: ProductCommentsProps) => ({
   comments: selectProductComments(state, ownProps.productId) || []
 });
 
-const mapDispatch = (dispatch, ownProps) => ({
+const mapDispatch = (
+  dispatch: ThunkDispatch,
+  ownProps: ProductCommentsProps
+) => ({
   loadComments: () => dispatch(loadProductComments(ownProps.productId))
 });
 
-export const ProductComments = connect(
+const connector = connect(
   mapStates,
   mapDispatch
-)(ProductCommentsContent);
+);
+
+export const ProductComments = connector(ProductCommentsContent);
 
 export default ProductComments;

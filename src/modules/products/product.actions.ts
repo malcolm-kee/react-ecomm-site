@@ -28,15 +28,15 @@ export const loadProductDetail = (
 
 export const loadProductComments = (
   productId: number
-): ThunkAction<void> => dispatch => {
+): ThunkAction<Promise<unknown>> => dispatch => {
   return getProductComments(productId).then(comments =>
     dispatch(productActions.setProductComments({ productId, comments }))
   );
 };
 
 export const submitAddProductComment = (
-  comment: ProductComment
-): ThunkAction<void> => dispatch => {
+  comment: Omit<ProductComment, 'id' | 'userId'>
+): ThunkAction<Promise<unknown>> => dispatch => {
   return createProductComment(comment).then(returnedComment =>
     dispatch(productActions.addProductComment(returnedComment))
   );

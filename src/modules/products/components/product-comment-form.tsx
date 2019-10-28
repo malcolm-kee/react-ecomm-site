@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { Button } from '../../../components/button';
 import { Field } from '../../../components/field';
 import { Form } from '../../../components/form';
@@ -7,15 +7,22 @@ import { Label } from '../../../components/label';
 import { Spinner } from '../../../components/spinner';
 import { TextField } from '../../../components/text-field';
 import { Textarea } from '../../../components/textarea';
+import { RootState } from '../../../type';
 import { selectUser } from '../../auth/auth.selectors';
 import { submitAddProductComment } from '../product.actions';
 
-function ProductCommentFormContent({ productId, submitForm, user }) {
+type ReduxProps = ConnectedProps<typeof connector> & { productId: number };
+
+function ProductCommentFormContent({
+  productId,
+  submitForm,
+  user
+}: ReduxProps) {
   const [submitting, setSubmitting] = React.useState(false);
   const [userName, setUserName] = React.useState((user && user.name) || '');
   const [content, setContent] = React.useState('');
 
-  function handleSubmit(ev) {
+  function handleSubmit(ev: React.FormEvent) {
     ev.preventDefault();
     setSubmitting(true);
     submitForm({
@@ -67,7 +74,7 @@ function ProductCommentFormContent({ productId, submitForm, user }) {
   );
 }
 
-const mapStates = state => ({
+const mapStates = (state: RootState) => ({
   user: selectUser(state)
 });
 
@@ -75,7 +82,9 @@ const mapDispatch = {
   submitForm: submitAddProductComment
 };
 
-export const ProductCommentForm = connect(
+const connector = connect(
   mapStates,
   mapDispatch
-)(ProductCommentFormContent);
+);
+
+export const ProductCommentForm = connector(ProductCommentFormContent);

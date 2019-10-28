@@ -28,7 +28,7 @@ export function getProductComments(
 }
 
 export function createProductComment(
-  comment: Omit<ProductComment, 'id'>
+  comment: Omit<ProductComment, 'id' | 'userId'>
 ): Promise<ProductComment> {
   return fetchJson(PRODUCT_COMMENT_BASE_URL, {
     method: 'POST',
