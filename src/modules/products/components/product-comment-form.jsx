@@ -12,7 +12,7 @@ import { submitAddProductComment } from '../product.actions';
 
 function ProductCommentFormContent({ productId, submitForm, user }) {
   const [submitting, setSubmitting] = React.useState(false);
-  const [userName, setUserName] = React.useState(user ? user.name : '');
+  const [userName, setUserName] = React.useState((user && user.name) || '');
   const [content, setContent] = React.useState('');
 
   function handleSubmit(ev) {
