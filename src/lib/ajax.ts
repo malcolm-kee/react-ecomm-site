@@ -96,6 +96,7 @@ export function fetchJson(url: string, { headers, ...init }: FetchInit = {}) {
   return fetchWithRetry(url, {
     headers: {
       Accept: 'application/json',
+      'Content-Type': 'application/json',
       ...headers
     },
     ...init
