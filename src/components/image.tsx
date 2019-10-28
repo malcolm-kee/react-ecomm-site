@@ -2,7 +2,7 @@ import React from 'react';
 import './image.css';
 import { Spinner } from './spinner';
 
-export type ImageProps = JSX.IntrinsicElements['img'] & {
+export type ImageProps = Omit<JSX.IntrinsicElements['img'], 'src' | 'alt'> & {
   /**
    * Src for the standard image, in jpeg format
    */
