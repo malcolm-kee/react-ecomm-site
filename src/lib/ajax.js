@@ -76,6 +76,13 @@ const stringifyParams = params => {
   return `?${results.join('&')}`;
 };
 
-export function fetchJson(url, options) {
-  return fetchWithRetry(url, options).then(response => response.json());
+export function fetchJson(url, { headers, ...init } = {}) {
+  return fetchWithRetry(url, {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      ...headers
+    },
+    ...init
+  }).then(response => response.json());
 }
