@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { Jumbotron } from '../components/jumbotron';
 import { Spinner } from '../components/spinner';
 import { useWindowEvent } from '../hooks/use-window-event';
@@ -11,14 +11,17 @@ import {
   selectProductIsLoading,
   selectProducts
 } from '../modules/products/product.selectors';
+import { RootState } from '../type';
 import './main-page.css';
+
+type ReduxProps = ConnectedProps<typeof connector>;
 
 function MainPageContent({
   loadProducts,
   products,
   hasMoreProduct,
   isLoading
-}) {
+}: ReduxProps) {
   React.useEffect(() => {
     if (products.length === 0) {
       loadProducts();
@@ -66,7 +69,7 @@ function MainPageContent({
   );
 }
 
-const mapStates = state => ({
+const mapStates = (state: RootState) => ({
   products: selectProducts(state),
   hasMoreProduct: selectHasMoreProduct(state),
   isLoading: selectProductIsLoading(state)
@@ -76,7 +79,9 @@ const mapDispatch = {
   loadProducts
 };
 
-export const MainPage = connect(
+const connector = connect(
   mapStates,
   mapDispatch
-)(MainPageContent);
+);
+
+export const MainPage = connector(MainPageContent);

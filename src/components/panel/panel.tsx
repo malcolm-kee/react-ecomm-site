@@ -8,7 +8,7 @@ export type PanelInjectedProps = {
 };
 
 export type PanelProps = {
-  color: 'default' | 'primary' | 'success' | 'info' | 'warning' | 'danger';
+  color?: 'default' | 'primary' | 'success' | 'info' | 'warning' | 'danger';
   className?: string;
   children?: React.ReactNode;
   /**

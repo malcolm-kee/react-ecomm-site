@@ -1,17 +1,19 @@
+import { RouteComponentProps } from '@reach/router';
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Button } from '../components/button';
 import { Field } from '../components/field';
 import { Input } from '../components/input';
 import { Label } from '../components/label';
-import { Spinner } from '../components/spinner';
 import { ShareButton } from '../components/share-button';
+import { Spinner } from '../components/spinner';
 import { addProductToCart } from '../modules/cart/cart.actions';
+import { ProductBoxContainer } from '../modules/products/components/product-box-container';
 import { ProductImage } from '../modules/products/components/product-image';
 import { loadProductDetail } from '../modules/products/product.actions';
 import { selectProduct } from '../modules/products/product.selectors';
-import { ProductBoxContainer } from '../modules/products/components/product-box-container';
+import { RootState, ThunkDispatch } from '../type';
 import './product-page.css';
 
 const ProductComments = React.lazy(() =>
@@ -20,7 +22,7 @@ const ProductComments = React.lazy(() =>
   )
 );
 
-function useQty(productId) {
+function useQty(productId: number) {
   const [qty, setQty] = React.useState(1);
 
   // reset qty when product id change
@@ -35,13 +37,19 @@ function useQty(productId) {
   };
 }
 
+type ProductPageProps = {
+  productId: number;
+} & RouteComponentProps;
+
+type ReduxProps = ConnectedProps<typeof connector>;
+
 function ProductPageContent({
   productId,
   details,
   loadDetails,
   addToCart,
   location
-}) {
+}: ProductPageProps & ReduxProps) {
   React.useEffect(() => {
     if (!details) {
       loadDetails();
@@ -151,13 +159,13 @@ function ProductPageContent({
   );
 }
 
-const mapStates = (state, ownProps) => ({
+const mapStates = (state: RootState, ownProps: ProductPageProps) => ({
   details: selectProduct(state, ownProps.productId)
 });
 
-const mapDispatch = (dispatch, ownProps) => ({
+const mapDispatch = (dispatch: ThunkDispatch, ownProps: ProductPageProps) => ({
   loadDetails: () => dispatch(loadProductDetail(ownProps.productId)),
-  addToCart: qty => {
+  addToCart: (qty: number) => {
     toast('Added to Cart', {
       type: 'success',
       autoClose: 2000
@@ -166,7 +174,9 @@ const mapDispatch = (dispatch, ownProps) => ({
   }
 });
 
-export const ProductPage = connect(
+const connector = connect(
   mapStates,
   mapDispatch
-)(ProductPageContent);
+);
+
+export const ProductPage = connector(ProductPageContent);

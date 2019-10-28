@@ -9,7 +9,7 @@ type ShareButtonProps = {
   label?: string;
   /** title of the Share Popup. Note that this has no effect when we fallback to copy */
   titleToShare?: string;
-} & Omit<ButtonProps, 'ref'>;
+} & Omit<ButtonProps, 'ref' | 'children'>;
 
 /**
  * A button to share an URL using Web Share API.

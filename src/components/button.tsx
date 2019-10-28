@@ -2,7 +2,7 @@ import cx from 'classnames';
 import React from 'react';
 
 export type ButtonProps = JSX.IntrinsicElements['button'] & {
-  color:
+  color?:
     | 'default'
     | 'primary'
     | 'success'

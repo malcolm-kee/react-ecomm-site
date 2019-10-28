@@ -1,4 +1,4 @@
-import { Router } from '@reach/router';
+import { Router, RouteComponentProps } from '@reach/router';
 import React from 'react';
 import { toast } from 'react-toastify';
 import { Button } from '../components/button';
@@ -49,13 +49,13 @@ const FeedbackPanel = () => {
   );
 };
 
-const HelpLanding = () => (
+const HelpLanding = (_: RouteComponentProps) => (
   <div>
     <p>Select a topic on the left.</p>
   </div>
 );
 
-const HelpAccount = () => (
+const HelpAccount = (_: RouteComponentProps) => (
   <article>
     <h1>Account</h1>
     <p>If you forget password, just create another one.</p>
@@ -64,7 +64,7 @@ const HelpAccount = () => (
   </article>
 );
 
-const HelpPayment = () => (
+const HelpPayment = (_: RouteComponentProps) => (
   <article>
     <h1>Payment</h1>
     <p>Seriously u look for help for payment when you can't even pay?</p>
@@ -72,7 +72,7 @@ const HelpPayment = () => (
   </article>
 );
 
-const HelpShipping = () => (
+const HelpShipping = (_: RouteComponentProps) => (
   <article>
     <h1>Shipping</h1>
     <p>All shipping will be delivered within 3-5 years. Please be patient.</p>
