@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { configureStore } from './config/configure-store';
+import { configureStore } from 'redux-starter-kit';
 import App from './App';
+import { rootReducer } from './modules/root-reducer';
 
-const store = configureStore();
+const store = configureStore({
+  reducer: rootReducer
+});
 
 function renderApp(AppComponent) {
   return ReactDOM.render(

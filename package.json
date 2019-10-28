@@ -18,6 +18,7 @@
     "react-transition-group": "^4.0.0",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
+    "redux-starter-kit": "^1.0.0",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
