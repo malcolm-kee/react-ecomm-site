@@ -1,11 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Spinner } from '../../../components/spinner';
-import {
-  decrementItemQty,
-  incrementItemQty,
-  removeItem
-} from '../cart.actions';
+import { cartActions } from '../cart.slice';
 import { selectCartItemCount, selectCartItems } from '../cart.selectors';
 
 const CartItem = React.lazy(() =>
@@ -64,9 +60,11 @@ const mapStates = state => ({
 });
 
 const mapDispatch = dispatch => ({
-  incrementItem: itemIndex => () => dispatch(incrementItemQty(itemIndex)),
-  decrementItem: itemIndex => () => dispatch(decrementItemQty(itemIndex)),
-  removeItem: itemIndex => () => dispatch(removeItem(itemIndex))
+  incrementItem: itemIndex => () =>
+    dispatch(cartActions.incrementItemQty(itemIndex)),
+  decrementItem: itemIndex => () =>
+    dispatch(cartActions.decrementItemQty(itemIndex)),
+  removeItem: itemIndex => () => dispatch(cartActions.removeItem(itemIndex))
 });
 
 export const CartItems = connect(
