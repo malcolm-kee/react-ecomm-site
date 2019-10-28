@@ -10,7 +10,7 @@ export type ButtonProps = JSX.IntrinsicElements['button'] & {
     | 'warning'
     | 'danger'
     | 'link';
-  size: 'lg' | 'sm' | 'xs';
+  size?: 'lg' | 'sm' | 'xs';
   children: React.ReactNode;
 };
 

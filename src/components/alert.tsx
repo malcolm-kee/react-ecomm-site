@@ -8,7 +8,7 @@ export type AlertProps = {
   color: 'success' | 'info' | 'warning' | 'danger';
   dismissible?: boolean;
   children: React.ReactNode;
-  className: string;
+  className?: string;
 };
 
 export const Alert = ({

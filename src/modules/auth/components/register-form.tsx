@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { Alert } from '../../../components/alert';
 import { Button } from '../../../components/button';
 import { Field } from '../../../components/field';
@@ -8,10 +8,13 @@ import { Input } from '../../../components/input';
 import { Label } from '../../../components/label';
 import { Spinner } from '../../../components/spinner';
 import { TextField } from '../../../components/text-field';
+import { RootState } from '../../../type';
 import { attemptLogout, register } from '../auth.actions';
 import { selectAuthError, selectAuthStatus } from '../auth.selectors';
 
-function RegisterFormContent({ status, error, register, logout }) {
+type ReduxProps = ConnectedProps<typeof connector>;
+
+function RegisterFormContent({ status, error, register, logout }: ReduxProps) {
   const [email, setEmail] = React.useState('');
   const [name, setName] = React.useState('');
 
@@ -28,14 +31,16 @@ function RegisterFormContent({ status, error, register, logout }) {
     );
   }
 
-  const onSubmit = ev => {
-    ev.preventDefault();
-    register({ name, email });
-  };
   const isSubmitting = status === 'Authenticating';
 
   return (
-    <Form title="Signup" onSubmit={onSubmit}>
+    <Form
+      title="Signup"
+      onSubmit={ev => {
+        ev.preventDefault();
+        register({ name, email });
+      }}
+    >
       {isSubmitting && <Spinner />}
       {error && <Alert color="danger">{error}</Alert>}
       <TextField
@@ -66,7 +71,7 @@ function RegisterFormContent({ status, error, register, logout }) {
   );
 }
 
-const mapStates = state => ({
+const mapStates = (state: RootState) => ({
   status: selectAuthStatus(state),
   error: selectAuthError(state)
 });
@@ -76,7 +81,9 @@ const mapDispatch = {
   logout: attemptLogout
 };
 
-export const RegisterForm = connect(
+const connector = connect(
   mapStates,
   mapDispatch
-)(RegisterFormContent);
+);
+
+export const RegisterForm = connector(RegisterFormContent);

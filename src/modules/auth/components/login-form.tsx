@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { Alert } from '../../../components/alert';
 import { Button } from '../../../components/button';
 import { Field } from '../../../components/field';
@@ -7,10 +7,13 @@ import { Form } from '../../../components/form';
 import { Input } from '../../../components/input';
 import { Label } from '../../../components/label';
 import { Spinner } from '../../../components/spinner';
+import { RootState } from '../../../type';
 import { attemptLogin, attemptLogout } from '../auth.actions';
 import { selectAuthError, selectAuthStatus } from '../auth.selectors';
 
-function LoginFormContent({ status, error, login, logout }) {
+type ReduxProps = ConnectedProps<typeof connector>;
+
+function LoginFormContent({ status, error, login, logout }: ReduxProps) {
   const [email, setEmail] = React.useState('');
 
   if (status === 'Authenticated') {
@@ -26,14 +29,16 @@ function LoginFormContent({ status, error, login, logout }) {
     );
   }
 
-  const onSubmit = ev => {
-    ev.preventDefault();
-    login(email);
-  };
   const isSubmitting = status === 'Authenticating';
 
   return (
-    <Form title="Login" onSubmit={onSubmit}>
+    <Form
+      title="Login"
+      onSubmit={ev => {
+        ev.preventDefault();
+        login(email);
+      }}
+    >
       {isSubmitting && <Spinner />}
       {error && <Alert color="danger">{error}</Alert>}
       <Field>
@@ -56,7 +61,7 @@ function LoginFormContent({ status, error, login, logout }) {
   );
 }
 
-const mapStates = state => ({
+const mapStates = (state: RootState) => ({
   status: selectAuthStatus(state),
   error: selectAuthError(state)
 });
@@ -66,7 +71,9 @@ const mapDispatch = {
   logout: attemptLogout
 };
 
-export const LoginForm = connect(
+const connector = connect(
   mapStates,
   mapDispatch
-)(LoginFormContent);
+);
+
+export const LoginForm = connector(LoginFormContent);
