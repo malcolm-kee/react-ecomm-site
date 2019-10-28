@@ -3,8 +3,23 @@ import { formatMoney } from 'accounting';
 import React from 'react';
 import { Button } from '../../../components/button';
 import { ProductImage } from '../../products/components/product-image';
+import { CartItem as CardItemType } from '../cart.type';
 
-export function CartItem({ index, item, onDecrement, onIncrement, onDelete }) {
+type CartItemProps = {
+  index: number;
+  item: CardItemType;
+  onDecrement: () => void;
+  onIncrement: () => void;
+  onDelete: () => void;
+};
+
+function CartItem({
+  index,
+  item,
+  onDecrement,
+  onIncrement,
+  onDelete
+}: CartItemProps) {
   return (
     <tr>
       <td>{index + 1}</td>

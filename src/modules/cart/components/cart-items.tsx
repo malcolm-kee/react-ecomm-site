@@ -1,12 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
+import { Dispatch } from 'redux';
 import { Spinner } from '../../../components/spinner';
-import { cartActions } from '../cart.slice';
+import { RootState } from '../../../type';
 import { selectCartItemCount, selectCartItems } from '../cart.selectors';
+import { cartActions } from '../cart.slice';
 
 const CartItem = React.lazy(() =>
   import(/* webpackChunkName: "CartItem" */ './cart-item')
 );
+
+type ReduxProps = ConnectedProps<typeof connector>;
 
 function CartItemsContent({
   cartItems,
@@ -14,7 +18,7 @@ function CartItemsContent({
   incrementItem,
   decrementItem,
   removeItem
-}) {
+}: ReduxProps) {
   return (
     <div className="cart-items">
       {itemCount === 0 ? (
@@ -54,20 +58,23 @@ function CartItemsContent({
   );
 }
 
-const mapStates = state => ({
+const mapStates = (state: RootState) => ({
   cartItems: selectCartItems(state),
   itemCount: selectCartItemCount(state)
 });
 
-const mapDispatch = dispatch => ({
-  incrementItem: itemIndex => () =>
+const mapDispatch = (dispatch: Dispatch) => ({
+  incrementItem: (itemIndex: number) => () =>
     dispatch(cartActions.incrementItemQty(itemIndex)),
-  decrementItem: itemIndex => () =>
+  decrementItem: (itemIndex: number) => () =>
     dispatch(cartActions.decrementItemQty(itemIndex)),
-  removeItem: itemIndex => () => dispatch(cartActions.removeItem(itemIndex))
+  removeItem: (itemIndex: number) => () =>
+    dispatch(cartActions.removeItem(itemIndex))
 });
 
-export const CartItems = connect(
+const connector = connect(
   mapStates,
   mapDispatch
-)(CartItemsContent);
+);
+
+export const CartItems = connector(CartItemsContent);

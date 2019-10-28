@@ -1,10 +1,14 @@
 import { Link } from '@reach/router';
 import React from 'react';
 import { connect } from 'react-redux';
-
+import { RootState } from '../../../type';
 import { selectCartItemCount } from '../cart.selectors';
 
-function CartLinkContent({ cartItemCount, className }) {
+type CartLinkContentProps = ReturnType<typeof mapStates> & {
+  className?: string;
+};
+
+function CartLinkContent({ cartItemCount, className }: CartLinkContentProps) {
   return (
     <Link to="/cart" className={className}>
       Cart
@@ -17,7 +21,7 @@ function CartLinkContent({ cartItemCount, className }) {
   );
 }
 
-const mapStates = state => ({
+const mapStates = (state: RootState) => ({
   cartItemCount: selectCartItemCount(state)
 });
 

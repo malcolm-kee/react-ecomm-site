@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@reach/router": "^1.2.1",
+    "@types/accounting": "^0.4.1",
     "@types/react-redux": "^7.1.5",
     "@types/react-textarea-autosize": "^4.3.4",
     "accounting": "^0.4.1",
