@@ -10,7 +10,7 @@ export type InputProps = {
    */
   onChangeValue?: (value: string) => void;
   size?: 'lg' | 'sm';
-} & JSX.IntrinsicElements['input'];
+} & Omit<JSX.IntrinsicElements['input'], 'size'>;
 
 /**
  * `Input` is a wrapper around `input` element.

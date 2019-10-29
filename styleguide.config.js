@@ -1,15 +1,18 @@
 const path = require('path');
 
-const tsParser = require('react-docgen-typescript').withDefaultConfig({
-  savePropValueAsString: true,
-  propFilter: prop => {
-    if (prop.parent) {
-      return !prop.parent.fileName.includes('@types/react');
-    }
+const tsParser = require('react-docgen-typescript').withCustomConfig(
+  './tsconfig.json',
+  {
+    savePropValueAsString: true,
+    propFilter: prop => {
+      if (prop.parent) {
+        return !prop.parent.fileName.includes('@types/react/');
+      }
 
-    return true;
+      return true;
+    }
   }
-});
+);
 
 module.exports = {
   components: 'src/components/**/*.{jsx,tsx}',

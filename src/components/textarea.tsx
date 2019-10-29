@@ -27,13 +27,7 @@ type TextareaProps = Omit<TextareaAutosizeProps, 'ref'> & {
  */
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   function Textarea(
-    {
-      className,
-      minRows = 3,
-      onChangeValue,
-      onChange,
-      ...textareaProps
-    }: TextareaProps,
+    { className, minRows = 3, onChangeValue, onChange, ...textareaProps },
     forwardedRef
   ) {
     const { inputId, setInputId } = React.useContext(FieldContext);
