@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from 'redux-starter-kit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthState, AuthUser } from './auth.type';
 
 const DEFAULT_STATE: AuthState = {
