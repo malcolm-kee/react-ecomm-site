@@ -1,3 +1,4 @@
+import { createSlice } from '@reduxjs/toolkit';
 import React from 'react';
 import { useInterval } from '../../hooks/use-interval';
 
@@ -6,36 +7,30 @@ function modulus(number, mod) {
   return ((number % mod) + mod) % mod;
 }
 
-function carouselReducer(state, action) {
-  switch (action.type) {
-    case 'next':
-      return {
-        previousIndex: state.activeIndex,
-        activeIndex: state.activeIndex + 1
-      };
-
-    case 'prev':
-      return {
-        previousIndex: state.activeIndex,
-        activeIndex: state.activeIndex - 1
-      };
-
-    case 'override':
-      return {
-        previousIndex: state.activeIndex,
-        activeIndex: action.payload
-      };
-
-    default:
-      throw new Error('Invalid action type in for carouselState');
+const carouselSlice = createSlice({
+  name: 'carousel',
+  initialState: {
+    previousIndex: null,
+    activeIndex: 0
+  },
+  reducers: {
+    next: state => {
+      state.previousIndex = state.activeIndex;
+      state.activeIndex++;
+    },
+    prev: state => {
+      state.previousIndex = state.activeIndex;
+      state.activeIndex--;
+    },
+    override: (state, { payload }) => {
+      state.previousIndex = state.activeIndex;
+      state.activeIndex = payload;
+    }
   }
-}
+});
 
-const carouselActions = {
-  next: () => ({ type: 'next' }),
-  prev: () => ({ type: 'prev' }),
-  override: newIndex => ({ type: 'override', payload: newIndex })
-};
+const carouselActions = carouselSlice.actions;
+const carouselReducer = carouselSlice.reducer;
 
 function getTransitionDirection(newIndex, previousIndex, totalSlides) {
   const actualIndex = modulus(newIndex, totalSlides);
