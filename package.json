@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@reach/router": "^1.2.1",
+    "@reduxjs/toolkit": "^1.0.4",
     "accounting": "^0.4.1",
     "axios": "^0.19.0",
     "classnames": "^2.2.6",
@@ -18,14 +19,13 @@
     "react-transition-group": "^4.0.0",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
-    "redux-starter-kit": "^1.0.0",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "test:ci": "react-scripts test --coverage --ci",
+    "test:ci": "react-scripts test --coverage --ci --watchAll=false",
     "eject": "react-scripts eject",
     "start:docs": "styleguidist server",
     "build:docs": "styleguidist build"

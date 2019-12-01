@@ -1,5 +1,5 @@
+import { createSlice } from '@reduxjs/toolkit';
 import { AuthStatus } from './auth.constants';
-import { createSlice } from 'redux-starter-kit';
 
 const DEFAULT_STATE = {
   status: AuthStatus.Authenticating,
