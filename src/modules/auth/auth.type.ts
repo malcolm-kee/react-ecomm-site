@@ -1,7 +1,5 @@
 export type AuthStatus = 'Authenticating' | 'Authenticated' | 'Anonymous';
 
-export type ValueOf<T> = T[keyof T];
-
 export type AuthUser = {
   id: number;
   name: string;

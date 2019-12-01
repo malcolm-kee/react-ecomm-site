@@ -11,5 +11,3 @@ export type ContainerProps = {
   className: string;
   children?: React.ReactNode;
 };
-
-export type ValueOf<T> = T[keyof T];
