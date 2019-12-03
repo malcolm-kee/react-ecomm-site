@@ -1,10 +1,7 @@
 import cx from 'classnames';
 import React from 'react';
 
-export type ButtonProps = Omit<
-  JSX.IntrinsicElements['button'],
-  'size' | 'color'
-> & {
+export type ButtonProps = JSX.IntrinsicElements['button'] & {
   color?:
     | 'default'
     | 'primary'
