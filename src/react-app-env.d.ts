@@ -9,12 +9,15 @@ declare namespace React {
 type DatePickOption = {
   dateFormat?: string;
   onSelect?: (dates: Date[]) => void;
+  pickerClass?: string;
+  showAnim?: string;
 };
 
 declare interface JQuery {
   datepick(command: 'getDate'): Date[];
   datepick(command: 'setDate', date: string | Date): JQuery;
   datepick(command: 'clear'): JQuery;
+  datepick(command: 'show'): JQuery;
   datepick(options?: DatePickOption): any;
 }
 

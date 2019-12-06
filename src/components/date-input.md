@@ -1,7 +1,9 @@
+### Simple Usage
+
 ```jsx
 import { DateInput } from './date-input';
 
-<DateInput dateFormat="dd-M-yyyy" />;
+<DateInput />;
 ```
 
 ### Controlled Element
@@ -30,4 +32,39 @@ const ControlledExample = () => {
 };
 
 <ControlledExample />;
+```
+
+### Use with Field
+
+```jsx
+import { DateInput } from './date-input';
+import { Field } from './field';
+import { Label } from './label';
+
+<Field>
+  <Label>Birth Date</Label>
+  <DateInput />
+</Field>;
+```
+
+### Custom Format
+
+```jsx
+import { DateInput } from './date-input';
+
+const CustomFormatDemo = () => {
+  const [value, setValue] = React.useState('');
+  return (
+    <div>
+      <DateInput
+        value={value}
+        onChangeValue={setValue}
+        dateFormat="dd-M-yyyy"
+      />
+      <p>Value is {value}</p>
+    </div>
+  );
+};
+
+<CustomFormatDemo />;
 ```
