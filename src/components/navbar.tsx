@@ -12,7 +12,7 @@ export function Navbar({ children }: NavbarProps) {
           className="navbar-header"
           style={{
             display: 'flex',
-            alignItems: 'center'
+            alignItems: 'center',
           }}
         >
           {children}

@@ -7,7 +7,7 @@ export type FieldContextType = {
 
 const DEFAULT_CONTEXT: FieldContextType = {
   inputId: undefined,
-  setInputId: function noop() {}
+  setInputId: function noop() {},
 };
 
 export const FieldContext = React.createContext<FieldContextType>(

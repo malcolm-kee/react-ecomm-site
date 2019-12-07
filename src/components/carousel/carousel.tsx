@@ -15,7 +15,7 @@ export type CarouselProps = {
 export const Carousel = ({
   interval = null,
   initialSlide = 0,
-  children
+  children,
 }: CarouselProps) => {
   const value = useCarouselState(interval, initialSlide);
 

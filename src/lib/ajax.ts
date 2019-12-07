@@ -31,7 +31,7 @@ export function fetchWithRetry(
         data
           ? {
               ...init,
-              body: JSON.stringify(data)
+              body: JSON.stringify(data),
             }
           : init
       );
@@ -97,8 +97,8 @@ export function fetchJson(url: string, { headers, ...init }: FetchInit = {}) {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      ...headers
+      ...headers,
     },
-    ...init
+    ...init,
   }).then(res => res.json());
 }

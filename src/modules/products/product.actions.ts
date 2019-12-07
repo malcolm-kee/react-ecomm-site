@@ -4,7 +4,7 @@ import {
   createProductComment,
   getProduct,
   getProductComments,
-  getProducts
+  getProducts,
 } from './product.service';
 import { productActions } from './product.slice';
 import { ProductComment } from './product.type';

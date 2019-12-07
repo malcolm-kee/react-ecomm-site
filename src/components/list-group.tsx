@@ -16,18 +16,18 @@ type ButtonItemProps = ItemBaseProps & JSX.IntrinsicElements['button'];
 type DefaultItemProps = ItemBaseProps & JSX.IntrinsicElements['li'];
 
 export type ListGroupProps =
-  | {
+  | ({
       variant: 'link';
       items: LinkItemsProps[];
-    } & JSX.IntrinsicElements['div']
-  | {
+    } & JSX.IntrinsicElements['div'])
+  | ({
       variant: 'button';
       items: ButtonItemProps[];
-    } & JSX.IntrinsicElements['div']
-  | {
+    } & JSX.IntrinsicElements['div'])
+  | ({
       variant?: undefined;
       items: DefaultItemProps[];
-    } & JSX.IntrinsicElements['ul'];
+    } & JSX.IntrinsicElements['ul']);
 
 /**
  * `ListGroup` renders a list of items.
@@ -55,7 +55,7 @@ export const ListGroup = (props: ListGroupProps) => {
                 disabled && 'disabled',
                 variant && `list-group-item-${variant}`,
                 className
-              )
+              ),
             })}
             {...linkProps}
             key={index}

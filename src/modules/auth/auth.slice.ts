@@ -4,7 +4,7 @@ import { AuthState, AuthUser } from './auth.type';
 const DEFAULT_STATE: AuthState = {
   status: 'Authenticating',
   user: null,
-  error: ''
+  error: '',
 };
 
 const authSlice = createSlice({
@@ -28,8 +28,8 @@ const authSlice = createSlice({
     authError: (state, { payload }: PayloadAction<string | Error>) => {
       state.status = 'Anonymous';
       state.error = payload instanceof Error ? payload.message : payload;
-    }
-  }
+    },
+  },
 });
 
 export const authReducer = authSlice.reducer;

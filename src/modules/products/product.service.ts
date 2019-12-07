@@ -8,8 +8,8 @@ export function getProducts(page: number, limit = 12): Promise<Product[]> {
   return fetchJson(PRODUCT_BASE_URL, {
     params: {
       _page: page,
-      _limit: limit
-    }
+      _limit: limit,
+    },
   });
 }
 
@@ -22,8 +22,8 @@ export function getProductComments(
 ): Promise<ProductComment[]> {
   return fetchJson(PRODUCT_COMMENT_BASE_URL, {
     params: {
-      productId
-    }
+      productId,
+    },
   });
 }
 
@@ -32,6 +32,6 @@ export function createProductComment(
 ): Promise<ProductComment> {
   return fetchJson(PRODUCT_COMMENT_BASE_URL, {
     method: 'POST',
-    data: comment
+    data: comment,
   });
 }

@@ -9,7 +9,7 @@ import { loadProducts } from '../modules/products/product.actions';
 import {
   selectHasMoreProduct,
   selectProductIsLoading,
-  selectProducts
+  selectProducts,
 } from '../modules/products/product.selectors';
 import { RootState } from '../type';
 import './main-page.css';
@@ -20,7 +20,7 @@ function MainPageContent({
   loadProducts,
   products,
   hasMoreProduct,
-  isLoading
+  isLoading,
 }: ReduxProps) {
   React.useEffect(() => {
     if (products.length === 0) {
@@ -72,16 +72,13 @@ function MainPageContent({
 const mapStates = (state: RootState) => ({
   products: selectProducts(state),
   hasMoreProduct: selectHasMoreProduct(state),
-  isLoading: selectProductIsLoading(state)
+  isLoading: selectProductIsLoading(state),
 });
 
 const mapDispatch = {
-  loadProducts
+  loadProducts,
 };
 
-const connector = connect(
-  mapStates,
-  mapDispatch
-);
+const connector = connect(mapStates, mapDispatch);
 
 export const MainPage = connector(MainPageContent);

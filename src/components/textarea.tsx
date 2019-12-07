@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import React from 'react';
 import TextareaAutosize, {
-  TextareaAutosizeProps
+  TextareaAutosizeProps,
 } from 'react-textarea-autosize';
 import { callAll } from '../lib/fn-lib';
 import { isFunction } from '../lib/typecheck';

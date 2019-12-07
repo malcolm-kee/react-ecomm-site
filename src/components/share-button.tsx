@@ -28,7 +28,7 @@ export const ShareButton = ({
     if (isShareSupported()) {
       share({
         url: urlToShare,
-        title: titleToShare
+        title: titleToShare,
       });
     } else {
       copyText(urlToShare);

@@ -15,7 +15,7 @@ export const Alert = ({
   color,
   children,
   dismissible,
-  className
+  className,
 }: AlertProps) => {
   const [show, setShow] = React.useState(true);
 

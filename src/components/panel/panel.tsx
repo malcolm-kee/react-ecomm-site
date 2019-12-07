@@ -25,10 +25,10 @@ export const Panel = ({
   color,
   children,
   className,
-  renderContainer = DefaultContainer
+  renderContainer = DefaultContainer,
 }: PanelProps) => {
   return renderContainer({
     children,
-    className: cx('panel', color && `panel-${color}`, className)
+    className: cx('panel', color && `panel-${color}`, className),
   });
 };

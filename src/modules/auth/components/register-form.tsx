@@ -73,17 +73,14 @@ function RegisterFormContent({ status, error, register, logout }: ReduxProps) {
 
 const mapStates = (state: RootState) => ({
   status: selectAuthStatus(state),
-  error: selectAuthError(state)
+  error: selectAuthError(state),
 });
 
 const mapDispatch = {
   register,
-  logout: attemptLogout
+  logout: attemptLogout,
 };
 
-const connector = connect(
-  mapStates,
-  mapDispatch
-);
+const connector = connect(mapStates, mapDispatch);
 
 export const RegisterForm = connector(RegisterFormContent);

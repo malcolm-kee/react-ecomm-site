@@ -9,5 +9,5 @@ export const rootReducer = combineReducers<RootState>({
   auth: authReducer,
   cart: cartReducer,
   marketing: marketingReducer,
-  product: productReducer
+  product: productReducer,
 });

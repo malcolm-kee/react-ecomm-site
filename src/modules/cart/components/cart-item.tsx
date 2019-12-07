@@ -18,7 +18,7 @@ function CartItem({
   item,
   onDecrement,
   onIncrement,
-  onDelete
+  onDelete,
 }: CartItemProps) {
   return (
     <tr>

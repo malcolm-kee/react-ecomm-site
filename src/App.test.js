@@ -9,7 +9,7 @@ jest.mock('./modules/products/product.service');
 
 function loadApp({ url = '/' } = {}) {
   const renderResult = renderWithStateMgmt(<App />, {
-    route: url
+    route: url,
   });
 
   const { getByText, getByTestId, queryByTestId } = renderResult;
@@ -27,7 +27,7 @@ function loadApp({ url = '/' } = {}) {
     queryCartItem: id => queryByTestId(`qty-for-${id}`),
     addMoreCartItem: id => fireEvent.click(getByTestId(`add-${id}`)),
     reduceCartItem: id => fireEvent.click(getByTestId(`reduce-${id}`)),
-    removeCartItem: id => fireEvent.click(getByTestId(`remove-${id}`))
+    removeCartItem: id => fireEvent.click(getByTestId(`remove-${id}`)),
   };
 }
 
@@ -40,7 +40,7 @@ describe('<App />', () => {
 
   it('show login form at login url', () => {
     const { getByLabelText, getAllByText } = loadApp({
-      url: '/login'
+      url: '/login',
     });
 
     expect(getAllByText('Login').length).toBeGreaterThan(0);
@@ -49,7 +49,7 @@ describe('<App />', () => {
 
   it('shows signup page at signup url', () => {
     const { getAllByText } = loadApp({
-      url: '/signup'
+      url: '/signup',
     });
 
     expect(getAllByText('Signup').length).toBeGreaterThan(0);
@@ -57,7 +57,7 @@ describe('<App />', () => {
 
   it('show page not found for invalid url', () => {
     const { getByText } = loadApp({
-      url: '/wulala-weird-url'
+      url: '/wulala-weird-url',
     });
 
     expect(getByText('Page Not Found')).not.toBeNull();
@@ -74,9 +74,9 @@ describe('<App />', () => {
       queryCartItem,
       addMoreCartItem,
       reduceCartItem,
-      removeCartItem
+      removeCartItem,
     } = loadApp({
-      url: '/product/1'
+      url: '/product/1',
     });
 
     await waitForProductPageFinishLoading();
@@ -115,15 +115,15 @@ describe('<App />', () => {
       getByLabelText,
       getByText,
       container,
-      waitForProductPageFinishLoading
+      waitForProductPageFinishLoading,
     } = loadApp({
-      url: '/login'
+      url: '/login',
     });
 
     await wait();
 
     fireEvent.change(getByLabelText('Email'), {
-      target: { value: 'mk@test.com' }
+      target: { value: 'mk@test.com' },
     });
     fireEvent.click(container.querySelector('button[type="submit"]'));
 
@@ -145,18 +145,18 @@ describe('<App />', () => {
       history,
       getByText,
       queryByText,
-      waitForProductPageFinishLoading
+      waitForProductPageFinishLoading,
     } = loadApp({
-      url: '/signup'
+      url: '/signup',
     });
 
     await wait();
 
     fireEvent.change(getByLabelText('Name'), {
-      target: { value: 'Malcolm Kee' }
+      target: { value: 'Malcolm Kee' },
     });
     fireEvent.change(getByLabelText('Email'), {
-      target: { value: 'mk@test.com' }
+      target: { value: 'mk@test.com' },
     });
     fireEvent.click(container.querySelector('button[type="submit"]'));
 

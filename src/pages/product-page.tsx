@@ -33,7 +33,7 @@ function useQty(productId: number) {
   return {
     qty,
     increment: () => setQty(q => q + 1),
-    decrement: () => setQty(q => q - 1)
+    decrement: () => setQty(q => q - 1),
   };
 }
 
@@ -48,7 +48,7 @@ function ProductPageContent({
   details,
   loadDetails,
   addToCart,
-  location
+  location,
 }: ProductPageProps & ReduxProps) {
   React.useEffect(() => {
     if (!details) {
@@ -160,7 +160,7 @@ function ProductPageContent({
 }
 
 const mapStates = (state: RootState, ownProps: ProductPageProps) => ({
-  details: selectProduct(state, ownProps.productId)
+  details: selectProduct(state, ownProps.productId),
 });
 
 const mapDispatch = (dispatch: ThunkDispatch, ownProps: ProductPageProps) => ({
@@ -168,15 +168,12 @@ const mapDispatch = (dispatch: ThunkDispatch, ownProps: ProductPageProps) => ({
   addToCart: (qty: number) => {
     toast('Added to Cart', {
       type: 'success',
-      autoClose: 2000
+      autoClose: 2000,
     });
     return dispatch(addProductToCart(ownProps.productId, qty));
-  }
+  },
 });
 
-const connector = connect(
-  mapStates,
-  mapDispatch
-);
+const connector = connect(mapStates, mapDispatch);
 
 export const ProductPage = connector(ProductPageContent);

@@ -4,7 +4,7 @@ import { MarketingState } from './modules/marketing/marketing.type';
 import { ProductState } from './modules/products/product.type';
 import {
   ThunkAction as OriThunkAction,
-  ThunkDispatch as OriThunkDispatch
+  ThunkDispatch as OriThunkDispatch,
 } from 'redux-thunk';
 import { AnyAction } from 'redux';
 

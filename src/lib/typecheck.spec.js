@@ -9,7 +9,7 @@ describe('isBoolean', () => {
     ['', false],
     [1000, false],
     [Symbol('12837'), false],
-    [new Image(), false]
+    [new Image(), false],
   ];
 
   testData.forEach(([data, result]) => {
@@ -28,7 +28,7 @@ describe('isDefined', () => {
     ['', true],
     [1000, true],
     [Symbol('12837'), true],
-    [new Image(), true]
+    [new Image(), true],
   ];
 
   testData.forEach(([data, result]) => {
@@ -47,7 +47,7 @@ describe('isPrimitive', () => {
     ['', true],
     [1000, true],
     [Symbol('12837'), false],
-    [new Image(), false]
+    [new Image(), false],
   ];
 
   testData.forEach(([data, result]) => {

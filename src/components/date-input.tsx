@@ -48,7 +48,7 @@ export const DateInput = ({
         if (onChangeValueRef.current) {
           onChangeValueRef.current(getDateValue(dates[0]));
         }
-      }
+      },
     });
   }, [dateFormat, getDateValue]);
 

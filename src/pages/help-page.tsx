@@ -15,7 +15,7 @@ const FeedbackPanel = () => {
   const onFeedback = () => {
     toast('Thanks for your feedback! But we will not record it anywhere.', {
       type: 'success',
-      autoClose: 3000
+      autoClose: 3000,
     });
   };
 
@@ -100,16 +100,16 @@ export function HelpPage() {
               items={[
                 {
                   to: 'account',
-                  label: 'Account'
+                  label: 'Account',
                 },
                 {
                   to: 'payment',
-                  label: 'Payment'
+                  label: 'Payment',
                 },
                 {
                   to: 'shipping',
-                  label: 'Shipping'
-                }
+                  label: 'Shipping',
+                },
               ]}
             />
           </div>

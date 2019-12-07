@@ -26,7 +26,7 @@ export const RadioGroup = <Value extends any = string>({
   onChangeValue,
   name,
   options = [],
-  id
+  id,
 }: RadioGroupProps<Value>) => {
   const [defaultId] = React.useState(() => getId());
   const usedId = isDefined(id) ? id : name || defaultId;

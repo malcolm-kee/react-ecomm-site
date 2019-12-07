@@ -383,7 +383,7 @@ var options = $(selector).plugin('option') // Get all options */
 } */
     _preDestroy: function(elem, inst) {
       // jshint unused:false
-    }
+    },
   });
 
   /** Convert names from hyphenated to camel-case.
@@ -422,6 +422,6 @@ $('selector').tabs(); // And instantiate it */
         overrides
       );
       new JQClass.classes[className](); // jshint ignore:line
-    }
+    },
   };
 })(jQuery);

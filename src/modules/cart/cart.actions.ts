@@ -9,6 +9,6 @@ export const addProductToCart = (
   dispatch(
     cartActions.addItem({
       product: selectProduct(getState(), productId),
-      qty
+      qty,
     })
   );

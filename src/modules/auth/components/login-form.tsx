@@ -63,17 +63,14 @@ function LoginFormContent({ status, error, login, logout }: ReduxProps) {
 
 const mapStates = (state: RootState) => ({
   status: selectAuthStatus(state),
-  error: selectAuthError(state)
+  error: selectAuthError(state),
 });
 
 const mapDispatch = {
   login: attemptLogin,
-  logout: attemptLogout
+  logout: attemptLogout,
 };
 
-const connector = connect(
-  mapStates,
-  mapDispatch
-);
+const connector = connect(mapStates, mapDispatch);
 
 export const LoginForm = connector(LoginFormContent);

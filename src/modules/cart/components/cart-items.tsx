@@ -17,7 +17,7 @@ function CartItemsContent({
   itemCount,
   incrementItem,
   decrementItem,
-  removeItem
+  removeItem,
 }: ReduxProps) {
   return (
     <div className="cart-items">
@@ -60,7 +60,7 @@ function CartItemsContent({
 
 const mapStates = (state: RootState) => ({
   cartItems: selectCartItems(state),
-  itemCount: selectCartItemCount(state)
+  itemCount: selectCartItemCount(state),
 });
 
 const mapDispatch = (dispatch: Dispatch) => ({
@@ -69,12 +69,9 @@ const mapDispatch = (dispatch: Dispatch) => ({
   decrementItem: (itemIndex: number) => () =>
     dispatch(cartActions.decrementItemQty(itemIndex)),
   removeItem: (itemIndex: number) => () =>
-    dispatch(cartActions.removeItem(itemIndex))
+    dispatch(cartActions.removeItem(itemIndex)),
 });
 
-const connector = connect(
-  mapStates,
-  mapDispatch
-);
+const connector = connect(mapStates, mapDispatch);
 
 export const CartItems = connector(CartItemsContent);

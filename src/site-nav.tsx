@@ -42,16 +42,13 @@ function SiteNavContent({ status, user, logout }: ReduxProps) {
 
 const mapStates = (state: RootState) => ({
   status: selectAuthStatus(state),
-  user: selectUser(state)
+  user: selectUser(state),
 });
 
 const mapDispatch = {
-  logout: attemptLogout
+  logout: attemptLogout,
 };
 
-const connector = connect(
-  mapStates,
-  mapDispatch
-);
+const connector = connect(mapStates, mapDispatch);
 
 export const SiteNav = connector(SiteNavContent);

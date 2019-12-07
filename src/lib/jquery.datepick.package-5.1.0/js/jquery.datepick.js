@@ -87,7 +87,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
       commandClass: 'datepick-cmd',
       commandButtonClass: '',
       commandLinkClass: '',
-      disabledClass: 'datepick-disabled'
+      disabledClass: 'datepick-disabled',
     },
 
     /** Command actions that may be added to a layout by name.
@@ -160,7 +160,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         },
         action: function(inst) {
           plugin.changeMonth(this, -inst.options.monthsToStep);
-        }
+        },
       },
       prevJump: {
         text: 'prevJumpText',
@@ -204,7 +204,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         },
         action: function(inst) {
           plugin.changeMonth(this, -inst.options.monthsToJump);
-        }
+        },
       },
       next: {
         text: 'nextText',
@@ -244,7 +244,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         },
         action: function(inst) {
           plugin.changeMonth(this, inst.options.monthsToStep);
-        }
+        },
       },
       nextJump: {
         text: 'nextJumpText',
@@ -284,7 +284,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         },
         action: function(inst) {
           plugin.changeMonth(this, inst.options.monthsToJump);
-        }
+        },
       },
       current: {
         text: 'currentText',
@@ -305,7 +305,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         action: function(inst) {
           var curDate = inst.selectedDates[0] || plugin.today();
           plugin.showMonth(this, curDate.getFullYear(), curDate.getMonth() + 1);
-        }
+        },
       },
       today: {
         text: 'todayText',
@@ -324,7 +324,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         },
         action: function() {
           plugin.showMonth(this);
-        }
+        },
       },
       clear: {
         text: 'clearText',
@@ -338,7 +338,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         },
         action: function() {
           plugin.clear(this);
-        }
+        },
       },
       close: {
         text: 'closeText',
@@ -352,7 +352,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         },
         action: function() {
           plugin.hide(this);
-        }
+        },
       },
       prevWeek: {
         text: 'prevWeekText',
@@ -371,7 +371,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         },
         action: function() {
           plugin.changeDay(this, -7);
-        }
+        },
       },
       prevDay: {
         text: 'prevDayText',
@@ -390,7 +390,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         },
         action: function() {
           plugin.changeDay(this, -1);
-        }
+        },
       },
       nextDay: {
         text: 'nextDayText',
@@ -409,7 +409,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         },
         action: function() {
           plugin.changeDay(this, 1);
-        }
+        },
       },
       nextWeek: {
         text: 'nextWeekText',
@@ -428,8 +428,8 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         },
         action: function() {
           plugin.changeDay(this, 7);
-        }
-      }
+        },
+      },
     },
 
     /** Determine whether a {@linkcode module:Datepick~commands|command} is enabled.
@@ -659,7 +659,7 @@ monthsOffset: function(date) { // Always start on the quarter
       altFormat: null,
       constrainInput: true,
       commandsAsDateFormat: false,
-      commands: {} // this.commands
+      commands: {}, // this.commands
     },
 
     /** Localisations for the plugin.
@@ -719,7 +719,7 @@ monthsOffset: function(date) { // Always start on the quarter
           'September',
           'October',
           'November',
-          'December'
+          'December',
         ],
         monthNamesShort: [
           'Jan',
@@ -733,7 +733,7 @@ monthsOffset: function(date) { // Always start on the quarter
           'Sep',
           'Oct',
           'Nov',
-          'Dec'
+          'Dec',
         ],
         dayNames: [
           'Sunday',
@@ -742,7 +742,7 @@ monthsOffset: function(date) { // Always start on the quarter
           'Wednesday',
           'Thursday',
           'Friday',
-          'Saturday'
+          'Saturday',
         ],
         dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         dayNamesMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
@@ -773,8 +773,8 @@ monthsOffset: function(date) { // Always start on the quarter
         weekStatus: 'Week of the year',
         dayStatus: 'Select DD, M d, yyyy',
         defaultStatus: 'Select a date',
-        isRTL: false
-      }
+        isRTL: false,
+      },
     },
 
     _disabled: [],
@@ -1409,9 +1409,9 @@ $.datepick.newDate(2014, 12, 25) */
             monthNamesShort: this.options.monthNamesShort,
             monthNames: this.options.monthNames,
             calculateWeek: this.options.calculateWeek,
-            shortYearCutoff: this.options.shortYearCutoff
+            shortYearCutoff: this.options.shortYearCutoff,
           };
-        }
+        },
       };
     },
 
@@ -1451,7 +1451,7 @@ $.datepick.newDate(2014, 12, 25) */
           {
             defaultDate: discardDate('defaultDate'),
             minDate: discardDate('minDate'),
-            maxDate: discardDate('maxDate')
+            maxDate: discardDate('maxDate'),
           },
           options
         );
@@ -1819,7 +1819,7 @@ $.datepick.newDate(2014, 12, 25) */
           ) {
             inst.options.onChangeMonthYear.apply(elem[0], [
               inst.drawDate.getFullYear(),
-              inst.drawDate.getMonth() + 1
+              inst.drawDate.getMonth() + 1,
             ]);
           }
         }
@@ -1836,7 +1836,7 @@ $.datepick.newDate(2014, 12, 25) */
                 display: hidden ? 'none' : 'static',
                 position: 'absolute',
                 left: elem.offset().left,
-                top: elem.offset().top + elem.outerHeight()
+                top: elem.offset().top + elem.outerHeight(),
               })
               .appendTo($(inst.options.popupContainer || 'body'));
             if ($.fn.mousewheel) {
@@ -1901,7 +1901,7 @@ $.datepick.newDate(2014, 12, 25) */
       };
       return [
         parseFloat(convert(elem.css('border-left-width'))),
-        parseFloat(convert(elem.css('border-top-width')))
+        parseFloat(convert(elem.css('border-top-width'))),
       ];
     },
 
@@ -1958,13 +1958,13 @@ $.datepick.newDate(2014, 12, 25) */
       } else if (alignment === 'top') {
         offset = {
           left: inst.options.isRTL || tooWide ? alignR : alignL,
-          top: above
+          top: above,
         };
       } else {
         // bottom
         offset = {
           left: inst.options.isRTL || tooWide ? alignR : alignL,
-          top: tooHigh ? above : below
+          top: tooHigh ? above : below,
         };
       }
       offset.left = Math.max(isFixed ? 0 : scrollX, offset.left);
@@ -2709,7 +2709,7 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
               left: this.offsetLeft,
               top: this.offsetTop,
               width: this.offsetWidth,
-              height: this.offsetHeight
+              height: this.offsetHeight,
             })
             .show()
             .focus();
@@ -2850,7 +2850,7 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
             ? {}
             : inst.options.onDate.apply(elem, [
                 drawDate,
-                drawDate.getMonth() + 1 === month
+                drawDate.getMonth() + 1 === month,
               ]);
           var selectable =
             (selectOtherMonths || drawDate.getMonth() + 1 === month) &&
@@ -3158,7 +3158,7 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
         text = text.replace(matches[0], inst.options[matches[1]]);
       }
       return text;
-    }
+    },
   });
 
   var plugin = $.datepick; // Singleton instance

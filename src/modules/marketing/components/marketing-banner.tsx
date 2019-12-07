@@ -4,7 +4,7 @@ import {
   Carousel,
   CarouselIndicators,
   Slide,
-  Slides
+  Slides,
 } from '../../../components/carousel';
 import { RootState } from '../../../type';
 import { loadBanners } from '../marketing.actions';
@@ -50,16 +50,13 @@ class MarketingBannerView extends React.Component<ReduxProps> {
 
 const mapState = (state: RootState) => ({
   banners: selectBanners(state),
-  noBanner: selectNoBanner(state)
+  noBanner: selectNoBanner(state),
 });
 
 const mapDispatch = {
-  loadBanners
+  loadBanners,
 };
 
-const connector = connect(
-  mapState,
-  mapDispatch
-);
+const connector = connect(mapState, mapDispatch);
 
 export const MarketingBanner = connector(MarketingBannerView);

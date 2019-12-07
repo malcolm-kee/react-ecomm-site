@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { MarketingBanner, MarketingState } from './marketing.type';
 
 const DEFAULT_STATE: MarketingState = {
-  banners: []
+  banners: [],
 };
 
 const marketingSlice = createSlice({
@@ -11,8 +11,8 @@ const marketingSlice = createSlice({
   reducers: {
     setBanners: (state, { payload }: PayloadAction<MarketingBanner[]>) => {
       state.banners = payload;
-    }
-  }
+    },
+  },
 });
 
 export const marketingReducer = marketingSlice.reducer;

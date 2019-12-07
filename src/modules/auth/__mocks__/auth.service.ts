@@ -7,6 +7,6 @@ export function login({ email }: any) {
     name: 'Malcolm Kee',
     email: email,
     joinedDate: 1555820103947,
-    id: 1552750775326
+    id: 1552750775326,
   });
 }

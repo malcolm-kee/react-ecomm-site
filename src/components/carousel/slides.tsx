@@ -16,7 +16,7 @@ export function Slides({ children }: SlidesProps) {
     direction,
     setTotalSlides,
     pause,
-    unPause
+    unPause,
   } = React.useContext(CarouselContext);
 
   const totalSlides = React.Children.count(children);
@@ -37,7 +37,7 @@ export function Slides({ children }: SlidesProps) {
           unPause,
           direction,
           isActive: index === activeIndex,
-          'data-testid': `slide-${index}`
+          'data-testid': `slide-${index}`,
         });
       })}
     </div>

@@ -16,7 +16,7 @@ type ReduxProps = ConnectedProps<typeof connector> & { productId: number };
 function ProductCommentFormContent({
   productId,
   submitForm,
-  user
+  user,
 }: ReduxProps) {
   const [submitting, setSubmitting] = React.useState(false);
   const [userName, setUserName] = React.useState((user && user.name) || '');
@@ -29,7 +29,7 @@ function ProductCommentFormContent({
       userName,
       content,
       productId,
-      createdOn: Date.now()
+      createdOn: Date.now(),
     }).then(() => {
       setSubmitting(false);
       setContent('');
@@ -75,16 +75,13 @@ function ProductCommentFormContent({
 }
 
 const mapStates = (state: RootState) => ({
-  user: selectUser(state)
+  user: selectUser(state),
 });
 
 const mapDispatch = {
-  submitForm: submitAddProductComment
+  submitForm: submitAddProductComment,
 };
 
-const connector = connect(
-  mapStates,
-  mapDispatch
-);
+const connector = connect(mapStates, mapDispatch);
 
 export const ProductCommentForm = connector(ProductCommentFormContent);

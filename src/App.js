@@ -40,12 +40,9 @@ function AppContainer({ initAuthStatus }) {
 }
 
 const mapDispatch = {
-  initAuthStatus
+  initAuthStatus,
 };
 
-const App = connect(
-  null,
-  mapDispatch
-)(AppContainer);
+const App = connect(null, mapDispatch)(AppContainer);
 
 export default App;

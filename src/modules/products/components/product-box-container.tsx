@@ -14,7 +14,7 @@ type ReduxProps = ConnectedProps<typeof connector>;
 function ProductBoxContainerContent({
   productId,
   productDetails,
-  loadDetails
+  loadDetails,
 }: ProductBoxContainerProps & ReduxProps) {
   React.useEffect(() => {
     if (!productDetails) {
@@ -26,19 +26,16 @@ function ProductBoxContainerContent({
 }
 
 const mapStates = (state: RootState, ownProps: ProductBoxContainerProps) => ({
-  productDetails: selectProduct(state, ownProps.productId)
+  productDetails: selectProduct(state, ownProps.productId),
 });
 
 const mapDispatch = (
   dispatch: ThunkDispatch,
   ownProps: ProductBoxContainerProps
 ) => ({
-  loadDetails: () => dispatch(loadProductDetail(ownProps.productId))
+  loadDetails: () => dispatch(loadProductDetail(ownProps.productId)),
 });
 
-const connector = connect(
-  mapStates,
-  mapDispatch
-);
+const connector = connect(mapStates, mapDispatch);
 
 export const ProductBoxContainer = connector(ProductBoxContainerContent);

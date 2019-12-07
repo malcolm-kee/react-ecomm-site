@@ -17,7 +17,7 @@ const carouselSlice = createSlice({
   name: 'carousel',
   initialState: {
     previousIndex: null,
-    activeIndex: 0
+    activeIndex: 0,
   } as CarouselState,
   reducers: {
     next: state => {
@@ -31,8 +31,8 @@ const carouselSlice = createSlice({
     override: (state, action: PayloadAction<number>) => {
       state.previousIndex = state.activeIndex;
       state.activeIndex = action.payload;
-    }
-  }
+    },
+  },
 });
 
 const carouselReducer = carouselSlice.reducer;
@@ -69,7 +69,7 @@ export const useCarouselState = (
     carouselReducer,
     {
       previousIndex: null,
-      activeIndex: initialSlide
+      activeIndex: initialSlide,
     }
   );
   const [totalSlides, setTotalSlides] = React.useState(0);
@@ -107,7 +107,7 @@ export const useCarouselState = (
         resetRef.current();
       },
       pause: () => setIsPause(true),
-      unPause: () => setIsPause(false)
+      unPause: () => setIsPause(false),
     }),
     [activeIndex, previousIndex, setIsPause, totalSlides, setTotalSlides]
   );

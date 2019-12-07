@@ -12,7 +12,7 @@ export const initAuthStatus = (): ThunkAction<void> => dispatch => {
 
 export const register = ({
   email,
-  name
+  name,
 }: {
   email: string;
   name: string;
@@ -22,7 +22,7 @@ export const register = ({
   return authService
     .register({
       email,
-      name
+      name,
     })
     .then(user => {
       dispatch(authActions.login(user));
