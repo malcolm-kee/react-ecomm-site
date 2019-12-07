@@ -7,7 +7,7 @@ const toRightTransitions = {
   enterDone: 'item active',
   exit: 'item active left',
   exitActive: 'item',
-  exitDone: 'item'
+  exitDone: 'item',
 };
 
 const toLeftTransitions = {
@@ -16,7 +16,7 @@ const toLeftTransitions = {
   enterDone: 'item active',
   exit: 'item active right',
   exitActive: 'item',
-  exitDone: 'item'
+  exitDone: 'item',
 };
 
 /**

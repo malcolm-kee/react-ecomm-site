@@ -7,5 +7,5 @@ export const PanelFooter = ({ children, className }) => {
 };
 
 PanelFooter.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
 };

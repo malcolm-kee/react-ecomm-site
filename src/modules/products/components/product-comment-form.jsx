@@ -20,7 +20,7 @@ function ProductCommentFormContent({ productId, submitForm, user }) {
       userName,
       content,
       productId,
-      createdOn: Date.now()
+      createdOn: Date.now(),
     }).then(() => {
       setSubmitting(false);
       setContent('');
@@ -67,7 +67,7 @@ function ProductCommentFormContent({ productId, submitForm, user }) {
 
 export const ProductCommentForm = inject(({ auth, product }) => ({
   auth,
-  product
+  product,
 }))(
   observer(function ProductCommentForm({
     auth: { user },

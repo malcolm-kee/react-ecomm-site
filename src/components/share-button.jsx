@@ -22,7 +22,7 @@ export const ShareButton = ({
     if (isShareSupported()) {
       share({
         url: urlToShare,
-        title: titleToShare
+        title: titleToShare,
       });
     } else {
       copyText(urlToShare);
@@ -50,9 +50,9 @@ ShareButton.propTypes = {
     'info',
     'warning',
     'danger',
-    'link'
+    'link',
   ]),
   label: PropTypes.node,
   /** title of the Share Popup. Note that this has no effect when we fallback to copy */
-  titleToShare: PropTypes.string
+  titleToShare: PropTypes.string,
 };

@@ -17,7 +17,7 @@ Panel.propTypes = {
     'success',
     'info',
     'warning',
-    'danger'
+    'danger',
   ]),
-  className: PropTypes.string
+  className: PropTypes.string,
 };

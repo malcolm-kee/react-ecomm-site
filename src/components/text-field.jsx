@@ -29,5 +29,5 @@ export const TextField = React.forwardRef(function TextField(
 TextField.propTypes = {
   status: FieldStatus,
   helpText: PropTypes.node,
-  label: PropTypes.node
+  label: PropTypes.node,
 };

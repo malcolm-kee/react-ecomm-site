@@ -29,5 +29,5 @@ export const SelectField = React.forwardRef(function SelectField(
 SelectField.propTypes = {
   status: FieldStatus,
   helpText: PropTypes.node,
-  label: PropTypes.node
+  label: PropTypes.node,
 };

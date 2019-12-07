@@ -40,7 +40,7 @@ function FormContent({ pending, error, login }) {
 }
 
 function LoginFormContent({
-  auth: { isAuthenticated, pending, error, login, logout }
+  auth: { isAuthenticated, pending, error, login, logout },
 }) {
   if (isAuthenticated) {
     return (

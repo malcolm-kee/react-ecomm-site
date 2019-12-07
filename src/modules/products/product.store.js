@@ -81,5 +81,5 @@ decorate(ProductStore, {
   loadingProducts: observable,
   loadProducts: action,
   loadProductDetail: action,
-  loadProductComments: action
+  loadProductComments: action,
 });

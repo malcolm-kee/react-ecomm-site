@@ -11,19 +11,19 @@ function carouselReducer(state, action) {
     case 'next':
       return {
         previousIndex: state.activeIndex,
-        activeIndex: state.activeIndex + 1
+        activeIndex: state.activeIndex + 1,
       };
 
     case 'prev':
       return {
         previousIndex: state.activeIndex,
-        activeIndex: state.activeIndex - 1
+        activeIndex: state.activeIndex - 1,
       };
 
     case 'override':
       return {
         previousIndex: state.activeIndex,
-        activeIndex: action.payload
+        activeIndex: action.payload,
       };
 
     default:
@@ -34,7 +34,7 @@ function carouselReducer(state, action) {
 const carouselActions = {
   next: () => ({ type: 'next' }),
   prev: () => ({ type: 'prev' }),
-  override: newIndex => ({ type: 'override', payload: newIndex })
+  override: newIndex => ({ type: 'override', payload: newIndex }),
 };
 
 function getTransitionDirection(newIndex, previousIndex, totalSlides) {
@@ -59,7 +59,7 @@ export const useCarouselState = (interval, initialSlide) => {
     carouselReducer,
     {
       previousIndex: null,
-      activeIndex: initialSlide
+      activeIndex: initialSlide,
     }
   );
   const [totalSlides, setTotalSlides] = React.useState(0);
@@ -97,7 +97,7 @@ export const useCarouselState = (interval, initialSlide) => {
         resetRef.current();
       },
       pause: () => setIsPause(true),
-      unPause: () => setIsPause(false)
+      unPause: () => setIsPause(false),
     }),
     [activeIndex, previousIndex, setIsPause, totalSlides, setTotalSlides]
   );

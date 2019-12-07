@@ -7,5 +7,5 @@ export const PanelBody = ({ children, className }) => {
 };
 
 PanelBody.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
 };

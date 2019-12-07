@@ -11,7 +11,7 @@ function MainPageContent({
   loadProducts,
   products,
   hasMoreProduct,
-  isLoading
+  isLoading,
 }) {
   React.useEffect(() => {
     if (products.length === 0) {
@@ -60,7 +60,7 @@ function MainPageContent({
 
 export const MainPage = inject('product')(
   observer(function MainPage({
-    product: { products, hasMore, loadingProducts, loadProducts }
+    product: { products, hasMore, loadingProducts, loadProducts },
   }) {
     return (
       <MainPageContent

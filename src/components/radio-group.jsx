@@ -13,7 +13,7 @@ export const RadioGroup = ({
   onChangeValue,
   name,
   options = [],
-  id
+  id,
 }) => {
   const [defaultId] = React.useState(() => getId());
   const usedId = isDefined(id) ? id : name || defaultId;
@@ -54,7 +54,7 @@ RadioGroup.propTypes = {
     PropsTypes.string,
     PropsTypes.bool,
     PropsTypes.number,
-    PropsTypes.object
+    PropsTypes.object,
   ]),
   onChangeValue: PropsTypes.func.isRequired,
   options: PropsTypes.arrayOf(
@@ -64,13 +64,13 @@ RadioGroup.propTypes = {
         PropsTypes.string,
         PropsTypes.bool,
         PropsTypes.number,
-        PropsTypes.object
-      ]).isRequired
+        PropsTypes.object,
+      ]).isRequired,
     })
   ).isRequired,
   label: PropsTypes.string,
   /**
    * name to be for all the radio inputs
    */
-  name: PropsTypes.string
+  name: PropsTypes.string,
 };

@@ -1,7 +1,7 @@
 import {
   createHistory,
   createMemorySource,
-  LocationProvider
+  LocationProvider,
 } from '@reach/router';
 import { render } from '@testing-library/react';
 import { Provider } from 'mobx-react';
@@ -37,6 +37,6 @@ export function renderWithStateMgmt(
           {ui}
         </Provider>
       </LocationProvider>
-    )
+    ),
   };
 }

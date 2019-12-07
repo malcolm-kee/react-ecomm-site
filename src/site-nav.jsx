@@ -39,7 +39,7 @@ function SiteNavContent({ isAuthenticated, pending, user, logout }) {
 
 export const SiteNav = inject('auth')(
   observer(function SiteNav({
-    auth: { isAuthenticated, pending, user, logout }
+    auth: { isAuthenticated, pending, user, logout },
   }) {
     return (
       <SiteNavContent

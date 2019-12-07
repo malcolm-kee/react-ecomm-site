@@ -21,5 +21,5 @@ export class MarketingStore {
 decorate(MarketingStore, {
   banners: observable.shallow,
   noBanner: computed,
-  loadBanners: action
+  loadBanners: action,
 });

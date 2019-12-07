@@ -28,7 +28,7 @@ function useQty(productId) {
   return {
     qty,
     increment: () => setQty(q => q + 1),
-    decrement: () => setQty(q => q - 1)
+    decrement: () => setQty(q => q - 1),
   };
 }
 
@@ -37,7 +37,7 @@ function ProductPageContent({
   details,
   loadDetails,
   addToCart,
-  location
+  location,
 }) {
   React.useEffect(() => {
     if (!details) {
@@ -148,12 +148,15 @@ function ProductPageContent({
   );
 }
 
-export const ProductPage = inject('product', 'cart')(
+export const ProductPage = inject(
+  'product',
+  'cart'
+)(
   observer(function ProductPage({
     product: { loadProductDetail, getProduct },
     cart: { addItem },
     productId: productIdVal,
-    location
+    location,
   }) {
     const productId = Number(productIdVal);
     const product = getProduct(productId);
@@ -165,7 +168,7 @@ export const ProductPage = inject('product', 'cart')(
         addToCart={qty => {
           toast('Added to Cart', {
             type: 'success',
-            autoClose: 2000
+            autoClose: 2000,
           });
           addItem(productId, qty);
         }}

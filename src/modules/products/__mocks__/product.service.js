@@ -13,8 +13,8 @@ const PRODUCT_DB = [
       thumbStandard: 'i-phone-x.thumbStandard.188x188.jpeg',
       thumbWebp: 'i-phone-x.thumbWebp.188x188.webp',
       blur: 'i-phone-x.blur.600x600.jpeg',
-      thumbBlur: 'i-phone-x.thumbBlur.188x188.jpeg'
-    }
+      thumbBlur: 'i-phone-x.thumbBlur.188x188.jpeg',
+    },
   },
   {
     id: 2,
@@ -30,8 +30,8 @@ const PRODUCT_DB = [
       thumbStandard: 'samsung-galaxy-s10.thumbStandard.188x188.jpeg',
       thumbWebp: 'samsung-galaxy-s10.thumbWebp.188x188.webp',
       blur: 'samsung-galaxy-s10.blur.600x600.jpeg',
-      thumbBlur: 'samsung-galaxy-s10.thumbBlur.188x188.jpeg'
-    }
+      thumbBlur: 'samsung-galaxy-s10.thumbBlur.188x188.jpeg',
+    },
   },
   {
     id: 3,
@@ -48,8 +48,8 @@ const PRODUCT_DB = [
         'daniel-wellington-classic-cambridge.thumbStandard.188x188.jpeg',
       thumbWebp: 'daniel-wellington-classic-cambridge.thumbWebp.188x188.webp',
       blur: 'daniel-wellington-classic-cambridge.blur.600x600.jpeg',
-      thumbBlur: 'daniel-wellington-classic-cambridge.thumbBlur.188x188.jpeg'
-    }
+      thumbBlur: 'daniel-wellington-classic-cambridge.thumbBlur.188x188.jpeg',
+    },
   },
   {
     id: 4,
@@ -59,7 +59,7 @@ const PRODUCT_DB = [
     department: 'Food',
     price: '2.50',
     related: [],
-    images: null
+    images: null,
   },
   {
     id: 1552750775126,
@@ -75,8 +75,8 @@ const PRODUCT_DB = [
       thumbStandard: 'generic-concrete-car.thumbStandard.188x188.jpeg',
       thumbWebp: 'generic-concrete-car.thumbWebp.188x188.webp',
       blur: 'generic-concrete-car.blur.600x600.jpeg',
-      thumbBlur: 'generic-concrete-car.thumbBlur.188x188.jpeg'
-    }
+      thumbBlur: 'generic-concrete-car.thumbBlur.188x188.jpeg',
+    },
   },
   {
     id: 1552750775127,
@@ -92,8 +92,8 @@ const PRODUCT_DB = [
       thumbStandard: 'incredible-granite-sausages.thumbStandard.188x188.jpeg',
       thumbWebp: 'incredible-granite-sausages.thumbWebp.188x188.webp',
       blur: 'incredible-granite-sausages.blur.600x600.jpeg',
-      thumbBlur: 'incredible-granite-sausages.thumbBlur.188x188.jpeg'
-    }
+      thumbBlur: 'incredible-granite-sausages.thumbBlur.188x188.jpeg',
+    },
   },
   {
     id: 1552750775128,
@@ -109,8 +109,8 @@ const PRODUCT_DB = [
       thumbStandard: 'fantastic-plastic-mouse.thumbStandard.188x188.jpeg',
       thumbWebp: 'fantastic-plastic-mouse.thumbWebp.188x188.webp',
       blur: 'fantastic-plastic-mouse.blur.600x600.jpeg',
-      thumbBlur: 'fantastic-plastic-mouse.thumbBlur.188x188.jpeg'
-    }
+      thumbBlur: 'fantastic-plastic-mouse.thumbBlur.188x188.jpeg',
+    },
   },
   {
     id: 1552750775129,
@@ -126,8 +126,8 @@ const PRODUCT_DB = [
       thumbStandard: 'small-cotton-mouse.thumbStandard.188x188.jpeg',
       thumbWebp: 'small-cotton-mouse.thumbWebp.188x188.webp',
       blur: 'small-cotton-mouse.blur.600x600.jpeg',
-      thumbBlur: 'small-cotton-mouse.thumbBlur.188x188.jpeg'
-    }
+      thumbBlur: 'small-cotton-mouse.thumbBlur.188x188.jpeg',
+    },
   },
   {
     id: 1552750775130,
@@ -143,8 +143,8 @@ const PRODUCT_DB = [
       thumbStandard: 'tasty-concrete-hat.thumbStandard.188x188.jpeg',
       thumbWebp: 'tasty-concrete-hat.thumbWebp.188x188.webp',
       blur: 'tasty-concrete-hat.blur.600x600.jpeg',
-      thumbBlur: 'tasty-concrete-hat.thumbBlur.188x188.jpeg'
-    }
+      thumbBlur: 'tasty-concrete-hat.thumbBlur.188x188.jpeg',
+    },
   },
   {
     id: 1552750775131,
@@ -160,8 +160,8 @@ const PRODUCT_DB = [
       thumbStandard: 'awesome-plastic-keyboard.thumbStandard.188x188.jpeg',
       thumbWebp: 'awesome-plastic-keyboard.thumbWebp.188x188.webp',
       blur: 'awesome-plastic-keyboard.blur.600x600.jpeg',
-      thumbBlur: 'awesome-plastic-keyboard.thumbBlur.188x188.jpeg'
-    }
+      thumbBlur: 'awesome-plastic-keyboard.thumbBlur.188x188.jpeg',
+    },
   },
   {
     id: 1552750775132,
@@ -177,8 +177,8 @@ const PRODUCT_DB = [
       thumbStandard: 'rustic-concrete-bacon.thumbStandard.188x188.jpeg',
       thumbWebp: 'rustic-concrete-bacon.thumbWebp.188x188.webp',
       blur: 'rustic-concrete-bacon.blur.600x600.jpeg',
-      thumbBlur: 'rustic-concrete-bacon.thumbBlur.188x188.jpeg'
-    }
+      thumbBlur: 'rustic-concrete-bacon.thumbBlur.188x188.jpeg',
+    },
   },
   {
     id: 1552750775133,
@@ -194,8 +194,8 @@ const PRODUCT_DB = [
       thumbStandard: 'refined-fresh-chips.thumbStandard.188x188.jpeg',
       thumbWebp: 'refined-fresh-chips.thumbWebp.188x188.webp',
       blur: 'refined-fresh-chips.blur.600x600.jpeg',
-      thumbBlur: 'refined-fresh-chips.thumbBlur.188x188.jpeg'
-    }
+      thumbBlur: 'refined-fresh-chips.thumbBlur.188x188.jpeg',
+    },
   },
   {
     id: 1552750775152,
@@ -211,8 +211,8 @@ const PRODUCT_DB = [
       thumbStandard: 'sleek-metal-car.thumbStandard.188x188.jpeg',
       thumbWebp: 'sleek-metal-car.thumbWebp.188x188.webp',
       blur: 'sleek-metal-car.blur.600x600.jpeg',
-      thumbBlur: 'sleek-metal-car.thumbBlur.188x188.jpeg'
-    }
+      thumbBlur: 'sleek-metal-car.thumbBlur.188x188.jpeg',
+    },
   },
   {
     id: 1552750775200,
@@ -228,8 +228,8 @@ const PRODUCT_DB = [
       thumbStandard: 'fantastic-plastic-hat.thumbStandard.188x188.jpeg',
       thumbWebp: 'fantastic-plastic-hat.thumbWebp.188x188.webp',
       blur: 'fantastic-plastic-hat.blur.600x600.jpeg',
-      thumbBlur: 'fantastic-plastic-hat.thumbBlur.188x188.jpeg'
-    }
+      thumbBlur: 'fantastic-plastic-hat.thumbBlur.188x188.jpeg',
+    },
   },
   {
     id: 1552750775171,
@@ -245,9 +245,9 @@ const PRODUCT_DB = [
       thumbStandard: 'practical-frozen-gloves.thumbStandard.188x188.jpeg',
       thumbWebp: 'practical-frozen-gloves.thumbWebp.188x188.webp',
       blur: 'practical-frozen-gloves.blur.600x600.jpeg',
-      thumbBlur: 'practical-frozen-gloves.thumbBlur.188x188.jpeg'
-    }
-  }
+      thumbBlur: 'practical-frozen-gloves.thumbBlur.188x188.jpeg',
+    },
+  },
 ];
 
 const COMMENT_DB = [
@@ -257,7 +257,7 @@ const COMMENT_DB = [
     userId: 1552750775317,
     userName: 'Skye Watsica',
     content: 'Repudiandae quos occaecati dignissimos.',
-    createdOn: 1549749247748
+    createdOn: 1549749247748,
   },
   {
     id: 1552750775329,
@@ -265,7 +265,7 @@ const COMMENT_DB = [
     userId: 1552750775232,
     userName: "Shaina O'Kon",
     content: 'Soluta ipsam vel.',
-    createdOn: 1551735807637
+    createdOn: 1551735807637,
   },
   {
     id: 1552750775330,
@@ -273,8 +273,8 @@ const COMMENT_DB = [
     userId: 1552750775317,
     userName: 'Skye Watsica',
     content: 'Hic alias quam corrupti velit.',
-    createdOn: 1530457269057
-  }
+    createdOn: 1530457269057,
+  },
 ];
 
 export function getProducts(page, limit = 12) {

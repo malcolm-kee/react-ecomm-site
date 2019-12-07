@@ -9,7 +9,7 @@ jest.mock('./modules/products/product.service');
 
 function loadApp({ url = '/' } = {}) {
   const renderResult = renderWithStateMgmt(<App />, {
-    route: url
+    route: url,
   });
 
   const {
@@ -17,7 +17,7 @@ function loadApp({ url = '/' } = {}) {
     getByTestId,
     queryByTestId,
     getByLabelText,
-    container
+    container,
   } = renderResult;
 
   const getAddToCartBtn = () => getByText('Add To Cart');
@@ -36,15 +36,15 @@ function loadApp({ url = '/' } = {}) {
     removeCartItem: id => fireEvent.click(getByTestId(`remove-${id}`)),
     inputName: name =>
       fireEvent.change(getByLabelText('Name'), {
-        target: { value: name }
+        target: { value: name },
       }),
     inputEmail: email =>
       fireEvent.change(getByLabelText('Email'), {
-        target: { value: email }
+        target: { value: email },
       }),
     submitForm: () =>
       fireEvent.click(container.querySelector('button[type="submit"]')),
-    logout: () => fireEvent.click(getByText('Logout'))
+    logout: () => fireEvent.click(getByText('Logout')),
   };
 }
 
@@ -57,7 +57,7 @@ describe('<App />', () => {
 
   it('show page not found for invalid url', () => {
     const { getByText } = loadApp({
-      url: '/wulala-weird-url'
+      url: '/wulala-weird-url',
     });
 
     expect(getByText('Page Not Found')).not.toBeNull();
@@ -74,9 +74,9 @@ describe('<App />', () => {
       queryCartItem,
       addMoreCartItem,
       reduceCartItem,
-      removeCartItem
+      removeCartItem,
     } = loadApp({
-      url: '/product/1'
+      url: '/product/1',
     });
 
     await waitForProductPageFinishLoading();
@@ -117,9 +117,9 @@ describe('<App />', () => {
       waitForProductPageFinishLoading,
       inputEmail,
       submitForm,
-      logout
+      logout,
     } = loadApp({
-      url: '/login'
+      url: '/login',
     });
 
     await wait();
@@ -147,9 +147,9 @@ describe('<App />', () => {
       getByText,
       queryByText,
       waitForProductPageFinishLoading,
-      logout
+      logout,
     } = loadApp({
-      url: '/signup'
+      url: '/signup',
     });
 
     await wait();
@@ -180,9 +180,9 @@ describe('<App />', () => {
       inputName,
       submitForm,
       logout,
-      getByText
+      getByText,
     } = loadApp({
-      url: '/login'
+      url: '/login',
     });
 
     await wait();

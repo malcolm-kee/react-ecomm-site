@@ -9,7 +9,7 @@ import styles from './image.module.css';
  */
 export class Image extends React.Component {
   state = {
-    isLoading: true
+    isLoading: true,
   };
 
   onImageLoaded = () => {
@@ -80,5 +80,5 @@ Image.propTypes = {
   /**
    * Description for the image, important for accessibility
    */
-  alt: PropTypes.string.isRequired
+  alt: PropTypes.string.isRequired,
 };

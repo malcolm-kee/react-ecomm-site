@@ -4,7 +4,7 @@ import {
   Carousel,
   CarouselIndicators,
   Slide,
-  Slides
+  Slides,
 } from '../../../components/carousel';
 import { MarketingImage } from './marketing-image';
 
@@ -15,7 +15,7 @@ class MarketingBannerView extends React.Component {
 
   render() {
     const {
-      marketing: { banners, noBanner }
+      marketing: { banners, noBanner },
     } = this.props;
 
     if (noBanner) {

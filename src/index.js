@@ -9,7 +9,7 @@ import { MarketingStore } from './modules/marketing/marketing.store';
 import { ProductStore } from './modules/products/product.store';
 
 configure({
-  enforceActions: 'observed'
+  enforceActions: 'observed',
 });
 
 const authStore = new AuthStore();

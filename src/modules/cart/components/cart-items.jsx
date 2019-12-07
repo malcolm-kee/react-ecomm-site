@@ -7,7 +7,7 @@ const CartItem = React.lazy(() =>
 );
 
 function CartItemsContent({
-  cart: { items, isEmpty, removeItem, totalPrice }
+  cart: { items, isEmpty, removeItem, totalPrice },
 }) {
   return (
     <div className="cart-items">

@@ -4,13 +4,13 @@ test('pick', () => {
   const result = pick(
     {
       a: 'A',
-      b: 'B'
+      b: 'B',
     },
     ['a']
   );
 
   expect(result).toEqual({
-    a: 'A'
+    a: 'A',
   });
 });
 
@@ -20,12 +20,12 @@ test('omit', () => {
       {
         a: 'A',
         b: 'B',
-        three: 3
+        three: 3,
       },
       ['a']
     )
   ).toEqual({
     b: 'B',
-    three: 3
+    three: 3,
   });
 });

@@ -40,7 +40,7 @@ export const DateInput = ({
         if (onChangeValueRef.current) {
           onChangeValueRef.current(getDateValue(dates[0]));
         }
-      }
+      },
     });
   }, [dateFormat, getDateValue]);
 
@@ -84,5 +84,5 @@ DateInput.propTypes = {
    * @default 'dd-mm-yyyy';
    */
   dateFormat: PropTypes.string,
-  value: PropTypes.string
+  value: PropTypes.string,
 };

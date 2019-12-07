@@ -88,5 +88,5 @@ decorate(AuthStore, {
   login: action,
   updateProfile: action,
   handleError: action,
-  logout: action
+  logout: action,
 });

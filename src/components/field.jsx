@@ -29,5 +29,5 @@ Field.propTypes = {
    * validation status of the field, which will styles related component
    * within it, e.g. `Input` and `HelpText` accordingly
    */
-  status: FieldStatus
+  status: FieldStatus,
 };

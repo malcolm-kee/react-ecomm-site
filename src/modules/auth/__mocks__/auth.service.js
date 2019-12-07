@@ -7,7 +7,7 @@ export function login({ email }) {
     name: 'Malcolm Kee',
     email,
     joinedDate: 1555820103947,
-    id: 1552750775326
+    id: 1552750775326,
   });
 }
 
@@ -16,6 +16,6 @@ export function update({ id, name, email }) {
     id,
     name,
     email,
-    joinedDate: 1555820103947
+    joinedDate: 1555820103947,
   });
 }

@@ -40,5 +40,5 @@ Table.propTypes = {
   condensed: PropTypes.bool,
   hover: PropTypes.bool,
   responsive: PropTypes.bool,
-  striped: PropTypes.bool
+  striped: PropTypes.bool,
 };

@@ -17,14 +17,14 @@ describe('<ProductPage />', () => {
       getCommentNameInput: () => getByLabelText('Your Name'),
       inputCommentorName: name =>
         fireEvent.change(getByLabelText('Your Name'), {
-          target: { value: name }
+          target: { value: name },
         }),
       inputComment: comment =>
         fireEvent.change(getByLabelText('Your Review'), {
-          target: { value: comment }
+          target: { value: comment },
         }),
       submitComment: () =>
-        fireEvent.click(getByTestId('product-comment-submit-btn'))
+        fireEvent.click(getByTestId('product-comment-submit-btn')),
     };
   }
 
@@ -41,7 +41,7 @@ describe('<ProductPage />', () => {
       getCommentNameInput,
       inputCommentorName,
       inputComment,
-      submitComment
+      submitComment,
     } = loadProductPage();
 
     await waitForElement(() => getCommentNameInput());

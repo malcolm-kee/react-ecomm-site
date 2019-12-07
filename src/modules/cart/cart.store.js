@@ -56,7 +56,7 @@ decorate(CartStore, {
   removeItem: action,
   incrementItemQty: action,
   decrementItemQty: action,
-  clearCart: action
+  clearCart: action,
 });
 
 class CartItem {
@@ -115,5 +115,5 @@ decorate(CartItem, {
   totalPriceValue: computed,
   totalPrice: computed,
   incrementQty: action,
-  decrementQty: action
+  decrementQty: action,
 });

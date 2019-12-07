@@ -7,8 +7,8 @@ export function getProducts(page, limit = 12) {
   return fetchJson(PRODUCT_BASE_URL, {
     params: {
       _page: page,
-      _limit: limit
-    }
+      _limit: limit,
+    },
   });
 }
 
@@ -19,14 +19,14 @@ export function getProduct(productId) {
 export function getProductComments(productId) {
   return fetchJson(PRODUCT_COMMENT_BASE_URL, {
     params: {
-      productId
-    }
+      productId,
+    },
   });
 }
 
 export function createProductComment(comment) {
   return fetchJson(PRODUCT_COMMENT_BASE_URL, {
     method: 'POST',
-    data: comment
+    data: comment,
   });
 }

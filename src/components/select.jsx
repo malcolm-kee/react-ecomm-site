@@ -71,8 +71,8 @@ Select.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired
+      label: PropTypes.string.isRequired,
     })
   ),
-  size: PropTypes.oneOf(['sm', 'lg'])
+  size: PropTypes.oneOf(['sm', 'lg']),
 };

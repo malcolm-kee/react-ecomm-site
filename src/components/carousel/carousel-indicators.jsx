@@ -11,7 +11,7 @@ export function CarouselIndicators() {
     activeIndex,
     setActiveIndex,
     pause,
-    unPause
+    unPause,
   } = React.useContext(CarouselContext);
   const indicators = [];
 

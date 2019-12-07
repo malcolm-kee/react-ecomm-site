@@ -5,7 +5,7 @@ import { ProductBox } from './product-box';
 function ProductBoxContainerContent({
   productId,
   productDetails,
-  loadDetails
+  loadDetails,
 }) {
   React.useEffect(() => {
     if (!productDetails) {

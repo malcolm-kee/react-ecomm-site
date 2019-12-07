@@ -13,7 +13,7 @@ function RegisterFormContent({
   pending,
   error,
   register,
-  logout
+  logout,
 }) {
   const [email, setEmail] = React.useState('');
   const [name, setName] = React.useState('');
@@ -70,7 +70,7 @@ function RegisterFormContent({
 
 export const RegisterForm = inject('auth')(
   observer(function RegisterForm({
-    auth: { isAuthenticated, pending, error, register, logout }
+    auth: { isAuthenticated, pending, error, register, logout },
   }) {
     return (
       <RegisterFormContent

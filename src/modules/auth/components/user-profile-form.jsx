@@ -12,7 +12,7 @@ function UserProfileFormView({
   initialName,
   updateProfile,
   updating,
-  error
+  error,
 }) {
   const [email, setEmail] = React.useState(initialEmail);
   const [name, setName] = React.useState(initialName);
@@ -24,7 +24,7 @@ function UserProfileFormView({
     updateProfile({
       id,
       email,
-      name
+      name,
     }).then(() => setMsg('Profile Updated.'));
   }
 
@@ -55,7 +55,7 @@ function UserProfileFormView({
 
 export const UserProfileForm = inject('auth')(
   observer(function UserProfileForm({
-    auth: { user, updateProfile, pending, error }
+    auth: { user, updateProfile, pending, error },
   }) {
     return user ? (
       <UserProfileFormView

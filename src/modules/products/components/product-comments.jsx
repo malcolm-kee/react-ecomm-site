@@ -46,7 +46,7 @@ function ProductCommentsContent({ productId, loadComments, comments }) {
 export const ProductComments = inject('product')(
   observer(function ProductComments({
     product: { getProductComments, loadProductComments },
-    productId
+    productId,
   }) {
     return (
       <ProductCommentsContent
