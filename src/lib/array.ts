@@ -1,4 +1,4 @@
-export interface NestedArray<T> extends Array<NestedArray<T> | T> {}
+export type NestedArray<T> = Array<T | NestedArray<T>>;
 
 /**
  * @see https://github.com/jonschlinkert/arr-flatten

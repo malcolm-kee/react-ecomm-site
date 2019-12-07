@@ -10,12 +10,12 @@ test('flattenArray', () => {
     6,
     7,
   ]);
+  expect(flattenArray([1, [2], 3])).toEqual([1, 2, 3]);
   expect(
-    flattenArray<number>([1, [2], 3])
-  ).toEqual([1, 2, 3]);
-  expect(flattenArray([[[1]], { a: 'a' }, [[{ b: 'b' }]]])).toEqual([
-    1,
-    { a: 'a' },
-    { b: 'b' },
-  ]);
+    flattenArray<number | { a: string } | { b: string }>([
+      [[1]],
+      { a: 'a' },
+      [[{ b: 'b' }]],
+    ])
+  ).toEqual([1, { a: 'a' }, { b: 'b' }]);
 });
