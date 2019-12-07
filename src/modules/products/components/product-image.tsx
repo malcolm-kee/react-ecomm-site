@@ -16,16 +16,5 @@ export function ProductImage({
   blurUrl,
   ...props
 }: ProductImageProps) {
-  return (
-    <Image
-      src={getImageUrl(url)}
-      webpSrc={getImageUrl(webpUrl)}
-      blurSrc={blurUrl && getImageUrl(blurUrl)}
-      {...props}
-    />
-  );
-}
-
-function getImageUrl(url: string) {
-  return `https://ecomm-db.herokuapp.com/images/${url}`;
+  return <Image src={url} webpSrc={webpUrl} blurSrc={blurUrl} {...props} />;
 }
