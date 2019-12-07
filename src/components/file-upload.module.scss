@@ -1,0 +1,29 @@
+$space: 8px;
+
+.preview {
+  width: 40px;
+  height: 40px;
+}
+
+.fileList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.fileItem {
+  border-bottom: 1px solid #dedede;
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.fileRecord {
+  display: flex;
+  padding: $space;
+  align-items: center;
+}
+
+.fileRecordDetails {
+  flex: 1;
+  margin: 0 $space;
+}
