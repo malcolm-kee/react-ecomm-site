@@ -18,7 +18,7 @@ function CartLinkContent({ cartItemCount, className }) {
 }
 
 const mapStates = state => ({
-  cartItemCount: selectCartItemCount(state)
+  cartItemCount: selectCartItemCount(state),
 });
 
 export const CartLink = connect(mapStates)(CartLinkContent);

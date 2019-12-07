@@ -48,5 +48,5 @@ Textarea.propTypes = {
    * callback to be invoked when value change. The parameter will
    * be the value instead of the event object
    */
-  onChangeValue: PropTypes.func
+  onChangeValue: PropTypes.func,
 };

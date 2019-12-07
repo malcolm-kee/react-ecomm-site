@@ -26,7 +26,7 @@ export const CarouselBtn = ({ direction = 'next' }) => {
 };
 
 CarouselBtn.propTypes = {
-  direction: PropTypes.oneOf(['next', 'prev'])
+  direction: PropTypes.oneOf(['next', 'prev']),
 };
 
 export default CarouselBtn;

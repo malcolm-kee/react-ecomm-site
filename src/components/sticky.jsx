@@ -9,7 +9,7 @@ export const Sticky = ({
   children,
   offsetTop = 0,
   zIndex = 1,
-  debounce = 200
+  debounce = 200,
 }) => {
   const [isSticky, setIsSticky] = React.useState(false);
   const containerRef = React.useRef(null);
@@ -21,7 +21,7 @@ export const Sticky = ({
             position: 'fixed',
             top: offsetTop,
             zIndex,
-            ...(clientRect.current ? clientRect.current : undefined)
+            ...(clientRect.current ? clientRect.current : undefined),
           }
         : undefined,
     [isSticky, zIndex, offsetTop]
@@ -35,12 +35,12 @@ export const Sticky = ({
           y,
           width,
           height,
-          left
+          left,
         } = containerRef.current.getBoundingClientRect();
         clientRect.current = {
           width,
           left,
-          height
+          height,
         };
         if (y) {
           if (y < offsetTop && !isSticky) {
@@ -52,7 +52,7 @@ export const Sticky = ({
       }
     },
     {
-      wait: debounce
+      wait: debounce,
     }
   );
 
@@ -85,5 +85,5 @@ Sticky.propTypes = {
    *
    * @default 200
    */
-  debounce: PropTypes.number
+  debounce: PropTypes.number,
 };

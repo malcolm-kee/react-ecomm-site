@@ -4,7 +4,7 @@ import {
   Carousel,
   CarouselIndicators,
   Slide,
-  Slides
+  Slides,
 } from '../../../components/carousel';
 import { loadBanners } from '../marketing.actions';
 import { selectBanners, selectNoBanner } from '../marketing.selectors';
@@ -28,9 +28,7 @@ class MarketingBannerView extends React.Component {
           {banners.map(banner => (
             <Slide key={banner['500']}>
               <img
-                srcSet={`${banner['500']} 500w, ${banner['700']} 700w, ${
-                  banner['1242']
-                } 1242w`}
+                srcSet={`${banner['500']} 500w, ${banner['700']} 700w, ${banner['1242']} 1242w`}
                 src={banner['700']}
                 alt=""
               />
@@ -49,11 +47,11 @@ class MarketingBannerView extends React.Component {
 
 const mapState = state => ({
   banners: selectBanners(state),
-  noBanner: selectNoBanner(state)
+  noBanner: selectNoBanner(state),
 });
 
 const mapDispatch = {
-  loadBanners
+  loadBanners,
 };
 
 export const MarketingBanner = connect(

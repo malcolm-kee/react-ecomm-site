@@ -7,7 +7,7 @@ import { ProductBox } from './product-box';
 function ProductBoxContainerContent({
   productId,
   productDetails,
-  loadDetails
+  loadDetails,
 }) {
   React.useEffect(() => {
     if (!productDetails) {
@@ -19,11 +19,11 @@ function ProductBoxContainerContent({
 }
 
 const mapStates = (state, ownProps) => ({
-  productDetails: selectProduct(state, ownProps.productId)
+  productDetails: selectProduct(state, ownProps.productId),
 });
 
 const mapDispatch = (dispatch, ownProps) => ({
-  loadDetails: () => dispatch(loadProductDetail(ownProps.productId))
+  loadDetails: () => dispatch(loadProductDetail(ownProps.productId)),
 });
 
 export const ProductBoxContainer = connect(

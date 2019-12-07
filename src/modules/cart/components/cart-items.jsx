@@ -13,7 +13,7 @@ function CartItemsContent({
   itemCount,
   incrementItem,
   decrementItem,
-  removeItem
+  removeItem,
 }) {
   return (
     <div className="cart-items">
@@ -56,7 +56,7 @@ function CartItemsContent({
 
 const mapStates = state => ({
   cartItems: selectCartItems(state),
-  itemCount: selectCartItemCount(state)
+  itemCount: selectCartItemCount(state),
 });
 
 const mapDispatch = dispatch => ({
@@ -64,10 +64,7 @@ const mapDispatch = dispatch => ({
     dispatch(cartActions.incrementItemQty(itemIndex)),
   decrementItem: itemIndex => () =>
     dispatch(cartActions.decrementItemQty(itemIndex)),
-  removeItem: itemIndex => () => dispatch(cartActions.removeItem(itemIndex))
+  removeItem: itemIndex => () => dispatch(cartActions.removeItem(itemIndex)),
 });
 
-export const CartItems = connect(
-  mapStates,
-  mapDispatch
-)(CartItemsContent);
+export const CartItems = connect(mapStates, mapDispatch)(CartItemsContent);

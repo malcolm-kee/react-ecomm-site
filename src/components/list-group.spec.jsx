@@ -17,14 +17,14 @@ describe('ListGroup button variant', () => {
             onClick: () => callBack('malcolm'),
             variant: 'success',
             onFocus: onFocus,
-            ref: buttonRef
+            ref: buttonRef,
           },
           {
             label: 'Hello',
             onClick: () => callBack('hello'),
             variant: 'warning',
-            disabled: true
-          }
+            disabled: true,
+          },
         ]}
       />
     );

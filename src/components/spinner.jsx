@@ -31,5 +31,5 @@ Spinner.propTypes = {
    *
    * You want want to set this to avoid flashing spinner for quick network
    */
-  delayShow: PropTypes.number
+  delayShow: PropTypes.number,
 };

@@ -22,7 +22,7 @@ function ProductCommentFormContent({ productId, submitForm, user }) {
       userName,
       content,
       productId,
-      createdOn: Date.now()
+      createdOn: Date.now(),
     }).then(() => {
       setSubmitting(false);
       setContent('');
@@ -68,11 +68,11 @@ function ProductCommentFormContent({ productId, submitForm, user }) {
 }
 
 const mapStates = state => ({
-  user: selectUser(state)
+  user: selectUser(state),
 });
 
 const mapDispatch = {
-  submitForm: submitAddProductComment
+  submitForm: submitAddProductComment,
 };
 
 export const ProductCommentForm = connect(

@@ -5,8 +5,8 @@ const AUTH_BASE_URL = 'https://ecomm-db.herokuapp.com/users';
 export function register({ name, email }) {
   return fetchJson(AUTH_BASE_URL, {
     params: {
-      email
-    }
+      email,
+    },
   }).then(function checkEmailHasUsed(users) {
     if (users.length === 0) {
       return fetchJson(AUTH_BASE_URL, {
@@ -14,8 +14,8 @@ export function register({ name, email }) {
         data: {
           name,
           email,
-          joinedDate: Date.now()
-        }
+          joinedDate: Date.now(),
+        },
       });
     }
 
@@ -26,8 +26,8 @@ export function register({ name, email }) {
 export function login({ email }) {
   return fetchJson(AUTH_BASE_URL, {
     params: {
-      email
-    }
+      email,
+    },
   }).then(function checkUser(users) {
     if (users.length === 1) {
       return users[0];
@@ -41,7 +41,7 @@ export function update({ id, name, email }) {
     method: 'PATCH',
     data: {
       name,
-      email
-    }
+      email,
+    },
   });
 }

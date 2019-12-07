@@ -40,8 +40,8 @@ Button.propTypes = {
     'info',
     'warning',
     'danger',
-    'link'
+    'link',
   ]),
   size: PropTypes.oneOf(['lg', 'sm', 'xs']),
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };

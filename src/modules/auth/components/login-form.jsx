@@ -59,15 +59,12 @@ function LoginFormContent({ status, error, login, logout }) {
 
 const mapStates = state => ({
   status: selectAuthStatus(state),
-  error: selectAuthError(state)
+  error: selectAuthError(state),
 });
 
 const mapDispatch = {
   login: attemptLogin,
-  logout: attemptLogout
+  logout: attemptLogout,
 };
 
-export const LoginForm = connect(
-  mapStates,
-  mapDispatch
-)(LoginFormContent);
+export const LoginForm = connect(mapStates, mapDispatch)(LoginFormContent);

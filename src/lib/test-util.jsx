@@ -1,7 +1,7 @@
 import {
   createHistory,
   createMemorySource,
-  LocationProvider
+  LocationProvider,
 } from '@reach/router';
 import { configureStore } from '@reduxjs/toolkit';
 import { render } from '@testing-library/react';
@@ -14,11 +14,11 @@ export function renderWithStateMgmt(
   {
     actions = [],
     route = '/',
-    history = createHistory(createMemorySource(route))
+    history = createHistory(createMemorySource(route)),
   } = {}
 ) {
   const store = configureStore({
-    reducer: rootReducer
+    reducer: rootReducer,
   });
   actions.forEach(action => store.dispatch(action));
 
@@ -29,6 +29,6 @@ export function renderWithStateMgmt(
       <LocationProvider history={history}>
         <Provider store={store}>{ui}</Provider>
       </LocationProvider>
-    )
+    ),
   };
 }

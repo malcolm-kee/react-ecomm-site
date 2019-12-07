@@ -5,6 +5,6 @@ export const addProductToCart = (productId, qty) => (dispatch, getState) =>
   dispatch(
     cartActions.addItem({
       product: selectProduct(getState(), productId),
-      qty
+      qty,
     })
   );

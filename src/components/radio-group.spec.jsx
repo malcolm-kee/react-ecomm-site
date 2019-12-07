@@ -8,7 +8,7 @@ describe('RadioGroup', () => {
     const options = [
       { value: 'react', label: 'React' },
       { value: 'ng', label: 'Angular' },
-      { value: 'vue', label: 'Vue' }
+      { value: 'vue', label: 'Vue' },
     ];
 
     const { getByLabelText, rerender } = render(

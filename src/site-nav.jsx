@@ -40,14 +40,11 @@ function SiteNavContent({ status, user, logout }) {
 
 const mapStates = state => ({
   status: selectAuthStatus(state),
-  user: selectUser(state)
+  user: selectUser(state),
 });
 
 const mapDispatch = {
-  logout: attemptLogout
+  logout: attemptLogout,
 };
 
-export const SiteNav = connect(
-  mapStates,
-  mapDispatch
-)(SiteNavContent);
+export const SiteNav = connect(mapStates, mapDispatch)(SiteNavContent);

@@ -15,7 +15,7 @@ export function fetchWithRetry(
         data
           ? {
               ...init,
-              body: JSON.stringify(data)
+              body: JSON.stringify(data),
             }
           : init
       );
@@ -81,8 +81,8 @@ export function fetchJson(url, { headers, ...init } = {}) {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      ...headers
+      ...headers,
     },
-    ...init
+    ...init,
   }).then(response => response.json());
 }

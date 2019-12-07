@@ -47,5 +47,5 @@ Input.propTypes = {
    * be the value instead of the event object
    */
   onChangeValue: PropTypes.func,
-  size: PropTypes.oneOf(['sm', 'lg'])
+  size: PropTypes.oneOf(['sm', 'lg']),
 };

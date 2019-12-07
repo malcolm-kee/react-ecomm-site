@@ -69,12 +69,12 @@ function RegisterFormContent({ status, error, register, logout }) {
 
 const mapStates = state => ({
   status: selectAuthStatus(state),
-  error: selectAuthError(state)
+  error: selectAuthError(state),
 });
 
 const mapDispatch = {
   register,
-  logout: attemptLogout
+  logout: attemptLogout,
 };
 
 export const RegisterForm = connect(

@@ -31,7 +31,7 @@ function useQty(productId) {
   return {
     qty,
     increment: () => setQty(q => q + 1),
-    decrement: () => setQty(q => q - 1)
+    decrement: () => setQty(q => q - 1),
   };
 }
 
@@ -40,7 +40,7 @@ function ProductPageContent({
   details,
   loadDetails,
   addToCart,
-  location
+  location,
 }) {
   React.useEffect(() => {
     if (!details) {
@@ -152,7 +152,7 @@ function ProductPageContent({
 }
 
 const mapStates = (state, ownProps) => ({
-  details: selectProduct(state, ownProps.productId)
+  details: selectProduct(state, ownProps.productId),
 });
 
 const mapDispatch = (dispatch, ownProps) => ({
@@ -160,13 +160,10 @@ const mapDispatch = (dispatch, ownProps) => ({
   addToCart: qty => {
     toast('Added to Cart', {
       type: 'success',
-      autoClose: 2000
+      autoClose: 2000,
     });
     return dispatch(addProductToCart(ownProps.productId, qty));
-  }
+  },
 });
 
-export const ProductPage = connect(
-  mapStates,
-  mapDispatch
-)(ProductPageContent);
+export const ProductPage = connect(mapStates, mapDispatch)(ProductPageContent);

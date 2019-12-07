@@ -17,7 +17,7 @@ jest.mock('react-transition-group', () => {
           className:
             props.classNames && props.in
               ? props.classNames.enterDone
-              : props.classNames.exitDone
+              : props.classNames.exitDone,
         })
       )}
     </FakeTransition>
@@ -55,7 +55,7 @@ function renderCarousel({ additionUi, initialSlide, interval } = {}) {
         container.querySelector('.carousel-inner > .item.active')
       ),
     clickIndicator: index =>
-      fireEvent.click(getAllByTestId('carousel-indicator')[index])
+      fireEvent.click(getAllByTestId('carousel-indicator')[index]),
   };
 }
 
@@ -84,7 +84,7 @@ describe('<Carousel />', () => {
 
   it('shows correct slide given initialSlide', () => {
     const { isSlide2Active } = renderCarousel({
-      initialSlide: 1
+      initialSlide: 1,
     });
 
     expect(isSlide2Active()).toBe(true);
@@ -95,7 +95,7 @@ describe('<Carousel />', () => {
       clickIndicator,
       isSlide1Active,
       isSlide2Active,
-      isSlide3Active
+      isSlide3Active,
     } = renderCarousel();
 
     clickIndicator(1);
@@ -116,14 +116,14 @@ describe('<Carousel />', () => {
       getByText,
       isSlide1Active,
       isSlide2Active,
-      isSlide3Active
+      isSlide3Active,
     } = renderCarousel({
       additionUi: (
         <>
           <CarouselBtn />
           <CarouselBtn direction="prev" />
         </>
-      )
+      ),
     });
 
     function clickNext() {
@@ -171,7 +171,7 @@ describe('<Carousel />', () => {
 
   it('will navigate to next every specific interval', async () => {
     const { isSlide1Active, isSlide2Active, isSlide3Active } = renderCarousel({
-      interval: 10
+      interval: 10,
     });
 
     expect(isSlide1Active()).toBe(true);
@@ -201,9 +201,9 @@ describe('<Carousel />', () => {
       moveCursorAwayFromActiveSlide,
       isSlide1Active,
       isSlide2Active,
-      isSlide3Active
+      isSlide3Active,
     } = renderCarousel({
-      interval: 10
+      interval: 10,
     });
 
     expect(isSlide1Active()).toBe(true);

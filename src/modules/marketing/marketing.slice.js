@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const DEFAULT_STATE = {
-  banners: []
+  banners: [],
 };
 
 const marketingSlice = createSlice({
@@ -10,8 +10,8 @@ const marketingSlice = createSlice({
   reducers: {
     setBanners: (state, { payload }) => {
       state.banners = payload;
-    }
-  }
+    },
+  },
 });
 
 export const marketingReducer = marketingSlice.reducer;

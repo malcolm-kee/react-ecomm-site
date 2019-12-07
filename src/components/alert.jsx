@@ -36,5 +36,5 @@ Alert.propTypes = {
   color: PropTypes.oneOf(['success', 'info', 'warning', 'danger']).isRequired,
   dismissible: PropTypes.bool,
   children: PropTypes.node,
-  className: PropTypes.string
+  className: PropTypes.string,
 };

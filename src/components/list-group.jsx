@@ -27,7 +27,7 @@ export const ListGroup = ({ items, variant, className, ...containerProps }) => {
                 disabled && 'disabled',
                 variant && `list-group-item-${variant}`,
                 className
-              )
+              ),
             })}
             {...linkProps}
             key={index}
@@ -100,7 +100,7 @@ ListGroup.propTypes = {
       label: PropTypes.node.isRequired,
       active: PropTypes.bool,
       disabled: PropTypes.bool,
-      variant: PropTypes.oneOf(['success', 'warning', 'info', 'danger'])
+      variant: PropTypes.oneOf(['success', 'warning', 'info', 'danger']),
     })
-  ).isRequired
+  ).isRequired,
 };

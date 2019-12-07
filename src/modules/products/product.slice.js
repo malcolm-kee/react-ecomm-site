@@ -6,7 +6,7 @@ const DEFAULT_STATE = {
   productComments: {},
   currentPage: 0,
   hasMore: true,
-  loadingProducts: false
+  loadingProducts: false,
 };
 
 const productSlice = createSlice({
@@ -37,8 +37,8 @@ const productSlice = createSlice({
       } else {
         state.productComments[payload.productId] = [payload];
       }
-    }
-  }
+    },
+  },
 });
 
 export const productReducer = productSlice.reducer;

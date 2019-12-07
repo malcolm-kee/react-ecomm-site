@@ -46,11 +46,11 @@ function ProductCommentsContent({ productId, loadComments, comments }) {
 }
 
 const mapStates = (state, ownProps) => ({
-  comments: selectProductComments(state, ownProps.productId) || []
+  comments: selectProductComments(state, ownProps.productId) || [],
 });
 
 const mapDispatch = (dispatch, ownProps) => ({
-  loadComments: () => dispatch(loadProductComments(ownProps.productId))
+  loadComments: () => dispatch(loadProductComments(ownProps.productId)),
 });
 
 export const ProductComments = connect(

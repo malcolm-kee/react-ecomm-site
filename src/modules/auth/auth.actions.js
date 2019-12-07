@@ -14,7 +14,7 @@ export const register = ({ email, name }) => dispatch => {
   return authService
     .register({
       email,
-      name
+      name,
     })
     .then(user => {
       dispatch(authActions.login(user));

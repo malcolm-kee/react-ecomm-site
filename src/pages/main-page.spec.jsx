@@ -18,7 +18,8 @@ function loadMainPage() {
         window,
         new UIEvent('scroll', { bubbles: false, cancelable: false })
       ),
-    getNumberOfProducts: () => container.querySelectorAll('.product-box').length
+    getNumberOfProducts: () =>
+      container.querySelectorAll('.product-box').length,
   };
 }
 

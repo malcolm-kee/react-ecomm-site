@@ -9,7 +9,7 @@ import { loadProducts } from '../modules/products/product.actions';
 import {
   selectHasMoreProduct,
   selectProductIsLoading,
-  selectProducts
+  selectProducts,
 } from '../modules/products/product.selectors';
 import './main-page.css';
 
@@ -17,7 +17,7 @@ function MainPageContent({
   loadProducts,
   products,
   hasMoreProduct,
-  isLoading
+  isLoading,
 }) {
   React.useEffect(() => {
     if (products.length === 0) {
@@ -69,14 +69,11 @@ function MainPageContent({
 const mapStates = state => ({
   products: selectProducts(state),
   hasMoreProduct: selectHasMoreProduct(state),
-  isLoading: selectProductIsLoading(state)
+  isLoading: selectProductIsLoading(state),
 });
 
 const mapDispatch = {
-  loadProducts
+  loadProducts,
 };
 
-export const MainPage = connect(
-  mapStates,
-  mapDispatch
-)(MainPageContent);
+export const MainPage = connect(mapStates, mapDispatch)(MainPageContent);

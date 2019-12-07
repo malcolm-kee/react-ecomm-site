@@ -12,7 +12,7 @@ describe('SelectField', () => {
         options={[
           { label: 'One', value: '1' },
           { label: 'Two', value: '2' },
-          { label: 'Three', value: '3' }
+          { label: 'Three', value: '3' },
         ]}
         onChangeValue={onChangeValue}
       />
@@ -20,8 +20,8 @@ describe('SelectField', () => {
 
     fireEvent.change(getByLabelText('Lucky Number'), {
       target: {
-        value: '2'
-      }
+        value: '2',
+      },
     });
 
     expect(onChangeValue).toHaveBeenCalledTimes(1);
@@ -41,8 +41,8 @@ describe('SelectField', () => {
 
     fireEvent.change(getByLabelText('Lucky Number'), {
       target: {
-        value: '2'
-      }
+        value: '2',
+      },
     });
 
     expect(onChangeValue).toHaveBeenCalledTimes(1);
@@ -60,7 +60,7 @@ describe('SelectField', () => {
         options={[
           { label: 'HTML', value: 'html' },
           { label: 'CSS', value: 'css' },
-          { label: 'JavaScript', value: 'js' }
+          { label: 'JavaScript', value: 'js' },
         ]}
         ref={selectRef}
       />

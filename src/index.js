@@ -6,7 +6,7 @@ import App from './App';
 import { rootReducer } from './modules/root-reducer';
 
 const store = configureStore({
-  reducer: rootReducer
+  reducer: rootReducer,
 });
 
 function renderApp(AppComponent) {

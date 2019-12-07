@@ -7,5 +7,5 @@ export const PanelHeading = ({ children, className }) => {
 };
 
 PanelHeading.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
 };

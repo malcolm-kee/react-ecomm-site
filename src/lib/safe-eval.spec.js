@@ -5,7 +5,7 @@ describe(`safeEval`, () => {
     const code = `x * y`;
     const params = {
       x: 2,
-      y: 3
+      y: 3,
     };
     expect(safeEval(code, params)).toBe(6);
   });
