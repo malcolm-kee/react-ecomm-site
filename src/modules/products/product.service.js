@@ -1,7 +1,11 @@
 import { fetchJson } from '../../lib/ajax';
 
-const PRODUCT_BASE_URL = 'https://ecomm-db.herokuapp.com/products';
-const PRODUCT_COMMENT_BASE_URL = 'https://ecomm-db.herokuapp.com/comments';
+const PRODUCT_BASE_URL =
+  process.env.REACT_APP_PRODUCT_BASE_URL ||
+  'https://ecomm-db.herokuapp.com/products';
+const PRODUCT_COMMENT_BASE_URL =
+  process.env.REACT_APP_PRODUCT_COMMENT_BASE_URL ||
+  'https://ecomm-db.herokuapp.com/comments';
 
 export function getProducts(page, limit = 12) {
   return fetchJson(PRODUCT_BASE_URL, {
