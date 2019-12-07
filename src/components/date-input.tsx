@@ -17,6 +17,8 @@ type DateInputProps = InputProps & {
 
 /**
  * `DateInput` is a wrapper over jquery.datepick plugin.
+ *
+ * @see http://keith-wood.name/datepick.html
  */
 export const DateInput = ({
   dateFormat = 'dd-mm-yyyy',

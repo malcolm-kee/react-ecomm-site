@@ -12,6 +12,7 @@ There are two implementations of this site:
 
 1. MobX - [`master` branch][master-branch]
 1. Redux - [`redux` branch][redux-branch]
+1. Redux with TypeScript - [`redux-ts` branch][redux-ts-branch]
 
 You can cross-reference them and see the difference between them. I will put my best effort to ensure they are functionally the same.
 
@@ -29,4 +30,5 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 [master-branch]: https://github.com/malcolm-kee/react-ecomm-site/tree/master
 [redux-branch]: https://github.com/malcolm-kee/react-ecomm-site/tree/redux
+[redux-ts-branch]: https://github.com/malcolm-kee/react-ecomm-site/tree/redux-ts
 [backend-api-repo]: https://github.com/malcolm-kee/ecomm-db
