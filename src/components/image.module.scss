@@ -17,11 +17,18 @@
   height: 100%;
 }
 
-.image .image-blur {
+.blur {
   filter: blur(5px);
 }
 
-.image .image-spinner-container {
+.spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.error {
   position: absolute;
   left: 50%;
   top: 50%;
