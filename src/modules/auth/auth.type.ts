@@ -5,6 +5,7 @@ export type AuthUser = {
   name: string;
   email: string;
   joinedDate: number;
+  profileImage?: string;
 };
 
 export type AuthState = {

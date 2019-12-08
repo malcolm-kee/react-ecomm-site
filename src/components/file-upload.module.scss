@@ -1,29 +1,34 @@
-$space: 8px;
-
-.preview {
-  width: 40px;
-  height: 40px;
+.root {
+  max-width: 760px;
 }
 
-.fileList {
-  list-style-type: none;
-  padding: 0;
+.dropZoneContainer {
+  padding: 4px;
+  border: 1px solid #dddddd;
 }
 
-.fileItem {
-  border-bottom: 1px solid #dedede;
-  &:last-child {
-    border-bottom: none;
+.dropZone {
+  text-align: center;
+  padding: 16px;
+}
+
+.dropZoneActive {
+  background: repeating-linear-gradient(
+    45deg,
+    #ffffff,
+    #ffffff 10px,
+    #dddddd 10px,
+    #dddddd 20px
+  );
+}
+
+.input {
+  &:focus ~ label {
+    outline: 3px solid #178acc;
   }
 }
 
-.fileRecord {
-  display: flex;
-  padding: $space;
-  align-items: center;
-}
-
-.fileRecordDetails {
-  flex: 1;
-  margin: 0 $space;
+.dropZoneLabel {
+  pointer-events: none;
+  margin-bottom: 10px;
 }

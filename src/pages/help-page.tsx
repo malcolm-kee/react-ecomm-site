@@ -6,6 +6,7 @@ import { Input } from '../components/input';
 import { Jumbotron } from '../components/jumbotron';
 import { ListGroup } from '../components/list-group';
 import { Panel, PanelBody } from '../components/panel';
+import { FileUpload } from '../components/file-upload';
 
 const FeedbackPanel = () => {
   const [hovered, setHovered] = React.useState(false);
@@ -86,6 +87,7 @@ export function HelpPage() {
       <Jumbotron>
         <div className="container">
           <h1>Hi, how can we help?</h1>
+          <FileUpload multiple />
           <Input
             type="search"
             placeholder="Just kidding. I'm not gonna help you for anything."

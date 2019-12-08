@@ -1,16 +1,32 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import cx from 'classnames';
 import * as React from 'react';
+import { useLatest } from '../hooks/use-latest';
+import { useLazyRef } from '../hooks/use-lazy-ref';
+import { callAll } from '../lib/fn-lib';
 import { getId } from '../lib/id';
-import { getFilePreviewUrl, upload } from '../services/file.service';
+import {
+  cleanupFilePreviewUrl,
+  getFilePreviewUrl,
+  upload,
+} from '../services/file.service';
+import { FileRecord } from './file-record';
 import styles from './file-upload.module.scss';
 
-type FileData = {
-  id: string;
-  name: string;
-  previewUrl: string;
-  status: 'uploading' | 'error' | 'uploaded';
-  progress: number;
-};
+export type FileData =
+  | {
+      id: string;
+      fileName: string;
+      previewUrl: string;
+      status: 'uploading' | 'uploaded';
+      progress: number;
+    }
+  | {
+      id: string;
+      fileName: string;
+      previewUrl: string;
+      status: 'error';
+    };
 
 type FileUploadState = {
   fileIds: string[];
@@ -54,7 +70,10 @@ const fileUploadSlice = createSlice({
       state,
       { payload }: PayloadAction<{ fileId: string; progress: number }>
     ) => {
-      state.files[payload.fileId].progress = payload.progress;
+      const file = state.files[payload.fileId];
+      if (file.status === 'uploading') {
+        file.progress = payload.progress;
+      }
     },
     doneUpload: (
       state,
@@ -79,15 +98,41 @@ const fileUploadSlice = createSlice({
 const uploadReducer = fileUploadSlice.reducer;
 const actions = fileUploadSlice.actions;
 
-type FileUploadProps = Omit<JSX.IntrinsicElements['input'], 'type'> & {
-  label?: string;
-  onChangeValue?: (value: string) => void;
-  clearAfterUpload?: boolean;
+const preventDefault = (ev: React.SyntheticEvent) => {
+  ev.stopPropagation();
+  ev.preventDefault();
 };
 
+type FileUploadProps = Omit<JSX.IntrinsicElements['input'], 'type'> & {
+  /**
+   * label for the upload button
+   *
+   */
+  label?: string;
+  /**
+   * callback to get the file details that has been uploaded successfully
+   */
+  onNewFileAdded?: (getUrl: string, fileName: string) => void;
+  /**
+   * specify if the file record should be removed after upload successful.
+   * You use this if you want to show the uploaded files separately.
+   */
+  clearAfterUpload?: boolean;
+  children?: React.ReactNode;
+};
+
+/**
+ * `FileUpload` upload files and show progress for each individual upload.
+ * It handles upload cancellation correctly.
+ *
+ * Unspecified props will be spreaded to the underlying `input` element.
+ */
 export const FileUpload = ({
   label = 'Upload File',
   clearAfterUpload,
+  onNewFileAdded,
+  onChange,
+  children,
   ...props
 }: FileUploadProps) => {
   const [uploadState, dispatch] = React.useReducer(
@@ -95,8 +140,16 @@ export const FileUpload = ({
     uploadInitialState
   );
 
-  const [defaultId] = React.useState(() => getId());
-  const id = props.id || defaultId;
+  const defaultId = useLazyRef(() => getId());
+  const id = props.id || defaultId.current;
+  const latestOnNewFileAdded = useLatest(onNewFileAdded);
+  const abortMap = useLazyRef(() => new Map<string, () => void>());
+  React.useEffect(() => {
+    const map = abortMap.current;
+    return function cleanup() {
+      map.forEach(abortFn => abortFn());
+    };
+  }, [abortMap]);
 
   const handleFiles = (filelist: FileList) => {
     const files = Array.from(filelist);
@@ -104,84 +157,112 @@ export const FileUpload = ({
 
     files.forEach(file => {
       const fileId = getId();
-      getFilePreviewUrl(file).then(previewUrl => {
+      Promise.resolve(
+        /^image\/*/.test(file.type)
+          ? getFilePreviewUrl(file)
+          : Promise.resolve('')
+      ).then(previewUrl => {
         dispatch(
           actions.uploadFile({
             id: fileId,
-            name: file.name,
+            fileName: file.name,
             previewUrl,
           })
         );
-        upload(file, {
+        const abortUpload = upload(file, {
           onDone: (error, fileUrl) => {
+            abortMap.current.delete(fileId);
             if (error) {
               dispatch(actions.errorUpload({ fileId }));
               return;
             }
             dispatch(actions.doneUpload({ fileId, clear: clearAfterUpload }));
-            console.log(fileUrl);
+            if (latestOnNewFileAdded.current) {
+              latestOnNewFileAdded.current(fileUrl, file.name);
+            }
           },
           onProgress: progress =>
             dispatch(actions.updateUploadProgress({ fileId, progress })),
         });
+        abortMap.current.set(fileId, abortUpload);
       });
     });
   };
 
   const totalFiles = uploadState.fileIds.length;
+  const [isDragOver, setIsDragOver] = React.useState(false);
 
   return (
-    <div>
-      <div>
-        <input
-          type="file"
-          {...props}
-          id={id}
-          className="sr-only"
-          onChange={ev => {
-            if (ev.target.files) {
-              handleFiles(ev.target.files);
-            }
+    <div className={styles.root}>
+      <div className={styles.dropZoneContainer}>
+        <div
+          className={cx(styles.dropZone, isDragOver && styles.dropZoneActive)}
+          onDragEnter={ev => {
+            preventDefault(ev);
+            setIsDragOver(true);
           }}
-        />
-        <label className="btn btn-primary" htmlFor={id}>
-          {label}
-        </label>
+          onDragLeave={ev => {
+            preventDefault(ev);
+            setIsDragOver(false);
+          }}
+          onDrop={ev => {
+            preventDefault(ev);
+            if (ev.dataTransfer.files) {
+              handleFiles(ev.dataTransfer.files);
+            }
+            setIsDragOver(false);
+          }}
+          onDragOver={preventDefault}
+        >
+          <div className={styles.dropZoneLabel}>
+            <p className="h4">Drop file here</p>
+            <div>
+              <small>or</small>
+            </div>
+          </div>
+          <input
+            type="file"
+            {...props}
+            id={id}
+            className={`sr-only ${styles.input}`}
+            onChange={callAll(onChange, ev => {
+              if (ev.target.files) {
+                handleFiles(ev.target.files);
+              }
+            })}
+          />
+          <label className="btn btn-primary" htmlFor={id}>
+            {label}
+          </label>
+        </div>
       </div>
       {totalFiles > 0 && (
-        <ul className={styles.fileList}>
-          {uploadState.fileIds
-            .map(fileId => uploadState.files[fileId])
-            .map(file => (
-              <li className={styles.fileItem} key={file.id}>
-                <FileRecord
-                  file={file}
-                  onRemove={() =>
-                    dispatch(actions.removeFile({ fileId: file.id }))
-                  }
-                />
-              </li>
-            ))}
-        </ul>
-      )}
-    </div>
-  );
-};
+        <div>
+          {uploadState.fileIds.map(fileId => {
+            const file = uploadState.files[fileId];
 
-const FileRecord = (props: { file: FileData; onRemove: () => void }) => {
-  const file = props.file;
-  return (
-    <div className={styles.fileRecord}>
-      {file.previewUrl && (
-        <img src={file.previewUrl} className={styles.preview} alt="" />
+            return file.status === 'error' ? (
+              <FileRecord {...file} key={file.id} />
+            ) : (
+              <FileRecord
+                {...file}
+                onRemove={() => {
+                  dispatch(actions.removeFile({ fileId: file.id }));
+                  if (file.previewUrl) {
+                    cleanupFilePreviewUrl(file.previewUrl);
+                  }
+                  const abort = abortMap.current.get(file.id);
+                  if (abort) {
+                    abort();
+                  }
+                }}
+                key={file.id}
+              />
+            );
+          })}
+          {children}
+        </div>
       )}
-      <div className={styles.fileRecordDetails}>
-        {file.name}
-        {file.status === 'error' ? 'Failed to Upload' : `${file.progress}%`}
-      </div>
-      <button onClick={props.onRemove} type="button">
-        Remove
-      </button>
     </div>
   );
 };

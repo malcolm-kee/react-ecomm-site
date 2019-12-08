@@ -32,6 +32,8 @@ export const upload = (file: File, { onDone, onProgress }: UploadCallbacks) => {
       if (xhr.status >= 200 && xhr.status < 300) {
         const response = JSON.parse(xhr.responseText);
         onDone(null, response.files[0]);
+      } else {
+        onDone(new Error(xhr.responseText), '');
       }
     }
   };

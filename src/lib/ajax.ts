@@ -93,10 +93,19 @@ const stringifyParams = (params: FetchInit['params']): string => {
 };
 
 export function fetchJson(url: string, { headers, ...init }: FetchInit = {}) {
+  const additionalHeaders: Record<string, string> =
+    init.method && init.method !== 'GET'
+      ? {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }
+      : {
+          Accept: 'application/json',
+        };
+
   return fetchWithRetry(url, {
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
+      ...additionalHeaders,
       ...headers,
     },
     ...init,
