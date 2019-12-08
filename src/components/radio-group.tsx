@@ -1,6 +1,6 @@
-import React from 'react';
-import { isPrimitive, isDefined } from '../lib/typecheck';
-import { getId } from '../lib/id';
+import * as React from 'react';
+import { useId } from '../hooks/use-id';
+import { isPrimitive } from '../lib/typecheck';
 
 type Option<Value> = {
   value: Value;
@@ -28,8 +28,7 @@ export const RadioGroup = <Value extends any = string>({
   options = [],
   id,
 }: RadioGroupProps<Value>) => {
-  const [defaultId] = React.useState(() => getId());
-  const usedId = isDefined(id) ? id : name || defaultId;
+  const usedId = useId(id || name);
 
   return (
     <div className="form-group" id={id}>

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import cx from 'classnames';
 import * as React from 'react';
+import { useId } from '../hooks/use-id';
 import { useLatest } from '../hooks/use-latest';
 import { useLazyRef } from '../hooks/use-lazy-ref';
 import { callAll } from '../lib/fn-lib';
@@ -142,8 +143,7 @@ export const FileUpload = ({
     uploadInitialState
   );
 
-  const defaultId = useLazyRef(() => getId());
-  const id = props.id || defaultId.current;
+  const id = useId(props.id);
   const latestOnNewFileAdded = useLatest(onNewFileAdded);
   const abortMap = useLazyRef(() => new Map<string, () => void>());
   React.useEffect(() => {

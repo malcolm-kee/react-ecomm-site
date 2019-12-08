@@ -18,9 +18,12 @@ function ProductCommentFormContent({
   submitForm,
   user,
 }: ReduxProps) {
+  const defaultName = (user && user.name) || '';
   const [submitting, setSubmitting] = React.useState(false);
-  const [userName, setUserName] = React.useState((user && user.name) || '');
+  const [userName, setUserName] = React.useState(defaultName);
   const [content, setContent] = React.useState('');
+  const nameInputRef = React.useRef<HTMLInputElement>(null);
+  const contentInputRef = React.useRef<HTMLTextAreaElement>(null);
 
   function handleSubmit(ev: React.FormEvent) {
     ev.preventDefault();
@@ -33,7 +36,12 @@ function ProductCommentFormContent({
     }).then(() => {
       setSubmitting(false);
       setContent('');
-      setUserName('');
+      setUserName(defaultName);
+      if (defaultName) {
+        contentInputRef.current?.focus();
+      } else {
+        nameInputRef.current?.focus();
+      }
     });
   }
 
@@ -45,6 +53,7 @@ function ProductCommentFormContent({
         onChangeValue={setUserName}
         disabled={submitting}
         required
+        ref={nameInputRef}
       />
       <Field>
         <Label>Your Review</Label>
@@ -55,6 +64,7 @@ function ProductCommentFormContent({
           minRows={3}
           disabled={submitting}
           required
+          ref={contentInputRef}
         />
       </Field>
       <div>
