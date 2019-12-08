@@ -13,11 +13,9 @@ export const initAuthStatus = (): ThunkAction<void> => dispatch => {
 export const register = ({
   email,
   name,
-  profileImage,
 }: {
   email: string;
   name: string;
-  profileImage: string;
 }): ThunkAction<void> => dispatch => {
   dispatch(authActions.authenticating());
 
@@ -25,7 +23,6 @@ export const register = ({
     .register({
       email,
       name,
-      profileImage,
     })
     .then(user => {
       dispatch(authActions.login(user));

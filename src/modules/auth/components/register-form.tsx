@@ -8,7 +8,6 @@ import { Input } from '../../../components/input';
 import { Label } from '../../../components/label';
 import { Spinner } from '../../../components/spinner';
 import { TextField } from '../../../components/text-field';
-import { FileUpload } from '../../../components/file-upload';
 import { RootState } from '../../../type';
 import { attemptLogout, register } from '../auth.actions';
 import { selectAuthError, selectAuthStatus } from '../auth.selectors';
@@ -18,7 +17,6 @@ type ReduxProps = ConnectedProps<typeof connector>;
 function RegisterFormContent({ status, error, register, logout }: ReduxProps) {
   const [email, setEmail] = React.useState('');
   const [name, setName] = React.useState('');
-  const [profileImage, setProfileImage] = React.useState('');
 
   if (status === 'Authenticated') {
     return (
@@ -40,7 +38,7 @@ function RegisterFormContent({ status, error, register, logout }: ReduxProps) {
       title="Signup"
       onSubmit={ev => {
         ev.preventDefault();
-        register({ name, email, profileImage });
+        register({ name, email });
       }}
     >
       {isSubmitting && <Spinner />}
@@ -65,11 +63,6 @@ function RegisterFormContent({ status, error, register, logout }: ReduxProps) {
             required
           />
         </div>
-      </Field>
-      <Field>
-        <Label>Profile Photo</Label>
-        {profileImage && <img src={profileImage} alt="" />}
-        <FileUpload onNewFileAdded={setProfileImage} clearAfterUpload />
       </Field>
       <Button color="primary" type="submit" disabled={isSubmitting}>
         Signup

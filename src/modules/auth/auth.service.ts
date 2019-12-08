@@ -7,11 +7,9 @@ const AUTH_BASE_URL =
 export function register({
   name,
   email,
-  profileImage,
 }: {
   name: string;
   email: string;
-  profileImage?: string;
 }): Promise<AuthUser> {
   return fetchJson(AUTH_BASE_URL, {
     params: {
@@ -24,7 +22,6 @@ export function register({
         data: {
           name,
           email,
-          profileImage: profileImage && window.encodeURIComponent(profileImage),
           joinedDate: Date.now(),
         },
       });

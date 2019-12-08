@@ -126,6 +126,8 @@ type FileUploadProps = Omit<JSX.IntrinsicElements['input'], 'type'> & {
  * It handles upload cancellation correctly.
  *
  * Unspecified props will be spreaded to the underlying `input` element.
+ *
+ * Note: This component does not work at the moment because the backend server is not ready.
  */
 export const FileUpload = ({
   label = 'Upload File',
