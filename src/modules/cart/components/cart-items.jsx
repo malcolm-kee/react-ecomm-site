@@ -1,5 +1,6 @@
 import { inject, observer } from 'mobx-react';
 import React from 'react';
+import { ErrorBoundary } from '../../../components/error-boundary';
 import { Spinner } from '../../../components/spinner';
 
 const CartItem = React.lazy(() =>
@@ -15,39 +16,41 @@ function CartItemsContent({
         <p>There is nothing in your shopping cart.</p>
       ) : (
         <React.Suspense fallback={<Spinner />}>
-          <div className="table-responsive">
-            <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th />
-                  <th>Product</th>
-                  <th className="text-right">Unit Price (RM)</th>
-                  <th>Qty</th>
-                  <th className="text-right">Price (RM)</th>
-                  <th />
-                </tr>
-              </thead>
-              <tbody>
-                {items.map((item, index) => (
-                  <CartItem
-                    onDelete={() => removeItem(item)}
-                    index={index}
-                    key={index}
-                  />
-                ))}
-              </tbody>
-              <tfoot>
-                <tr>
-                  <th colSpan={5} className="text-right">
-                    Grand Total
-                  </th>
-                  <th className="text-right">{totalPrice}</th>
-                  <th />
-                </tr>
-              </tfoot>
-            </table>
-          </div>
+          <ErrorBoundary>
+            <div className="table-responsive">
+              <table className="table table-hover">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th />
+                    <th>Product</th>
+                    <th className="text-right">Unit Price (RM)</th>
+                    <th>Qty</th>
+                    <th className="text-right">Price (RM)</th>
+                    <th />
+                  </tr>
+                </thead>
+                <tbody>
+                  {items.map((item, index) => (
+                    <CartItem
+                      onDelete={() => removeItem(item)}
+                      index={index}
+                      key={index}
+                    />
+                  ))}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th colSpan={5} className="text-right">
+                      Grand Total
+                    </th>
+                    <th className="text-right">{totalPrice}</th>
+                    <th />
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </ErrorBoundary>
         </React.Suspense>
       )}
     </div>

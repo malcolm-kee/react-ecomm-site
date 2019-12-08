@@ -2,6 +2,7 @@ import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { toast } from 'react-toastify';
 import { Button } from '../components/button';
+import { ErrorBoundary } from '../components/error-boundary';
 import { Field } from '../components/field';
 import { Input } from '../components/input';
 import { Label } from '../components/label';
@@ -136,7 +137,9 @@ function ProductPageContent({
             <div className="col-xs-12">
               <h2 className="h3">Reviews</h2>
               <React.Suspense fallback={<Spinner />}>
-                <ProductComments productId={productId} />
+                <ErrorBoundary>
+                  <ProductComments productId={productId} />
+                </ErrorBoundary>
               </React.Suspense>
             </div>
           </div>

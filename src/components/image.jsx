@@ -1,66 +1,57 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import styles from './image.module.scss';
 import { Spinner } from './spinner';
-import styles from './image.module.css';
 
 /**
  * Image is a component that allows you to specify image with its standard format (jpg/png/gif)
  * and webp format. It will fallback to use the standard format if browser doesn't support webp.
  */
-export class Image extends React.Component {
-  state = {
-    isLoading: true,
-  };
+export function Image({ src, webpSrc, blurSrc, alt, width, height, ...props }) {
+  const [loadStatus, setLoadStatus] = React.useState(
+    blurSrc ? 'initializing' : 'loadingFullImage'
+  );
 
-  onImageLoaded = () => {
-    if (this.state.isLoading) {
-      this.setState({ isLoading: false });
-    }
-  };
-
-  render() {
-    const {
-      src,
-      webpSrc,
-      blurSrc,
-      alt,
-      width,
-      height,
-      ...imageProps
-    } = this.props;
-
-    return (
-      <div className={styles.root}>
-        {this.state.isLoading && (
-          <div className={styles.spinner}>
-            <Spinner />
-          </div>
-        )}
-        {blurSrc && (
+  return (
+    <div className={styles.image}>
+      {loadStatus === 'initializing' && (
+        <div className={styles.spinner}>
+          <Spinner />
+        </div>
+      )}
+      {blurSrc && (
+        <img
+          className={styles.blur}
+          onLoad={() => setLoadStatus('loadingFullImage')}
+          onError={() => setLoadStatus('error')}
+          src={blurSrc}
+          alt={alt}
+          loading="lazy"
+          {...props}
+        />
+      )}
+      {(loadStatus === 'loadingFullImage' || loadStatus === 'loaded') && ( // show the full image if not blur image or blur image is loaded
+        <picture
+          onLoad={() => setLoadStatus('loaded')}
+          onError={() => setLoadStatus('error')}
+        >
+          {webpSrc && <source srcSet={webpSrc} type="image/webp" />}
+          <source srcSet={src} type="image/jpeg" />
           <img
-            className={styles.blur}
-            onLoad={this.onImageLoaded}
-            onError={this.onImageLoaded}
-            src={blurSrc}
+            onLoad={() => setLoadStatus('loaded')}
+            onError={() => setLoadStatus('error')}
             alt={alt}
+            src={src}
             loading="lazy"
+            {...props}
           />
-        )}
-        {(!blurSrc || !this.state.isLoading) && ( // show the fulll image if not blur image or blur image is loaded
-          <picture onLoad={this.onImageLoaded} onError={this.onImageLoaded}>
-            {webpSrc && <source srcSet={webpSrc} type="image/webp" />}
-            <source srcSet={src} type="image/jpeg" />
-            <img
-              onLoad={this.onImageLoaded}
-              alt={alt}
-              src={src}
-              {...imageProps}
-            />
-          </picture>
-        )}
-      </div>
-    );
-  }
+        </picture>
+      )}
+      {loadStatus === 'error' && (
+        <b className={`text-danger ${styles.error}`}>Fail to load</b>
+      )}
+    </div>
+  );
 }
 
 Image.propTypes = {
