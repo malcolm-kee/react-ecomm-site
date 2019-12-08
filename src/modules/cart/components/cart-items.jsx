@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { ErrorBoundary } from '../../../components/error-boundary';
 import { Spinner } from '../../../components/spinner';
-import { cartActions } from '../cart.slice';
 import { selectCartItemCount, selectCartItems } from '../cart.selectors';
+import { cartActions } from '../cart.slice';
 
 const CartItem = React.lazy(() =>
   import(/* webpackChunkName: "CartItem" */ './cart-item')
@@ -21,33 +22,35 @@ function CartItemsContent({
         <p>There is nothing in your shopping cart.</p>
       ) : (
         <React.Suspense fallback={<Spinner />}>
-          <div className="table-responsive">
-            <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th />
-                  <th>Product</th>
-                  <th className="text-right">Unit Price (RM)</th>
-                  <th>Qty</th>
-                  <th className="text-right">Price (RM)</th>
-                  <th />
-                </tr>
-              </thead>
-              <tbody>
-                {cartItems.map((item, index) => (
-                  <CartItem
-                    item={item}
-                    onIncrement={incrementItem(index)}
-                    onDecrement={decrementItem(index)}
-                    onDelete={removeItem(index)}
-                    index={index}
-                    key={index}
-                  />
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <ErrorBoundary>
+            <div className="table-responsive">
+              <table className="table table-hover">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th />
+                    <th>Product</th>
+                    <th className="text-right">Unit Price (RM)</th>
+                    <th>Qty</th>
+                    <th className="text-right">Price (RM)</th>
+                    <th />
+                  </tr>
+                </thead>
+                <tbody>
+                  {cartItems.map((item, index) => (
+                    <CartItem
+                      item={item}
+                      onIncrement={incrementItem(index)}
+                      onDecrement={decrementItem(index)}
+                      onDelete={removeItem(index)}
+                      index={index}
+                      key={index}
+                    />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </ErrorBoundary>
         </React.Suspense>
       )}
     </div>
