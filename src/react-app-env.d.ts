@@ -18,6 +18,7 @@ declare interface JQuery {
   datepick(command: 'setDate', date: string | Date): JQuery;
   datepick(command: 'clear'): JQuery;
   datepick(command: 'show'): JQuery;
+  datepick(command: 'destroy'): JQuery;
   datepick(options?: DatePickOption): any;
 }
 

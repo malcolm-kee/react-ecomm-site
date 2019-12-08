@@ -66,6 +66,13 @@ export const DateInput = ({
     }
   }, [value, getDateValue]);
 
+  React.useEffect(() => {
+    const $input = $(inputRef.current as HTMLInputElement);
+    return function cleanup() {
+      $input.datepick('destroy');
+    };
+  }, []);
+
   return (
     <div className={styles.wrapper}>
       <Input
