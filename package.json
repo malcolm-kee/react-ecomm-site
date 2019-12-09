@@ -39,6 +39,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.0",
     "@types/jest": "^24.0.18",
     "jest-junit": "^10.0.0",

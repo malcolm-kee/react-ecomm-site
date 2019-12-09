@@ -21,7 +21,7 @@ describe('<DateInput />', () => {
     fireEvent.focus(getByTestId('dateinput'));
     fireEvent.click(getByText('25'));
 
-    expect(getByTestId('dateinput').value).toBe('2020-01-25');
+    expect(getByTestId('dateinput')).toHaveValue('2020-01-25');
   });
 });
 
