@@ -4,6 +4,7 @@ import * as React from 'react';
 import '../lib/jquery.datepick.package-5.1.0/js/jquery.datepick';
 import styles from './date-input.module.scss';
 import { Input, InputProps } from './input';
+import { useLatest } from '../hooks/use-latest';
 
 type DateInputProps = InputProps & {
   /**
@@ -19,6 +20,8 @@ type DateInputProps = InputProps & {
  * `DateInput` is a wrapper over jquery.datepick plugin.
  *
  * @see http://keith-wood.name/datepick.html
+ *
+ * Since it has jquery dependencies, lazy load it with `date-input-default`.
  */
 export const DateInput = ({
   dateFormat = 'dd-mm-yyyy',
@@ -29,8 +32,7 @@ export const DateInput = ({
 }: DateInputProps) => {
   const inputRef = React.useRef<HTMLInputElement>(null);
 
-  const onChangeValueRef = React.useRef(onChangeValue);
-  onChangeValueRef.current = onChangeValue;
+  const onChangeValueRef = useLatest(onChangeValue);
 
   const getDateValue = React.useCallback(
     (date: Date) => {
@@ -50,7 +52,7 @@ export const DateInput = ({
         }
       },
     });
-  }, [dateFormat, getDateValue]);
+  }, [dateFormat, getDateValue, onChangeValueRef]);
 
   React.useEffect(() => {
     const $input = $(inputRef.current as HTMLInputElement);
@@ -73,6 +75,12 @@ export const DateInput = ({
     };
   }, []);
 
+  React.useEffect(() => {
+    if (props.autoFocus) {
+      $(inputRef.current as HTMLInputElement).datepick('show');
+    }
+  }, [props.autoFocus]);
+
   return (
     <div className={styles.wrapper}>
       <Input
@@ -83,6 +91,7 @@ export const DateInput = ({
       />
       <button
         className={styles.icon}
+        type="button"
         onClick={() => $(inputRef.current as HTMLInputElement).datepick('show')}
       >
         <i className="glyphicon glyphicon-calendar" aria-hidden="true" />
