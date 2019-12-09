@@ -1,0 +1,59 @@
+$space: 8px;
+
+.fileRecord {
+  display: flex;
+  padding: $space;
+  align-items: center;
+  border-bottom: 1px solid #dddddd;
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.fileRecordDetails {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.fileName {
+  display: inline-block;
+  margin: 0 $space;
+  flex-shrink: 0;
+  flex-basis: 150px;
+  max-width: 300px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.fileStatus {
+  margin: 0 $space;
+  flex: 1;
+  flex-basis: 200px;
+}
+
+.preview {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  color: #aaaaaa;
+  object-fit: contain;
+}
+
+.btnPlaceholder {
+  display: inline-block;
+  width: 40px;
+  height: 30px;
+}
+
+.icon {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+}
