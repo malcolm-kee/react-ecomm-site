@@ -4,7 +4,7 @@ import { throttle } from '../lib/fn-lib';
 export function useWindowEvent<EventType extends keyof WindowEventMap>(
   eventType: EventType,
   callback: (ev: WindowEventMap[EventType]) => any,
-  { wait = 0, deps = [] } = {}
+  { wait = 0 } = {}
 ) {
   const savedCallback = React.useRef<null | typeof callback>(null);
 
@@ -22,6 +22,5 @@ export function useWindowEvent<EventType extends keyof WindowEventMap>(
     return function unsubWindowEvent() {
       window.removeEventListener(eventType, onWindowEvent);
     };
-    // eslint-disable-next-line
-  }, deps);
+  }, [wait, eventType]);
 }

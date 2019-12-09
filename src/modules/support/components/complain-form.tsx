@@ -2,13 +2,14 @@ import * as React from 'react';
 import { toast } from 'react-toastify';
 import { Button } from '../../../components/button';
 import { Field } from '../../../components/field';
+import { FileUpload } from '../../../components/file-upload';
 import { Form } from '../../../components/form';
 import { Label } from '../../../components/label';
 import { SelectField } from '../../../components/select-field';
 import { Spinner } from '../../../components/spinner';
 import { TextField } from '../../../components/text-field';
 import { Textarea } from '../../../components/textarea';
-import { scrollIntoView } from '../../../lib/scroll-into-view';
+import { useScrollOnMount } from '../../../hooks/use-scroll-on-mount';
 import styles from './complain-form.module.scss';
 
 const DateInput = React.lazy(() =>
@@ -48,22 +49,28 @@ export const ComplainForm = () => {
         </fieldset>
       </ComplainFormSection>
       {currentPage >= 1 && (
-        <ComplainFormSection>
-          <fieldset>
-            <legend>Details</legend>
-            <Field>
-              <Label>Date of incident</Label>
-              <DateInput autoFocus />
-            </Field>
-            <Field>
-              <Label>Details about the incident</Label>
-              <Textarea
-                placeholder="Please provide as much details as possible"
-                required
-              />
-            </Field>
-          </fieldset>
-        </ComplainFormSection>
+        <React.Suspense fallback={<Spinner />}>
+          <ComplainFormSection>
+            <fieldset>
+              <legend>Details</legend>
+              <Field>
+                <Label>Date of incident</Label>
+                <DateInput />
+              </Field>
+              <Field>
+                <Label>Details about the incident</Label>
+                <Textarea
+                  placeholder="Please provide as much details as possible"
+                  required
+                />
+              </Field>
+              <Field>
+                <Label>Supporting Documents (if any)</Label>
+                <FileUpload />
+              </Field>
+            </fieldset>
+          </ComplainFormSection>
+        </React.Suspense>
       )}
       {currentPage >= 2 && (
         <ComplainFormSection>
@@ -73,7 +80,6 @@ export const ComplainForm = () => {
               label="Your Full Name"
               placeholder="Tony Stark"
               required
-              autoFocus
             />
             <TextField label="Your Phone Number" type="phone" required />
           </fieldset>
@@ -89,15 +95,7 @@ export const ComplainForm = () => {
 };
 
 const ComplainFormSection = (props: { children: React.ReactNode }) => {
-  const sectionRef = React.useRef<HTMLElement>(null);
+  const sectionRef = useScrollOnMount();
 
-  React.useEffect(() => {
-    scrollIntoView(sectionRef.current);
-  }, []);
-
-  return (
-    <section ref={sectionRef}>
-      <React.Suspense fallback={<Spinner />}>{props.children}</React.Suspense>
-    </section>
-  );
+  return <section ref={sectionRef}>{props.children}</section>;
 };
