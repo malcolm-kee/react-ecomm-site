@@ -1,11 +1,7 @@
 import React from 'react';
 import { throttle } from '../lib/fn-lib';
 
-export function useWindowEvent(
-  eventType,
-  callback,
-  { wait = 0, deps = [] } = {}
-) {
+export function useWindowEvent(eventType, callback, { wait = 0 } = {}) {
   const savedCallback = React.useRef();
 
   React.useEffect(() => {
@@ -22,6 +18,5 @@ export function useWindowEvent(
     return function unsubWindowEvent() {
       window.removeEventListener(eventType, onWindowEvent);
     };
-    // eslint-disable-next-line
-  }, deps);
+  }, [wait, eventType]);
 }

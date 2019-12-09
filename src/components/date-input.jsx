@@ -2,6 +2,7 @@ import cx from 'classnames';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
 import * as React from 'react';
+import { useLatest } from '../hooks/use-latest';
 import '../lib/jquery.datepick.package-5.1.0/js/jquery.datepick';
 import styles from './date-input.module.scss';
 import { Input } from './input';
@@ -11,6 +12,7 @@ import { Input } from './input';
  *
  * @see http://keith-wood.name/datepick.html
  *
+ * Since it has jquery dependencies, lazy load it with `date-input-default`.
  */
 export const DateInput = ({
   dateFormat = 'dd-mm-yyyy',
@@ -21,8 +23,7 @@ export const DateInput = ({
 }) => {
   const inputRef = React.useRef(null);
 
-  const onChangeValueRef = React.useRef(onChangeValue);
-  onChangeValueRef.current = onChangeValue;
+  const onChangeValueRef = useLatest(onChangeValue);
 
   const getDateValue = React.useCallback(
     date => {
@@ -42,7 +43,7 @@ export const DateInput = ({
         }
       },
     });
-  }, [dateFormat, getDateValue]);
+  }, [dateFormat, getDateValue, onChangeValueRef]);
 
   React.useEffect(() => {
     const $input = $(inputRef.current);
