@@ -64,6 +64,10 @@ describe('<Carousel />', () => {
     jest.useFakeTimers();
   });
 
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
   it('auto sync number of indicator with number of slides', () => {
     const { getIndicatorsCount, rerender } = renderCarousel();
 
