@@ -1,4 +1,3 @@
-import { createSlice } from '@reduxjs/toolkit';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import * as React from 'react';
@@ -20,56 +19,183 @@ const uploadInitialState = {
   files: {},
 };
 
-const fileUploadSlice = createSlice({
-  name: 'fileUpload',
-  initialState: uploadInitialState,
-  reducers: {
-    startUpload: state => {
+const uploadReducer = (state, action) => {
+  switch (action.type) {
+    case 'startUpload': {
       const errorIds = state.fileIds.filter(
         id => state.files[id] && state.files[id].status === 'error'
       );
-      errorIds.forEach(errorId => {
-        state.fileIds.splice(state.fileIds.indexOf(errorId), 1);
-        delete state.files[errorId];
-      });
-    },
-    uploadFile: (state, { payload }) => {
-      state.fileIds.splice(0, 0, payload.id);
-      state.files[payload.id] = {
-        ...payload,
-        status: 'uploading',
-        progress: 0,
-      };
-    },
-    removeFile: (state, { payload }) => {
-      state.fileIds.splice(state.fileIds.indexOf(payload.fileId), 1);
-      delete state.files[payload.fileId];
-    },
-    updateUploadProgress: (state, { payload }) => {
-      const file = state.files[payload.fileId];
-      if (file.status === 'uploading') {
-        file.progress = payload.progress;
-      }
-    },
-    doneUpload: (state, { payload }) => {
-      if (payload.clear) {
-        state.fileIds.splice(state.fileIds.indexOf(payload.fileId), 1);
-        delete state.files[payload.fileId];
-      } else {
-        const file = state.files[payload.fileId];
-        if (file) {
-          state.files[payload.fileId].status = 'uploaded';
-        }
-      }
-    },
-    errorUpload: (state, { payload }) => {
-      state.files[payload.fileId].status = 'error';
-    },
-  },
-});
 
-const uploadReducer = fileUploadSlice.reducer;
-const actions = fileUploadSlice.actions;
+      return {
+        ...state,
+        fileIds: state.fileIds.filter(
+          fileId => errorIds.indexOf(fileId) === -1
+        ),
+        files: Object.keys(state.files).reduce(
+          (result, fileId) =>
+            errorIds.indexOf(fileId) === -1
+              ? {
+                  ...result,
+                  [fileId]: state.files[fileId],
+                }
+              : result,
+          {}
+        ),
+      };
+    }
+
+    case 'uploadFile': {
+      const { payload } = action;
+      return {
+        ...state,
+        fileIds: [payload.id].concat(state.fileIds),
+        files: {
+          ...state.files,
+          [payload.id]: {
+            ...payload,
+            status: 'uploading',
+            progress: 0,
+          },
+        },
+      };
+    }
+
+    case 'removeFile': {
+      const { payload } = action;
+      return {
+        ...state,
+        fileIds: state.fileIds.filter(fileId => fileId !== payload.fileId),
+        files: Object.keys(state.files).reduce(
+          (result, fileId) =>
+            fileId !== payload.fileId
+              ? {
+                  ...result,
+                  [fileId]: state.files[fileId],
+                }
+              : result,
+          {}
+        ),
+      };
+    }
+
+    case 'updateUploadProgress': {
+      const { payload } = action;
+      return {
+        ...state,
+        files: Object.keys(state.files).reduce(
+          (result, fileId) => ({
+            ...result,
+            [fileId]:
+              fileId === payload.fileId &&
+              state.files[fileId].status === 'uploading'
+                ? {
+                    ...state.files[fileId],
+                    progress: payload.progress,
+                  }
+                : state.files[fileId],
+          }),
+          {}
+        ),
+      };
+    }
+
+    case 'doneUpload': {
+      const { payload } = action;
+      if (payload.clear) {
+        return {
+          ...state,
+          fileIds: state.fileIds.filter(fileId => fileId !== payload.fileId),
+          files: Object.keys(state.files).reduce(
+            (result, fileId) =>
+              fileId !== payload.fileId
+                ? {
+                    ...result,
+                    [fileId]: state.files[fileId],
+                  }
+                : result,
+            {}
+          ),
+        };
+      } else {
+        return {
+          ...state,
+          files: Object.keys(state.files).reduce(
+            (result, fileId) => ({
+              ...result,
+              [fileId]:
+                fileId === payload.fileId
+                  ? {
+                      ...state.files[fileId],
+                      status: 'uploaded',
+                    }
+                  : state.files[fileId],
+            }),
+            {}
+          ),
+        };
+      }
+    }
+
+    case 'errorUpload': {
+      const { payload } = action;
+      return {
+        ...state,
+        files: Object.keys(state.files).reduce(
+          (result, fileId) => ({
+            ...result,
+            [fileId]:
+              fileId === payload.fileId
+                ? {
+                    ...state.files[fileId],
+                    status: 'error',
+                  }
+                : state.files[fileId],
+          }),
+          {}
+        ),
+      };
+    }
+
+    default:
+      return state;
+  }
+};
+
+const actions = {
+  startUpload: () => ({
+    type: 'startUpload',
+  }),
+  uploadFile: file => ({
+    type: 'uploadFile',
+    payload: file,
+  }),
+  removeFile: ({ fileId }) => ({
+    type: 'removeFile',
+    payload: {
+      fileId,
+    },
+  }),
+  updateUploadProgress: ({ fileId, progress }) => ({
+    type: 'updateUploadProgress',
+    payload: {
+      fileId,
+      progress,
+    },
+  }),
+  doneUpload: ({ fileId, clear }) => ({
+    type: 'doneUpload',
+    payload: {
+      fileId,
+      clear,
+    },
+  }),
+  errorUpload: ({ fileId }) => ({
+    type: 'errorUpload',
+    payload: {
+      fileId,
+    },
+  }),
+};
 
 const preventDefault = ev => {
   ev.stopPropagation();
