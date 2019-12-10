@@ -4,6 +4,9 @@ export const isDefined = <T>(value: T | undefined): value is T =>
 export const isBoolean = (value: any): value is boolean =>
   typeof value === 'boolean';
 
+export const isNumber = (value: any): value is number =>
+  typeof value === 'number';
+
 export const isPrimitive = (value: any): value is string | number | boolean =>
   /^(b|st|n)/.test(typeof value);
 
