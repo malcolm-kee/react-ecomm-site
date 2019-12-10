@@ -1,7 +1,7 @@
 import { Link } from '@reach/router';
-import { formatMoney } from 'accounting';
 import React from 'react';
 import { Button } from '../../../components/button';
+import { formatMoney } from '../../../lib/format';
 import { ProductImage } from '../../products/components/product-image';
 
 export function CartItem({ index, item, onDecrement, onIncrement, onDelete }) {
