@@ -1,6 +1,6 @@
 export const formatMoney = (
   value,
-  { thousandSeparator, decimalPlaces = 2 } = {}
+  { thousandSeparator = ',', decimalPlaces = 2 } = {}
 ) => {
   const valueInNumber = typeof value === 'number' ? value : Number(value);
   const valueWithDecimal = valueInNumber.toFixed(decimalPlaces);
