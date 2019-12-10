@@ -61,7 +61,7 @@ function CartItem({
       </td>
       <td className="text-right">
         {item.product.price &&
-          formatMoney(Number(item.product.price) * item.qty, '')}
+          formatMoney(Number(item.product.price) * item.qty)}
       </td>
       <td>
         <Button
