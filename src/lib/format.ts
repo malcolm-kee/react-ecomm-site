@@ -1,5 +1,5 @@
 export const formatMoney = (
-  value,
+  value: number | string,
   { thousandSeparator = ',', decimalPlaces = 2 } = {}
 ) => {
   const valueInNumber = typeof value === 'number' ? value : Number(value);
