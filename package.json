@@ -41,11 +41,16 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.0",
-    "@types/jest": "^24.0.11",
+    "@types/classnames": "^2.2.9",
+    "@types/jest": "^24.0.23",
+    "@types/node": "^12.12.17",
+    "@types/react": "^16.9.16",
+    "@types/react-dom": "^16.9.4",
     "jest-junit": "^8.0.0",
     "netlify-cli": "^2.15.0",
     "node-sass": "^4.13.0",
     "prettier": "^1.19.1",
-    "react-styleguidist": "^9.1.16"
+    "react-styleguidist": "^9.1.16",
+    "typescript": "^3.7.3"
   }
 }
