@@ -29,3 +29,17 @@ function flatten<T>(input: NestedArray<T>, result: T[]) {
 export function includes<T>(array: T[], item: T): boolean {
   return array.indexOf(item) !== -1;
 }
+
+export function map<OriginalItem, Result>(
+  array: OriginalItem[],
+  transformFn: (ori: OriginalItem) => Result
+): Result[] {
+  const result: Result[] = [];
+
+  for (let index = 0; index < array.length; index++) {
+    const element = array[index];
+    result.push(transformFn(element));
+  }
+
+  return result;
+}
