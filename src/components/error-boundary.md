@@ -2,7 +2,16 @@
 import { Button } from './button';
 import { ErrorBoundary } from './error-boundary';
 
-const BuggyComponent = props => <div>{props.test.something}</div>;
+let renderedTime = 0;
+
+const BuggyComponent = props => {
+  if (renderedTime) {
+    return <div>OK Now</div>;
+  }
+  renderedTime++;
+
+  return <div>{props.test.something}</div>;
+};
 
 const ErrorBoundaryDemo = props => {
   const [show, setShow] = React.useState(false);
