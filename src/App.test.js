@@ -1,4 +1,5 @@
 import React from 'react';
+import user from '@testing-library/user-event';
 import { act, fireEvent, wait, waitForElement } from '@testing-library/react';
 import App from './App';
 import { renderWithStateMgmt } from './lib/test-util';
@@ -53,6 +54,34 @@ describe('<App />', () => {
     });
 
     expect(getAllByText('Signup').length).toBeGreaterThan(0);
+  });
+
+  it('shows help page at help url', async () => {
+    const { getByText, debug } = loadApp({
+      url: '/help',
+    });
+
+    act(() => user.click(getByText('Account')));
+    await waitForElement(() =>
+      getByText('If you forget password, just create another one.')
+    );
+
+    act(() => user.click(getByText('Payment')));
+    await waitForElement(() =>
+      getByText(
+        `Seriously u look for help for payment when you can't even pay?`
+      )
+    );
+
+    act(() => user.click(getByText('Shipping')));
+    await waitForElement(() =>
+      getByText(
+        'All shipping will be delivered within 3-5 years. Please be patient.'
+      )
+    );
+
+    act(() => user.click(getByText('Complaint')));
+    await waitForElement(() => getByText('Make a Complaint'));
   });
 
   it('show page not found for invalid url', () => {

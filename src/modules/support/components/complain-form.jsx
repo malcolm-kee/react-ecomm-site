@@ -54,8 +54,8 @@ export const ComplainForm = () => {
             <fieldset>
               <legend>Details</legend>
               <Field>
-                <Label>Date of incident</Label>
-                <DateInput />
+                <Label htmlFor="incident-date">Date of incident</Label>
+                <DateInput id="incident-date" />
               </Field>
               <Field>
                 <Label>Details about the incident</Label>
