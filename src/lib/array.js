@@ -27,3 +27,14 @@ function flatten(input, result) {
 export function includes(array, item) {
   return array.indexOf(item) !== -1;
 }
+
+export function map(array, transformFn) {
+  const result = [];
+
+  for (let index = 0; index < array.length; index++) {
+    const element = array[index];
+    result.push(transformFn(element));
+  }
+
+  return result;
+}
