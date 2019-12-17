@@ -14,22 +14,21 @@ export class ErrorBoundary extends React.Component {
     onError: PropTypes.func,
   };
 
+  static getDerivedStateFromError() {
+    return {
+      hasError: true,
+    };
+  }
+
   state = {
     hasError: false,
   };
 
   componentDidCatch(error, errorInfo) {
-    this.setState(
-      {
-        hasError: true,
-      },
-      () => {
-        const { onError } = this.props;
-        if (onError) {
-          onError(error, errorInfo);
-        }
-      }
-    );
+    const { onError } = this.props;
+    if (onError) {
+      onError(error, errorInfo);
+    }
   }
 
   attemptRecover = () => {
