@@ -13,27 +13,21 @@ export class ErrorBoundary extends React.Component {
     onError: PropTypes.func,
   };
 
+  static getDerivedStateFromError() {
+    return {
+      hasError: true,
+    };
+  }
+
   state = {
     hasError: false,
   };
 
   componentDidCatch(error, errorInfo) {
-    this.setState(
-      {
-        hasError: true,
-      },
-      () => {
-        console.group(`Error caught in ErrorBoundary`);
-        console.error(error);
-        console.error(errorInfo);
-        console.groupEnd();
-
-        const { onError } = this.props;
-        if (onError) {
-          onError();
-        }
-      }
-    );
+    const { onError } = this.props;
+    if (onError) {
+      onError(error, errorInfo);
+    }
   }
 
   render() {
