@@ -7,7 +7,7 @@ import { callAll } from '../lib/fn-lib';
 import { isFunction } from '../lib/typecheck';
 import { FieldContext } from './field-context';
 
-type TextareaProps = Omit<TextareaAutosizeProps, 'ref'> & {
+export type TextareaProps = Omit<TextareaAutosizeProps, 'ref' | 'inputRef'> & {
   /**
    * callback to be invoked when value change. The parameter will
    * be the value instead of the event object
