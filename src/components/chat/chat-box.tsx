@@ -31,11 +31,11 @@ export const ChatBox = ({ height = 400, ...props }: ChatBoxProps) => {
         {messages.map((message, i) => {
           const isMe = message.userId === props.userId;
           return message.type === 'System' ? (
-            <ChatSystemMessage>{message.message}</ChatSystemMessage>
+            <ChatSystemMessage key={i}>{message.message}</ChatSystemMessage>
           ) : (
             <ChatMessage
               message={message.message}
-              sendTime="12/12/12"
+              sendTime={message.displayedDate}
               sender={isMe ? undefined : message.userName}
               isMe={isMe}
               key={i}
@@ -74,6 +74,9 @@ const useSocket = (endpoint: string, onMessage: (data: any) => void) => {
       const data = JSON.parse(event.data);
       onMessageRef.current(data);
     };
+    return () => {
+      ws.close();
+    };
   }, [endpoint, onMessageRef]);
 
   const send = React.useCallback(function sendMessage(data: any) {
@@ -92,4 +95,5 @@ type Message = {
   userName: string;
   userId: number;
   message: string;
+  displayedDate: string;
 };
