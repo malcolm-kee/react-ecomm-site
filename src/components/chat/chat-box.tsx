@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useLatest } from '../../hooks/use-latest';
+import { useSocket } from '../../hooks/use-socket';
 import { Alert } from '../alert';
 import { Spinner } from '../spinner';
 import styles from './chat-box.module.scss';
@@ -16,8 +16,8 @@ type ChatBoxProps = {
 
 export const ChatBox = ({ height = 400, ...props }: ChatBoxProps) => {
   const [messages, setMessages] = React.useState<Message[]>([]);
-  const [status, send] = useSocket(props.socketEndpoint, data => {
-    setMessages(msgs => msgs.concat(data));
+  const [status, send] = useSocket(props.socketEndpoint, {
+    onMessage: data => setMessages(msgs => msgs.concat(data)),
   });
 
   return (
@@ -55,40 +55,6 @@ export const ChatBox = ({ height = 400, ...props }: ChatBoxProps) => {
     </div>
   );
 };
-
-const useSocket = (endpoint: string, onMessage: (data: any) => void) => {
-  const [status, setStatus] = React.useState<ConnectionStatus>('initializing');
-  const onMessageRef = useLatest(onMessage);
-  const wsRef = React.useRef<WebSocket | null>(null);
-  React.useEffect(() => {
-    setStatus('initializing');
-    const ws = new WebSocket(endpoint);
-    wsRef.current = ws;
-    ws.onopen = function() {
-      setStatus('connected');
-    };
-    ws.onerror = function() {
-      setStatus('error');
-    };
-    ws.onmessage = function(event) {
-      const data = JSON.parse(event.data);
-      onMessageRef.current(data);
-    };
-    return () => {
-      ws.close();
-    };
-  }, [endpoint, onMessageRef]);
-
-  const send = React.useCallback(function sendMessage(data: any) {
-    if (wsRef.current) {
-      wsRef.current.send(JSON.stringify(data));
-    }
-  }, []);
-
-  return [status, send] as const;
-};
-
-type ConnectionStatus = 'initializing' | 'connected' | 'error';
 
 type Message = {
   type: 'User' | 'System';
