@@ -1,0 +1,69 @@
+@import '../../constants';
+
+.root {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.rootIsMe {
+  text-align: right;
+}
+
+.msg {
+  display: inline-block;
+  max-width: 95%;
+  position: relative;
+  background-color: $grey-100;
+  border-radius: $space-2;
+  padding: $space-2 $space-3;
+  margin-bottom: $space-3;
+  box-shadow: $shadow-md;
+}
+
+.msgIsMe {
+  background-color: $teal-100;
+}
+
+.tail {
+  display: inline-block;
+  position: absolute;
+  left: -8px;
+  top: 0px;
+  background-color: transparent;
+  width: 0;
+  height: 0;
+  border-top: 20px solid $grey-100;
+  border-left: 16px solid transparent;
+}
+
+.tailIsMe {
+  left: auto;
+  right: -8px;
+  border-left: none;
+  border-top: 20px solid $teal-100;
+  border-right: 16px solid transparent;
+}
+
+.sender {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: $teal-800;
+}
+
+.msgContent {
+  white-space: pre-wrap;
+  position: relative;
+  text-align: left;
+}
+
+.padEnd {
+  display: inline-block;
+  width: 56px;
+}
+
+.time {
+  position: absolute;
+  right: $space-3;
+  bottom: $space-1;
+  color: $grey-500;
+}

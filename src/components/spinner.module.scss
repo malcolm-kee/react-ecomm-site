@@ -22,7 +22,7 @@
   }
 }
 
-.spinner-inner {
+.spinnerInner {
   display: inline-block;
   width: 44px;
   height: 44px;
@@ -45,7 +45,7 @@
   }
 }
 
-.spinner-inner circle {
+.spinnerInner circle {
   stroke: currentColor;
   animation: circular-dash 1.5s ease-in-out infinite;
   stroke-dasharray: 80px, 200px;

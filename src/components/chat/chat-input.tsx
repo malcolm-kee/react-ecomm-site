@@ -17,6 +17,7 @@ export const ChatInput = ({
   onSend,
   clearOnSend = true,
   className,
+  placeholder = 'Type a message',
   ...props
 }: ChatInputProps) => {
   const inputRef = React.useRef<HTMLTextAreaElement>(null);
@@ -39,34 +40,37 @@ export const ChatInput = ({
       }}
       className={styles.root}
     >
-      <Textarea
-        required
-        aria-describedby={`${ensuredId}-label`}
-        className={cx(styles.textarea, className)}
-        minRows={1}
-        useCacheForDOMMeasurements
-        {...props}
-        onKeyDown={callAll(ev => {
-          if (ev.keyCode === 13 && !ev.shiftKey) {
-            ev.preventDefault();
-            handleSend();
-          }
-        }, props.onKeyDown)}
-        ref={inputRef}
-      />
-      <span hidden id={`${ensuredId}-label`}>
-        Chat message
-      </span>
-      <button
-        onClick={() => {
-          inputRef.current!.focus();
-        }}
-        className={styles.btn}
-        type="submit"
-      >
-        <SendIcon />
-        <span className="sr-only">Send</span>
-      </button>
+      <div className={styles.inputWrapper}>
+        <Textarea
+          required
+          aria-describedby={`${ensuredId}-label`}
+          className={cx(styles.textarea, className)}
+          minRows={1}
+          useCacheForDOMMeasurements
+          placeholder={placeholder}
+          {...props}
+          onKeyDown={callAll(ev => {
+            if (ev.keyCode === 13 && !ev.shiftKey) {
+              ev.preventDefault();
+              handleSend();
+            }
+          }, props.onKeyDown)}
+          ref={inputRef}
+        />
+        <span hidden id={`${ensuredId}-label`}>
+          Chat message
+        </span>
+        <button
+          onClick={() => {
+            inputRef.current!.focus();
+          }}
+          className={styles.btn}
+          type="submit"
+        >
+          <SendIcon />
+          <span className="sr-only">Send</span>
+        </button>
+      </div>
     </form>
   );
 };
