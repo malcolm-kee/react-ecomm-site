@@ -14,6 +14,7 @@ import { ProductPage } from './pages/product-page';
 import { ProfilePage } from './pages/profile-page';
 import { Signup } from './pages/signup';
 import { SiteNav } from './site-nav';
+import { ChatLauncher } from './modules/auth/components/chat-launcher';
 
 function AppContainer({ initAuthStatus }) {
   React.useEffect(() => {
@@ -33,6 +34,7 @@ function AppContainer({ initAuthStatus }) {
         <HelpPage path="/help/*" />
         <NotFoundPage default />
       </Router>
+      <ChatLauncher />
       <Footer />
       <ToastContainer hideProgressBar />
     </div>

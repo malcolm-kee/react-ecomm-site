@@ -1,0 +1,63 @@
+import { Link } from '@reach/router';
+import * as React from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+import { Button } from '../../../components/button';
+import { ChatBox } from '../../../components/chat/chat-box';
+import { RootState } from '../../../type';
+import { selectUser } from '../auth.selectors';
+import styles from './chat-launcher.module.scss';
+
+const CHAT_SOCKET_URL =
+  process.env.REACT_APP_CHAT_URL || 'wss://ecomm-db.herokuapp.com/chat';
+
+const ChatLauncherView = (props: ConnectedProps<typeof connector>) => {
+  const [showChat, setShowChat] = React.useState(false);
+  const btnRef = React.useRef<HTMLButtonElement>(null);
+  const dismissChat = () => {
+    setShowChat(false);
+    btnRef.current && btnRef.current.focus();
+  };
+
+  return (
+    <>
+      <Button
+        color="primary"
+        className={styles.btn}
+        onClick={() => setShowChat(true)}
+        ref={btnRef}
+      >
+        Chat
+      </Button>
+      {showChat && (
+        <div className={styles.chatWrapper}>
+          <div className={`bg-primary ${styles.chatHeader}`}>
+            Chat{' '}
+            <Button
+              onClick={dismissChat}
+              aria-label="Close"
+              color="primary"
+              autoFocus
+            >
+              X
+            </Button>
+          </div>
+          {props.user ? (
+            <ChatBox socketEndpoint={CHAT_SOCKET_URL} userId={props.user.id} />
+          ) : (
+            <div>
+              <Link to="/login" onClick={() => setShowChat(false)}>
+                Login to Chat
+              </Link>
+            </div>
+          )}
+        </div>
+      )}
+    </>
+  );
+};
+
+const connector = connect((state: RootState) => ({
+  user: selectUser(state),
+}));
+
+export const ChatLauncher = connector(ChatLauncherView);

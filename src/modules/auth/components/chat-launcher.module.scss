@@ -1,0 +1,21 @@
+.btn {
+  position: fixed;
+  z-index: 20;
+  right: 16px;
+  bottom: 0;
+}
+
+.chatWrapper {
+  position: fixed;
+  z-index: 21;
+  right: 8px;
+  bottom: 0;
+  width: 300px;
+}
+
+.chatHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 12px;
+}

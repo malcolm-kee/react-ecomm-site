@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reach/dialog": "^0.7.2",
     "@reach/router": "^1.2.1",
     "@reduxjs/toolkit": "^1.1.0",
     "classnames": "^2.2.6",
