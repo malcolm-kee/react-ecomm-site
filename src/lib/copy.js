@@ -11,12 +11,11 @@ const copyTextFallback = textToCopy => {
   } catch (e) {
     console.info('Copy text fail somehow');
     throw e;
-  }
-
-  document.body.removeChild(textarea);
-
-  if (currentActive && currentActive !== document.body) {
-    currentActive.focus();
+  } finally {
+    document.body.removeChild(textarea);
+    if (currentActive && currentActive !== document.body) {
+      currentActive.focus();
+    }
   }
 };
 
