@@ -1,7 +1,7 @@
 import { act, fireEvent, wait, waitForElement } from '@testing-library/react';
 import React from 'react';
 import App from './App';
-import { renderWithStateMgmt } from './lib/test-util';
+import { renderWithStateMgmt, user } from './lib/test-util';
 
 jest.mock('./modules/auth/auth.service');
 jest.mock('./modules/marketing/marketing.service');
@@ -24,16 +24,16 @@ function loadApp({ url = '/' } = {}) {
 
   return {
     ...renderResult,
-    addProductToCart: () => fireEvent.click(getAddToCartBtn()),
+    addProductToCart: () => user.click(getAddToCartBtn()),
     waitForProductPageFinishLoading: () =>
       waitForElement(() => getAddToCartBtn()),
-    addQty: () => fireEvent.click(getByTestId('add-qty-btn')),
-    minusQty: () => fireEvent.click(getByTestId('reduce-qty-btn')),
+    addQty: () => user.click(getByTestId('add-qty-btn')),
+    minusQty: () => user.click(getByTestId('reduce-qty-btn')),
     getCartItemQty: id => getByTestId(`qty-for-${id}`).innerHTML,
     queryCartItem: id => queryByTestId(`qty-for-${id}`),
-    addMoreCartItem: id => fireEvent.click(getByTestId(`add-${id}`)),
-    reduceCartItem: id => fireEvent.click(getByTestId(`reduce-${id}`)),
-    removeCartItem: id => fireEvent.click(getByTestId(`remove-${id}`)),
+    addMoreCartItem: id => user.click(getByTestId(`add-${id}`)),
+    reduceCartItem: id => user.click(getByTestId(`reduce-${id}`)),
+    removeCartItem: id => user.click(getByTestId(`remove-${id}`)),
     inputName: name =>
       fireEvent.change(getByLabelText('Name'), {
         target: { value: name },
@@ -43,8 +43,8 @@ function loadApp({ url = '/' } = {}) {
         target: { value: email },
       }),
     submitForm: () =>
-      fireEvent.click(container.querySelector('button[type="submit"]')),
-    logout: () => fireEvent.click(getByText('Logout')),
+      user.click(container.querySelector('button[type="submit"]')),
+    logout: () => user.click(getByText('Logout')),
   };
 }
 
@@ -53,6 +53,28 @@ describe('<App />', () => {
     const { getAllByText } = loadApp();
 
     expect(getAllByText('Shopit').length).toBeGreaterThan(0);
+  });
+
+  it(`shows help page at help url`, async () => {
+    const { getByText, findByText } = loadApp({
+      url: '/help',
+    });
+
+    user.click(getByText('Account'));
+    await findByText('If you forget password, just create another one.');
+
+    user.click(getByText('Payment'));
+    await findByText(
+      `Seriously u look for help for payment when you can't even pay?`
+    );
+
+    user.click(getByText('Shipping'));
+    await findByText(
+      'All shipping will be delivered within 3-5 years. Please be patient.'
+    );
+
+    user.click(getByText('Complaint'));
+    await findByText('Make a Complaint');
   });
 
   it('show page not found for invalid url', () => {

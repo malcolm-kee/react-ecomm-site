@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Button } from './button';
 import { Panel, PanelBody, PanelHeading } from './panel';
 
 /**
@@ -30,11 +31,24 @@ export class ErrorBoundary extends React.Component {
     }
   }
 
+  attemptRecover = () => {
+    this.setState({
+      hasError: false,
+    });
+  };
+
   render() {
     return this.state.hasError ? (
       <Panel color="danger">
         <PanelHeading>Error</PanelHeading>
-        <PanelBody>Something goes wrong.</PanelBody>
+        <PanelBody>
+          <p role="alert">Something goes wrong.</p>
+          <div className="btn-toolbar">
+            <Button onClick={this.attemptRecover} color="default">
+              Retry
+            </Button>
+          </div>
+        </PanelBody>
       </Panel>
     ) : (
       <>{this.props.children}</>

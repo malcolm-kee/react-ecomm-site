@@ -55,7 +55,7 @@ export const ComplainForm = () => {
               <legend>Details</legend>
               <Field>
                 <Label>Date of incident</Label>
-                <DateInput />
+                <DateInput id="incident-date" />
               </Field>
               <Field>
                 <Label>Details about the incident</Label>
