@@ -2,6 +2,7 @@ import * as React from 'react';
 import styles from './file-record.module.scss';
 import { Progress } from './progress';
 import { Button } from './button';
+import { useId } from '../hooks/use-id';
 
 type FileRecordProps =
   | {
@@ -23,6 +24,8 @@ type FileRecordProps =
  * You could use it to render uploaded file if you use `FileUpload` as controlled component.
  */
 export const FileRecord = (props: FileRecordProps) => {
+  const id = useId();
+
   if (props.status === 'error') {
     return <FileErrorRecord {...props} />;
   }
@@ -46,10 +49,16 @@ export const FileRecord = (props: FileRecordProps) => {
       ) : (
         <span className={styles.btnPlaceholder} />
       )}
-      <Button color="default" onClick={props.onRemove}>
+      <Button
+        color="default"
+        aria-labelledby={`remove-btn-${id}`}
+        onClick={props.onRemove}
+      >
         <span className="glyphicon glyphicon-remove" />
-        <span className="sr-only">Remove</span>
       </Button>
+      <span className="sr-only" id={`remove-btn-${id}`}>
+        Remove
+      </span>
     </div>
   );
 };
