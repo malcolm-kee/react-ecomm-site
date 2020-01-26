@@ -43,7 +43,7 @@ export const ChatInput = ({
       <div className={styles.inputWrapper}>
         <Textarea
           required
-          aria-describedby={`${ensuredId}-label`}
+          aria-labelledby={`${ensuredId}-label`}
           className={cx(styles.textarea, className)}
           minRows={1}
           useCacheForDOMMeasurements
@@ -57,18 +57,18 @@ export const ChatInput = ({
           }, props.onKeyDown)}
           ref={inputRef}
         />
-        <span hidden id={`${ensuredId}-label`}>
+        <label className="sr-only" id={`${ensuredId}-label`}>
           Chat message
-        </span>
+        </label>
         <button
           onClick={() => {
             inputRef.current!.focus();
           }}
           className={styles.btn}
           type="submit"
+          aria-label="Send"
         >
           <SendIcon />
-          <span className="sr-only">Send</span>
         </button>
       </div>
     </form>
