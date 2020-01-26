@@ -1,5 +1,7 @@
 type Callback<Args extends any[]> = (...args: Args) => void;
 
+export function noop() {}
+
 export function throttle<Args extends any[]>(
   func: Callback<Args>,
   wait = 100,

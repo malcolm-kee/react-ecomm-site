@@ -1,3 +1,5 @@
+@import '../../../constants';
+
 .btn {
   position: fixed;
   z-index: 20;
@@ -18,4 +20,10 @@
   justify-content: space-between;
   align-items: center;
   padding: 4px 12px;
+}
+
+.chatContentWrapper {
+  background-color: $gray-100;
+  padding: $space-4;
+  min-height: 5rem;
 }

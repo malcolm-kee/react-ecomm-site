@@ -14,9 +14,13 @@ type ChatBoxProps = {
   height?: number;
 };
 
-export const ChatBox = ({ height = 400, ...props }: ChatBoxProps) => {
+export const ChatBox = ({
+  height = 400,
+  socketEndpoint,
+  userId,
+}: ChatBoxProps) => {
   const [messages, setMessages] = React.useState<Message[]>([]);
-  const [status, send] = useSocket(props.socketEndpoint, {
+  const [status, send] = useSocket(socketEndpoint, {
     onMessage: data => setMessages(msgs => msgs.concat(data)),
   });
 
@@ -29,7 +33,7 @@ export const ChatBox = ({ height = 400, ...props }: ChatBoxProps) => {
       ) : null}
       <ChatHistory height={height}>
         {messages.map((message, i) => {
-          const isMe = message.userId === props.userId;
+          const isMe = message.userId === userId;
           return message.type === 'System' ? (
             <ChatSystemMessage key={i}>{message.message}</ChatSystemMessage>
           ) : (
@@ -46,7 +50,7 @@ export const ChatBox = ({ height = 400, ...props }: ChatBoxProps) => {
       <ChatInput
         onSend={message => {
           send({
-            userId: props.userId,
+            userId,
             message,
           });
         }}

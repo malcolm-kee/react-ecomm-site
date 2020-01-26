@@ -1,4 +1,3 @@
-import { Link } from '@reach/router';
 import * as React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Button } from '../../../components/button';
@@ -6,6 +5,7 @@ import { ChatBox } from '../../../components/chat/chat-box';
 import { RootState } from '../../../type';
 import { selectUser } from '../auth.selectors';
 import styles from './chat-launcher.module.scss';
+import { LoginForm } from './login-form';
 
 const CHAT_SOCKET_URL =
   process.env.REACT_APP_CHAT_URL || 'wss://ecomm-db.herokuapp.com/chat';
@@ -44,10 +44,8 @@ const ChatLauncherView = (props: ConnectedProps<typeof connector>) => {
           {props.user ? (
             <ChatBox socketEndpoint={CHAT_SOCKET_URL} userId={props.user.id} />
           ) : (
-            <div>
-              <Link to="/login" onClick={() => setShowChat(false)}>
-                Login to Chat
-              </Link>
+            <div className={styles.chatContentWrapper}>
+              <LoginForm />
             </div>
           )}
         </div>

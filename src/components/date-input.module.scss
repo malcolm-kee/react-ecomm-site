@@ -1,6 +1,6 @@
 $space: 8px;
 $primary-color: #317eac;
-$grey-light: #f9f9f9;
+$gray-light: #f9f9f9;
 
 .input {
   background-color: #ffffff !important;
@@ -65,7 +65,7 @@ $grey-light: #f9f9f9;
       width: 30%;
     }
     .datepick-cmd:hover {
-      background-color: $grey-light;
+      background-color: $gray-light;
     }
     .datepick-ctrl .datepick-cmd:hover {
       background-color: #d9edf7;

@@ -13,7 +13,7 @@
   display: inline-block;
   max-width: 95%;
   position: relative;
-  background-color: $grey-100;
+  background-color: $gray-100;
   border-radius: $space-2;
   padding: $space-2 $space-3;
   margin-bottom: $space-3;
@@ -32,7 +32,7 @@
   background-color: transparent;
   width: 0;
   height: 0;
-  border-top: 20px solid $grey-100;
+  border-top: 20px solid $gray-100;
   border-left: 16px solid transparent;
 }
 
@@ -65,5 +65,5 @@
   position: absolute;
   right: $space-3;
   bottom: $space-1;
-  color: $grey-500;
+  color: $gray-500;
 }
