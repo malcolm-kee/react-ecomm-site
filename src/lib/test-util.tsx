@@ -4,8 +4,8 @@ import {
   LocationProvider,
 } from '@reach/router';
 import { configureStore } from '@reduxjs/toolkit';
-import userEvent from '@testing-library/user-event';
 import { act, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { rootReducer } from '../modules/root-reducer';
@@ -34,6 +34,12 @@ export function renderWithStateMgmt(
   };
 }
 
+function wrapAct<Arg extends any[]>(
+  action: (...args: Arg) => Promise<void>
+): (...args: Arg) => Promise<undefined>;
+function wrapAct<Arg extends any[]>(
+  action: (...args: Arg) => void
+): (...args: Arg) => void;
 function wrapAct<Arg extends any[]>(action: (...args: Arg) => any) {
   return function invokeAct(...args: Arg) {
     return act(() => action(...args));
