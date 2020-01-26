@@ -1,13 +1,23 @@
-import { fireEvent, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import React from 'react';
+import { user } from '../lib/test-util';
 import { DateInput } from './date-input';
 
-describe('<DateInput />', () => {
+describe(`<DateInput />`, () => {
   test('able to work without dateFormat', () => {
     const { getByTestId, getByText } = setup();
 
-    fireEvent.focus(getByTestId('dateinput'));
-    fireEvent.click(getByText('12'));
+    user.click(getByTestId('dateinput'));
+    user.click(getByText('12'));
+
+    expect(getByTestId('dateinput').value.substring(0, 2)).toBe('12');
+  });
+
+  test('it shows datepicker when button is clicked', () => {
+    const { getByLabelText, getByTestId, getByText } = setup();
+
+    user.click(getByLabelText('open date picker'));
+    user.click(getByText('12'));
 
     expect(getByTestId('dateinput').value.substring(0, 2)).toBe('12');
   });
@@ -18,10 +28,29 @@ describe('<DateInput />', () => {
       dateFormat: 'yyyy-mm-dd',
     });
 
-    fireEvent.focus(getByTestId('dateinput'));
-    fireEvent.click(getByText('25'));
+    user.click(getByTestId('dateinput'));
+    user.click(getByText('25'));
 
     expect(getByTestId('dateinput')).toHaveValue('2020-01-25');
+  });
+
+  test('update value based on props', () => {
+    const { rerender, getByTestId } = render(
+      <DateInput value="01-01-2020" data-testid="dateinput" />
+    );
+    expect(getByTestId('dateinput')).toHaveValue('01-01-2020');
+
+    rerender(<DateInput value="02-02-2020" data-testid="dateinput" />);
+    expect(getByTestId('dateinput')).toHaveValue('02-02-2020');
+
+    rerender(<DateInput value="" data-testid="dateinput" />);
+    expect(getByTestId('dateinput')).toHaveValue('');
+  });
+
+  test('it show datepicker when autoFocus', () => {
+    render(<DateInput autoFocus data-testid="dateinput" />);
+
+    expect(document.querySelector('.datepick-popup')).toBeVisible();
   });
 });
 
