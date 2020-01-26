@@ -1,4 +1,6 @@
-﻿/* eslint-disable */
+﻿/* istanbul ignore file */
+
+/* eslint-disable */
 import jQuery from 'jquery';
 import './jquery.plugin';
 
