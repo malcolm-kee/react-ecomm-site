@@ -1,6 +1,6 @@
 import React from 'react';
 import { waitForElement, fireEvent, wait } from '@testing-library/react';
-import { renderWithStateMgmt } from '../lib/test-util';
+import { renderWithStateMgmt, user } from '../lib/test-util';
 import { ProductPage } from './product-page';
 
 jest.mock('../modules/products/product.service');
@@ -24,7 +24,7 @@ describe('<ProductPage />', () => {
           target: { value: comment },
         }),
       submitComment: () =>
-        fireEvent.click(getByTestId('product-comment-submit-btn')),
+        user.click(getByTestId('product-comment-submit-btn')),
     };
   }
 
@@ -33,7 +33,7 @@ describe('<ProductPage />', () => {
 
     const addToCartBtn = await waitForElement(() => getAddToCartBtn());
 
-    fireEvent.click(addToCartBtn);
+    user.click(addToCartBtn);
   });
 
   it('allows customer to add comment', async () => {

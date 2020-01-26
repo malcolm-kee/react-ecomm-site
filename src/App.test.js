@@ -1,4 +1,4 @@
-import { act, fireEvent, wait, waitForElement } from '@testing-library/react';
+import { act, wait, waitForElement } from '@testing-library/react';
 import React from 'react';
 import App from './App';
 import { renderWithStateMgmt, user } from './lib/test-util';
@@ -56,7 +56,7 @@ describe('<App />', () => {
   });
 
   it(`shows help page at help url`, async () => {
-    const { getByText, findByText } = loadApp({
+    const { getByText, findByText, getByLabelText } = loadApp({
       url: '/help',
     });
 
@@ -75,6 +75,21 @@ describe('<App />', () => {
 
     user.click(getByText('Complaint'));
     await findByText('Make a Complaint');
+
+    user.selectOptions(
+      getByLabelText('I want to make complain about'),
+      'deliver'
+    );
+    user.click(getByText('Next'));
+
+    await user.type(
+      getByLabelText('Details about the incident'),
+      'It take a year for the delivery to reach.'
+    );
+    user.click(getByText('Next'));
+
+    await user.type(getByLabelText('Your Full Name'), 'Malcolm Key');
+    user.click(getByText('Submit'));
   });
 
   it('show page not found for invalid url', () => {
@@ -145,9 +160,7 @@ describe('<App />', () => {
 
     await wait();
 
-    fireEvent.change(getByLabelText('Email'), {
-      target: { value: 'mk@test.com' },
-    });
+    await user.type(getByLabelText('Email'), 'mk@test.com');
     user.click(container.querySelector('button[type="submit"]'));
 
     await findByText("You're already login!");
@@ -176,12 +189,8 @@ describe('<App />', () => {
 
     await wait();
 
-    fireEvent.change(getByLabelText('Name'), {
-      target: { value: 'Malcolm Kee' },
-    });
-    fireEvent.change(getByLabelText('Email'), {
-      target: { value: 'mk@test.com' },
-    });
+    await user.type(getByLabelText('Name'), 'Malcolm Kee');
+    await user.type(getByLabelText('Email'), 'mk@test.com');
     user.click(container.querySelector('button[type="submit"]'));
 
     await findByText("You're already login!");
