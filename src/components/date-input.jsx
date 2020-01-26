@@ -3,6 +3,7 @@ import $ from 'jquery';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useLatest } from '../hooks/use-latest';
+import { useId } from '../hooks/use-id';
 import '../lib/jquery.datepick.package-5.1.0/js/jquery.datepick';
 import styles from './date-input.module.scss';
 import { Input } from './input';
@@ -19,9 +20,11 @@ export const DateInput = ({
   className,
   onChangeValue,
   value,
+  id,
   ...props
 }) => {
   const inputRef = React.useRef(null);
+  const ensuredId = useId(id);
 
   const onChangeValueRef = useLatest(onChangeValue);
 
@@ -59,21 +62,39 @@ export const DateInput = ({
     }
   }, [value, getDateValue]);
 
+  React.useEffect(() => {
+    const $input = $(inputRef.current);
+    return function cleanup() {
+      $input.datepick('destroy');
+    };
+  }, []);
+
+  React.useEffect(() => {
+    if (props.autoFocus) {
+      $(inputRef.current).datepick('show');
+    }
+  }, [props.autoFocus]);
+
   return (
     <div className={styles.wrapper}>
       <Input
         className={cx(styles.input, className)}
         readOnly
+        id={id}
         {...props}
         ref={inputRef}
       />
       <button
         className={styles.icon}
+        type="button"
         onClick={() => $(inputRef.current).datepick('show')}
+        aria-labelledby={`${ensuredId}-btn-label`}
       >
         <i className="glyphicon glyphicon-calendar" aria-hidden="true" />
-        <span className="sr-only">open date picker</span>
       </button>
+      <span className="sr-only" id={`${ensuredId}-btn-label`}>
+        open date picker
+      </span>
     </div>
   );
 };

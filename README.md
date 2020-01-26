@@ -12,7 +12,7 @@ There are two implementations of this site:
 
 1. MobX - [`master` branch][master-branch] ([Preview][mobx-preview])
 1. Redux - [`redux` branch][redux-branch] ([Preview][redux-preview])
-1. Redux with TypeScript - [`redux-ts` branch][redux-ts-branch]
+1. Redux with TypeScript - [`redux-ts` branch][redux-ts-branch] ([Preview][reduxts-preview])
 
 You can cross-reference them and see the difference between them. I will put my best effort to ensure they are functionally the same.
 
@@ -34,3 +34,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 [backend-api-repo]: https://github.com/malcolm-kee/ecomm-db
 [mobx-preview]: https://shopit.space/
 [redux-preview]: https://redux.shopit.space/
+[reduxts-preview]: https://redux-ts.shopit.space/

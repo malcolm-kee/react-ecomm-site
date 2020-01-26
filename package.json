@@ -41,6 +41,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.0",
+    "@testing-library/user-event": "^8.0.4",
     "@types/jest": "^24.0.18",
     "jest-junit": "^10.0.0",
     "netlify-cli": "^2.24.0",

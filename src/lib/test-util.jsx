@@ -3,7 +3,8 @@ import {
   createMemorySource,
   LocationProvider,
 } from '@reach/router';
-import { render } from '@testing-library/react';
+import { act, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Provider } from 'mobx-react';
 import React from 'react';
 import { AuthStore } from '../modules/auth/auth.store';
@@ -40,3 +41,17 @@ export function renderWithStateMgmt(
     ),
   };
 }
+
+function wrapAct(action) {
+  return function invokeAct(...args) {
+    return act(() => action(...args));
+  };
+}
+
+export const user = {
+  click: wrapAct(userEvent.click),
+  dblClick: wrapAct(userEvent.dblClick),
+  type: wrapAct(userEvent.type),
+  selectOptions: wrapAct(userEvent.selectOptions),
+  tab: wrapAct(userEvent.tab),
+};
