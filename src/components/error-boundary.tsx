@@ -1,9 +1,10 @@
 import * as React from 'react';
+import { Button } from './button';
 import { Panel, PanelBody, PanelHeading } from './panel';
 
 export type ErrorBoundaryProps = {
   children: React.ReactNode;
-  onError?: () => void;
+  onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
 };
 
 type ErrorBoundaryState = {
@@ -23,30 +24,37 @@ export class ErrorBoundary extends React.Component<
     hasError: false,
   };
 
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    this.setState(
-      {
-        hasError: true,
-      },
-      () => {
-        console.group(`Error caught in ErrorBoundary`);
-        console.error(error);
-        console.error(errorInfo);
-        console.groupEnd();
-
-        const { onError } = this.props;
-        if (onError) {
-          onError();
-        }
-      }
-    );
+  static getDerivedStateFromError() {
+    return {
+      hasError: true,
+    };
   }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    const { onError } = this.props;
+    if (onError) {
+      onError(error, errorInfo);
+    }
+  }
+
+  attemptRecover = () => {
+    this.setState({
+      hasError: false,
+    });
+  };
 
   render() {
     return this.state.hasError ? (
       <Panel color="danger">
         <PanelHeading>Error</PanelHeading>
-        <PanelBody>Something goes wrong.</PanelBody>
+        <PanelBody>
+          <p role="alert">Something goes wrong.</p>
+          <div className="btn-toolbar">
+            <Button onClick={this.attemptRecover} color="default">
+              Retry
+            </Button>
+          </div>
+        </PanelBody>
       </Panel>
     ) : (
       <>{this.props.children}</>
