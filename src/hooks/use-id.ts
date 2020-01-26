@@ -4,7 +4,7 @@ import { getId } from '../lib/id';
 /**
  * `useId` allows you to provide an id for your HTML element.
  */
-export const useId = (providedId: string | undefined): string => {
+export const useId = (providedId?: string | undefined): string => {
   const idRef = React.useRef<string | null>(null);
   if (providedId) {
     return providedId;
