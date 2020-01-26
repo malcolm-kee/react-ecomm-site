@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 /* eslint-disable */
 import jQuery from 'jquery';
 import { safeEval } from '../../safe-eval';

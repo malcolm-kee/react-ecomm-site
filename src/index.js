@@ -33,6 +33,7 @@ function renderApp(AppComponent) {
 
 renderApp(App);
 
+/* istanbul ignore next */
 if (module.hot) {
   module.hot.accept('./App', () => {
     const NextApp = require('./App').default;
