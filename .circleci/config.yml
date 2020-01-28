@@ -3,13 +3,13 @@ version: 2.0
 jobs:
   noop:
     docker:
-      - image: circleci/node:10.16.3 # the primary container, where your job's commands are run
+      - image: cypress/base:8 # the primary container, where your job's commands are run
     steps:
       - run: echo "Noop Do nothing."
 
   setup:
     docker:
-      - image: circleci/node:10.16.3 # the primary container, where your job's commands are run
+      - image: cypress/base:8 # the primary container, where your job's commands are run
     steps:
       - checkout # check out the code in the project directory
 
@@ -33,7 +33,7 @@ jobs:
 
   build:
     docker:
-      - image: circleci/node:10.16.3
+      - image: cypress/base:8
     steps:
       - checkout
       - restore_cache:
@@ -57,7 +57,7 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/node:10.16.3
+      - image: cypress/base:8
     steps:
       - checkout
       - restore_cache:
@@ -73,7 +73,7 @@ jobs:
 
   test:
     docker:
-      - image: circleci/node:10.16.3
+      - image: cypress/base:8
     steps:
       - checkout
       - restore_cache:
@@ -96,7 +96,7 @@ jobs:
 
   teste2e:
     docker:
-      - image: circleci/node:10.16.3
+      - image: cypress/base:8
     steps:
       - checkout
       - restore_cache:
