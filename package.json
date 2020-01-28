@@ -69,6 +69,6 @@
     "react-docgen-typescript": "^1.15.0",
     "react-styleguidist": "^9.0.4",
     "start-server-and-test": "^1.10.8",
-    "typescript": "^3.7.3"
+    "typescript": "^3.7.5"
   }
 }
