@@ -29,9 +29,13 @@
     "eject": "react-scripts eject",
     "start:docs": "styleguidist server",
     "build:docs": "styleguidist build",
-    "test:e2e": "jest --config=jest.e2e.config.js",
-    "test:e2e:firefox": "cross-env PLAYWRIGHT_BROWSER=firefox jest --config=jest.e2e.config.js",
-    "test:e2e:webkit": "cross-env PLAYWRIGHT_BROWSER=webkit jest --config=jest.e2e.config.js"
+    "dev": "cross-env BROWSER=none react-scripts start",
+    "run:e2e": "jest --config=jest.e2e.config.js",
+    "run:e2e:firefox": "cross-env PLAYWRIGHT_BROWSER=firefox jest --config=jest.e2e.config.js",
+    "run:e2e:webkit": "cross-env PLAYWRIGHT_BROWSER=webkit jest --config=jest.e2e.config.js",
+    "test:e2e": "start-server-and-test dev http://localhost:3000 run:e2e",
+    "test:e2e:firefox": "start-server-and-test dev http://localhost:3000 run:e2e:firefox",
+    "test:e2e:webkit": "start-server-and-test dev http://localhost:3000 run:e2e:webkit"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -65,6 +69,7 @@
     "react-docgen-typescript": "^1.15.0",
     "react-styleguidist": "^9.0.4",
     "rimraf": "^3.0.1",
+    "start-server-and-test": "^1.10.8",
     "typescript": "^3.7.3"
   }
 }
