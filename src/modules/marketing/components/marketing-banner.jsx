@@ -10,6 +10,15 @@ import { loadBanners } from '../marketing.actions';
 import { selectBanners, selectNoBanner } from '../marketing.selectors';
 
 class MarketingBannerView extends React.Component {
+  state = {
+    loadedImageCount: 0,
+  };
+
+  loadImage = () =>
+    this.setState(prevState => ({
+      loadedImageCount: prevState.loadedImageCount + 1,
+    }));
+
   componentDidMount() {
     this.props.loadBanners();
   }
@@ -21,9 +30,11 @@ class MarketingBannerView extends React.Component {
       return null;
     }
 
+    const isAllImageLoaded = this.state.loadedImageCount === banners.length;
+
     return (
       <Carousel interval={2000}>
-        <CarouselIndicators />
+        {isAllImageLoaded && <CarouselIndicators />}
         <Slides>
           {banners.map(banner => (
             <Slide key={banner['500']}>
@@ -31,6 +42,7 @@ class MarketingBannerView extends React.Component {
                 srcSet={`${banner['500']} 500w, ${banner['700']} 700w, ${banner['1242']} 1242w`}
                 src={banner['700']}
                 alt=""
+                onLoad={this.loadImage}
               />
               <div className="carousel-caption">
                 <p>It's only crazy until you buy it.</p>
