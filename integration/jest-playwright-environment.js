@@ -17,7 +17,7 @@ class PlayWrightEnvironment extends NodeEnvironment {
       throw new Error('wsEndpoint not found');
     }
 
-    // connect to browser
+    // connect to browser and make it accessible via `global.browser` in the tests
     this.global.browser = await playwright[browserType].connect({
       browserWSEndpoint: wsEndpoint,
     });

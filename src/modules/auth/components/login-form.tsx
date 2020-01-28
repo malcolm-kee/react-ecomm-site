@@ -51,6 +51,7 @@ function LoginFormContent({ status, error, login, logout }: ReduxProps) {
             onChangeValue={setEmail}
             required
             disabled={isSubmitting}
+            id="login-email"
           />
         </div>
       </Field>

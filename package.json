@@ -33,9 +33,11 @@
     "run:e2e": "jest --config=jest.e2e.config.js",
     "run:e2e:firefox": "cross-env PLAYWRIGHT_BROWSER=firefox jest --config=jest.e2e.config.js",
     "run:e2e:webkit": "cross-env PLAYWRIGHT_BROWSER=webkit jest --config=jest.e2e.config.js",
+    "run:e2e:watch": "cross-env PLAYWRIGHT_BROWSER=firefox PLAYWRIGHT_DEBUG=true jest --config=jest.e2e.config.js --watch",
     "test:e2e": "start-server-and-test dev http://localhost:3000 run:e2e",
     "test:e2e:firefox": "start-server-and-test dev http://localhost:3000 run:e2e:firefox",
-    "test:e2e:webkit": "start-server-and-test dev http://localhost:3000 run:e2e:webkit"
+    "test:e2e:webkit": "start-server-and-test dev http://localhost:3000 run:e2e:webkit",
+    "test:e2e:watch": "start-server-and-test dev http://localhost:3000 run:e2e:watch"
   },
   "eslintConfig": {
     "extends": "react-app"
