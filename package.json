@@ -26,9 +26,12 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:ci": "react-scripts test --coverage --ci --watchAll=false",
+    "local": "cross-env BROWSER=none react-scripts start",
     "eject": "react-scripts eject",
     "start:docs": "styleguidist server",
-    "build:docs": "styleguidist build"
+    "build:docs": "styleguidist build",
+    "cy:open": "cypress open",
+    "test:e2e": "start-server-and-test local http://localhost:3000 cy:open"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -40,6 +43,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@testing-library/cypress": "^5.0.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.0",
     "@testing-library/user-event": "^8.0.3",
@@ -53,12 +57,15 @@
     "@types/react-redux": "^7.1.5",
     "@types/react-textarea-autosize": "^4.3.5",
     "@types/react-transition-group": "^4.2.3",
+    "cross-env": "^7.0.0",
+    "eslint-plugin-cypress": "^2.8.1",
     "jest-websocket-mock": "^2.0.1",
     "mock-socket": "^9.0.3",
     "node-sass": "^4.13.0",
     "prettier": "^1.19.1",
     "react-docgen-typescript": "^1.15.0",
     "react-styleguidist": "^9.0.4",
+    "start-server-and-test": "^1.10.8",
     "typescript": "^3.7.3"
   }
 }
