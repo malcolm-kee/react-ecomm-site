@@ -57,7 +57,7 @@ describe('<App />', () => {
   });
 
   it('shows help page at help url', async () => {
-    const { getByText, debug } = loadApp({
+    const { getByText } = loadApp({
       url: '/help',
     });
 

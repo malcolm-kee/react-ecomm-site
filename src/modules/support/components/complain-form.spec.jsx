@@ -1,7 +1,7 @@
-import { act, fireEvent, render, waitForElement } from '@testing-library/react';
-import user from '@testing-library/user-event';
+import { fireEvent, render, waitForElement } from '@testing-library/react';
 import React from 'react';
 import { toast as toastMock } from 'react-toastify';
+import { user } from '../../../lib/test-util';
 import { ComplainForm } from './complain-form';
 jest.mock('react-toastify');
 
@@ -21,28 +21,19 @@ afterAll(() => {
 
 describe(`<ComplainForm />`, () => {
   test('it allows user to provide complain info', async () => {
-    const { getByLabelText, getByText, debug } = render(<ComplainForm />);
+    const { getByLabelText, getByText } = render(<ComplainForm />);
     expect(scrollSpy).toHaveBeenCalledTimes(1);
 
-    act(() =>
-      user.selectOptions(
-        getByLabelText('I want to make complain about'),
-        'scam'
-      )
-    );
+    user.selectOptions(getByLabelText('I want to make complain about'), 'scam');
 
-    act(() => user.click(getByText('Next')));
+    user.click(getByText('Next'));
 
     const dateInput = await waitForElement(() =>
       getByLabelText('Date of incident')
     );
 
-    act(() => {
-      user.click(dateInput);
-    });
-    act(() => {
-      user.click(getByText('12'));
-    });
+    user.click(dateInput);
+    user.click(getByText('12'));
 
     fireEvent.change(getByLabelText('Upload File'), {
       target: {
@@ -54,14 +45,12 @@ describe(`<ComplainForm />`, () => {
       },
     });
 
-    act(() => user.click(getByText('Next')));
+    user.click(getByText('Next'));
 
-    await act(() => user.type(getByLabelText('Your Full Name'), 'Malcolm Kee'));
-    await act(() =>
-      user.type(getByLabelText('Your Phone Number'), '1122445588')
-    );
+    await user.type(getByLabelText('Your Full Name'), 'Malcolm Kee');
+    await user.type(getByLabelText('Your Phone Number'), '1122445588');
 
-    act(() => user.click(getByText('Submit')));
+    user.click(getByText('Submit'));
 
     expect(toastMock).toHaveBeenCalledTimes(1);
   });
