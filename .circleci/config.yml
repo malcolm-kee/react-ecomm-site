@@ -3,13 +3,13 @@ version: 2.0
 jobs:
   noop:
     docker:
-      - image: cypress/base:8 # the primary container, where your job's commands are run
+      - image: circleci/node:12.14.1
     steps:
       - run: echo "Noop Do nothing."
 
   setup:
     docker:
-      - image: cypress/base:8 # the primary container, where your job's commands are run
+      - image: circleci/node:12.14.1
     steps:
       - checkout # check out the code in the project directory
 
@@ -33,7 +33,7 @@ jobs:
 
   build:
     docker:
-      - image: cypress/base:8
+      - image: circleci/node:12.14.1
     steps:
       - checkout
       - restore_cache:
@@ -57,7 +57,7 @@ jobs:
 
   deploy:
     docker:
-      - image: cypress/base:8
+      - image: circleci/node:12.14.1
     steps:
       - checkout
       - restore_cache:
@@ -73,7 +73,7 @@ jobs:
 
   test:
     docker:
-      - image: cypress/base:8
+      - image: circleci/node:12.14.1
     steps:
       - checkout
       - restore_cache:
@@ -96,14 +96,16 @@ jobs:
 
   teste2e:
     docker:
-      - image: cypress/base:8
+      - image: circleci/node:12.14.1
     steps:
       - checkout
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "yarn.lock" }}
             - v1-dependencies-
-
+      - run:
+          name: Install Cypress dependencies
+          command: apt-get install libgtk2.0-0 libgtk-3-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
       - run: yarn run test:e2e:ci
 
 workflows:
