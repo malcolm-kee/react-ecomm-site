@@ -28,7 +28,10 @@
     "test:ci": "react-scripts test --coverage --ci --watchAll=false",
     "eject": "react-scripts eject",
     "start:docs": "styleguidist server",
-    "build:docs": "styleguidist build"
+    "build:docs": "styleguidist build",
+    "test:e2e": "jest --config=jest.e2e.config.js",
+    "test:e2e:firefox": "cross-env PLAYWRIGHT_BROWSER=firefox jest --config=jest.e2e.config.js",
+    "test:e2e:webkit": "cross-env PLAYWRIGHT_BROWSER=webkit jest --config=jest.e2e.config.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -53,12 +56,15 @@
     "@types/react-redux": "^7.1.5",
     "@types/react-textarea-autosize": "^4.3.5",
     "@types/react-transition-group": "^4.2.3",
+    "cross-env": "^7.0.0",
     "jest-websocket-mock": "^2.0.1",
+    "mkdirp": "^1.0.3",
     "mock-socket": "^9.0.3",
     "node-sass": "^4.13.0",
     "prettier": "^1.19.1",
     "react-docgen-typescript": "^1.15.0",
     "react-styleguidist": "^9.0.4",
+    "rimraf": "^3.0.1",
     "typescript": "^3.7.3"
   }
 }
