@@ -95,16 +95,14 @@ jobs:
 
   teste2e:
     docker:
-      - image: cypress/base:8
-        environment:
-          ## this enables colors in the output
-          TERM: xterm
+      - image: circleci/node:10.16.3
     steps:
       - checkout
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "yarn.lock" }}
             - v1-dependencies-
+
       - run: yarn run test:e2e:ci
 
 workflows:
