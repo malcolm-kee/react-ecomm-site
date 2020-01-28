@@ -9,6 +9,15 @@ import {
 import { MarketingImage } from './marketing-image';
 
 class MarketingBannerView extends React.Component {
+  state = {
+    loadedImageCount: 0,
+  };
+
+  loadImage = () =>
+    this.setState(prevState => ({
+      loadedImageCount: prevState.loadedImageCount + 1,
+    }));
+
   componentDidMount() {
     this.props.marketing.loadBanners();
   }
@@ -22,13 +31,15 @@ class MarketingBannerView extends React.Component {
       return null;
     }
 
+    const isAllImageLoaded = this.state.loadedImageCount === banners.length;
+
     return (
       <Carousel interval={2000}>
-        <CarouselIndicators />
+        {isAllImageLoaded && <CarouselIndicators />}
         <Slides>
           {banners.map(banner => (
             <Slide key={banner['500']}>
-              <MarketingImage banner={banner} />
+              <MarketingImage banner={banner} onLoad={this.loadImage} />
               <div className="carousel-caption">
                 <p className="hidden-xs">It's only crazy until you buy it.</p>
                 <h1 className="text-warning">Just Buy It.</h1>
