@@ -2,7 +2,7 @@
 /// <reference types="../support" />
 
 describe(`chat`, () => {
-  it(`can launch chat for logged in user`, () => {
+  it.only(`can launch chat for logged in user`, () => {
     cy.createUser({
       name: 'Malcolm Tee',
     }).then(user => {
@@ -20,7 +20,10 @@ describe(`chat`, () => {
         .click()
 
         .findByLabelText('Chat message')
-        .type('Hello there!{enter}');
+        .type('Hello there!{enter}')
+
+        .findByLabelText('Close')
+        .click();
     });
   });
 
