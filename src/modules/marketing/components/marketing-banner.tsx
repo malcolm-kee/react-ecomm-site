@@ -9,7 +9,7 @@ import {
 import { RootState } from '../../../type';
 import { loadBanners } from '../marketing.actions';
 import { selectBanners, selectNoBanner } from '../marketing.selectors';
-import styles from './marketing-banner.module.scss';
+import { MarketingImage } from './marketing-image';
 
 class MarketingBannerView extends React.Component<
   ConnectedProps<typeof connector>,
@@ -43,15 +43,7 @@ class MarketingBannerView extends React.Component<
         <Slides>
           {banners.map(banner => (
             <Slide key={banner['500']}>
-              <img
-                className={styles.img}
-                srcSet={`${banner['500']} 500w, ${banner['700']} 700w, ${banner['1242']} 1242w`}
-                src={banner['700']}
-                width="700"
-                height="350"
-                onLoad={this.loadImage}
-                alt=""
-              />
+              <MarketingImage banner={banner} onLoad={this.loadImage} />
               {isAllImageLoaded && (
                 <div className="carousel-caption">
                   <p>It's only crazy until you buy it.</p>
