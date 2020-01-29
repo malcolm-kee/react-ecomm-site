@@ -6,37 +6,37 @@ describe(`auth`, () => {
 
     cy.visit('/')
       .findByText('Login')
-      .click();
+      .click()
 
-    // .findByText('Signup here')
-    // .click()
+      .findByText('Signup here')
+      .click()
 
-    // .findByLabelText('Name')
-    // .type('Malcolm Kee')
-    // .findByLabelText('Email')
-    // .type(email)
-    // .findAllByText('Signup')
-    // .last()
-    // .click()
+      .findByLabelText('Name')
+      .type('Malcolm Kee')
+      .findByLabelText('Email')
+      .type(email)
+      .findAllByText('Signup')
+      .last()
+      .click()
 
-    // .findByText(`You're already login!`)
-    // .should('be.visible')
+      .findByText(`You're already login!`)
+      .should('be.visible')
 
-    // .findAllByText('Logout')
-    // .last()
-    // .click()
+      .findAllByText('Logout')
+      .last()
+      .click()
 
-    // .findByText('Login')
-    // .click()
+      .findByText('Login')
+      .click()
 
-    // .findByLabelText('Email')
-    // .type(email)
-    // .findAllByText('Login')
-    // .last()
-    // .click()
+      .findByLabelText('Email')
+      .type(email)
+      .findAllByText('Login')
+      .last()
+      .click()
 
-    // .findByText(`You're already login!`)
-    // .should('be.visible');
+      .findByText(`You're already login!`)
+      .should('be.visible');
   });
 });
 

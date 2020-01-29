@@ -1,9 +1,15 @@
 version: 2.0
 
 jobs:
+  noop:
+    docker:
+      - image: circleci/node:12.14.1
+    steps:
+      - run: echo "Noop Do nothing."
+
   setup:
     docker:
-      - image: circleci/node:10.16.3 # the primary container, where your job's commands are run
+      - image: circleci/node:12.14.1
     steps:
       - checkout # check out the code in the project directory
 
@@ -14,15 +20,20 @@ jobs:
             - v1-dependencies-
 
       - run: yarn install
+      - run: cp yarn.lock yarn.lock.tmp
+      - run: yarn add cypress
+      - run: rm yarn.lock
+      - run: mv yarn.lock.tmp yarn.lock
 
       - save_cache:
           paths:
             - node_modules
+            - ~/.cache
           key: v1-dependencies-{{ checksum "yarn.lock" }}
 
   build:
     docker:
-      - image: circleci/node:10.16.3
+      - image: circleci/node:12.14.1
     steps:
       - checkout
       - restore_cache:
@@ -46,7 +57,7 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/node:10.16.3
+      - image: circleci/node:12.14.1
     steps:
       - checkout
       - restore_cache:
@@ -62,7 +73,7 @@ jobs:
 
   test:
     docker:
-      - image: circleci/node:10.16.3
+      - image: circleci/node:12.14.1
     steps:
       - checkout
       - restore_cache:
@@ -83,17 +94,42 @@ jobs:
       - store_artifacts:
           path: reports/junit
 
+  teste2e:
+    docker:
+      - image: circleci/node:12.14.1
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies-
+      - run:
+          name: Install Cypress dependencies
+          command: sudo apt-get install -yq libgtk2.0-0 libgtk-3-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+      - run: yarn run test:e2e:ci
+
 workflows:
   version: 2
   install-build-and-test:
     jobs:
+      - noop:
+          filters:
+            branches:
+              ignore: master
+
       - setup
       - test:
+          requires:
+            - setup
+      - teste2e:
           requires:
             - setup
       - build:
           requires:
             - setup
+          filters:
+            branches:
+              only: master
       - deploy:
           requires:
             - build

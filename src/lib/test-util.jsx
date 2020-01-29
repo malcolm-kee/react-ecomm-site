@@ -43,6 +43,9 @@ function wrapAct(action) {
 export const user = {
   click: wrapAct(userEvent.click),
   dblClick: wrapAct(userEvent.dblClick),
+  /**
+   * @type typeof userEvent.type
+   */
   type: wrapAct(userEvent.type),
   selectOptions: wrapAct(userEvent.selectOptions),
   tab: wrapAct(userEvent.tab),
