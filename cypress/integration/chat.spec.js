@@ -75,7 +75,7 @@ describe(`chat`, () => {
     });
   });
 
-  it(`allow scroll when there is too much message`, () => {
+  it(`allow scroll to bottom when there is too much message`, () => {
     cy.createUser({
       name: 'Malcolm Noisy',
     }).then(user => {
@@ -102,9 +102,23 @@ describe(`chat`, () => {
         .type('F{enter}')
         .type('G{enter}')
         .type('H{enter}')
-        .type('I{enter}');
+        .type('I{enter}')
+        .type('J{enter}')
+        .type('K{enter}')
+        .type('L{enter}')
+        .type('M{enter}')
 
-      // TODO
+        .findByTestId('chat-history')
+        .scrollTo('top')
+
+        .findByText('M')
+        .should('not.be.visible')
+
+        .findByLabelText('Scroll to bottom')
+        .click()
+
+        .findByText('M')
+        .should('be.visible');
     });
   });
 });
