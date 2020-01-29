@@ -1,4 +1,5 @@
 import '@testing-library/cypress/add-commands';
+import 'cypress-file-upload';
 import { getRandomEmail } from '../test-helper';
 
 Cypress.Commands.add('createUser', ({ name, email = getRandomEmail() }) => {
