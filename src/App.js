@@ -1,10 +1,11 @@
 import { Router } from '@reach/router';
-import { connect } from 'react-redux';
 import React from 'react';
+import { connect } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { Footer } from './components/footer';
 import { initAuthStatus } from './modules/auth/auth.actions';
+import { ChatLauncher } from './modules/auth/components/chat-launcher';
 import { CartPage } from './pages/cart-page';
 import { HelpPage } from './pages/help-page';
 import { Login } from './pages/login';
@@ -33,6 +34,7 @@ function AppContainer({ initAuthStatus }) {
         <HelpPage path="/help/*" />
         <NotFoundPage default />
       </Router>
+      <ChatLauncher />
       <Footer />
       <ToastContainer hideProgressBar />
     </div>
