@@ -7,6 +7,9 @@
 
 # testing
 /coverage
+/cypress-coverage
+/.nyc_output
+/coverage-report
 
 # production
 /build
