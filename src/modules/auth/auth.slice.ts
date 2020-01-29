@@ -25,9 +25,9 @@ const authSlice = createSlice({
       state.status = 'Anonymous';
       state.user = null;
     },
-    authError: (state, { payload }: PayloadAction<string | Error>) => {
+    authError: (state, { payload }: PayloadAction<string>) => {
       state.status = 'Anonymous';
-      state.error = payload instanceof Error ? payload.message : payload;
+      state.error = payload;
     },
   },
 });

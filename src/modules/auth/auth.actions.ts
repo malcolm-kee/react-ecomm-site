@@ -28,7 +28,7 @@ export const register = ({
       dispatch(authActions.login(user));
       save('user', user);
     })
-    .catch(err => dispatch(authActions.authError(err)));
+    .catch(err => dispatch(authActions.authError(extractErrorMessage(err))));
 };
 
 export const attemptLogin = (email: string): ThunkAction<void> => dispatch => {
@@ -40,10 +40,18 @@ export const attemptLogin = (email: string): ThunkAction<void> => dispatch => {
       dispatch(authActions.login(user));
       save('user', user);
     })
-    .catch(err => dispatch(authActions.authError(err)));
+    .catch(err => dispatch(authActions.authError(extractErrorMessage(err))));
 };
 
 export const attemptLogout = (): ThunkAction<void> => dispatch => {
   clear('user');
   dispatch(authActions.logout());
 };
+
+function extractErrorMessage(err: any): string {
+  return err.message
+    ? err.message
+    : typeof err === 'string'
+    ? err
+    : 'Unknown Error';
+}
