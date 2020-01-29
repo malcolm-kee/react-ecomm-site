@@ -23,5 +23,8 @@ declare namespace Cypress {
      * cy.connectSocket({ url: 'wss://ws.endpoint' })
      */
     connectSocket(options: { url: string }): Chainable<WebSocket>;
+
+    initAxe(): Chainable<undefined>;
+    checkA11yResponsive(): Chainable<undefined>;
   }
 }
