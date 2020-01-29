@@ -2,6 +2,7 @@ import cx from 'classnames';
 import * as React from 'react';
 import styles from './chat-history.module.scss';
 import { throttle } from '../../lib/fn-lib';
+import { useId } from '../../hooks/use-id';
 
 export type ChatHistoryProps = JSX.IntrinsicElements['div'] & {
   height: number | string;
@@ -60,6 +61,8 @@ export const ChatHistory = ({
     []
   );
 
+  const tempId = useId();
+
   return (
     <div className={styles.root}>
       <div
@@ -71,6 +74,7 @@ export const ChatHistory = ({
         ref={divRef}
         className={cx(styles.history, className)}
         onScroll={onScrollHandler}
+        data-testid="chat-history"
       >
         {state.children}
         {hasScrollSomeDistance && (
@@ -80,9 +84,12 @@ export const ChatHistory = ({
               setHasScrollSomeDistance(false);
             }}
             className={styles.scrollToBottomBtn}
+            aria-labelledby={tempId}
           >
-            <span className="sr-only">Scroll to bottom</span>
             <DownIcon />
+            <span className="sr-only" id={tempId}>
+              Scroll to bottom
+            </span>
           </button>
         )}
       </div>
