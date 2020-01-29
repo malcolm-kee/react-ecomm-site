@@ -1,3 +1,4 @@
+import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import './spinner.css';
@@ -5,7 +6,7 @@ import './spinner.css';
 /**
  * Spinner is used to indicate busy status, e.g. waiting for API response
  */
-export function Spinner({ delayShow = 0 }) {
+export function Spinner({ delayShow = 0, className, ...props }) {
   const [show, setShow] = React.useState(delayShow ? false : true);
 
   React.useEffect(() => {
@@ -15,7 +16,12 @@ export function Spinner({ delayShow = 0 }) {
   }, [delayShow]);
 
   return show ? (
-    <div className="spinner" role="progressbar" data-testid="spinner">
+    <div
+      className={cx('spinner', className)}
+      role="progressbar"
+      data-testid="spinner"
+      {...props}
+    >
       <div className="spinner-inner">
         <svg viewBox="22 22 44 44">
           <circle fill="none" cx="44" cy="44" r="16" strokeWidth="4" />

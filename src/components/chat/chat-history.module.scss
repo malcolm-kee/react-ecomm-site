@@ -1,0 +1,64 @@
+@import '../../constants';
+
+$scrollbar-bg: transparent;
+$scrollbar-thumb: $yellow-200;
+
+.root {
+  position: relative;
+}
+
+.history {
+  padding-top: $space-8;
+  overflow-y: auto;
+  background: radial-gradient(
+      circle at 100% 50%,
+      transparent 20%,
+      rgba(255, 255, 255, 0.3) 21%,
+      rgba(255, 255, 255, 0.3) 34%,
+      transparent 35%,
+      transparent
+    ),
+    radial-gradient(
+        circle at 0% 50%,
+        transparent 20%,
+        rgba(255, 255, 255, 0.3) 21%,
+        rgba(255, 255, 255, 0.3) 34%,
+        transparent 35%,
+        transparent
+      )
+      0 -25px;
+  background-color: $yellow-300;
+  background-size: 37.5px 50px;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: $scrollbar-thumb $scrollbar-bg;
+
+  &::-webkit-scrollbar-track {
+    background: $scrollbar-bg;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $scrollbar-thumb;
+    border-radius: $space-2;
+    border: 3px solid $scrollbar-bg;
+  }
+}
+
+.scrollToBottomBtn {
+  position: absolute;
+  right: $space-2;
+  bottom: $space-2;
+  background-color: $gray-100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  box-shadow: $shadow;
+}

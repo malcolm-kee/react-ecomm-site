@@ -4,6 +4,7 @@ import React from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { Footer } from './components/footer';
+import { ChatLauncher } from './modules/auth/components/chat-launcher';
 import { CartPage } from './pages/cart-page';
 import { HelpPage } from './pages/help-page';
 import { Login } from './pages/login';
@@ -30,6 +31,7 @@ function App() {
       </Router>
       <Footer />
       {/* <DevTools /> */}
+      <ChatLauncher />
       <ToastContainer hideProgressBar />
     </div>
   );

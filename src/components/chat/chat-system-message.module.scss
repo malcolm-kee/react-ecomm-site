@@ -1,0 +1,14 @@
+@import '../../constants';
+
+.root {
+  text-align: center;
+  margin-bottom: $space-3;
+}
+
+.message {
+  display: inline-block;
+  margin: 0 auto;
+  padding: $space-1 $space-3;
+  background-color: $gray-200;
+  border-radius: $space-2;
+}
