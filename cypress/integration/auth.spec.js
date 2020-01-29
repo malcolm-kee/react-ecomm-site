@@ -1,5 +1,7 @@
 /// <reference types="Cypress" />
 
+import { getRandomEmail } from '../test-helper';
+
 describe(`auth`, () => {
   it(`allow signup and login`, () => {
     const email = getRandomEmail();
@@ -39,27 +41,3 @@ describe(`auth`, () => {
       .should('be.visible');
   });
 });
-
-function getRandomEmail() {
-  const randomString =
-    shuffleArray(
-      new Date()
-        .toLocaleDateString('de-De', {
-          era: 'long',
-          month: 'long',
-          weekday: 'long',
-        })
-        .split('')
-        .slice(0, 6)
-    ).join('') + new Date().getMilliseconds();
-
-  return `me${randomString}@gmail.com`;
-}
-
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
