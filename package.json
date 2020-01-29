@@ -30,7 +30,9 @@
     "build:docs": "styleguidist build",
     "deploy:docs": "netlify deploy --dir=styleguide --prod",
     "cy:open": "cypress open",
-    "test:e2e": "start-server-and-test local http://localhost:3000 cy:open"
+    "cy:run": "cypress run --config video=false",
+    "test:e2e": "start-server-and-test local http://localhost:3000 cy:open",
+    "test:e2e:ci": "start-server-and-test local http://localhost:3000 cy:run"
   },
   "eslintConfig": {
     "extends": "react-app"
