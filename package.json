@@ -64,6 +64,7 @@
     "@types/react-textarea-autosize": "^4.3.5",
     "@types/react-transition-group": "^4.2.3",
     "cross-env": "^7.0.0",
+    "cypress-file-upload": "^3.5.3",
     "eslint-plugin-cypress": "^2.8.1",
     "istanbul-lib-coverage": "^3.0.0",
     "jest-junit": "^10.0.0",
