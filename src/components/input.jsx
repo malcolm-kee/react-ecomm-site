@@ -28,7 +28,11 @@ export const Input = React.forwardRef(function Input(
 
   return (
     <input
-      className={cx('form-control', size && `input-${size}`, className)}
+      className={cx(
+        'block m-0 w-full border border-gray-300 rounded-lg px-3 shadow-inner text-gray-900',
+        size ? sizeClasses[size] : 'text-base py-1',
+        className
+      )}
       id={inputId}
       aria-describedby={`${inputId}-help`}
       onChange={callAll(
@@ -40,6 +44,11 @@ export const Input = React.forwardRef(function Input(
     />
   );
 });
+
+const sizeClasses = {
+  sm: 'text-xs py-1',
+  lg: 'text-lg py-2',
+};
 
 Input.propTypes = {
   /**
