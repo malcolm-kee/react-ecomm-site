@@ -28,7 +28,10 @@ export const Textarea = React.forwardRef(function Textarea(
 
   return (
     <TextareaAutosize
-      className={cx('form-control', className)}
+      className={cx(
+        'text-base block m-0 w-full border border-gray-300 rounded-lg px-3 py-1 shadow-inner text-gray-900',
+        className
+      )}
       minRows={minRows}
       id={inputId}
       onChange={callAll(
