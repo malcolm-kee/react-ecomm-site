@@ -1,6 +1,7 @@
 import cx from 'classnames';
 import React from 'react';
 import { ContainerProps } from '../type';
+import { PanelContext } from './panel-context';
 
 export type PanelInjectedProps = {
   className: string;
@@ -27,8 +28,25 @@ export const Panel = ({
   className,
   renderContainer = DefaultContainer,
 }: PanelProps) => {
-  return renderContainer({
-    children,
-    className: cx('panel', color && `panel-${color}`, className),
-  });
+  return (
+    <PanelContext.Provider value={color}>
+      {renderContainer({
+        children,
+        className: cx(
+          'border-2 shadow',
+          color && colorClasses[color],
+          className
+        ),
+      })}
+    </PanelContext.Provider>
+  );
+};
+
+const colorClasses: Record<NonNullable<PanelProps['color']>, string> = {
+  default: 'bg-white border-gray-700 text-gray-900',
+  primary: 'bg-white border-blue-500 text-gray-900',
+  success: 'bg-white border-green-500 text-gray-900',
+  info: 'bg-white border-teal-500 text-gray-900',
+  warning: 'bg-white border-orange-500 text-gray-900',
+  danger: 'bg-white border-red-500 text-gray-900',
 };
