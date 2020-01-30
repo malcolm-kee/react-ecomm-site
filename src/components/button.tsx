@@ -12,6 +12,9 @@ export type ButtonProps = JSX.IntrinsicElements['button'] & {
     | 'link';
   size?: 'lg' | 'sm' | 'xs';
   children: React.ReactNode;
+  renderContainer?: (
+    providedProps: JSX.IntrinsicElements['button']
+  ) => JSX.Element;
 };
 
 const colorClasses: Record<NonNullable<ButtonProps['color']>, string> = {
@@ -39,21 +42,25 @@ const sizeClasses: Record<NonNullable<ButtonProps['size']>, string> = {
  */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   function Button(
-    { type = 'button', color, size, className, ...buttonProps },
+    {
+      type = 'button',
+      color,
+      size,
+      className,
+      renderContainer = providedProps => <button {...providedProps} />,
+      ...buttonProps
+    },
     ref
   ) {
-    return (
-      <button
-        className={cx(
-          'rounded',
-          color && colorClasses[color],
-          size ? sizeClasses[size] : 'px-4 py-2',
-          className
-        )}
-        type={type}
-        {...buttonProps}
-        ref={ref}
-      />
-    );
+    return renderContainer({
+      className: cx(
+        'inline-block rounded',
+        color && colorClasses[color],
+        size ? sizeClasses[size] : 'px-4 py-2',
+        className
+      ),
+      type,
+      ...buttonProps,
+    });
   }
 );
