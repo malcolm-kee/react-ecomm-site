@@ -5,9 +5,9 @@ module.exports = {
       links: [
         {
           rel: 'stylesheet',
-          href: 'https://bootswatch.com/3/cerulean/bootstrap.min.css'
-        }
-      ]
-    }
-  }
+          href: 'https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css',
+        },
+      ],
+    },
+  },
 };
