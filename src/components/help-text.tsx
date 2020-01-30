@@ -11,7 +11,7 @@ export function HelpText({
   return (
     <span
       id={`${inputId}-help`}
-      className={cx('help-block', className)}
+      className={cx('text-sm pl-2', className)}
       {...props}
     />
   );

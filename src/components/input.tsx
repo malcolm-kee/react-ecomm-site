@@ -10,6 +10,10 @@ export type InputProps = {
    */
   onChangeValue?: (value: string) => void;
   size?: 'lg' | 'sm';
+  /**
+   * @default true
+   */
+  rounded?: boolean;
 } & Omit<JSX.IntrinsicElements['input'], 'size'>;
 
 /**
@@ -24,7 +28,7 @@ export type InputProps = {
  */
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   function Input(
-    { className, onChangeValue, onChange, size, ...inputProps },
+    { className, onChangeValue, onChange, size, rounded = true, ...inputProps },
     ref
   ) {
     const { inputId, setInputId } = React.useContext(FieldContext);
@@ -38,7 +42,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <input
         className={cx(
-          'block m-0 w-full border border-gray-300 rounded-lg px-3 shadow-inner text-gray-900',
+          'block m-0 w-full border border-gray-300 px-3 shadow-inner text-gray-900',
+          rounded && 'rounded-lg',
           size ? sizeClasses[size] : 'text-base py-1',
           className
         )}

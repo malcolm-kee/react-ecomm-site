@@ -53,7 +53,11 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
 
     return (
       <select
-        className={cx('form-control', size && `input-${size}`, className)}
+        className={cx(
+          'block m-0 w-full border border-gray-300 rounded-lg px-3 shadow-inner text-gray-900',
+          size ? sizeClasses[size] : 'text-base py-1',
+          className
+        )}
         id={inputId}
         onChange={callAll(
           onChange,
@@ -74,3 +78,8 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     );
   }
 );
+
+const sizeClasses: Record<NonNullable<SelectProps['size']>, string> = {
+  sm: 'text-xs py-1',
+  lg: 'text-lg py-2',
+};
