@@ -3,6 +3,7 @@ import { Provider } from 'mobx-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import './global.scss';
 import { AuthStore } from './modules/auth/auth.store';
 import { CartStore } from './modules/cart/cart.store';
 import { MarketingStore } from './modules/marketing/marketing.store';
