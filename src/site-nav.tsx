@@ -12,21 +12,23 @@ type ReduxProps = ConnectedProps<typeof connector>;
 function SiteNavContent({ status, user, logout }: ReduxProps) {
   return (
     <Navbar>
-      <Link className="navbar-brand" to="/">
+      <Link className="text-3xl px-2" to="/">
         Shopit
       </Link>
-      <CartLink className="navbar-brand" />
+      <CartLink className="text-xl px-2" />
       {status === 'Anonymous' && (
-        <Link to="/login" className="navbar-brand">
+        <Link to="/login" className="text-xl px-2">
           Login
         </Link>
       )}
-      <Link className="navbar-brand" to="/help">
+      <Link className="text-xl px-2" to="/help">
         Help
       </Link>
       {status === 'Authenticated' && (
         <>
-          <span className="navbar-brand hidden-xs">{user && user.name}</span>
+          <span className="text-xl px-2 hidden sm:block">
+            {user && user.name}
+          </span>
           <button
             className="btn btn-danger btn-sm"
             onClick={logout}

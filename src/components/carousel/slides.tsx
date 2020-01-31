@@ -1,5 +1,4 @@
 import React from 'react';
-import { TransitionGroup } from 'react-transition-group';
 import { CarouselContext } from './carousel-context';
 
 export type SlidesProps = {
@@ -27,7 +26,7 @@ export function Slides({ children }: SlidesProps) {
   }, [totalSlides, setTotalSlides]);
 
   return (
-    <TransitionGroup
+    <div
       className="carousel-inner relative w-full overflow-hidden"
       role="listbox"
     >
@@ -44,6 +43,6 @@ export function Slides({ children }: SlidesProps) {
           'data-testid': `slide-${index}`,
         });
       })}
-    </TransitionGroup>
+    </div>
   );
 }
