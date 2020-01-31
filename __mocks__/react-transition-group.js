@@ -15,7 +15,7 @@ const FakeCSSTransition = jest.fn(
       ? React.createElement(
           FakeTransition,
           Object.assign({}, props, {
-            className: enterDone
+            className: enterDone,
           }),
           props.children
         )
@@ -25,14 +25,19 @@ const FakeCSSTransition = jest.fn(
             {},
             props,
             {
-              className: exitDone
+              className: exitDone,
             },
             props.children
           )
         )
 );
 
+const FakeTransitionGroup = jest.fn((props = {}) =>
+  React.createElement('div', Object.assign({}, props), props.children)
+);
+
 module.exports = {
   CSSTransition: FakeCSSTransition,
-  Transition: FakeTransition
+  Transition: FakeTransition,
+  TransitionGroup: FakeTransitionGroup,
 };

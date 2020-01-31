@@ -26,6 +26,8 @@ export type SlideProps = {
   unPause?: () => void;
   direction?: 'left' | 'right';
   caption?: React.ReactNode;
+  onExited?: () => void;
+  in?: boolean;
 } & JSX.IntrinsicElements['div'];
 
 /**
@@ -41,15 +43,18 @@ export const Slide = ({
   direction,
   className,
   caption,
+  in: iN,
+  onExited,
   ...props
 }: SlideProps) => {
   return (
     <CSSTransition
-      in={isActive}
+      in={isActive || iN}
       timeout={600}
       classNames={
         direction === 'right' ? toRightTransitions : toLeftTransitions
       }
+      onExited={onExited}
     >
       <div
         className={styles.item}

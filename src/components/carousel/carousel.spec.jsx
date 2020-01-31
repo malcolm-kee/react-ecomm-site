@@ -22,7 +22,14 @@ jest.mock('react-transition-group', () => {
       )}
     </FakeTransition>
   ));
-  return { CSSTransition: FakeCSSTransition, Transition: FakeTransition };
+  const FakeTransitionGroup = jest.fn(props =>
+    React.createElement('div', props, props.children)
+  );
+  return {
+    CSSTransition: FakeCSSTransition,
+    Transition: FakeTransition,
+    TransitionGroup: FakeTransitionGroup,
+  };
 });
 
 function renderCarousel({ additionUi, initialSlide, interval } = {}) {
