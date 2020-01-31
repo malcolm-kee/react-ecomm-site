@@ -44,7 +44,7 @@ function MainPageContent({
   );
 
   return (
-    <div>
+    <>
       <div className="hidden sm:block">
         <MarketingBanner />
       </div>
@@ -64,7 +64,7 @@ function MainPageContent({
         </div>
         <div>{hasMoreProduct && <Spinner />}</div>
       </div>
-    </div>
+    </>
   );
 }
 

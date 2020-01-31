@@ -15,6 +15,7 @@ import { ProfilePage } from './pages/profile-page';
 import { Signup } from './pages/signup';
 import { SiteNav } from './site-nav';
 import { ChatLauncher } from './modules/auth/components/chat-launcher';
+import { MainContent } from './components/main-content';
 
 function AppContainer({ initAuthStatus }) {
   React.useEffect(() => {
@@ -24,16 +25,18 @@ function AppContainer({ initAuthStatus }) {
   return (
     <div>
       <SiteNav />
-      <Router>
-        <MainPage path="/" />
-        <ProductPage path="/product/:productId" />
-        <ProfilePage path="/profile" />
-        <CartPage path="/cart" />
-        <Login path="/login" />
-        <Signup path="/signup" />
-        <HelpPage path="/help/*" />
-        <NotFoundPage default />
-      </Router>
+      <MainContent>
+        <Router>
+          <MainPage path="/" />
+          <ProductPage path="/product/:productId" />
+          <ProfilePage path="/profile" />
+          <CartPage path="/cart" />
+          <Login path="/login" />
+          <Signup path="/signup" />
+          <HelpPage path="/help/*" />
+          <NotFoundPage default />
+        </Router>
+      </MainContent>
       <ChatLauncher />
       <Footer />
       <ToastContainer hideProgressBar />
