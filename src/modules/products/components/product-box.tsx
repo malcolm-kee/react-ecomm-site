@@ -1,3 +1,4 @@
+import cx from 'classnames';
 import { Link } from '@reach/router';
 import React from 'react';
 import { Panel, PanelBody, PanelHeading } from '../../../components/panel';
@@ -5,11 +6,17 @@ import { Product } from '../product.type';
 import './product-box.css';
 import { ProductImage } from './product-image';
 
-export function ProductBox({ id, name, images, price }: Product) {
+export function ProductBox({
+  id,
+  name,
+  images,
+  price,
+  className,
+}: Product & { className?: string }) {
   return (
     <Panel
       color="default"
-      className="product-box"
+      className={cx('product-box', className)}
       renderContainer={props => <Link to={`/product/${id}`} {...props} />}
     >
       <PanelHeading className="product-box-name">{name}</PanelHeading>
