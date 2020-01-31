@@ -30,7 +30,6 @@ function CartItem({
         <Button
           onClick={onDelete}
           size="sm"
-          data-testid={`remove-${item.product.id}`}
           aria-labelledby={`${item.product.id}-remove-label`}
         >
           <CloseIcon width={36} className="fill-current text-gray-500" />
@@ -59,19 +58,11 @@ function CartItem({
               color="primary"
               size="sm"
               disabled={item.qty === 1}
-              data-testid={`reduce-${item.product.id}`}
             >
               -
             </Button>
-            <span className="mx-1" data-testid={`qty-for-${item.product.id}`}>
-              {item.qty}
-            </span>
-            <Button
-              onClick={onIncrement}
-              color="primary"
-              size="sm"
-              data-testid={`add-${item.product.id}`}
-            >
+            <span className="mx-1">{item.qty}</span>
+            <Button onClick={onIncrement} color="primary" size="sm">
               +
             </Button>
           </div>
