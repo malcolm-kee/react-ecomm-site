@@ -4,6 +4,7 @@ import React from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { Footer } from './components/footer';
+import { MainContent } from './components/main-content';
 import { ChatLauncher } from './modules/auth/components/chat-launcher';
 import { CartPage } from './pages/cart-page';
 import { HelpPage } from './pages/help-page';
@@ -19,16 +20,18 @@ function App() {
   return (
     <div>
       <SiteNav />
-      <Router>
-        <MainPage path="/" />
-        <ProductPage path="/product/:productId" />
-        <ProfilePage path="/profile" />
-        <CartPage path="/cart" />
-        <Login path="/login" />
-        <Signup path="/signup" />
-        <HelpPage path="/help/*" />
-        <NotFoundPage default />
-      </Router>
+      <MainContent>
+        <Router>
+          <MainPage path="/" />
+          <ProductPage path="/product/:productId" />
+          <ProfilePage path="/profile" />
+          <CartPage path="/cart" />
+          <Login path="/login" />
+          <Signup path="/signup" />
+          <HelpPage path="/help/*" />
+          <NotFoundPage default />
+        </Router>
+      </MainContent>
       <Footer />
       {/* <DevTools /> */}
       <ChatLauncher />

@@ -50,20 +50,31 @@ function RegisterFormContent({
       />
       <Field>
         <Label>Email</Label>
-        <div className="input-group">
-          <span className="input-group-addon">@</span>
+        <div className="flex">
+          <span className="py-1 px-3 rounded-l-lg bg-gray-500 text-gray-100">
+            @
+          </span>
           <Input
             type="email"
             value={email}
             onChangeValue={setEmail}
             disabled={pending}
             required
+            rounded={false}
+            className="flex-1 rounded-r-lg"
           />
         </div>
       </Field>
-      <Button color="primary" type="submit" disabled={pending}>
-        Signup
-      </Button>
+      <div className="py-3">
+        <Button
+          color="primary"
+          type="submit"
+          disabled={pending}
+          className="w-full"
+        >
+          Signup
+        </Button>
+      </div>
     </Form>
   );
 }

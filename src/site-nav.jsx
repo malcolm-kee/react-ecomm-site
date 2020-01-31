@@ -2,37 +2,44 @@ import { Link } from '@reach/router';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { Navbar } from './components/navbar';
+import { Button } from './components/button';
 import { CartLink } from './modules/cart/components/cart-link';
 
 function SiteNavContent({ isAuthenticated, pending, user, logout }) {
   return (
     <Navbar>
-      <Link className="navbar-brand" to="/">
-        Shopit
-      </Link>
-      <CartLink to="/cart" className="navbar-brand" />
-      <Link className="navbar-brand" to="/help">
-        Help
-      </Link>
-      {isAuthenticated ? (
-        <>
-          <Link to="/profile" className="navbar-brand hidden-xs">
-            {user && user.name}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center">
+          <Link className="text-3xl px-2" to="/">
+            Shopit
           </Link>
-          <button
-            className="btn btn-danger btn-sm"
-            onClick={logout}
-            type="button"
-            disabled={pending}
-          >
-            Logout
-          </button>
-        </>
-      ) : (
-        <Link to="/login" className="navbar-brand">
-          Login
-        </Link>
-      )}
+          <CartLink className="text-lg sm:text-xl px-2" />
+          <Link className="text-lg sm:text-xl px-2" to="/help">
+            Help
+          </Link>
+        </div>
+        <div className="flex items-center">
+          {isAuthenticated ? (
+            <>
+              <span className="text-lg sm:text-xl px-2 hidden sm:inline-block">
+                {user && user.name}
+              </span>
+              <Button
+                color="default"
+                onClick={logout}
+                disabled={pending}
+                size="sm"
+              >
+                Logout
+              </Button>
+            </>
+          ) : (
+            <Link to="/login" className="text-xl px-2">
+              Login
+            </Link>
+          )}
+        </div>
+      </div>
     </Navbar>
   );
 }

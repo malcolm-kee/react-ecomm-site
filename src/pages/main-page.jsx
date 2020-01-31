@@ -5,7 +5,7 @@ import { Spinner } from '../components/spinner';
 import { useWindowEvent } from '../hooks/use-window-event';
 import { MarketingBanner } from '../modules/marketing/components/marketing-banner';
 import { ProductBox } from '../modules/products/components/product-box';
-import './main-page.css';
+import styles from './main-page.module.scss';
 
 function MainPageContent({
   loadProducts,
@@ -35,11 +35,12 @@ function MainPageContent({
   );
 
   return (
-    <div>
-      <MarketingBanner />
-      <div className="container-fluid">
-        <Jumbotron>
-          <h1>Shopit</h1>
+    <>
+      <div className="hidden sm:block">
+        <MarketingBanner />
+      </div>
+      <div>
+        <Jumbotron title="Shopit">
           <blockquote>
             <p>
               The best shopping site in the web that would saves you most money.
@@ -47,14 +48,14 @@ function MainPageContent({
             <small>Because you can't buy anything here.</small>
           </blockquote>
         </Jumbotron>
-        <div className="main-page-product-grid">
+        <div className={styles.grid}>
           {products.map(product => (
             <ProductBox {...product} key={product.id} />
           ))}
         </div>
         <div>{hasMoreProduct && <Spinner />}</div>
       </div>
-    </div>
+    </>
   );
 }
 
