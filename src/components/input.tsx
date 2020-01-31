@@ -10,6 +10,10 @@ export type InputProps = {
    */
   onChangeValue?: (value: string) => void;
   size?: 'lg' | 'sm';
+  /**
+   * @default true
+   */
+  rounded?: boolean;
 } & Omit<JSX.IntrinsicElements['input'], 'size'>;
 
 /**
@@ -24,7 +28,7 @@ export type InputProps = {
  */
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   function Input(
-    { className, onChangeValue, onChange, size, ...inputProps },
+    { className, onChangeValue, onChange, size, rounded = true, ...inputProps },
     ref
   ) {
     const { inputId, setInputId } = React.useContext(FieldContext);
@@ -37,7 +41,13 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <input
-        className={cx('form-control', size && `input-${size}`, className)}
+        className={cx(
+          'block m-0 w-full min-w-0 border border-gray-300 px-3 shadow-inner text-gray-900',
+          rounded && 'rounded-lg',
+          inputProps.readOnly && 'bg-gray-100',
+          size ? sizeClasses[size] : 'text-base py-1',
+          className
+        )}
         id={inputId}
         aria-describedby={`${inputId}-help`}
         onChange={callAll(
@@ -50,3 +60,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     );
   }
 );
+
+const sizeClasses: Record<NonNullable<InputProps['size']>, string> = {
+  sm: 'text-xs py-1',
+  lg: 'text-lg py-2',
+};

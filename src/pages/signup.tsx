@@ -4,10 +4,14 @@ import { RegisterForm } from '../modules/auth/components/register-form';
 
 export function Signup() {
   return (
-    <div className="container">
+    <div className="max-w-xs p-3 mx-auto">
       <RegisterForm />
-      <p>
-        Already have an account? <Link to="/login">Login here</Link>.
+      <p className="py-2">
+        Already have an account?{' '}
+        <Link to="/login" className="text-blue-700">
+          Login here
+        </Link>
+        .
       </p>
     </div>
   );

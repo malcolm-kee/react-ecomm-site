@@ -1,3 +1,4 @@
+import cx from 'classnames';
 import React from 'react';
 import { FieldContext } from './field-context';
 
@@ -8,8 +9,14 @@ import { FieldContext } from './field-context';
  *
  * However, it will sync its `htmlFor` with the id of the input within same `Field` component
  */
-export function Label(props: JSX.IntrinsicElements['label']) {
+export function Label({ className, ...props }: JSX.IntrinsicElements['label']) {
   const { inputId } = React.useContext(FieldContext);
 
-  return <label htmlFor={inputId} {...props} />;
+  return (
+    <label
+      className={cx('pl-2 leading-loose', className)}
+      htmlFor={inputId}
+      {...props}
+    />
+  );
 }

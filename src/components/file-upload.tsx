@@ -13,6 +13,7 @@ import {
 } from '../services/file.service';
 import { FileRecord } from './file-record';
 import styles from './file-upload.module.scss';
+import { Button } from './button';
 
 export type FileData =
   | {
@@ -217,7 +218,7 @@ export const FileUpload = ({
           onDragOver={preventDefault}
         >
           <div className={styles.dropZoneLabel}>
-            <p className="h4">Drop file here</p>
+            <p className="text-lg my-2 text-blue-700">Drop file here</p>
             <div>
               <small>or</small>
             </div>
@@ -233,9 +234,17 @@ export const FileUpload = ({
               }
             })}
           />
-          <label className="btn btn-primary" htmlFor={id}>
+          <Button
+            color="primary"
+            className="my-2"
+            renderContainer={({ className, children }) => (
+              <label className={className} htmlFor={id}>
+                {children}
+              </label>
+            )}
+          >
             {label}
-          </label>
+          </Button>
         </div>
       </div>
       {totalFiles > 0 && (

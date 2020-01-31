@@ -1,6 +1,5 @@
 import { Link } from '@reach/router';
 import React from 'react';
-import styles from './footer.module.scss';
 
 const currentYear = new Date().getFullYear();
 
@@ -9,28 +8,32 @@ const currentYear = new Date().getFullYear();
  */
 export function Footer() {
   return (
-    <footer className={styles.footer}>
-      <div className="container">
-        <div className="row">
-          <div className="col-xs-12 col-sm-6 col-md-4">
-            <ul className="nav nav-stacked">
-              <li>
-                <Link to="/">Home</Link>
-                <Link to="/help">Help</Link>
-                <Link to="/about-us">About Us</Link>
-                <Link to="/privacy-policy">Privacy Policy</Link>
-                <Link to="/careers">Careers</Link>
-                <Link to="/contact-us">Contact Us</Link>
-              </li>
-            </ul>
-          </div>
-          <div className="col-xs-12 col-sm-6 col-md-8">
-            <div className="pull-right">
-              <small>
-                &copy; Copyright {currentYear} Shopit. All Rights Reserved.
-              </small>
-            </div>
-          </div>
+    <footer className="py-6 mt-4 bg-blue-600 text-gray-100">
+      <div className="container mx-auto px-3">
+        <ul className="flex flex-wrap">
+          <li className="px-2 pb-2">
+            <Link to="/">Home</Link>
+          </li>
+          <li className="px-2 pb-2">
+            <Link to="/help">Help</Link>
+          </li>
+          <li className="px-2 pb-2">
+            <Link to="/about-us">About Us</Link>
+          </li>
+          <li className="px-2 pb-2">
+            <Link to="/privacy-policy">Privacy Policy</Link>
+          </li>
+          <li className="px-2 pb-2">
+            <Link to="/careers">Careers</Link>
+          </li>
+          <li className="px-2 pb-2">
+            <Link to="/contact-us">Contact Us</Link>
+          </li>
+        </ul>
+        <div className="text-right">
+          <small>
+            &copy; Copyright {currentYear} Shopit. All Rights Reserved.
+          </small>
         </div>
       </div>
     </footer>

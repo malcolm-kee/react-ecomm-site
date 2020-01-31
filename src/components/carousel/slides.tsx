@@ -26,7 +26,10 @@ export function Slides({ children }: SlidesProps) {
   }, [totalSlides, setTotalSlides]);
 
   return (
-    <div className="carousel-inner" role="listbox">
+    <div
+      className="carousel-inner relative w-full overflow-hidden"
+      role="listbox"
+    >
       {React.Children.map(children, (child, index) => {
         if (!React.isValidElement(child)) {
           return child;

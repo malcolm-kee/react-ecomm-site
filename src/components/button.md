@@ -1,13 +1,17 @@
 ### Color
 
 ```jsx
-<Button color="default" className="whatever">
-  Default
-</Button>
-<Button color="primary">Primary</Button>
-<Button color="success">Success</Button>
-<Button color="info">Info</Button>
-<Button color="danger">Danger</Button>
+<>
+  <Button color="default" className="whatever">
+    Default
+  </Button>
+  <Button color="primary">Primary</Button>
+  <Button color="success">Success</Button>
+  <Button color="info">Info</Button>
+  <Button color="warning">Warning</Button>
+  <Button color="danger">Danger</Button>
+  <Button color="link">Link</Button>
+</>
 ```
 
 ### Size

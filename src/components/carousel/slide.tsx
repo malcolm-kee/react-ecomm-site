@@ -1,22 +1,23 @@
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
+import styles from './slide.module.scss';
 
 const toRightTransitions = {
-  enter: 'item next',
-  enterActive: 'item next left',
-  enterDone: 'item active',
-  exit: 'item active left',
-  exitActive: 'item',
-  exitDone: 'item',
+  enter: `${styles.item} ${styles.next}`,
+  enterActive: `${styles.item} ${styles.next} ${styles.left}`,
+  enterDone: `${styles.item} ${styles.active}`,
+  exit: `${styles.item} ${styles.active} ${styles.left}`,
+  exitActive: `${styles.item}`,
+  exitDone: `${styles.item}`,
 };
 
 const toLeftTransitions = {
-  enter: 'item prev',
-  enterActive: 'item prev right',
-  enterDone: 'item active',
-  exit: 'item active right',
-  exitActive: 'item',
-  exitDone: 'item',
+  enter: `${styles.item} ${styles.prev}`,
+  enterActive: `${styles.item} ${styles.prev} ${styles.right}`,
+  enterDone: `${styles.item} ${styles.active}`,
+  exit: `${styles.item} ${styles.active} ${styles.right}`,
+  exitActive: `${styles.item}`,
+  exitDone: `${styles.item}`,
 };
 
 export type SlideProps = {
@@ -24,6 +25,9 @@ export type SlideProps = {
   pause?: () => void;
   unPause?: () => void;
   direction?: 'left' | 'right';
+  caption?: React.ReactNode;
+  onExited?: () => void;
+  in?: boolean;
 } & JSX.IntrinsicElements['div'];
 
 /**
@@ -38,23 +42,28 @@ export const Slide = ({
   unPause,
   direction,
   className,
+  caption,
+  in: iN,
+  onExited,
   ...props
 }: SlideProps) => {
   return (
     <CSSTransition
-      in={isActive}
+      in={isActive || iN}
       timeout={600}
       classNames={
         direction === 'right' ? toRightTransitions : toLeftTransitions
       }
+      onExited={onExited}
     >
       <div
-        className="item"
+        className={styles.item}
         onMouseEnter={pause}
         onMouseLeave={unPause}
         {...props}
       >
         {children}
+        {caption && <div className={styles.caption}>{caption}</div>}
       </div>
     </CSSTransition>
   );

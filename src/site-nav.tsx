@@ -6,36 +6,40 @@ import { attemptLogout } from './modules/auth/auth.actions';
 import { selectAuthStatus, selectUser } from './modules/auth/auth.selectors';
 import { CartLink } from './modules/cart/components/cart-link';
 import { RootState } from './type';
+import { Button } from './components/button';
 
 type ReduxProps = ConnectedProps<typeof connector>;
 
 function SiteNavContent({ status, user, logout }: ReduxProps) {
   return (
     <Navbar>
-      <Link className="navbar-brand" to="/">
-        Shopit
-      </Link>
-      <CartLink className="navbar-brand" />
-      {status === 'Anonymous' && (
-        <Link to="/login" className="navbar-brand">
-          Login
-        </Link>
-      )}
-      <Link className="navbar-brand" to="/help">
-        Help
-      </Link>
-      {status === 'Authenticated' && (
-        <>
-          <span className="navbar-brand hidden-xs">{user && user.name}</span>
-          <button
-            className="btn btn-danger btn-sm"
-            onClick={logout}
-            type="button"
-          >
-            Logout
-          </button>
-        </>
-      )}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center">
+          <Link className="text-3xl px-2" to="/">
+            Shopit
+          </Link>
+          <CartLink className="text-lg sm:text-xl px-2" />
+          <Link className="text-lg sm:text-xl px-2" to="/help">
+            Help
+          </Link>
+        </div>
+        <div className="flex items-center">
+          {status === 'Authenticated' ? (
+            <>
+              <span className="text-lg sm:text-xl px-2 hidden sm:inline-block">
+                {user && user.name}
+              </span>
+              <Button color="default" onClick={logout} size="sm">
+                Logout
+              </Button>
+            </>
+          ) : (
+            <Link to="/login" className="text-xl px-2">
+              Login
+            </Link>
+          )}
+        </div>
+      </div>
     </Navbar>
   );
 }

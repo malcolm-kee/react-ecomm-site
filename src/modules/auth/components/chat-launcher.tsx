@@ -21,7 +21,7 @@ const ChatLauncherView = (props: ConnectedProps<typeof connector>) => {
   return (
     <>
       <Button
-        color="primary"
+        color="info"
         className={styles.btn}
         onClick={() => setShowChat(true)}
         ref={btnRef}
@@ -30,12 +30,12 @@ const ChatLauncherView = (props: ConnectedProps<typeof connector>) => {
       </Button>
       {showChat && (
         <div className={styles.chatWrapper}>
-          <div className={`bg-primary ${styles.chatHeader}`}>
-            Chat{' '}
+          <div className="flex bg-teal-500 text-gray-100 justify-between items-center py-1 px-3">
+            Chat
             <Button
               onClick={dismissChat}
               aria-label="Close"
-              color="primary"
+              color="info"
               autoFocus
             >
               X

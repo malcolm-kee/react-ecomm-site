@@ -7,6 +7,7 @@ import { ProductBox } from './product-box';
 
 type ProductBoxContainerProps = {
   productId: number;
+  className?: string;
 };
 
 type ReduxProps = ConnectedProps<typeof connector>;
@@ -15,6 +16,7 @@ function ProductBoxContainerContent({
   productId,
   productDetails,
   loadDetails,
+  className,
 }: ProductBoxContainerProps & ReduxProps) {
   React.useEffect(() => {
     if (!productDetails) {
@@ -22,7 +24,9 @@ function ProductBoxContainerContent({
     }
   }, [productId, productDetails, loadDetails]);
 
-  return productDetails ? <ProductBox {...productDetails} /> : null;
+  return productDetails ? (
+    <ProductBox className={className} {...productDetails} />
+  ) : null;
 }
 
 const mapStates = (state: RootState, ownProps: ProductBoxContainerProps) => ({

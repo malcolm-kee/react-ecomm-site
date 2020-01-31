@@ -1,8 +1,11 @@
 import * as React from 'react';
-import styles from './file-record.module.scss';
-import { Progress } from './progress';
-import { Button } from './button';
 import { useId } from '../hooks/use-id';
+import styles from './file-record.module.scss';
+import { CloseIcon } from './icon/close-icon';
+import { Progress } from './progress';
+import { CheckIcon } from './icon/check-icon';
+import { DocumentIcon } from './icon/document-icon';
+import { ImportantIcon } from './icon/important-icon';
 
 type FileRecordProps =
   | {
@@ -43,19 +46,20 @@ export const FileRecord = (props: FileRecordProps) => {
         />
       </div>
       {props.status === 'uploaded' ? (
-        <span className={`${styles.icon} text-success`}>
-          <span className="glyphicon glyphicon-ok" />
+        <span className={`${styles.icon} text-green-500`}>
+          <CheckIcon width={36} className="fill-current" />
         </span>
       ) : (
         <span className={styles.btnPlaceholder} />
       )}
-      <Button
-        color="default"
+      <button
+        type="button"
         aria-labelledby={`remove-btn-${id}`}
         onClick={props.onRemove}
+        className="px-2 py-1 text-gray-600"
       >
-        <span className="glyphicon glyphicon-remove" />
-      </Button>
+        <CloseIcon className="fill-current" />
+      </button>
       <span className="sr-only" id={`remove-btn-${id}`}>
         Remove
       </span>
@@ -70,12 +74,12 @@ const FileErrorRecord = (
     <FilePreview fileName={props.fileName} previewUrl={props.previewUrl} />
     <div className={styles.fileRecordDetails}>
       <span className={styles.fileName}>{props.fileName}</span>
-      <small className={`text-danger ${styles.fileStatus}`}>
+      <small className={`text-red-600 ${styles.fileStatus}`}>
         Failed to Upload
       </small>
     </div>
-    <span className={`${styles.icon} text-danger`}>
-      <span className="glyphicon glyphicon-exclamation-sign" />
+    <span className={`${styles.icon} text-red-500`}>
+      <ImportantIcon className="fill-current" width={36} />
     </span>
     <span className={styles.btnPlaceholder} />
   </div>
@@ -93,7 +97,7 @@ const FilePreview = (props: { fileName: string; previewUrl?: string }) => {
     />
   ) : (
     <span className={styles.preview}>
-      <span className="glyphicon glyphicon-file" />
+      <DocumentIcon className="fill-current text-gray-500" />
     </span>
   );
 };

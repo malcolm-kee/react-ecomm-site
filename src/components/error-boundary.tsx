@@ -50,7 +50,7 @@ export class ErrorBoundary extends React.Component<
         <PanelBody>
           <p role="alert">Something goes wrong.</p>
           <div className="btn-toolbar">
-            <Button onClick={this.attemptRecover} color="default">
+            <Button onClick={this.attemptRecover} color="primary">
               Retry
             </Button>
           </div>

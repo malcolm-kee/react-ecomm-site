@@ -8,32 +8,32 @@ import { ComplainForm } from '../modules/support/components/complain-form';
 
 const HelpLanding = (_: RouteComponentProps) => (
   <div>
-    <p>Select a topic on the left.</p>
+    <p>Select a topic.</p>
   </div>
 );
 
 const HelpAccount = (_: RouteComponentProps) => (
   <article>
-    <h1>Account</h1>
+    <h2 className="text-2xl mb-2">Account</h2>
     <p>If you forget password, just create another one.</p>
     <p>We not gonna help you to reset password.</p>
-    <FeedbackPanel />
+    <FeedbackPanel className="my-3" />
   </article>
 );
 
 const HelpPayment = (_: RouteComponentProps) => (
   <article>
-    <h1>Payment</h1>
+    <h2 className="text-2xl mb-2">Payment</h2>
     <p>Seriously u look for help for payment when you can't even pay?</p>
-    <FeedbackPanel />
+    <FeedbackPanel className="my-3" />
   </article>
 );
 
 const HelpShipping = (_: RouteComponentProps) => (
   <article>
-    <h1>Shipping</h1>
+    <h2 className="text-2xl mb-2">Shipping</h2>
     <p>All shipping will be delivered within 3-5 years. Please be patient.</p>
-    <FeedbackPanel />
+    <FeedbackPanel className="my-3" />
   </article>
 );
 
@@ -43,50 +43,48 @@ export function HelpPage() {
   return (
     <>
       <Jumbotron>
-        <div className="container">
-          <h1>Hi, how can we help?</h1>
+        <div className="max-w-2xl mx-auto">
+          <h1 className="text-3xl lg:text-5xl text-gray-700 my-3">
+            Hi, how can we help?
+          </h1>
           <Input
             type="search"
             placeholder="Just kidding. I'm not gonna help you for anything."
           />
         </div>
       </Jumbotron>
-      <div className="container">
-        <div className="row">
-          <div className="col-xs-12 col-sm-3">
-            <ListGroup
-              variant="link"
-              items={[
-                {
-                  to: 'account',
-                  label: 'Account',
-                },
-                {
-                  to: 'payment',
-                  label: 'Payment',
-                },
-                {
-                  to: 'shipping',
-                  label: 'Shipping',
-                },
-                {
-                  to: 'complaint',
-                  label: 'Complaint',
-                },
-              ]}
-            />
-          </div>
-          <div className="col-xs-12 col-sm-9">
-            <main>
-              <Router>
-                <HelpLanding path="/" />
-                <HelpAccount path="/account" />
-                <HelpPayment path="/payment" />
-                <HelpShipping path="/shipping" />
-                <ComplaintPage path="/complaint" />
-              </Router>
-            </main>
-          </div>
+      <div className="max-w-4xl mx-auto p-2 sm:flex">
+        <div className="sm:w-32 mb-3">
+          <ListGroup
+            variant="link"
+            items={[
+              {
+                to: 'account',
+                label: 'Account',
+              },
+              {
+                to: 'payment',
+                label: 'Payment',
+              },
+              {
+                to: 'shipping',
+                label: 'Shipping',
+              },
+              {
+                to: 'complaint',
+                label: 'Complaint',
+              },
+            ]}
+          />
+        </div>
+        <div className="flex-1 px-5 pb-3">
+          <Router>
+            <HelpLanding path="/" />
+            <HelpAccount path="/account" />
+            <HelpPayment path="/payment" />
+            <HelpShipping path="/shipping" />
+            <ComplaintPage path="/complaint" />
+          </Router>
         </div>
       </div>
     </>

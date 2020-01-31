@@ -42,15 +42,21 @@ class MarketingBannerView extends React.Component<
         {isAllImageLoaded && <CarouselIndicators />}
         <Slides>
           {banners.map(banner => (
-            <Slide key={banner['500']}>
+            <Slide
+              key={banner['500']}
+              caption={
+                isAllImageLoaded && (
+                  <div className="carousel-caption">
+                    <p>It's only crazy until you buy it.</p>
+                    <h1 className="text-orange-500 text-2xl lg:text-4xl">
+                      Just Buy It.
+                    </h1>
+                    <p>Show them what a crazy can do.</p>
+                  </div>
+                )
+              }
+            >
               <MarketingImage banner={banner} onLoad={this.loadImage} />
-              {isAllImageLoaded && (
-                <div className="carousel-caption">
-                  <p>It's only crazy until you buy it.</p>
-                  <h1 className="text-warning">Just Buy It.</h1>
-                  <p>Show them what a crazy can do.</p>
-                </div>
-              )}
             </Slide>
           ))}
         </Slides>

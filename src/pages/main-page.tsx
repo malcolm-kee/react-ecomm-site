@@ -12,7 +12,7 @@ import {
   selectProducts,
 } from '../modules/products/product.selectors';
 import { RootState } from '../type';
-import './main-page.css';
+import styles from './main-page.module.scss';
 
 type ReduxProps = ConnectedProps<typeof connector>;
 
@@ -44,13 +44,12 @@ function MainPageContent({
   );
 
   return (
-    <div>
-      <div className="hidden-xs">
+    <>
+      <div className="hidden sm:block">
         <MarketingBanner />
       </div>
-      <div className="container-fluid">
-        <Jumbotron>
-          <h1>Shopit</h1>
+      <div>
+        <Jumbotron title="Shopit">
           <blockquote>
             <p>
               The best shopping site in the web that would saves you most money.
@@ -58,14 +57,14 @@ function MainPageContent({
             <small>Because you can't buy anything here.</small>
           </blockquote>
         </Jumbotron>
-        <div className="main-page-product-grid">
+        <div className={styles.grid}>
           {products.map(product => (
             <ProductBox {...product} key={product.id} />
           ))}
         </div>
         <div>{hasMoreProduct && <Spinner />}</div>
       </div>
-    </div>
+    </>
   );
 }
 

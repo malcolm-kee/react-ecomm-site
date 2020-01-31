@@ -9,21 +9,17 @@ import { Slides } from './slides';
 <Carousel>
   <CarouselIndicators />
   <Slides>
-    <Slide>
+    <Slide caption="Cute Corgi">
       <img src="http://placecorgi.com/1000/350" alt="Cute Corgi" />
-      <div className="carousel-caption">Cute Corgi</div>
     </Slide>
-    <Slide>
+    <Slide caption="Different Cute Corgi">
       <img src="http://placecorgi.com/1001/350" alt="Cute Corgi" />
-      <div className="carousel-caption">Different Cute Corgi</div>
     </Slide>
-    <Slide>
+    <Slide caption="Same Cute Corgi">
       <img src="http://placecorgi.com/1000/350" alt="Cute Corgi" />
-      <div className="carousel-caption">Same Cute Corgi</div>
     </Slide>
-    <Slide>
+    <Slide caption="Different Cute Corgi">
       <img src="http://placecorgi.com/999/350" alt="Cute Corgi" />
-      <div className="carousel-caption">Different Cute Corgi</div>
     </Slide>
   </Slides>
 </Carousel>;
@@ -43,21 +39,17 @@ import { Slides } from './slides';
 <Carousel>
   <CarouselIndicators />
   <Slides>
-    <Slide>
+    <Slide caption="Cute Corgi">
       <img src="http://placecorgi.com/1000/350" alt="Cute Corgi" />
-      <div className="carousel-caption">Cute Corgi</div>
     </Slide>
-    <Slide>
+    <Slide caption="Different Cute Corgi">
       <img src="http://placecorgi.com/1001/350" alt="Cute Corgi" />
-      <div className="carousel-caption">Different Cute Corgi</div>
     </Slide>
-    <Slide>
+    <Slide caption="Same Cute Corgi">
       <img src="http://placecorgi.com/1000/350" alt="Cute Corgi" />
-      <div className="carousel-caption">Same Cute Corgi</div>
     </Slide>
-    <Slide>
+    <Slide caption="Different Cute Corgi">
       <img src="http://placecorgi.com/999/350" alt="Cute Corgi" />
-      <div className="carousel-caption">Different Cute Corgi</div>
     </Slide>
   </Slides>
   <CarouselBtn direction="prev" />
@@ -78,21 +70,17 @@ import { Slides } from './slides';
 <Carousel interval={2000}>
   <CarouselIndicators />
   <Slides>
-    <Slide>
+    <Slide caption="Cute Corgi">
       <img src="http://placecorgi.com/1000/350" alt="Cute Corgi" />
-      <div className="carousel-caption">Cute Corgi</div>
     </Slide>
-    <Slide>
+    <Slide caption="Different Cute Corgi">
       <img src="http://placecorgi.com/1001/350" alt="Cute Corgi" />
-      <div className="carousel-caption">Different Cute Corgi</div>
     </Slide>
-    <Slide>
+    <Slide caption="Same Cute Corgi">
       <img src="http://placecorgi.com/1000/350" alt="Cute Corgi" />
-      <div className="carousel-caption">Same Cute Corgi</div>
     </Slide>
-    <Slide>
+    <Slide caption="Different Cute Corgi">
       <img src="http://placecorgi.com/999/350" alt="Cute Corgi" />
-      <div className="carousel-caption">Different Cute Corgi</div>
     </Slide>
   </Slides>
 </Carousel>;

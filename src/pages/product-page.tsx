@@ -15,7 +15,6 @@ import { ProductImage } from '../modules/products/components/product-image';
 import { loadProductDetail } from '../modules/products/product.actions';
 import { selectProduct } from '../modules/products/product.selectors';
 import { RootState, ThunkDispatch } from '../type';
-import './product-page.css';
 
 const ProductComments = React.lazy(() =>
   import(
@@ -60,13 +59,13 @@ function ProductPageContent({
   const { qty, increment, decrement } = useQty(productId);
 
   return (
-    <article className="container">
+    <article className="max-w-4xl mx-auto py-2 px-4">
       {details ? (
         <>
-          <h1 className="visible-xs">{details.name}</h1>
-          <div className="row">
+          <h1 className="sm:hidden text-3xl">{details.name}</h1>
+          <div className="sm:flex mb-4 pb-2 border-b border-gray-300">
             {details.images && (
-              <div className="col-lg-5 col-sm-6 col-xs-12">
+              <div className="w-full sm:w-1/2 lg:w-5/12">
                 <ProductImage
                   url={details.images.standard}
                   webpUrl={details.images.webp}
@@ -76,46 +75,47 @@ function ProductPageContent({
                 />
               </div>
             )}
-            <div className="col-lg-7 col-sm-6 col-xs-12">
-              <h1 className="visible-sm visible-md visible-lg">
+            <div className="w-full sm:w-1/2 sm:px-4">
+              <h1 className="hidden sm:block text-3xl md:text-4xl">
                 {details.name}
               </h1>
-              {details.price && <h3>RM {details.price}</h3>}
+              {details.price && (
+                <h3 className="text-3xl sm:text-xl md:text-2xl">
+                  RM {details.price}
+                </h3>
+              )}
               {details.descriptions && details.descriptions.length > 0 && (
                 <blockquote>{details.descriptions.join(', ')}</blockquote>
               )}
               <div>
                 <Field>
                   <Label>Quantity</Label>
-                  <div className="input-group">
-                    <div className="input-group-btn">
-                      <Button
-                        onClick={decrement}
-                        disabled={qty === 1}
-                        color="default"
-                        data-testid="reduce-qty-btn"
-                      >
-                        -
-                      </Button>
-                    </div>
-                    <Input type="number" value={qty} readOnly />
-                    <div className="input-group-btn">
-                      <Button
-                        onClick={increment}
-                        color="default"
-                        data-testid="add-qty-btn"
-                      >
-                        +
-                      </Button>
-                    </div>
+                  <div className="flex py-1 w-32">
+                    <Button
+                      onClick={decrement}
+                      disabled={qty === 1}
+                      color="default"
+                      data-testid="reduce-qty-btn"
+                    >
+                      -
+                    </Button>
+                    <Input type="number" value={qty} readOnly rounded={false} />
+                    <Button
+                      onClick={increment}
+                      color="default"
+                      data-testid="add-qty-btn"
+                    >
+                      +
+                    </Button>
                   </div>
                 </Field>
               </div>
-              <div className="btn-toolbar">
+              <div>
                 <Button
                   onClick={() => addToCart(qty)}
                   color="success"
                   size="lg"
+                  className="mr-2"
                 >
                   Add To Cart
                 </Button>
@@ -130,23 +130,22 @@ function ProductPageContent({
             </div>
           </div>
           {details.related && details.related.length > 0 && (
-            <div className="row">
-              <div className="col-xs-12">
-                <h2 className="h3">Related Products</h2>
-                <div className="product-page-related-products">
-                  {details.related.map(productId => (
-                    <ProductBoxContainer
-                      productId={productId}
-                      key={productId}
-                    />
-                  ))}
-                </div>
+            <aside className="mb-4 pb-2 border-b border-gray-300">
+              <h2 className="mb-2 text-gray-700">Related Products</h2>
+              <div className="overflow-y-auto py-1 flex -mx-1 sm:-mx-2">
+                {details.related.map(productId => (
+                  <ProductBoxContainer
+                    className="mx-1 sm:mx-2 flex-shrink-0 w-40"
+                    productId={productId}
+                    key={productId}
+                  />
+                ))}
               </div>
-            </div>
+            </aside>
           )}
           <div className="row">
             <div className="col-xs-12">
-              <h2 className="h3">Reviews</h2>
+              <h2 className="text-gray-700 mb-2">Reviews</h2>
               <React.Suspense fallback={<Spinner />}>
                 <ErrorBoundary>
                   <ProductComments productId={productId} />

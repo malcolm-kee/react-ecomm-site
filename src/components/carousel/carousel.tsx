@@ -21,7 +21,7 @@ export const Carousel = ({
 
   return (
     <CarouselContext.Provider value={value}>
-      <div className="carousel slide">{children}</div>
+      <div className="carousel slide relative">{children}</div>
     </CarouselContext.Provider>
   );
 };
