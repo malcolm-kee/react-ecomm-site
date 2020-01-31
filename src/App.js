@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { Footer } from './components/footer';
+import { MainContent } from './components/main-content';
 import { initAuthStatus } from './modules/auth/auth.actions';
 import { ChatLauncher } from './modules/auth/components/chat-launcher';
 import { CartPage } from './pages/cart-page';
@@ -24,18 +25,20 @@ function AppContainer({ initAuthStatus }) {
   return (
     <div>
       <SiteNav />
-      <Router>
-        <MainPage path="/" />
-        <ProductPage path="/product/:productId" />
-        <ProfilePage path="/profile" />
-        <CartPage path="/cart" />
-        <Login path="/login" />
-        <Signup path="/signup" />
-        <HelpPage path="/help/*" />
-        <NotFoundPage default />
-      </Router>
-      <ChatLauncher />
+      <MainContent>
+        <Router>
+          <MainPage path="/" />
+          <ProductPage path="/product/:productId" />
+          <ProfilePage path="/profile" />
+          <CartPage path="/cart" />
+          <Login path="/login" />
+          <Signup path="/signup" />
+          <HelpPage path="/help/*" />
+          <NotFoundPage default />
+        </Router>
+      </MainContent>
       <Footer />
+      <ChatLauncher />
       <ToastContainer hideProgressBar />
     </div>
   );

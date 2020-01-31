@@ -29,14 +29,16 @@ function RegisterFormContent({ status, error, register, logout }) {
     );
   }
 
-  const onSubmit = ev => {
-    ev.preventDefault();
-    register({ name, email });
-  };
   const isSubmitting = status === AuthStatus.Authenticating;
 
   return (
-    <Form title="Signup" onSubmit={onSubmit}>
+    <Form
+      title="Signup"
+      onSubmit={ev => {
+        ev.preventDefault();
+        register({ name, email });
+      }}
+    >
       {isSubmitting && <Spinner />}
       {error && <Alert color="danger">{error}</Alert>}
       <TextField
@@ -49,20 +51,31 @@ function RegisterFormContent({ status, error, register, logout }) {
       />
       <Field>
         <Label>Email</Label>
-        <div className="input-group">
-          <span className="input-group-addon">@</span>
+        <div className="flex">
+          <span className="py-1 px-3 rounded-l-lg bg-gray-500 text-gray-100">
+            @
+          </span>
           <Input
             type="email"
             value={email}
             onChangeValue={setEmail}
             disabled={isSubmitting}
             required
+            rounded={false}
+            className="flex-1 rounded-r-lg"
           />
         </div>
       </Field>
-      <Button color="primary" type="submit" disabled={isSubmitting}>
-        Signup
-      </Button>
+      <div className="py-3">
+        <Button
+          color="primary"
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full"
+        >
+          Signup
+        </Button>
+      </div>
     </Form>
   );
 }

@@ -4,9 +4,14 @@ import { ErrorBoundary } from '../../../components/error-boundary';
 import { Spinner } from '../../../components/spinner';
 import { selectCartItemCount, selectCartItems } from '../cart.selectors';
 import { cartActions } from '../cart.slice';
+import styles from './cart-items.module.scss';
 
 const CartItem = React.lazy(() =>
   import(/* webpackChunkName: "CartItem" */ './cart-item')
+);
+
+const CartTableItem = React.lazy(() =>
+  import(/* webpackChunkName: "CartTableItem" */ './cart-table-item')
 );
 
 function CartItemsContent({
@@ -23,22 +28,24 @@ function CartItemsContent({
       ) : (
         <React.Suspense fallback={<Spinner />}>
           <ErrorBoundary>
-            <div className="table-responsive">
-              <table className="table table-hover">
+            <div className="hidden sm:block overflow-x-auto overflow-y-hidden w-full">
+              <table
+                className={`table-fixed w-full max-w-full ${styles.table}`}
+              >
                 <thead>
                   <tr>
-                    <th>#</th>
+                    <th className="w-8">#</th>
                     <th />
                     <th>Product</th>
                     <th className="text-right">Unit Price (RM)</th>
-                    <th>Qty</th>
+                    <th className="w-24">Qty</th>
                     <th className="text-right">Price (RM)</th>
                     <th />
                   </tr>
                 </thead>
                 <tbody>
                   {cartItems.map((item, index) => (
-                    <CartItem
+                    <CartTableItem
                       item={item}
                       onIncrement={incrementItem(index)}
                       onDecrement={decrementItem(index)}
@@ -49,6 +56,18 @@ function CartItemsContent({
                   ))}
                 </tbody>
               </table>
+            </div>
+            <div className="sm:hidden">
+              {cartItems.map((item, index) => (
+                <CartItem
+                  item={item}
+                  onIncrement={incrementItem(index)}
+                  onDecrement={decrementItem(index)}
+                  onDelete={removeItem(index)}
+                  index={index}
+                  key={index}
+                />
+              ))}
             </div>
           </ErrorBoundary>
         </React.Suspense>
@@ -70,4 +89,6 @@ const mapDispatch = dispatch => ({
   removeItem: itemIndex => () => dispatch(cartActions.removeItem(itemIndex)),
 });
 
-export const CartItems = connect(mapStates, mapDispatch)(CartItemsContent);
+const connector = connect(mapStates, mapDispatch);
+
+export const CartItems = connector(CartItemsContent);

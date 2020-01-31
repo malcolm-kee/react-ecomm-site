@@ -1,18 +1,18 @@
 import { Link } from '@reach/router';
+import cx from 'classnames';
 import React from 'react';
 import { connect } from 'react-redux';
-
+import { Badge } from '../../../components/badge';
 import { selectCartItemCount } from '../cart.selectors';
 
 function CartLinkContent({ cartItemCount, className }) {
   return (
-    <Link to="/cart" className={className}>
+    <Link
+      to="/cart"
+      className={cx('relative inline-flex items-center', className)}
+    >
       Cart
-      {!!cartItemCount && (
-        <span className="badge" style={{ marginLeft: 3 }}>
-          {cartItemCount}
-        </span>
-      )}
+      {cartItemCount > 0 && <Badge>{cartItemCount}</Badge>}
     </Link>
   );
 }

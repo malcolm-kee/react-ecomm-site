@@ -27,32 +27,45 @@ function LoginFormContent({ status, error, login, logout }) {
     );
   }
 
-  const onSubmit = ev => {
-    ev.preventDefault();
-    login(email);
-  };
   const isSubmitting = status === AuthStatus.Authenticating;
 
   return (
-    <Form title="Login" onSubmit={onSubmit}>
+    <Form
+      title="Login"
+      onSubmit={ev => {
+        ev.preventDefault();
+        login(email);
+      }}
+    >
       {isSubmitting && <Spinner />}
       {error && <Alert color="danger">{error}</Alert>}
       <Field>
         <Label>Email</Label>
-        <div className="input-group">
-          <span className="input-group-addon">@</span>
+        <div className="flex">
+          <span className="py-1 px-3 rounded-l-lg bg-gray-500 text-gray-100">
+            @
+          </span>
           <Input
             type="email"
             value={email}
             onChangeValue={setEmail}
             required
             disabled={isSubmitting}
+            rounded={false}
+            className="flex-1 rounded-r-lg"
           />
         </div>
       </Field>
-      <Button color="primary" type="submit" disabled={isSubmitting}>
-        Login
-      </Button>
+      <div className="py-3">
+        <Button
+          color="primary"
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full"
+        >
+          Login
+        </Button>
+      </div>
     </Form>
   );
 }
