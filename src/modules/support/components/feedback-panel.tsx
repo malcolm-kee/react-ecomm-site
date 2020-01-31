@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { Button } from '../../../components/button';
 import { Panel, PanelBody } from '../../../components/panel';
 
-export const FeedbackPanel = () => {
+export const FeedbackPanel = (props: { className?: string }) => {
   const [hovered, setHovered] = React.useState(false);
   const [focused, setFocused] = React.useState(false);
   const inverted = hovered || focused;
@@ -16,11 +16,15 @@ export const FeedbackPanel = () => {
   };
 
   return (
-    <Panel>
+    <Panel className={props.className}>
       <PanelBody>
         <p>Was this article helpful?</p>
-        <div className="btn-toolbar">
-          <Button onClick={onFeedback} color={inverted ? 'danger' : 'success'}>
+        <div className="mt-2">
+          <Button
+            onClick={onFeedback}
+            color={inverted ? 'danger' : 'success'}
+            className="mr-1"
+          >
             {inverted ? 'No ' : 'Yes '}
             <span role="img" aria-hidden>
               {inverted ? '👎' : '👍'}
