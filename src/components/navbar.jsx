@@ -2,18 +2,8 @@ import React from 'react';
 
 export function Navbar({ children }) {
   return (
-    <nav className="navbar navbar-default">
-      <div className="container">
-        <div
-          className="navbar-header"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-          }}
-        >
-          {children}
-        </div>
-      </div>
+    <nav className="bg-blue-600 text-gray-100">
+      <div className="container mx-auto py-2 px-4">{children}</div>
     </nav>
   );
 }
