@@ -6,7 +6,6 @@ import { RootState, ThunkDispatch } from '../../../type';
 import { loadProductComments } from '../product.actions';
 import { selectProductComments } from '../product.selectors';
 import { ProductCommentForm } from './product-comment-form';
-import './product-comments.css';
 
 function ProductComment({
   userName,
@@ -18,12 +17,12 @@ function ProductComment({
   createdOn: number;
 }) {
   return (
-    <div className="product-comment">
+    <div className="py-2">
       <div className="product-comment-info">
         <strong>{userName}</strong> reviewed on{' '}
         {format(new Date(createdOn), 'DD MMM YY')}
       </div>
-      <div className="product-comment-content">
+      <div className="whitespace-pre-wrap">
         <p>{content}</p>
       </div>
     </div>
@@ -51,16 +50,18 @@ function ProductCommentsContent({
   }, [productId, comments.length, loadComments]);
 
   return (
-    <div>
+    <>
       {isLoading && <Spinner />}
-      {comments.map(comment => (
-        <ProductComment {...comment} key={comment.id} />
-      ))}
-      {!isLoading && comments.length === 0 && (
-        <p>There is no review for this product yet.</p>
-      )}
+      <div className="mb-3">
+        {comments.map(comment => (
+          <ProductComment {...comment} key={comment.id} />
+        ))}
+        {!isLoading && comments.length === 0 && (
+          <p>There is no review for this product yet.</p>
+        )}
+      </div>
       <ProductCommentForm productId={productId} />
-    </div>
+    </>
   );
 }
 
