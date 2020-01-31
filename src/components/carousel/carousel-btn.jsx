@@ -1,6 +1,9 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { LeftIcon } from '../icon/left-icon';
+import { RightIcon } from '../icon/right-icon';
+import styles from './carousel-btn.module.scss';
 import { CarouselContext } from './carousel-context';
 
 export const CarouselBtn = ({ direction = 'next' }) => {
@@ -10,16 +13,18 @@ export const CarouselBtn = ({ direction = 'next' }) => {
 
   return (
     <button
-      className={cx('carousel-control', isNext ? 'right' : 'left')}
+      className={cx(
+        'text-white',
+        styles.control,
+        isNext ? styles.right : styles.left
+      )}
       onClick={isNext ? next : prev}
     >
-      <span
-        className={cx(
-          'glyphicon',
-          isNext ? 'glyphicon-chevron-right' : 'glyphicon-chevron-left'
-        )}
-        aria-hidden="true"
-      />
+      {isNext ? (
+        <RightIcon width={72} className="inline-block fill-current" />
+      ) : (
+        <LeftIcon width={72} className="inline-block fill-current" />
+      )}
       <span className="sr-only">{isNext ? 'Next' : 'Previous'}</span>
     </button>
   );
@@ -28,5 +33,3 @@ export const CarouselBtn = ({ direction = 'next' }) => {
 CarouselBtn.propTypes = {
   direction: PropTypes.oneOf(['next', 'prev']),
 };
-
-export default CarouselBtn;

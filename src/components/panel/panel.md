@@ -3,7 +3,7 @@ import {
   Panel,
   PanelBody,
   PanelFooter,
-  PanelHeading
+  PanelHeading,
 } from '../../components/panel';
 
 <Panel color="default">
@@ -21,23 +21,23 @@ import {
 import { Panel, PanelBody, PanelHeading } from '../../components/panel';
 
 <>
-  <Panel color="primary">
+  <Panel color="primary" className="mb-2">
     <PanelHeading>Title</PanelHeading>
     <PanelBody>Content</PanelBody>
   </Panel>
-  <Panel color="success">
+  <Panel color="success" className="mb-2">
     <PanelHeading>Title</PanelHeading>
     <PanelBody>Content</PanelBody>
   </Panel>
-  <Panel color="info">
+  <Panel color="info" className="mb-2">
     <PanelHeading>Title</PanelHeading>
     <PanelBody>Content</PanelBody>
   </Panel>
-  <Panel color="warning">
+  <Panel color="warning" className="mb-2">
     <PanelHeading>Title</PanelHeading>
     <PanelBody>Content</PanelBody>
   </Panel>
-  <Panel color="danger">
+  <Panel color="danger" className="mb-2">
     <PanelHeading>Title</PanelHeading>
     <PanelBody>Content</PanelBody>
   </Panel>

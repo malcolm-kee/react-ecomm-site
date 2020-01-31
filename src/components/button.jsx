@@ -10,22 +10,30 @@ import React from 'react';
  * Other than specified props, any other props will be spreaded to the `button` element.
  */
 export const Button = React.forwardRef(function Button(
-  { type = 'button', color, size, className, ...buttonProps },
+  {
+    type = 'button',
+    color,
+    size,
+    className,
+    renderContainer = providedProps => <button {...providedProps} />,
+    disabled,
+    ...buttonProps
+  },
   ref
 ) {
-  return (
-    <button
-      className={cx(
-        'rounded',
-        color && colorClasses[color],
-        size ? sizeClasses[size] : 'px-4 py-2',
-        className
-      )}
-      type={type}
-      {...buttonProps}
-      ref={ref}
-    />
-  );
+  return renderContainer({
+    className: cx(
+      'inline-block rounded',
+      disabled
+        ? 'bg-gray-500 text-gray-100 cursor-not-allowed'
+        : color && colorClasses[color],
+      size ? sizeClasses[size] : 'px-4 py-2',
+      className
+    ),
+    type,
+    disabled,
+    ...buttonProps,
+  });
 });
 
 const colorClasses = {
@@ -60,4 +68,5 @@ Button.propTypes = {
   ]),
   size: PropTypes.oneOf(['lg', 'sm', 'xs']),
   children: PropTypes.node.isRequired,
+  renderContainer: PropTypes.func,
 };

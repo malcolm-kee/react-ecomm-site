@@ -2,6 +2,7 @@ import { Link } from '@reach/router';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { omit } from '../lib/object';
 import { isDefined } from '../lib/typecheck';
 
 /**
@@ -9,26 +10,39 @@ import { isDefined } from '../lib/typecheck';
  *
  * All props except `variant` and `items` will be spreaded to the underlying container
  *
- * @see https://getbootstrap.com/docs/3.3/components/#list-group
  */
-export const ListGroup = ({ items, variant, className, ...containerProps }) => {
-  return variant === 'link' ? (
-    <div className={cx('list-group', className)} {...containerProps}>
-      {items.map(
+export const ListGroup = props => {
+  return props.variant === 'link' ? (
+    <div
+      {...omit(props, ['items', 'variant'])}
+      className={cx('rounded', props.className)}
+    >
+      {props.items.map(
         (
           { label, active, disabled, variant, className, ...linkProps },
-          index
+          index,
+          allItems
         ) => (
           <Link
-            getProps={({ isCurrent }) => ({
-              className: cx(
-                'list-group-item',
-                (isDefined(active) ? active : isCurrent) && 'active',
-                disabled && 'disabled',
-                variant && `list-group-item-${variant}`,
-                className
-              ),
-            })}
+            getProps={({ isCurrent }) => {
+              const isActive = isDefined(active) ? active : isCurrent;
+
+              return {
+                className: cx(
+                  'block w-full border px-4 py-2 text-left',
+                  disabled
+                    ? 'bg-gray-200 text-gray-600 cursor-not-allowed'
+                    : variant
+                    ? isActive
+                      ? variantClasses[variant].active
+                      : variantClasses[variant].base
+                    : isActive && 'bg-blue-500 text-gray-100',
+                  index === 0 && 'rounded-t-lg',
+                  index === allItems.length - 1 && 'rounded-b-lg',
+                  className
+                ),
+              };
+            }}
             {...linkProps}
             key={index}
           >
@@ -37,20 +51,27 @@ export const ListGroup = ({ items, variant, className, ...containerProps }) => {
         )
       )}
     </div>
-  ) : variant === 'button' ? (
-    <div className={cx('list-group', className)} {...containerProps}>
-      {items.map(
+  ) : props.variant === 'button' ? (
+    <div {...omit(props, ['variant', 'items'])} className={props.className}>
+      {props.items.map(
         (
           { label, active, disabled, variant, className, ...buttonProps },
-          index
+          index,
+          allItems
         ) => (
           <button
             type="button"
             className={cx(
-              'list-group-item',
-              active && 'active',
-              disabled && 'disabled',
-              variant && `list-group-item-${variant}`,
+              'block w-full border px-4 py-2 text-left',
+              disabled
+                ? 'bg-gray-200 text-gray-600 cursor-not-allowed'
+                : variant
+                ? active
+                  ? variantClasses[variant].active
+                  : variantClasses[variant].base
+                : active && 'bg-blue-500 text-gray-100',
+              index === 0 && 'rounded-t-lg',
+              index === allItems.length - 1 && 'rounded-b-lg',
               className
             )}
             disabled={disabled}
@@ -63,20 +84,28 @@ export const ListGroup = ({ items, variant, className, ...containerProps }) => {
       )}
     </div>
   ) : (
-    <ul className={cx('list-group', className)} {...containerProps}>
-      {items.map(
+    <ul {...omit(props, ['variant', 'items'])} className={props.className}>
+      {props.items.map(
         (
           { active, disabled, variant, label, className, ...itemProps },
-          index
+          index,
+          allItems
         ) => (
           <li
             className={cx(
-              'list-group-item',
-              active && 'active',
-              disabled && 'disabled',
-              variant && `list-group-item-${variant}`,
+              'border px-4 py-2',
+              disabled
+                ? 'bg-gray-200 text-gray-600 cursor-not-allowed'
+                : variant
+                ? active
+                  ? variantClasses[variant].active
+                  : variantClasses[variant].base
+                : active && 'bg-blue-500 text-gray-100 border-blue-500',
+              index === 0 && 'rounded-t-lg',
+              index === allItems.length - 1 && 'rounded-b-lg',
               className
             )}
+            aria-current={active ? true : undefined}
             key={index}
             {...itemProps}
           >
@@ -86,6 +115,25 @@ export const ListGroup = ({ items, variant, className, ...containerProps }) => {
       )}
     </ul>
   );
+};
+
+const variantClasses = {
+  success: {
+    base: 'bg-green-200 text-gray-900',
+    active: 'bg-green-500 text-gray-100 border-green-500',
+  },
+  info: {
+    base: 'bg-teal-200 text-gray-900',
+    active: 'bg-teal-500 text-gray-100 border-teal-500',
+  },
+  warning: {
+    base: 'bg-orange-200 text-gray-900',
+    active: 'bg-orange-500 text-gray-100 border-orange-500',
+  },
+  danger: {
+    base: 'bg-red-200 text-gray-900',
+    active: 'bg-red-500 text-gray-100 border-red-500',
+  },
 };
 
 ListGroup.propTypes = {

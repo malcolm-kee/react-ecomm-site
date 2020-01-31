@@ -17,12 +17,18 @@ export function Field({ status, className, ...props }) {
   return (
     <FieldContext.Provider value={{ inputId, setInputId }}>
       <div
-        className={cx('form-group', status && `has-${status}`, className)}
+        className={cx('mb-2', status && statusClasses[status], className)}
         {...props}
       />
     </FieldContext.Provider>
   );
 }
+
+const statusClasses = {
+  success: 'text-green-600',
+  warning: 'text-orange-600',
+  error: 'text-red-600',
+};
 
 Field.propTypes = {
   /**

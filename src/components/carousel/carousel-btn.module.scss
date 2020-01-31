@@ -1,0 +1,47 @@
+.control {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 15%;
+  font-size: 20px;
+  color: #ffffff;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0);
+  filter: alpha(opacity=50);
+  opacity: 0.5;
+
+  &.left {
+    background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.5) 0,
+      rgba(0, 0, 0, 0.0001) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
+    background-repeat: repeat-x;
+    text-align: left;
+  }
+
+  &.right {
+    right: 0;
+    left: auto;
+    background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.0001) 0,
+      rgba(0, 0, 0, 0.5) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
+    background-repeat: repeat-x;
+    text-align: right;
+  }
+
+  &:hover,
+  &:focus {
+    color: #ffffff;
+    text-decoration: none;
+    outline: 0;
+    filter: alpha(opacity=90);
+    opacity: 0.9;
+  }
+}

@@ -22,16 +22,23 @@ export function Slides({ children }) {
   }, [totalSlides, setTotalSlides]);
 
   return (
-    <div className="carousel-inner" role="listbox">
-      {React.Children.map(children, (child, index) =>
-        React.cloneElement(child, {
+    <div
+      className="carousel-inner relative w-full overflow-hidden"
+      role="listbox"
+    >
+      {React.Children.map(children, (child, index) => {
+        if (!React.isValidElement(child)) {
+          return child;
+        }
+
+        return React.cloneElement(child, {
           pause,
           unPause,
           direction,
           isActive: index === activeIndex,
           'data-testid': `slide-${index}`,
-        })
-      )}
+        });
+      })}
     </div>
   );
 }

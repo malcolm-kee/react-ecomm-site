@@ -15,7 +15,7 @@ import { FieldContext } from './field-context';
  * contextual styling and good defaults on props
  */
 export const Input = React.forwardRef(function Input(
-  { className, onChangeValue, onChange, size, ...inputProps },
+  { className, onChangeValue, onChange, size, rounded = true, ...inputProps },
   ref
 ) {
   const { inputId, setInputId } = React.useContext(FieldContext);
@@ -29,7 +29,9 @@ export const Input = React.forwardRef(function Input(
   return (
     <input
       className={cx(
-        'block m-0 w-full border border-gray-300 rounded-lg px-3 shadow-inner text-gray-900',
+        'block m-0 w-full min-w-0 border border-gray-300 px-3 shadow-inner text-gray-900',
+        rounded && 'rounded-lg',
+        inputProps.readOnly && 'bg-gray-100',
         size ? sizeClasses[size] : 'text-base py-1',
         className
       )}
