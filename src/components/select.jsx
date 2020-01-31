@@ -22,7 +22,6 @@ export const Select = React.forwardRef(function Select(
     options,
     className,
     children,
-    required,
     ...selectProps
   },
   ref
@@ -37,9 +36,12 @@ export const Select = React.forwardRef(function Select(
 
   return (
     <select
-      className={cx('form-control', size && `input-${size}`, className)}
+      className={cx(
+        'block m-0 w-full border border-gray-300 rounded-lg px-3 shadow-inner text-gray-900',
+        size ? sizeClasses[size] : 'text-base py-1',
+        className
+      )}
       id={inputId}
-      required={required}
       onChange={callAll(
         onChange,
         onChangeValue && (ev => onChangeValue(ev.target.value))
@@ -58,6 +60,11 @@ export const Select = React.forwardRef(function Select(
     </select>
   );
 });
+
+const sizeClasses = {
+  sm: 'text-xs py-1',
+  lg: 'text-lg py-2',
+};
 
 Select.propTypes = {
   /**

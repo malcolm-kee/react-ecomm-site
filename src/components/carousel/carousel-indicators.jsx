@@ -1,5 +1,7 @@
+import cx from 'classnames';
 import React from 'react';
 import { CarouselContext } from './carousel-context';
+import styles from './carousel-indicators.module.scss';
 
 /**
  * `<CarouselIndicators />` should be used within `<Carousel />` components.
@@ -18,7 +20,7 @@ export function CarouselIndicators() {
   for (let index = 0; index < totalSlides; index++) {
     const indicator = (
       <li
-        className={index === activeIndex ? 'active' : undefined}
+        className={cx(styles.item, index === activeIndex && styles.active)}
         onClick={() => setActiveIndex(index)}
         data-testid="carousel-indicator"
         key={index}
@@ -28,14 +30,8 @@ export function CarouselIndicators() {
   }
 
   return (
-    <ol
-      className="carousel-indicators"
-      onMouseEnter={pause}
-      onMouseLeave={unPause}
-    >
+    <ol className={styles.root} onMouseEnter={pause} onMouseLeave={unPause}>
       {indicators}
     </ol>
   );
 }
-
-export default CarouselIndicators;

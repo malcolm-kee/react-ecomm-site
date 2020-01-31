@@ -1,8 +1,10 @@
 ```jsx
 import { ChatHistory } from './chat-history';
 import { ChatMessage } from './chat-message';
+import { ChatSystemMessage } from './chat-system-message';
 
 <ChatHistory>
+  <ChatSystemMessage>Start of chat</ChatSystemMessage>
   <ChatMessage message="Hi there!" sendTime="21:57" sender="Malcolm" />
   <ChatMessage
     message="My name is Kee, Malcolm Kee, the son of my father."

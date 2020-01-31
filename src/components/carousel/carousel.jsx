@@ -8,7 +8,7 @@ export const Carousel = ({ interval = null, initialSlide = 0, children }) => {
 
   return (
     <CarouselContext.Provider value={value}>
-      <div className="carousel slide">{children}</div>
+      <div className="carousel slide relative">{children}</div>
     </CarouselContext.Provider>
   );
 };
@@ -25,5 +25,3 @@ Carousel.propTypes = {
     PropTypes.node,
   ]).isRequired,
 };
-
-export default Carousel;

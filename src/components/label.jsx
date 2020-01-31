@@ -1,3 +1,4 @@
+import cx from 'classnames';
 import React from 'react';
 import { FieldContext } from './field-context';
 
@@ -11,5 +12,11 @@ import { FieldContext } from './field-context';
 export function Label(props) {
   const { inputId } = React.useContext(FieldContext);
 
-  return <label htmlFor={inputId} {...props} />;
+  return (
+    <label
+      htmlFor={inputId}
+      {...props}
+      className={cx('pl-2 leading-loose', props.className)}
+    />
+  );
 }
