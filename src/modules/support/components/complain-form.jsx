@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { toast } from 'react-toastify';
 import { Button } from '../../../components/button';
 import { Field } from '../../../components/field';
@@ -37,10 +37,10 @@ export const ComplainForm = () => {
       }}
       className={styles.root}
     >
-      <h2>Make a Complaint</h2>
+      <h2 className="text-2xl mb-2">Make a Complaint</h2>
       <ComplainFormSection>
-        <fieldset>
-          <legend>Category</legend>
+        <fieldset className="py-3">
+          <legend className="text-lg">Category</legend>
           <SelectField label="I want to make complain about" required>
             <option value="product">Product</option>
             <option value="deliver">Delivery</option>
@@ -51,8 +51,8 @@ export const ComplainForm = () => {
       {currentPage >= 1 && (
         <React.Suspense fallback={<Spinner />}>
           <ComplainFormSection>
-            <fieldset>
-              <legend>Details</legend>
+            <fieldset className="py-3">
+              <legend className="text-lg">Details</legend>
               <Field>
                 <Label>Date of incident</Label>
                 <DateInput id="incident-date" />
@@ -74,8 +74,8 @@ export const ComplainForm = () => {
       )}
       {currentPage >= 2 && (
         <ComplainFormSection>
-          <fieldset>
-            <legend>Contacts</legend>
+          <fieldset className="py-3">
+            <legend className="text-lg">Contacts</legend>
             <TextField
               label="Your Full Name"
               placeholder="Tony Stark"
