@@ -1,28 +1,29 @@
+import cx from 'classnames';
 import { Link } from '@reach/router';
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from '../../../type';
 import { selectCartItemCount } from '../cart.selectors';
+import { Badge } from '../../../components/badge';
 
-type CartLinkContentProps = ReturnType<typeof mapStates> & {
+type CartLinkContentProps = ConnectedProps<typeof connector> & {
   className?: string;
 };
 
 function CartLinkContent({ cartItemCount, className }: CartLinkContentProps) {
   return (
-    <Link to="/cart" className={className}>
+    <Link
+      to="/cart"
+      className={cx('relative inline-flex items-center', className)}
+    >
       Cart
-      {!!cartItemCount && (
-        <span className="badge" style={{ marginLeft: 3 }}>
-          {cartItemCount}
-        </span>
-      )}
+      {cartItemCount > 0 && <Badge>{cartItemCount}</Badge>}
     </Link>
   );
 }
 
-const mapStates = (state: RootState) => ({
+const connector = connect((state: RootState) => ({
   cartItemCount: selectCartItemCount(state),
-});
+}));
 
-export const CartLink = connect(mapStates)(CartLinkContent);
+export const CartLink = connector(CartLinkContent);
