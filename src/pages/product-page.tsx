@@ -90,7 +90,7 @@ function ProductPageContent({
               <div>
                 <Field>
                   <Label>Quantity</Label>
-                  <div className="flex py-1 w-24">
+                  <div className="flex py-1 w-32">
                     <Button
                       onClick={decrement}
                       disabled={qty === 1}

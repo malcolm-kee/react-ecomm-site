@@ -48,6 +48,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       size,
       className,
       renderContainer = providedProps => <button {...providedProps} />,
+      disabled,
       ...buttonProps
     },
     ref
@@ -55,11 +56,14 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return renderContainer({
       className: cx(
         'inline-block rounded',
-        color && colorClasses[color],
+        disabled
+          ? 'bg-gray-500 text-gray-100 cursor-not-allowed'
+          : color && colorClasses[color],
         size ? sizeClasses[size] : 'px-4 py-2',
         className
       ),
       type,
+      disabled,
       ...buttonProps,
     });
   }
