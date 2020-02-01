@@ -2,21 +2,21 @@
 
 An e-commerce site SPA implemented with React.
 
-This is the branch that use redux as state management.
+[Live](https://shopit.space/)
 
-[Redux Live](https://redux.shopit.space/)
+[Component Library](https://react-ecomm-docs.netlify.com/)
 
 ## State Management Library
 
-There are two implementations of this site:
+There are 3 implementations of this site:
 
-1. MobX - [`master` branch][master-branch]
+1. Redux with TypeScript - [`master` branch][master-branch]
 1. Redux - [`redux` branch][redux-branch]
-1. Redux with TypeScript - [`redux-ts` branch][redux-ts-branch]
+1. Mobx - [`mobx` branch][mobx-branch]
 
-You can cross-reference them and see the difference between them. I will put my best effort to ensure they are functionally the same.
+You can cross-reference them and see the difference between them. I will put my best effort to ensure they are functionally similar.
 
-MobX branch may be slightly ahead, as I usually work on it and then cherry-pick into redux branch.
+`master` branch may be slightly ahead, as I usually work on it and then cherry-pick into other branches.
 
 ## Backend API
 
@@ -30,5 +30,5 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 [master-branch]: https://github.com/malcolm-kee/react-ecomm-site/tree/master
 [redux-branch]: https://github.com/malcolm-kee/react-ecomm-site/tree/redux
-[redux-ts-branch]: https://github.com/malcolm-kee/react-ecomm-site/tree/redux-ts
+[mobx-branch]: https://github.com/malcolm-kee/react-ecomm-site/tree/mobx
 [backend-api-repo]: https://github.com/malcolm-kee/ecomm-db
