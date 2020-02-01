@@ -2,17 +2,17 @@
 
 An e-commerce site SPA implemented with React.
 
-[Live][mobx-preview]
+[Live](https://shopit.space/)
 
 [Component Library](https://react-ecomm-docs.netlify.com/)
 
 ## State Management Library
 
-There are two implementations of this site:
+There are 3 implementations of this site:
 
-1. MobX - [`master` branch][master-branch] ([Preview][mobx-preview])
+1. Redux with TypeScript - [`master` branch][master-branch] ([Preview][master-preview])
 1. Redux - [`redux` branch][redux-branch] ([Preview][redux-preview])
-1. Redux with TypeScript - [`redux-ts` branch][redux-ts-branch] ([Preview][reduxts-preview])
+1. Mobx - [`mobx` branch][mobx-branch] ([Preview][mobx-preview])
 
 You can cross-reference them and see the difference between them. I will put my best effort to ensure they are functionally the same.
 
@@ -32,6 +32,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 [redux-branch]: https://github.com/malcolm-kee/react-ecomm-site/tree/redux
 [redux-ts-branch]: https://github.com/malcolm-kee/react-ecomm-site/tree/redux-ts
 [backend-api-repo]: https://github.com/malcolm-kee/ecomm-db
-[mobx-preview]: https://shopit.space/
+[master-preview]: https://shopit.space/
 [redux-preview]: https://redux.shopit.space/
-[reduxts-preview]: https://redux-ts.shopit.space/
+[mobx-preview]: https://mobx.shopit.space/
