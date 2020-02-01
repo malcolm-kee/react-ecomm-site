@@ -7,6 +7,7 @@ import { selectAuthStatus, selectUser } from './modules/auth/auth.selectors';
 import { CartLink } from './modules/cart/components/cart-link';
 import { RootState } from './type';
 import { Button } from './components/button';
+import siteIcon from './images/shopit-white-100.png';
 
 type ReduxProps = ConnectedProps<typeof connector>;
 
@@ -16,7 +17,7 @@ function SiteNavContent({ status, user, logout }: ReduxProps) {
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           <Link className="text-3xl px-2" to="/">
-            Shopit
+            <img src={siteIcon} width={45} height={45} alt="Shopit" />
           </Link>
           <CartLink className="text-lg sm:text-xl px-2" />
           <Link className="text-lg sm:text-xl px-2" to="/help">
