@@ -34,7 +34,7 @@ describe(`product`, () => {
           }).click();
         })
 
-        .findByText('Shopit', {
+        .findByAltText('Shopit', {
           selector: 'a',
         })
         .first()

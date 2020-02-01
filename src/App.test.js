@@ -100,6 +100,18 @@ describe('<App />', () => {
     expect(getByText('Page Not Found')).not.toBeNull();
   });
 
+  it(`shows careers page`, async () => {
+    const { getByText, findByText } = loadApp({
+      url: '/',
+    });
+
+    user.click(getByText('Careers'));
+
+    const careerPageTitle = await findByText('Careers in Shopit');
+
+    expect(careerPageTitle).toBeVisible();
+  });
+
   it('tracks product added to cart', async () => {
     const {
       waitForProductPageFinishLoading,

@@ -12,6 +12,7 @@ import { MainPage } from './pages/main-page';
 import { NotFoundPage } from './pages/not-found-page';
 import { ProductPage } from './pages/product-page';
 import { ProfilePage } from './pages/profile-page';
+import { CareersPage } from './pages/careers';
 import { Signup } from './pages/signup';
 import { SiteNav } from './site-nav';
 import { ChatLauncher } from './modules/auth/components/chat-launcher';
@@ -30,6 +31,7 @@ function AppContainer({ initAuthStatus }) {
           <MainPage path="/" />
           <ProductPage path="/product/:productId" />
           <ProfilePage path="/profile" />
+          <CareersPage path="/careers" />
           <CartPage path="/cart" />
           <Login path="/login" />
           <Signup path="/signup" />
