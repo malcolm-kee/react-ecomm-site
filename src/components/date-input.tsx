@@ -6,6 +6,7 @@ import styles from './date-input.module.scss';
 import { Input, InputProps } from './input';
 import { useLatest } from '../hooks/use-latest';
 import { useId } from '../hooks/use-id';
+import { CalendarIcon } from './icon/calendar-icon';
 
 type DateInputProps = InputProps & {
   /**
@@ -99,7 +100,7 @@ export const DateInput = ({
         onClick={() => $(inputRef.current as HTMLInputElement).datepick('show')}
         aria-labelledby={`${ensuredId}-btn-label`}
       >
-        <i className="glyphicon glyphicon-calendar" aria-hidden="true" />
+        <CalendarIcon className="fill-current" />
       </button>
       <span className="sr-only" id={`${ensuredId}-btn-label`}>
         open date picker
