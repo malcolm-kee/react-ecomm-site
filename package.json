@@ -30,12 +30,12 @@
     "eject": "react-scripts eject",
     "start:docs": "styleguidist server",
     "build:docs": "styleguidist build",
+    "deploy:docs": "netlify deploy --dir=styleguide --prod",
     "cy:open": "cypress open",
     "cy:run": "cypress run --config video=false",
     "test:e2e": "start-server-and-test local http://localhost:3000 cy:open",
     "test:e2e:ci": "start-server-and-test local http://localhost:3000 cy:run",
-    "test:all": "npm run test:ci && npm run test:e2e:ci",
-    "report:coverage": "node prepare-coverage-report.js && nyc merge coverage-report && mv coverage.json .nyc_output/out.json && nyc report --reporter lcov --report-dir coverage-report"
+    "test:all": "npm run test:ci && npm run test:e2e:ci"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -72,6 +72,7 @@
     "jest-junit": "^10.0.0",
     "jest-websocket-mock": "^2.0.1",
     "mock-socket": "^9.0.3",
+    "netlify-cli": "^2.30.0",
     "node-sass": "^4.13.0",
     "nyc": "^15.0.0",
     "prettier": "^1.19.1",
