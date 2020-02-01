@@ -36,7 +36,7 @@ export const FileRecord = (props: FileRecordProps) => {
   return (
     <div className={styles.fileRecord}>
       <FilePreview fileName={props.fileName} previewUrl={props.previewUrl} />
-      <div className={styles.fileRecordDetails}>
+      <div className="flex-1 min-w-0">
         <span className={styles.fileName}>{props.fileName}</span>
         <Progress
           percent={props.status === 'uploaded' ? 100 : props.progress}
@@ -72,7 +72,7 @@ const FileErrorRecord = (
 ) => (
   <div className={styles.fileRecord}>
     <FilePreview fileName={props.fileName} previewUrl={props.previewUrl} />
-    <div className={styles.fileRecordDetails}>
+    <div className="flex-1 min-w-0">
       <span className={styles.fileName}>{props.fileName}</span>
       <small className={`text-red-600 ${styles.fileStatus}`}>
         Failed to Upload
