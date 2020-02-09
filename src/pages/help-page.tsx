@@ -1,18 +1,18 @@
-import { RouteComponentProps, Router } from '@reach/router';
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import { Input } from '../components/input';
 import { Jumbotron } from '../components/jumbotron';
 import { ListGroup } from '../components/list-group';
-import { FeedbackPanel } from '../modules/support/components/feedback-panel';
 import { ComplainForm } from '../modules/support/components/complain-form';
+import { FeedbackPanel } from '../modules/support/components/feedback-panel';
 
-const HelpLanding = (_: RouteComponentProps) => (
+const HelpLanding = () => (
   <div>
     <p>Select a topic.</p>
   </div>
 );
 
-const HelpAccount = (_: RouteComponentProps) => (
+const HelpAccount = () => (
   <article>
     <h2 className="text-2xl mb-2">Account</h2>
     <p>If you forget password, just create another one.</p>
@@ -21,7 +21,7 @@ const HelpAccount = (_: RouteComponentProps) => (
   </article>
 );
 
-const HelpPayment = (_: RouteComponentProps) => (
+const HelpPayment = () => (
   <article>
     <h2 className="text-2xl mb-2">Payment</h2>
     <p>Seriously u look for help for payment when you can't even pay?</p>
@@ -29,15 +29,13 @@ const HelpPayment = (_: RouteComponentProps) => (
   </article>
 );
 
-const HelpShipping = (_: RouteComponentProps) => (
+const HelpShipping = () => (
   <article>
     <h2 className="text-2xl mb-2">Shipping</h2>
     <p>All shipping will be delivered within 3-5 years. Please be patient.</p>
     <FeedbackPanel className="my-3" />
   </article>
 );
-
-const ComplaintPage = (_: RouteComponentProps) => <ComplainForm />;
 
 export function HelpPage() {
   return (
@@ -59,32 +57,32 @@ export function HelpPage() {
             variant="link"
             items={[
               {
-                to: 'account',
+                to: '/help/account',
                 label: 'Account',
               },
               {
-                to: 'payment',
+                to: '/help/payment',
                 label: 'Payment',
               },
               {
-                to: 'shipping',
+                to: '/help/shipping',
                 label: 'Shipping',
               },
               {
-                to: 'complaint',
+                to: '/help/complaint',
                 label: 'Complaint',
               },
             ]}
           />
         </div>
         <div className="flex-1 px-5 pb-3">
-          <Router>
-            <HelpLanding path="/" />
-            <HelpAccount path="/account" />
-            <HelpPayment path="/payment" />
-            <HelpShipping path="/shipping" />
-            <ComplaintPage path="/complaint" />
-          </Router>
+          <Switch>
+            <Route path="/help/account" component={HelpAccount} />
+            <Route path="/help/payment" component={HelpPayment} />
+            <Route path="/help/shipping" component={HelpShipping} />
+            <Route path="/help/complaint" component={ComplainForm} />
+            <Route path="/help" exact component={HelpLanding} />
+          </Switch>
         </div>
       </div>
     </>

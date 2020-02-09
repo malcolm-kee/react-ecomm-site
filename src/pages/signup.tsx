@@ -1,5 +1,5 @@
-import { Link } from '@reach/router';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { RegisterForm } from '../modules/auth/components/register-form';
 
 export function Signup() {

@@ -1,4 +1,3 @@
-import { RouteComponentProps } from '@reach/router';
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -39,7 +38,7 @@ function useQty(productId: number) {
 
 type ProductPageProps = {
   productId: number;
-} & RouteComponentProps;
+};
 
 type ReduxProps = ConnectedProps<typeof connector>;
 
@@ -48,7 +47,6 @@ function ProductPageContent({
   details,
   loadDetails,
   addToCart,
-  location,
 }: ProductPageProps & ReduxProps) {
   React.useEffect(() => {
     if (!details) {
@@ -119,9 +117,9 @@ function ProductPageContent({
                 >
                   Add To Cart
                 </Button>
-                {location && (
+                {window && window.location && (
                   <ShareButton
-                    urlToShare={location.href}
+                    urlToShare={window.location.href}
                     titleToShare={details.name}
                     size="lg"
                   />

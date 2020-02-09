@@ -1,6 +1,6 @@
 import cx from 'classnames';
-import { Link } from '@reach/router';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Panel, PanelBody, PanelHeading } from '../../../components/panel';
 import { Product } from '../product.type';
 import './product-box.css';
