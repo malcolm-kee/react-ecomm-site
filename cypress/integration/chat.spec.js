@@ -1,29 +1,27 @@
+/* eslint-disable cypress/no-unnecessary-waiting */
 /// <reference types="Cypress" />
 /// <reference types="../support" />
 
 describe(`chat`, () => {
-  it.only(`can launch chat for logged in user`, () => {
+  it(`can launch chat for logged in user`, () => {
     cy.createUser({
       name: 'Malcolm Tee',
     }).then(user => {
-      cy.visit('/')
-        .findByText('Chat')
-        .click()
+      cy.visit('/careers');
+      cy.findByText('Chat').click();
 
-        .findAllByText('Login')
+      cy.findAllByText('Login')
         .last()
-        .click()
-        .findByLabelText('Email')
-        .type(user.email)
-        .findAllByText('Login')
-        .last()
-        .click()
-
-        .findByLabelText('Chat message')
-        .type('Hello there!{enter}')
-
-        .findByLabelText('Close')
         .click();
+      cy.findByLabelText('Email').type(user.email);
+      cy.findAllByText('Login')
+        .last()
+        .click();
+
+      cy.wait(1000);
+      cy.findByLabelText('Chat message').type('Hello there!{enter}');
+
+      cy.findByLabelText('Close').click();
     });
   });
 
@@ -37,20 +35,19 @@ describe(`chat`, () => {
         cy.connectSocket({
           url: 'wss://ecomm-db.herokuapp.com/chat',
         }).then(chatSocket => {
-          cy.visit('/')
-            .findByText('Chat')
-            .click()
+          cy.visit('/careers');
+          cy.findByText('Chat').click();
 
-            .findAllByText('Login')
+          cy.findAllByText('Login')
             .last()
-            .click()
-            .findByLabelText('Email')
-            .type(user.email)
-            .findAllByText('Login')
+            .click();
+          cy.findByLabelText('Email').type(user.email);
+          cy.findAllByText('Login')
             .last()
-            .click()
+            .click();
 
-            .findByLabelText('Chat message')
+          cy.wait(1000);
+          cy.findByLabelText('Chat message')
             .type('Hello there!{enter}')
 
             .then(() => {
@@ -66,9 +63,9 @@ describe(`chat`, () => {
                   message: 'I must had said this thousand times',
                 })
               );
-            })
+            });
 
-            .findByText('Hello from the other side')
+          cy.findByText('Hello from the other side')
             .should('be.visible')
             .then(() => {
               chatSocket.close();
@@ -82,20 +79,19 @@ describe(`chat`, () => {
     cy.createUser({
       name: 'Malcolm Noisy',
     }).then(user => {
-      cy.visit('/')
-        .findByText('Chat')
-        .click()
+      cy.visit('/careers');
+      cy.findByText('Chat').click();
 
-        .findAllByText('Login')
+      cy.findAllByText('Login')
         .last()
-        .click()
-        .findByLabelText('Email')
-        .type(user.email)
-        .findAllByText('Login')
+        .click();
+      cy.findByLabelText('Email').type(user.email);
+      cy.findAllByText('Login')
         .last()
-        .click()
+        .click();
 
-        .findByLabelText('Chat message')
+      cy.wait(1000);
+      cy.findByLabelText('Chat message')
         .type('Hello there!{enter}')
         .type('A{enter}')
         .type('B{enter}')
@@ -109,16 +105,13 @@ describe(`chat`, () => {
         .type('J{enter}')
         .type('K{enter}')
         .type('L{enter}')
-        .type('M{enter}')
+        .type('M{enter}');
 
-        .findByTestId('chat-history')
-        .scrollTo('top')
+      cy.findByTestId('chat-history').scrollTo('top');
 
-        .findByText('M')
-        .should('not.be.visible')
+      cy.findByText('M').should('not.be.visible');
 
-        .findByLabelText('Scroll to bottom')
-        .click();
+      cy.findByLabelText('Scroll to bottom').click();
 
       /* not doing this check as it's quite buggy at the moment, 
       refer to https://github.com/cypress-io/cypress/issues/1242 for update */

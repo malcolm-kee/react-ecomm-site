@@ -1,10 +1,10 @@
 import cx from 'classnames';
-import { Link } from '@reach/router';
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { Badge } from '../../../components/badge';
 import { RootState } from '../../../type';
 import { selectCartItemCount } from '../cart.selectors';
-import { Badge } from '../../../components/badge';
 
 type CartLinkContentProps = ConnectedProps<typeof connector> & {
   className?: string;

@@ -1,5 +1,5 @@
-import { Link } from '@reach/router';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '../../../components/button';
 import { CloseIcon } from '../../../components/icon/close-icon';
 import { formatMoney } from '../../../lib/format';

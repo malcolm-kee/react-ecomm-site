@@ -124,6 +124,8 @@ describe('<App />', () => {
       addMoreCartItem,
       reduceCartItem,
       removeCartItem,
+      findByTestId,
+      getByText,
     } = loadApp({
       url: '/product/1',
     });
@@ -134,14 +136,16 @@ describe('<App />', () => {
     minusQty();
     addProductToCart();
 
-    await act(() => history.navigate('/product/2'));
+    act(() => history.push('/product/2'));
 
     await waitForProductPageFinishLoading();
     addProductToCart();
     addProductToCart();
     addProductToCart();
 
-    await act(() => history.navigate('/cart'));
+    user.click(getByText('Cart'));
+
+    await findByTestId('qty-for-2');
 
     expect(getCartItemQty('1')).toBe('2');
     expect(getCartItemQty('2')).toBe('3');
@@ -177,7 +181,9 @@ describe('<App />', () => {
 
     await findByText("You're already login!");
 
-    await history.navigate('/product/1');
+    act(() => {
+      history.push('/product/1');
+    });
 
     await waitForProductPageFinishLoading();
 
@@ -207,7 +213,9 @@ describe('<App />', () => {
 
     await findByText("You're already login!");
 
-    await history.navigate('/product/1');
+    act(() => {
+      history.push('/product/1');
+    });
 
     await waitForProductPageFinishLoading();
 
