@@ -35,10 +35,10 @@ class MarketingBannerView extends React.Component<
       return null;
     }
 
-    const isAllImageLoaded = this.state.loadedImageCount === banners.length;
+    const isAllImageLoaded = this.state.loadedImageCount >= banners.length;
 
     return (
-      <Carousel interval={2000}>
+      <Carousel>
         {isAllImageLoaded && <CarouselIndicators />}
         <Slides>
           {banners.map(banner => (
