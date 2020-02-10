@@ -53,6 +53,20 @@ describe(`<ChatBox />`, () => {
 
     expect(getByText(otherUserMessage.message)).toBeVisible();
   });
+
+  it(`display error message when fail to connect`, async () => {
+    const { server, endpoint } = createMockSocketServer();
+    const { getByRole, getByText } = render(
+      <ChatBox socketEndpoint={endpoint} userId={5} />
+    );
+    await waitForElementToBeRemoved(() => getByRole('progressbar'));
+    await server.connected;
+    act(() => {
+      server.error();
+      server.close();
+    });
+    expect(getByText('Fail to connect. Please try again')).toBeVisible();
+  });
 });
 
 function createMockSocketServer() {

@@ -112,7 +112,7 @@ describe('<App />', () => {
     expect(careerPageTitle).toBeVisible();
   });
 
-  it('tracks product added to cart', async () => {
+  it(`tracks product added to cart`, async () => {
     const {
       waitForProductPageFinishLoading,
       addQty,
@@ -131,6 +131,7 @@ describe('<App />', () => {
     });
 
     await waitForProductPageFinishLoading();
+    user.click(getByText('Share'));
     addQty();
     addQty();
     minusQty();
