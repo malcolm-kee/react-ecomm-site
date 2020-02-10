@@ -1,3 +1,7 @@
 ```js
-<Footer />
+import { MemoryRouter } from 'react-router-dom';
+
+<MemoryRouter>
+  <Footer />
+</MemoryRouter>;
 ```

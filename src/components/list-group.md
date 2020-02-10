@@ -7,23 +7,23 @@
           React<span className="badge">❤</span>
         </>
       ),
-      active: true
+      active: true,
     },
     {
       label: 'Angular',
-      disabled: true
+      disabled: true,
     },
     {
-      label: 'Ember'
+      label: 'Ember',
     },
     {
       label: 'Vue',
-      variant: 'info'
+      variant: 'info',
     },
     {
       label: 'Svelte',
-      variant: 'danger'
-    }
+      variant: 'danger',
+    },
   ]}
 />
 ```
@@ -45,25 +45,25 @@ const ListGroupButtonExample = () => {
         {
           label: 'React',
           active: activeItem === 'react',
-          onClick: () => toggleActiveItem('react')
+          onClick: () => toggleActiveItem('react'),
         },
         {
           label: 'Angular',
           active: activeItem === 'ng',
-          onClick: () => toggleActiveItem('ng')
+          onClick: () => toggleActiveItem('ng'),
         },
         {
           label: 'Vue',
           active: activeItem === 'vue',
-          onClick: () => toggleActiveItem('vue')
+          onClick: () => toggleActiveItem('vue'),
         },
         ,
         {
           label: 'Svelte',
           active: activeItem === 'svelte',
           onClick: () => toggleActiveItem('svelte'),
-          disabled: true
-        }
+          disabled: true,
+        },
       ]}
     />
   );
@@ -75,12 +75,7 @@ const ListGroupButtonExample = () => {
 ### Link
 
 ```jsx
-import {
-  createHistory,
-  createMemorySource,
-  LocationProvider,
-  Router
-} from '@reach/router';
+import { MemoryRouter, Switch, Route } from 'react-router-dom';
 
 const HomePage = () => (
   <div>
@@ -98,36 +93,34 @@ const OthersPage = () => (
   </div>
 );
 
-const history = createHistory(createMemorySource('/'));
-
 const LinkExample = () => {
   return (
-    <LocationProvider history={history}>
+    <MemoryRouter initialEntries={['/home']}>
       <div>
         <ListGroup
           variant="link"
           items={[
             {
               label: 'Home',
-              to: '/'
+              to: '/home',
             },
             {
               label: 'Help',
-              to: '/help'
+              to: '/help',
             },
             {
               label: 'Others',
-              to: '/others'
-            }
+              to: '/others',
+            },
           ]}
         />
       </div>
-      <Router>
-        <HomePage path="/" />
-        <HelpPage path="/help" />
-        <OthersPage path="/others" />
-      </Router>
-    </LocationProvider>
+      <Switch>
+        <Route path="/help" component={HelpPage} />
+        <Route path="/others" component={OthersPage} />
+        <Route path="/home" component={HomePage} />
+      </Switch>
+    </MemoryRouter>
   );
 };
 
