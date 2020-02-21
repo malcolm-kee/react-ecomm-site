@@ -10,7 +10,7 @@ export class FetchError extends Error {
 }
 
 type FetchInit = RequestInit & {
-  params?: Record<string, string | number | boolean>;
+  params?: Record<string, string | number | boolean | undefined>;
   data?: any;
   /** delay in millisecond before retry again. Default to [1000, 3000] (wait 1 sec, then 3 secs) */
   retryDelays?: number[];
@@ -83,9 +83,10 @@ const stringifyParams = (params: FetchInit['params']): string => {
 
   for (let key in params) {
     if (hasOwnProperty.call(params, key)) {
-      results.push(
-        `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
-      );
+      const value = params[key];
+      if (value) {
+        results.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+      }
     }
   }
 
