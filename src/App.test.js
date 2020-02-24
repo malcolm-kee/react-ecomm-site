@@ -1,4 +1,4 @@
-import { act, wait, waitForElement } from '@testing-library/react';
+import { act } from '@testing-library/react';
 import React from 'react';
 import App from './App';
 import { renderWithStateMgmt, user } from './lib/test-util';
@@ -12,15 +12,14 @@ function loadApp({ url = '/' } = {}) {
     route: url,
   });
 
-  const { getByText, getByTestId, queryByTestId } = renderResult;
+  const { getByText, getByTestId, queryByTestId, findByText } = renderResult;
 
-  const getAddToCartBtn = () => getByText('Add To Cart');
+  const addToCartBtnLabel = 'Add To Cart';
 
   return {
     ...renderResult,
-    addProductToCart: () => user.click(getAddToCartBtn()),
-    waitForProductPageFinishLoading: () =>
-      waitForElement(() => getAddToCartBtn()),
+    addProductToCart: () => user.click(getByText(addToCartBtnLabel)),
+    waitForProductPageFinishLoading: () => findByText(addToCartBtnLabel),
     addQty: () => user.click(getByTestId('add-qty-btn')),
     minusQty: () => user.click(getByTestId('reduce-qty-btn')),
     getCartItemQty: id => getByTestId(`qty-for-${id}`).innerHTML,
@@ -169,13 +168,14 @@ describe('<App />', () => {
       getByLabelText,
       getByText,
       findByText,
+      findByLabelText,
       container,
       waitForProductPageFinishLoading,
     } = loadApp({
       url: '/login',
     });
 
-    await wait();
+    await findByLabelText('Email');
 
     await user.type(getByLabelText('Email'), 'mk@test.com');
     user.click(container.querySelector('button[type="submit"]'));
@@ -200,13 +200,14 @@ describe('<App />', () => {
       history,
       getByText,
       findByText,
+      findByLabelText,
       queryByText,
       waitForProductPageFinishLoading,
     } = loadApp({
       url: '/signup',
     });
 
-    await wait();
+    await findByLabelText('Name');
 
     await user.type(getByLabelText('Name'), 'Malcolm Kee');
     await user.type(getByLabelText('Email'), 'mk@test.com');
