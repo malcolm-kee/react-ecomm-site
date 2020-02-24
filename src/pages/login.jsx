@@ -1,5 +1,5 @@
-import { Link } from '@reach/router';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { LoginForm } from '../modules/auth/components/login-form';
 
 export function Login() {

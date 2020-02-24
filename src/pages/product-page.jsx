@@ -111,9 +111,9 @@ function ProductPageContent({
                 >
                   Add To Cart
                 </Button>
-                {location && (
+                {window && window.location && (
                   <ShareButton
-                    urlToShare={location.href}
+                    urlToShare={window.location.href}
                     titleToShare={details.name}
                     size="lg"
                   />

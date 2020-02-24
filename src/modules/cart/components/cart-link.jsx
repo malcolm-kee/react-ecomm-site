@@ -1,7 +1,7 @@
-import { Link } from '@reach/router';
 import cx from 'classnames';
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Badge } from '../../../components/badge';
 import { selectCartItemCount } from '../cart.selectors';
 

@@ -92,7 +92,7 @@ describe('<App />', () => {
     expect(getByText('Page Not Found')).not.toBeNull();
   });
 
-  it('tracks product added to cart', async () => {
+  it(`tracks product added to cart`, async () => {
     const {
       waitForProductPageFinishLoading,
       addQty,
@@ -102,26 +102,31 @@ describe('<App />', () => {
       getCartItemQty,
       queryCartItem,
       addMoreCartItem,
+      findByTestId,
       reduceCartItem,
       removeCartItem,
+      getByText,
     } = loadApp({
       url: '/product/1',
     });
 
     await waitForProductPageFinishLoading();
+    user.click(getByText('Share'));
     addQty();
     addQty();
     minusQty();
     addProductToCart();
 
-    await act(() => history.navigate('/product/2'));
+    act(() => history.push('/product/2'));
 
     await waitForProductPageFinishLoading();
     addProductToCart();
     addProductToCart();
     addProductToCart();
 
-    await act(() => history.navigate('/cart'));
+    act(() => history.push('/cart'));
+
+    await findByTestId('qty-for-2');
 
     expect(getCartItemQty('1')).toBe('2');
     expect(getCartItemQty('2')).toBe('3');
@@ -158,7 +163,7 @@ describe('<App />', () => {
 
     await waitForElement(() => getByText("You're already login!"));
 
-    await history.navigate('/product/1');
+    act(() => history.push('/product/1'));
 
     await waitForProductPageFinishLoading();
 
@@ -191,7 +196,7 @@ describe('<App />', () => {
 
     await waitForElement(() => getByText("You're already login!"));
 
-    await history.navigate('/product/1');
+    act(() => history.push('/product/1'));
 
     await waitForProductPageFinishLoading();
 
