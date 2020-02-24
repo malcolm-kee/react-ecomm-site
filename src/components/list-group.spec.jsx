@@ -1,5 +1,6 @@
-import { fireEvent, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import * as React from 'react';
+import { user } from '../lib/test-util';
 import { ListGroup } from './list-group';
 
 describe('ListGroup button variant', () => {
@@ -29,15 +30,16 @@ describe('ListGroup button variant', () => {
       />
     );
 
-    fireEvent.click(getByText('Malcolm'));
+    user.click(getByText('Malcolm'));
 
     expect(callBack).toHaveBeenCalledTimes(1);
     expect(callBack).toHaveBeenLastCalledWith('malcolm');
 
-    fireEvent.click(getByText('Hello'));
+    user.click(getByText('Hello'));
     // clicking disabled button has no effect
     expect(callBack).toHaveBeenCalledTimes(1);
 
+    onFocus.mockClear();
     buttonRef.current.focus();
     expect(onFocus).toHaveBeenCalledTimes(1);
   });

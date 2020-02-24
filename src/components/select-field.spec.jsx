@@ -1,5 +1,6 @@
+import { render } from '@testing-library/react';
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
+import { user } from '../lib/test-util';
 import { SelectField } from './select-field';
 
 describe('SelectField', () => {
@@ -18,11 +19,7 @@ describe('SelectField', () => {
       />
     );
 
-    fireEvent.change(getByLabelText('Lucky Number'), {
-      target: {
-        value: '2',
-      },
-    });
+    user.selectOptions(getByLabelText('Lucky Number'), '2');
 
     expect(onChangeValue).toHaveBeenCalledTimes(1);
     expect(onChangeValue).toHaveBeenCalledWith('2');
@@ -39,11 +36,7 @@ describe('SelectField', () => {
       </SelectField>
     );
 
-    fireEvent.change(getByLabelText('Lucky Number'), {
-      target: {
-        value: '2',
-      },
-    });
+    user.selectOptions(getByLabelText('Lucky Number'), '2');
 
     expect(onChangeValue).toHaveBeenCalledTimes(1);
     expect(onChangeValue).toHaveBeenCalledWith('2');

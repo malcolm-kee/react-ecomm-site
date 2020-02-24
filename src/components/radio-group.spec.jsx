@@ -1,5 +1,6 @@
-import { fireEvent, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import React from 'react';
+import { user } from '../lib/test-util';
 import { RadioGroup } from './radio-group';
 
 describe('RadioGroup', () => {
@@ -19,7 +20,7 @@ describe('RadioGroup', () => {
       />
     );
 
-    fireEvent.click(getByLabelText('Angular'));
+    user.click(getByLabelText('Angular'));
     expect(onChangeValue).toHaveBeenCalledTimes(1);
     expect(onChangeValue).toHaveBeenCalledWith('ng');
 

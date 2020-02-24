@@ -1,4 +1,4 @@
-import { fireEvent, render, waitForElement } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import { toast as toastMock } from 'react-toastify';
 import { user } from '../../../lib/test-util';
@@ -21,16 +21,16 @@ afterAll(() => {
 
 describe(`<ComplainForm />`, () => {
   test('it allows user to provide complain info', async () => {
-    const { getByLabelText, getByText } = render(<ComplainForm />);
+    const { findByLabelText, getByLabelText, getByText } = render(
+      <ComplainForm />
+    );
     expect(scrollSpy).toHaveBeenCalledTimes(1);
 
     user.selectOptions(getByLabelText('I want to make complain about'), 'scam');
 
     user.click(getByText('Next'));
 
-    const dateInput = await waitForElement(() =>
-      getByLabelText('Date of incident')
-    );
+    const dateInput = await findByLabelText('Date of incident');
 
     user.click(dateInput);
     user.click(getByText('12'));

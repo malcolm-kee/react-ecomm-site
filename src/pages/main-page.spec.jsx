@@ -1,5 +1,5 @@
+import { act, fireEvent, wait } from '@testing-library/react';
 import React from 'react';
-import { act, fireEvent, waitForElement, wait } from '@testing-library/react';
 import { renderWithStateMgmt } from '../lib/test-util';
 import { MainPage } from './main-page';
 
@@ -30,17 +30,17 @@ describe('<MainPage />', () => {
   });
 
   it('shows the product from API', async () => {
-    const { getByText } = loadMainPage();
+    const { findByText } = loadMainPage();
 
-    const iPhoneXBox = await waitForElement(() => getByText('iPhone X'));
+    const iPhoneXBox = await findByText('iPhone X');
 
     expect(iPhoneXBox).not.toBeNull();
   });
 
   it('load more products when scroll', async () => {
-    const { getByText, scrollWindow, getNumberOfProducts } = loadMainPage();
+    const { findByText, scrollWindow, getNumberOfProducts } = loadMainPage();
 
-    await waitForElement(() => getByText('iPhone X'));
+    await findByText('iPhone X');
 
     expect(getNumberOfProducts()).toBe(2);
 

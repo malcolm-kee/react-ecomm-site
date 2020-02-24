@@ -1,6 +1,6 @@
-import { act, render } from '@testing-library/react';
-import user from '@testing-library/user-event';
+import { render } from '@testing-library/react';
 import React from 'react';
+import { user } from '../lib/test-util';
 import { ErrorBoundary } from './error-boundary';
 
 let spy;
@@ -48,7 +48,7 @@ describe(`<ErrorBoundary />`, () => {
       </ErrorBoundary>
     );
 
-    act(() => user.click(getByText('Retry')));
+    user.click(getByText('Retry'));
 
     expect(getByText('No Bomb')).toBeVisible();
   });
