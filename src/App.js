@@ -1,6 +1,6 @@
-import { Route, Switch } from 'react-router-dom';
 import React from 'react';
 import { connect } from 'react-redux';
+import { Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { Footer } from './components/footer';
@@ -14,7 +14,6 @@ import { Login } from './pages/login';
 import { MainPage } from './pages/main-page';
 import { NotFoundPage } from './pages/not-found-page';
 import { ProductPage } from './pages/product-page';
-import { ProfilePage } from './pages/profile-page';
 import { Signup } from './pages/signup';
 import { SiteNav } from './site-nav';
 
@@ -36,7 +35,6 @@ function AppContainer({ initAuthStatus }) {
               />
             )}
           />
-          <Route path="/profile" component={ProfilePage} />
           <Route path="/careers" component={CareersPage} />
           <Route path="/cart" component={CartPage} />
           <Route path="/login" component={Login} />
