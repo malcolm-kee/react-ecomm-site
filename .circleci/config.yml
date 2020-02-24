@@ -1,0 +1,14 @@
+version: 2.0
+
+jobs:
+  noop:
+    docker:
+      - image: cimg/base:2020.01
+    steps:
+      - run: echo "Noop Do nothing."
+
+workflows:
+  version: 2
+  install-build-and-test:
+    jobs:
+      - noop
