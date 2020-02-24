@@ -1,8 +1,6 @@
 import { fetchJson } from '../../lib/ajax';
 
-const AUTH_BASE_URL =
-  process.env.REACT_APP_AUTH_BASE_URL ||
-  'https://ecomm-db.herokuapp.com/api/users';
+const AUTH_BASE_URL = process.env.REACT_APP_AUTH_BASE_URL;
 
 export function register({ name, email }) {
   return fetchJson(AUTH_BASE_URL, {

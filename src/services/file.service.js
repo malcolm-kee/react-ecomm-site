@@ -1,6 +1,4 @@
-const UPLOAD_SERVICE_BASE_URL =
-  process.env.REACT_APP_UPLOAD_SERVICE_BASE_URL ||
-  'https://ecomm-db.herokuapp.com/upload';
+const UPLOAD_SERVICE_BASE_URL = process.env.REACT_APP_UPLOAD_SERVICE_BASE_URL;
 
 export const upload = (file, { onDone, onProgress }) => {
   const xhr = new XMLHttpRequest();
