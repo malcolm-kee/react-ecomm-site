@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button } from './components/button';
 import { Navbar } from './components/navbar';
+import siteIcon from './images/shopit-white-100.png';
 import { attemptLogout } from './modules/auth/auth.actions';
 import { AuthStatus } from './modules/auth/auth.constants';
 import { selectAuthStatus, selectUser } from './modules/auth/auth.selectors';
 import { CartLink } from './modules/cart/components/cart-link';
-import siteIcon from './images/shopit-white-100.png';
 
 function SiteNavContent({ status, user, logout }) {
   return (

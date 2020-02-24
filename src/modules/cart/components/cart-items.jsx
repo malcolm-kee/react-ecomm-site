@@ -2,7 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ErrorBoundary } from '../../../components/error-boundary';
 import { Spinner } from '../../../components/spinner';
-import { selectCartItemCount, selectCartItems } from '../cart.selectors';
+import { formatMoney } from '../../../lib/format';
+import {
+  selectCartItemCount,
+  selectCartItems,
+  selectCartTotal,
+} from '../cart.selectors';
 import { cartActions } from '../cart.slice';
 import styles from './cart-items.module.scss';
 
@@ -20,6 +25,7 @@ function CartItemsContent({
   incrementItem,
   decrementItem,
   removeItem,
+  total,
 }) {
   return (
     <div className="cart-items">
@@ -55,6 +61,17 @@ function CartItemsContent({
                     />
                   ))}
                 </tbody>
+                <tfoot>
+                  <tr>
+                    <td colSpan={5} className="text-right text-xl">
+                      Total
+                    </td>
+                    <td className="text-right font-bold text-xl">
+                      {formatMoney(total)}
+                    </td>
+                    <td />
+                  </tr>
+                </tfoot>
               </table>
             </div>
             <div className="sm:hidden">
@@ -68,6 +85,15 @@ function CartItemsContent({
                   key={index}
                 />
               ))}
+              <div className="flex justify-between">
+                <div className="text-2xl font-semibold">Total</div>
+                <div className="text-lg">
+                  RM{' '}
+                  <output className="text-2xl font-semibold">
+                    {formatMoney(total)}
+                  </output>
+                </div>
+              </div>
             </div>
           </ErrorBoundary>
         </React.Suspense>
@@ -79,6 +105,7 @@ function CartItemsContent({
 const mapStates = state => ({
   cartItems: selectCartItems(state),
   itemCount: selectCartItemCount(state),
+  total: selectCartTotal(state),
 });
 
 const mapDispatch = dispatch => ({
