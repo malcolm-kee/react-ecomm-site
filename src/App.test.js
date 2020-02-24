@@ -1,8 +1,7 @@
+import { act } from '@testing-library/react';
 import React from 'react';
-import user from '@testing-library/user-event';
-import { act, fireEvent, wait, waitForElement } from '@testing-library/react';
 import App from './App';
-import { renderWithStateMgmt } from './lib/test-util';
+import { renderWithStateMgmt, user } from './lib/test-util';
 
 jest.mock('./modules/auth/auth.service');
 jest.mock('./modules/marketing/marketing.service');
@@ -13,22 +12,21 @@ function loadApp({ url = '/' } = {}) {
     route: url,
   });
 
-  const { getByText, getByTestId, queryByTestId } = renderResult;
+  const { getByText, getByTestId, queryByTestId, findByText } = renderResult;
 
-  const getAddToCartBtn = () => getByText('Add To Cart');
+  const addToCartBtnLabel = 'Add To Cart';
 
   return {
     ...renderResult,
-    addProductToCart: () => fireEvent.click(getAddToCartBtn()),
-    waitForProductPageFinishLoading: () =>
-      waitForElement(() => getAddToCartBtn()),
-    addQty: () => fireEvent.click(getByTestId('add-qty-btn')),
-    minusQty: () => fireEvent.click(getByTestId('reduce-qty-btn')),
+    addProductToCart: () => user.click(getByText(addToCartBtnLabel)),
+    waitForProductPageFinishLoading: () => findByText(addToCartBtnLabel),
+    addQty: () => user.click(getByTestId('add-qty-btn')),
+    minusQty: () => user.click(getByTestId('reduce-qty-btn')),
     getCartItemQty: id => getByTestId(`qty-for-${id}`).innerHTML,
     queryCartItem: id => queryByTestId(`qty-for-${id}`),
-    addMoreCartItem: id => fireEvent.click(getByTestId(`add-${id}`)),
-    reduceCartItem: id => fireEvent.click(getByTestId(`reduce-${id}`)),
-    removeCartItem: id => fireEvent.click(getByTestId(`remove-${id}`)),
+    addMoreCartItem: id => user.click(getByTestId(`add-${id}`)),
+    reduceCartItem: id => user.click(getByTestId(`reduce-${id}`)),
+    removeCartItem: id => user.click(getByTestId(`remove-${id}`)),
   };
 }
 
@@ -57,31 +55,40 @@ describe('<App />', () => {
   });
 
   it('shows help page at help url', async () => {
-    const { getByText } = loadApp({
+    const { getByText, findByText, getByLabelText } = loadApp({
       url: '/help',
     });
 
-    act(() => user.click(getByText('Account')));
-    await waitForElement(() =>
-      getByText('If you forget password, just create another one.')
+    user.click(getByText('Account'));
+    await findByText('If you forget password, just create another one.');
+
+    user.click(getByText('Payment'));
+    await findByText(
+      `Seriously u look for help for payment when you can't even pay?`
     );
 
-    act(() => user.click(getByText('Payment')));
-    await waitForElement(() =>
-      getByText(
-        `Seriously u look for help for payment when you can't even pay?`
-      )
+    user.click(getByText('Shipping'));
+    await findByText(
+      'All shipping will be delivered within 3-5 years. Please be patient.'
     );
 
-    act(() => user.click(getByText('Shipping')));
-    await waitForElement(() =>
-      getByText(
-        'All shipping will be delivered within 3-5 years. Please be patient.'
-      )
-    );
+    user.click(getByText('Complaint'));
+    await findByText('Make a Complaint');
 
-    act(() => user.click(getByText('Complaint')));
-    await waitForElement(() => getByText('Make a Complaint'));
+    user.selectOptions(
+      getByLabelText('I want to make complain about'),
+      'deliver'
+    );
+    user.click(getByText('Next'));
+
+    await user.type(
+      getByLabelText('Details about the incident'),
+      'It take a year for the delivery to reach.'
+    );
+    user.click(getByText('Next'));
+
+    await user.type(getByLabelText('Your Full Name'), 'Malcolm Key');
+    user.click(getByText('Submit'));
   });
 
   it('show page not found for invalid url', () => {
@@ -90,6 +97,18 @@ describe('<App />', () => {
     });
 
     expect(getByText('Page Not Found')).not.toBeNull();
+  });
+
+  it(`shows careers page`, async () => {
+    const { getByText, findByText } = loadApp({
+      url: '/',
+    });
+
+    user.click(getByText('Careers'));
+
+    const careerPageTitle = await findByText('Careers in Shopit');
+
+    expect(careerPageTitle).toBeVisible();
   });
 
   it(`tracks product added to cart`, async () => {
@@ -147,21 +166,21 @@ describe('<App />', () => {
     const {
       history,
       getByLabelText,
+      findByLabelText,
       getByText,
+      findByText,
       container,
       waitForProductPageFinishLoading,
     } = loadApp({
       url: '/login',
     });
 
-    await wait();
+    await findByLabelText('Email');
 
-    fireEvent.change(getByLabelText('Email'), {
-      target: { value: 'mk@test.com' },
-    });
-    fireEvent.click(container.querySelector('button[type="submit"]'));
+    await user.type(getByLabelText('Email'), 'mk@test.com');
+    user.click(container.querySelector('button[type="submit"]'));
 
-    await waitForElement(() => getByText("You're already login!"));
+    await findByText("You're already login!");
 
     act(() => history.push('/product/1'));
 
@@ -169,7 +188,7 @@ describe('<App />', () => {
 
     expect(getByLabelText('Your Name').value).not.toBe('');
 
-    fireEvent.click(getByText('Logout'));
+    user.click(getByText('Logout'));
   });
 
   it('can signup and logout', async () => {
@@ -177,24 +196,22 @@ describe('<App />', () => {
       getByLabelText,
       container,
       history,
+      findByText,
       getByText,
       queryByText,
+      findByLabelText,
       waitForProductPageFinishLoading,
     } = loadApp({
       url: '/signup',
     });
 
-    await wait();
+    await findByLabelText('Name');
 
-    fireEvent.change(getByLabelText('Name'), {
-      target: { value: 'Malcolm Kee' },
-    });
-    fireEvent.change(getByLabelText('Email'), {
-      target: { value: 'mk@test.com' },
-    });
-    fireEvent.click(container.querySelector('button[type="submit"]'));
+    await user.type(getByLabelText('Name'), 'Malcolm Kee');
+    await user.type(getByLabelText('Email'), 'mk@test.com');
+    user.click(container.querySelector('button[type="submit"]'));
 
-    await waitForElement(() => getByText("You're already login!"));
+    await findByText("You're already login!");
 
     act(() => history.push('/product/1'));
 
@@ -203,7 +220,7 @@ describe('<App />', () => {
     expect(getByText('Logout')).not.toBeNull();
     expect(queryByText('Login')).toBeNull();
 
-    fireEvent.click(getByText('Logout'));
+    user.click(getByText('Logout'));
 
     expect(getByText('Login')).not.toBeNull();
     expect(queryByText('Logout')).toBeNull();

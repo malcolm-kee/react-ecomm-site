@@ -7,7 +7,7 @@ import { attemptLogout } from './modules/auth/auth.actions';
 import { AuthStatus } from './modules/auth/auth.constants';
 import { selectAuthStatus, selectUser } from './modules/auth/auth.selectors';
 import { CartLink } from './modules/cart/components/cart-link';
-// TODO: use siteIcon from master branch
+import siteIcon from './images/shopit-white-100.png';
 
 function SiteNavContent({ status, user, logout }) {
   return (
@@ -15,7 +15,7 @@ function SiteNavContent({ status, user, logout }) {
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           <Link className="text-3xl px-2" to="/">
-            Shopit
+            <img src={siteIcon} width={45} height={45} alt="Shopit" />
           </Link>
           <CartLink className="text-lg sm:text-xl px-2" />
           <Link className="text-lg sm:text-xl px-2" to="/help">
