@@ -14,7 +14,6 @@ import { Login } from './pages/login';
 import { MainPage } from './pages/main-page';
 import { NotFoundPage } from './pages/not-found-page';
 import { ProductPage } from './pages/product-page';
-import { ProfilePage } from './pages/profile-page';
 import { Signup } from './pages/signup';
 import { SiteNav } from './site-nav';
 
@@ -36,7 +35,6 @@ function AppContainer({ initAuthStatus }) {
               />
             )}
           />
-          <Route path="/profile" component={ProfilePage} />
           <Route path="/careers" component={CareersPage} />
           <Route path="/cart" component={CartPage} />
           <Route path="/login" component={Login} />
