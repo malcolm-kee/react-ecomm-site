@@ -23,3 +23,5 @@ export type ThunkAction<Result> = OriThunkAction<
 >;
 
 export type ThunkDispatch = OriThunkDispatch<RootState, undefined, AnyAction>;
+
+export type UiStatus = 'idle' | 'busy' | 'error';
