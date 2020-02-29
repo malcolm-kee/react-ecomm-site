@@ -1,4 +1,4 @@
-import { act, fireEvent, wait, waitForElement } from '@testing-library/react';
+import { fireEvent, wait, waitForElement } from '@testing-library/react';
 import React from 'react';
 import App from './App';
 import { renderWithStateMgmt, user } from './lib/test-util';
@@ -6,6 +6,7 @@ import { renderWithStateMgmt, user } from './lib/test-util';
 jest.mock('./modules/auth/auth.service');
 jest.mock('./modules/marketing/marketing.service');
 jest.mock('./modules/products/product.service');
+jest.mock('./modules/career/career.service');
 
 function loadApp({ url = '/' } = {}) {
   const renderResult = renderWithStateMgmt(<App />, {
@@ -83,6 +84,22 @@ describe('<App />', () => {
     });
 
     expect(getByText('Page Not Found')).not.toBeNull();
+  });
+
+  it(`shows careers page`, async () => {
+    const { getByText, findByText } = loadApp({
+      url: '/',
+    });
+
+    user.click(getByText('Careers'));
+
+    const careerPageTitle = await findByText('Careers in Shopit');
+    expect(careerPageTitle).toBeVisible();
+
+    const jobPost = await findByText('Web Designer');
+    user.click(jobPost);
+
+    await findByText('Department:');
   });
 
   it(`tracks product added to cart`, async () => {
@@ -197,7 +214,7 @@ describe('<App />', () => {
     expect(queryByText('Logout')).toBeNull();
   });
 
-  it('can update user profile', async () => {
+  it(`can update user profile`, async () => {
     const {
       navigate,
       inputEmail,

@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from './components/button';
 import { Navbar } from './components/navbar';
+import siteIcon from './images/shopit-white-100.png';
 import { CartLink } from './modules/cart/components/cart-link';
 
 function SiteNavContent({ isAuthenticated, pending, user, logout }) {
@@ -11,7 +12,7 @@ function SiteNavContent({ isAuthenticated, pending, user, logout }) {
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           <Link className="text-3xl px-2" to="/">
-            Shopit
+            <img src={siteIcon} width={45} height={45} alt="Shopit" />
           </Link>
           <CartLink className="text-lg sm:text-xl px-2" />
           <Link className="text-lg sm:text-xl px-2" to="/help">

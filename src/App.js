@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import { Footer } from './components/footer';
 import { MainContent } from './components/main-content';
 import { ChatLauncher } from './modules/auth/components/chat-launcher';
+import { CareersPage } from './pages/careers';
 import { CartPage } from './pages/cart-page';
 import { HelpPage } from './pages/help-page';
 import { Login } from './pages/login';
@@ -31,9 +32,10 @@ function App() {
               />
             )}
           />
-          <Route path="/profile" component={ProfilePage} />
+          <Route path="/careers" component={CareersPage} />
           <Route path="/cart" component={CartPage} />
           <Route path="/login" component={Login} />
+          <Route path="/profile" component={ProfilePage} />
           <Route path="/signup" component={Signup} />
           <Route path="/help" component={HelpPage} />
           <Route path="/" exact component={MainPage} />
