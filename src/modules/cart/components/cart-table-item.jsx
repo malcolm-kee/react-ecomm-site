@@ -1,6 +1,6 @@
-import { Link } from '@reach/router';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '../../../components/button';
 import { CloseIcon } from '../../../components/icon/close-icon';
 import { ProductImage } from '../../products/components/product-image';

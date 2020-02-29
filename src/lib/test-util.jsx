@@ -1,12 +1,9 @@
-import {
-  createHistory,
-  createMemorySource,
-  LocationProvider,
-} from '@reach/router';
 import { act, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { createMemoryHistory } from 'history';
 import { Provider } from 'mobx-react';
 import React from 'react';
+import { Router } from 'react-router-dom';
 import { AuthStore } from '../modules/auth/auth.store';
 import { CartStore } from '../modules/cart/cart.store';
 import { MarketingStore } from '../modules/marketing/marketing.store';
@@ -14,7 +11,12 @@ import { ProductStore } from '../modules/products/product.store';
 
 export function renderWithStateMgmt(
   ui,
-  { route = '/', history = createHistory(createMemorySource(route)) } = {}
+  {
+    route = '/',
+    history = createMemoryHistory({
+      initialEntries: [route],
+    }),
+  } = {}
 ) {
   const authStore = new AuthStore();
   const productStore = new ProductStore();
@@ -27,8 +29,12 @@ export function renderWithStateMgmt(
     cartStore,
     marketingStore,
     history,
+    navigate: to =>
+      act(() => {
+        history.push(to);
+      }),
     ...render(
-      <LocationProvider history={history}>
+      <Router history={history}>
         <Provider
           auth={authStore}
           product={productStore}
@@ -37,7 +43,7 @@ export function renderWithStateMgmt(
         >
           {ui}
         </Provider>
-      </LocationProvider>
+      </Router>
     ),
   };
 }

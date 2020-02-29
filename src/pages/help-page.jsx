@@ -1,5 +1,5 @@
-import { Router } from '@reach/router';
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import { Input } from '../components/input';
 import { Jumbotron } from '../components/jumbotron';
 import { ListGroup } from '../components/list-group';
@@ -59,32 +59,32 @@ export function HelpPage() {
             variant="link"
             items={[
               {
-                to: 'account',
+                to: '/help/account',
                 label: 'Account',
               },
               {
-                to: 'payment',
+                to: '/help/payment',
                 label: 'Payment',
               },
               {
-                to: 'shipping',
+                to: '/help/shipping',
                 label: 'Shipping',
               },
               {
-                to: 'complaint',
+                to: '/help/complaint',
                 label: 'Complaint',
               },
             ]}
           />
         </div>
         <div className="flex-1 px-5 pb-3">
-          <Router>
-            <HelpLanding path="/" />
-            <HelpAccount path="/account" />
-            <HelpPayment path="/payment" />
-            <HelpShipping path="/shipping" />
-            <ComplaintPage path="/complaint" />
-          </Router>
+          <Switch>
+            <Route path="/help/account" component={HelpAccount} />
+            <Route path="/help/payment" component={HelpPayment} />
+            <Route path="/help/shipping" component={HelpShipping} />
+            <Route path="/help/complaint" component={ComplaintPage} />
+            <Route path="/help" exact component={HelpLanding} />
+          </Switch>
         </div>
       </div>
     </>

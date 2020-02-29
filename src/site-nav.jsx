@@ -1,8 +1,8 @@
-import { Link } from '@reach/router';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
-import { Navbar } from './components/navbar';
+import { Link } from 'react-router-dom';
 import { Button } from './components/button';
+import { Navbar } from './components/navbar';
 import { CartLink } from './modules/cart/components/cart-link';
 
 function SiteNavContent({ isAuthenticated, pending, user, logout }) {

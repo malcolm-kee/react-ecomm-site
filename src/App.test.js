@@ -85,13 +85,14 @@ describe('<App />', () => {
     expect(getByText('Page Not Found')).not.toBeNull();
   });
 
-  it('tracks product added to cart', async () => {
+  it(`tracks product added to cart`, async () => {
     const {
       waitForProductPageFinishLoading,
       addQty,
       minusQty,
       addProductToCart,
-      history,
+      navigate,
+      findByTestId,
       getCartItemQty,
       queryCartItem,
       addMoreCartItem,
@@ -107,14 +108,15 @@ describe('<App />', () => {
     minusQty();
     addProductToCart();
 
-    await act(() => history.navigate('/product/2'));
+    navigate('/product/2');
 
     await waitForProductPageFinishLoading();
     addProductToCart();
     addProductToCart();
     addProductToCart();
 
-    await act(() => history.navigate('/cart'));
+    navigate('/cart');
+    await findByTestId('qty-for-2');
 
     expect(getCartItemQty('1')).toBe('2');
     expect(getCartItemQty('2')).toBe('3');
@@ -133,7 +135,7 @@ describe('<App />', () => {
 
   it('default customer name in comment form', async () => {
     const {
-      history,
+      navigate,
       getByLabelText,
       getByText,
       waitForProductPageFinishLoading,
@@ -151,7 +153,7 @@ describe('<App />', () => {
 
     await waitForElement(() => getByText("You're already login!"));
 
-    await history.navigate('/product/1');
+    navigate('/product/1');
 
     await waitForProductPageFinishLoading();
 
@@ -165,7 +167,7 @@ describe('<App />', () => {
       inputEmail,
       inputName,
       submitForm,
-      history,
+      navigate,
       getByText,
       queryByText,
       waitForProductPageFinishLoading,
@@ -182,7 +184,7 @@ describe('<App />', () => {
 
     await waitForElement(() => getByText("You're already login!"));
 
-    await history.navigate('/product/1');
+    navigate('/product/1');
 
     await waitForProductPageFinishLoading();
 
@@ -197,7 +199,7 @@ describe('<App />', () => {
 
   it('can update user profile', async () => {
     const {
-      history,
+      navigate,
       inputEmail,
       inputName,
       submitForm,
@@ -214,7 +216,7 @@ describe('<App />', () => {
 
     await waitForElement(() => getByText("You're already login!"));
 
-    await history.navigate('/profile');
+    navigate('/profile');
 
     inputName('Malcolm Key');
     submitForm();

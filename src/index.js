@@ -2,6 +2,7 @@ import { configure } from 'mobx';
 import { Provider } from 'mobx-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import './global.scss';
 import { AuthStore } from './modules/auth/auth.store';
@@ -26,7 +27,9 @@ function renderApp(AppComponent) {
       cart={cartStore}
       marketing={marketingStore}
     >
-      <AppComponent />
+      <Router>
+        <AppComponent />
+      </Router>
     </Provider>,
     document.getElementById('root')
   );

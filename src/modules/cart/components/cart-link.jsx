@@ -1,7 +1,7 @@
-import { Link } from '@reach/router';
 import { inject, observer } from 'mobx-react';
-import { Badge } from '../../../components/badge';
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { Badge } from '../../../components/badge';
 
 function CartLinkContent({ cartItemCount, className }) {
   return (

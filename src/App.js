@@ -1,6 +1,6 @@
-import { Router } from '@reach/router';
-import React from 'react';
 // import DevTools from 'mobx-react-devtools';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { Footer } from './components/footer';
@@ -21,16 +21,24 @@ function App() {
     <div>
       <SiteNav />
       <MainContent>
-        <Router>
-          <MainPage path="/" />
-          <ProductPage path="/product/:productId" />
-          <ProfilePage path="/profile" />
-          <CartPage path="/cart" />
-          <Login path="/login" />
-          <Signup path="/signup" />
-          <HelpPage path="/help/*" />
-          <NotFoundPage default />
-        </Router>
+        <Switch>
+          <Route
+            path="/product/:productId"
+            render={({ match, location }) => (
+              <ProductPage
+                productId={match.params.productId}
+                location={location}
+              />
+            )}
+          />
+          <Route path="/profile" component={ProfilePage} />
+          <Route path="/cart" component={CartPage} />
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/help" component={HelpPage} />
+          <Route path="/" exact component={MainPage} />
+          <Route component={NotFoundPage} />
+        </Switch>
       </MainContent>
       <Footer />
       {/* <DevTools /> */}

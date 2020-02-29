@@ -1,10 +1,10 @@
 import { inject, observer } from 'mobx-react';
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { Button } from '../../../components/button';
 import { Form } from '../../../components/form';
 import { Spinner } from '../../../components/spinner';
 import { TextField } from '../../../components/text-field';
-import { Redirect } from '@reach/router';
 
 function UserProfileFormView({
   id,
@@ -67,7 +67,7 @@ export const UserProfileForm = inject('auth')(
         error={error}
       />
     ) : (
-      <Redirect to="/" noThrow />
+      <Redirect to="/" />
     );
   })
 );

@@ -1,4 +1,4 @@
-import { Link } from '@reach/router';
+import { NavLink } from 'react-router-dom';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -8,7 +8,7 @@ import { isDefined } from '../lib/typecheck';
 /**
  * `ListGroup` renders a list of items.
  *
- * All props except `variant` and `items` will be spreaded to the underlying container
+ * All props except `variant` and `items` will be spreaded to the underlying container.
  *
  */
 export const ListGroup = props => {
@@ -23,31 +23,28 @@ export const ListGroup = props => {
           index,
           allItems
         ) => (
-          <Link
-            getProps={({ isCurrent }) => {
-              const isActive = isDefined(active) ? active : isCurrent;
-
-              return {
-                className: cx(
-                  'block w-full border px-4 py-2 text-left',
-                  disabled
-                    ? 'bg-gray-200 text-gray-600 cursor-not-allowed'
-                    : variant
-                    ? isActive
-                      ? variantClasses[variant].active
-                      : variantClasses[variant].base
-                    : isActive && 'bg-blue-500 text-gray-100',
-                  index === 0 && 'rounded-t-lg',
-                  index === allItems.length - 1 && 'rounded-b-lg',
-                  className
-                ),
-              };
-            }}
+          <NavLink
+            className={cx(
+              'block w-full border px-4 py-2 text-left',
+              disabled
+                ? 'bg-gray-200 text-gray-600 cursor-not-allowed'
+                : variant && variantClasses[variant].base,
+              index === allItems.length - 1 && 'rounded-b-lg',
+              className
+            )}
+            activeClassName={
+              disabled
+                ? undefined
+                : variant
+                ? variantClasses[variant].active
+                : 'bg-blue-500 text-gray-100'
+            }
+            isActive={match => (isDefined(active) ? active : !!match)}
             {...linkProps}
             key={index}
           >
             {label}
-          </Link>
+          </NavLink>
         )
       )}
     </div>
@@ -87,7 +84,7 @@ export const ListGroup = props => {
     <ul {...omit(props, ['variant', 'items'])} className={props.className}>
       {props.items.map(
         (
-          { active, disabled, variant, label, className, ...itemProps },
+          { active, disabled, variant, label, className, ...props },
           index,
           allItems
         ) => (
@@ -106,8 +103,8 @@ export const ListGroup = props => {
               className
             )}
             aria-current={active ? true : undefined}
+            {...props}
             key={index}
-            {...itemProps}
           >
             {label}
           </li>
