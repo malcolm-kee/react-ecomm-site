@@ -1,3 +1,5 @@
+import fetch from 'unfetch';
+
 const DEFAULT_RETRIES = [1000, 3000];
 
 export function fetchWithRetry(
@@ -49,7 +51,7 @@ export function fetchWithRetry(
     }
 
     function shouldRetry(attempt) {
-      return attempt <= retryDelays.length;
+      return attempt < retryDelays.length;
     }
 
     makeRequest();
@@ -77,10 +79,19 @@ const stringifyParams = params => {
 };
 
 export function fetchJson(url, { headers, ...init } = {}) {
+  const additionalHeaders =
+    init.method && init.method !== 'GET'
+      ? {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }
+      : {
+          Accept: 'application/json',
+        };
+
   return fetchWithRetry(url, {
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
+      ...additionalHeaders,
       ...headers,
     },
     ...init,
