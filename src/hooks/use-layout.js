@@ -1,14 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import { noop } from '../lib/fn-lib';
 
-export type LayoutType = 'default' | 'plain';
-
-export type LayoutContextValue = [LayoutType, (type: LayoutType) => void];
-
-export const LayoutContext = React.createContext<LayoutContextValue>([
-  'default',
-  noop,
-]);
+export const LayoutContext = React.createContext(['default', noop]);
 
 LayoutContext.displayName = 'Layout';
 

@@ -15,3 +15,5 @@ export function callAll(...fns) {
     fns.forEach(fn => typeof fn === 'function' && fn(...args));
   };
 }
+
+export function noop() {}
