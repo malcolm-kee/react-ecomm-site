@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
-import * as React from 'react';
+import React from 'react';
 import { useId } from '../hooks/use-id';
 import { useLatest } from '../hooks/use-latest';
 import '../lib/jquery.datepick.package-5.1.0/js/jquery.datepick';

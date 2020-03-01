@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Input } from '../components/input';
 import { Seo } from '../components/seo';
 import serverWoman from '../images/server-woman.png';
