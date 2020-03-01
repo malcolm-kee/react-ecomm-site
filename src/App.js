@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { Footer } from './components/footer';
 import { MainContent } from './components/main-content';
+import { LayoutContext } from './hooks/use-layout';
 import { initAuthStatus } from './modules/auth/auth.actions';
 import { ChatLauncher } from './modules/auth/components/chat-launcher';
 import { CareersPage } from './pages/careers';
@@ -13,6 +14,7 @@ import { HelpPage } from './pages/help-page';
 import { Login } from './pages/login';
 import { MainPage } from './pages/main-page';
 import { NotFoundPage } from './pages/not-found-page';
+import { PaymentPage } from './pages/payment-page';
 import { ProductPage } from './pages/product-page';
 import { Signup } from './pages/signup';
 import { SiteNav } from './site-nav';
@@ -22,9 +24,12 @@ function AppContainer({ initAuthStatus }) {
     initAuthStatus();
   }, [initAuthStatus]);
 
+  const layoutState = React.useState('default');
+  const isDefaultLayout = layoutState[0] === 'default';
+
   return (
-    <div>
-      <SiteNav />
+    <LayoutContext.Provider value={layoutState}>
+      {isDefaultLayout && <SiteNav />}
       <MainContent>
         <Switch>
           <Route
@@ -37,6 +42,7 @@ function AppContainer({ initAuthStatus }) {
           />
           <Route path="/careers" component={CareersPage} />
           <Route path="/cart" component={CartPage} />
+          <Route path="/pay" component={PaymentPage} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
           <Route path="/help" component={HelpPage} />
@@ -44,10 +50,14 @@ function AppContainer({ initAuthStatus }) {
           <Route component={NotFoundPage} />
         </Switch>
       </MainContent>
-      <Footer />
-      <ChatLauncher />
+      {isDefaultLayout && (
+        <>
+          <Footer />
+          <ChatLauncher />
+        </>
+      )}
       <ToastContainer hideProgressBar />
-    </div>
+    </LayoutContext.Provider>
   );
 }
 
