@@ -25,6 +25,11 @@ export function renderWithStateMgmt(
   return {
     store,
     history,
+    navigate: to => {
+      act(() => {
+        history.push(to);
+      });
+    },
     ...render(
       <Router history={history}>
         <Provider store={store}>{ui}</Provider>

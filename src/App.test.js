@@ -1,4 +1,3 @@
-import { act } from '@testing-library/react';
 import React from 'react';
 import App from './App';
 import { renderWithStateMgmt, user } from './lib/test-util';
@@ -122,14 +121,16 @@ describe('<App />', () => {
       addQty,
       minusQty,
       addProductToCart,
-      history,
+      navigate,
       getCartItemQty,
       queryCartItem,
       addMoreCartItem,
-      findByTestId,
       reduceCartItem,
       removeCartItem,
+      findByText,
+      findByTestId,
       getByText,
+      getByLabelText,
     } = loadApp({
       url: '/product/1',
     });
@@ -141,14 +142,14 @@ describe('<App />', () => {
     minusQty();
     addProductToCart();
 
-    act(() => history.push('/product/2'));
+    navigate('/product/2');
 
     await waitForProductPageFinishLoading();
     addProductToCart();
     addProductToCart();
     addProductToCart();
 
-    act(() => history.push('/cart'));
+    navigate('/cart');
 
     await findByTestId('qty-for-2');
 
@@ -165,11 +166,20 @@ describe('<App />', () => {
 
     expect(queryCartItem('1')).toBeNull();
     expect(queryCartItem('2')).not.toBeNull();
+
+    user.click(getByText('Pay'));
+
+    await user.type(getByLabelText('Card Number'), '5521783746553547');
+    await user.type(getByLabelText('Name'), 'Malcolm Kee');
+    await user.type(getByLabelText('Valid Thru'), '05/22');
+    await user.type(getByLabelText('CVC'), '123');
+    user.click(getByText('Pay'));
+    await findByText('Paid');
   });
 
   it('default customer name in comment form', async () => {
     const {
-      history,
+      navigate,
       getByLabelText,
       findByLabelText,
       getByText,
@@ -187,7 +197,7 @@ describe('<App />', () => {
 
     await findByText("You're already login!");
 
-    act(() => history.push('/product/1'));
+    navigate('/product/1');
 
     await waitForProductPageFinishLoading();
 
@@ -200,7 +210,7 @@ describe('<App />', () => {
     const {
       getByLabelText,
       container,
-      history,
+      navigate,
       findByText,
       getByText,
       queryByText,
@@ -218,7 +228,7 @@ describe('<App />', () => {
 
     await findByText("You're already login!");
 
-    act(() => history.push('/product/1'));
+    navigate('/product/1');
 
     await waitForProductPageFinishLoading();
 
