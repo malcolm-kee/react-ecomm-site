@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { Button } from '../../../components/button';
 import { ErrorBoundary } from '../../../components/error-boundary';
 import { Spinner } from '../../../components/spinner';
 import { formatMoney } from '../../../lib/format';
@@ -94,6 +96,19 @@ function CartItemsContent({
                   </output>
                 </div>
               </div>
+            </div>
+            <div className="text-right py-4">
+              <Button
+                color="success"
+                className="w-full sm:w-24 text-center"
+                renderContainer={({ className, children }) => (
+                  <Link to="/pay" className={className}>
+                    {children}
+                  </Link>
+                )}
+              >
+                Pay
+              </Button>
             </div>
           </ErrorBoundary>
         </React.Suspense>
