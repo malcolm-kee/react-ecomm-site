@@ -67,7 +67,7 @@ export function fetchWithRetry(
     }
 
     function shouldRetry(attempt: number) {
-      return attempt <= retryDelays.length;
+      return attempt < retryDelays.length;
     }
 
     makeRequest();
