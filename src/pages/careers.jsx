@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { Seo } from '../components/seo';
 import serverWoman from '../images/server-woman.png';
 import { AllJobs } from '../modules/career/components/all-jobs';
 import { JobDetails } from '../modules/career/components/job-details';
@@ -7,6 +8,7 @@ import { JobDetails } from '../modules/career/components/job-details';
 export const CareersPage = () => {
   return (
     <div className="max-w-4xl mx-auto">
+      <Seo title="Careers - Shopit" />
       <div className="block sm:hidden text-center">
         <img
           src={serverWoman}

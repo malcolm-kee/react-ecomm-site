@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Jumbotron } from '../components/jumbotron';
+import { Seo } from '../components/seo';
 import { Spinner } from '../components/spinner';
 import { useWindowEvent } from '../hooks/use-window-event';
 import { MarketingBanner } from '../modules/marketing/components/marketing-banner';
@@ -42,6 +43,7 @@ function MainPageContent({
 
   return (
     <>
+      <Seo title="Shopit: Save Your Money" />
       <div className="hidden sm:block">
         <MarketingBanner />
       </div>

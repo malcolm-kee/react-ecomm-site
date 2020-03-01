@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import { Input } from '../components/input';
 import { Jumbotron } from '../components/jumbotron';
 import { ListGroup } from '../components/list-group';
+import { Seo } from '../components/seo';
 import { ComplainForm } from '../modules/support/components/complain-form';
 import { FeedbackPanel } from '../modules/support/components/feedback-panel';
 
@@ -42,6 +43,7 @@ const ComplaintPage = () => <ComplainForm />;
 export function HelpPage() {
   return (
     <>
+      <Seo title="Help - Shopit" />
       <Jumbotron>
         <div className="max-w-2xl mx-auto">
           <h1 className="text-3xl lg:text-5xl text-gray-700 my-3">
