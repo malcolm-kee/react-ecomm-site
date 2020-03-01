@@ -40,16 +40,16 @@ import { Slides } from './slides';
   <CarouselIndicators />
   <Slides>
     <Slide caption="Cute Animal">
-      <img src="http://placeimg.com/1000/350/animals" alt="Cute Animal" />
+      <img src="https://placeimg.com/1000/350/animals" alt="Cute Animal" />
     </Slide>
     <Slide caption="Different Cute Animal">
-      <img src="http://placeimg.com/1001/350/animals" alt="Cute Animal" />
+      <img src="https://placeimg.com/1001/350/animals" alt="Cute Animal" />
     </Slide>
     <Slide caption="Same Cute Animal">
-      <img src="http://placeimg.com/1000/350/animals" alt="Cute Animal" />
+      <img src="https://placeimg.com/1000/350/animals" alt="Cute Animal" />
     </Slide>
     <Slide caption="Different Cute Animal">
-      <img src="http://placeimg.com/999/350/animals" alt="Cute Animal" />
+      <img src="https://placeimg.com/999/350/animals" alt="Cute Animal" />
     </Slide>
   </Slides>
   <CarouselBtn direction="prev" />
@@ -71,16 +71,16 @@ import { Slides } from './slides';
   <CarouselIndicators />
   <Slides>
     <Slide caption="Cute Animal">
-      <img src="http://placeimg.com/1000/350/animals" alt="Cute Animal" />
+      <img src="https://placeimg.com/1000/350/animals" alt="Cute Animal" />
     </Slide>
     <Slide caption="Different Cute Animal">
-      <img src="http://placeimg.com/1001/350/animals" alt="Cute Animal" />
+      <img src="https://placeimg.com/1001/350/animals" alt="Cute Animal" />
     </Slide>
     <Slide caption="Same Cute Animal">
-      <img src="http://placeimg.com/1000/350/animals" alt="Cute Animal" />
+      <img src="https://placeimg.com/1000/350/animals" alt="Cute Animal" />
     </Slide>
     <Slide caption="Different Cute Animal">
-      <img src="http://placeimg.com/999/350/animals" alt="Cute Animal" />
+      <img src="https://placeimg.com/999/350/animals" alt="Cute Animal" />
     </Slide>
   </Slides>
 </Carousel>;
