@@ -13,18 +13,23 @@ import { HelpPage } from './pages/help-page';
 import { Login } from './pages/login';
 import { MainPage } from './pages/main-page';
 import { NotFoundPage } from './pages/not-found-page';
+import { PaymentPage } from './pages/payment-page';
 import { ProductPage } from './pages/product-page';
 import { Signup } from './pages/signup';
 import { SiteNav } from './site-nav';
+import { LayoutContext } from './hooks/use-layout';
 
 function AppContainer({ initAuthStatus }) {
   React.useEffect(() => {
     initAuthStatus();
   }, [initAuthStatus]);
 
+  const layoutContextValue = React.useState('default');
+  const layoutType = layoutContextValue[0];
+
   return (
-    <>
-      <SiteNav />
+    <LayoutContext.Provider value={layoutContextValue}>
+      {layoutType === 'default' && <SiteNav />}
       <MainContent>
         <Switch>
           <Route
@@ -37,6 +42,7 @@ function AppContainer({ initAuthStatus }) {
           />
           <Route path="/careers" component={CareersPage} />
           <Route path="/cart" component={CartPage} />
+          <Route path="/pay" component={PaymentPage} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
           <Route path="/help" component={HelpPage} />
@@ -44,10 +50,14 @@ function AppContainer({ initAuthStatus }) {
           <Route component={NotFoundPage} />
         </Switch>
       </MainContent>
-      <ChatLauncher />
-      <Footer />
+      {layoutType === 'default' && (
+        <>
+          <ChatLauncher />
+          <Footer />
+        </>
+      )}
       <ToastContainer hideProgressBar />
-    </>
+    </LayoutContext.Provider>
   );
 }
 

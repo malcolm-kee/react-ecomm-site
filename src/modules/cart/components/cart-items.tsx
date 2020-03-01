@@ -12,6 +12,8 @@ import {
 import { cartActions } from '../cart.slice';
 import styles from './cart-items.module.scss';
 import { formatMoney } from '../../../lib/format';
+import { Button } from '../../../components/button';
+import { Link } from 'react-router-dom';
 
 const CartItem = React.lazy(() =>
   import(/* webpackChunkName: "CartItem" */ './cart-item')
@@ -98,6 +100,19 @@ function CartItemsContent({
                   </output>
                 </div>
               </div>
+            </div>
+            <div className="text-right py-4">
+              <Button
+                color="success"
+                className="w-full sm:w-24 text-center"
+                renderContainer={({ className, children }) => (
+                  <Link to="/pay" className={className}>
+                    {children}
+                  </Link>
+                )}
+              >
+                Pay
+              </Button>
             </div>
           </ErrorBoundary>
         </React.Suspense>

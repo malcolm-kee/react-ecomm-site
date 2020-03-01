@@ -33,7 +33,7 @@ export const Panel = ({
       {renderContainer({
         children,
         className: cx(
-          'border-2 shadow',
+          'shadow bg-white',
           color && colorClasses[color],
           className
         ),
