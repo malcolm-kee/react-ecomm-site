@@ -28,7 +28,10 @@ test(`can complete make payment`, async () => {
 
   expect(getByText('Pay')).toBeDisabled();
 
+  await user.type(getByLabelText('Card Number'), '5521783746553547');
   await user.type(getByLabelText('Name'), 'Malcolm Kee');
+  await user.type(getByLabelText('Valid Thru'), '05/22');
+  await user.type(getByLabelText('CVC'), '123');
   user.click(getByText('Pay'));
 
   const successMessage = await findByText('Paid');

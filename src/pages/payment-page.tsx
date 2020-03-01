@@ -7,7 +7,7 @@ export const PaymentPage = () => {
 
   return (
     <div className="py-6 px-2">
-      <div className="max-w-md mx-auto p-6 shadow-lg bg-white">
+      <div className="max-w-3xl mx-auto p-6 shadow-lg bg-white">
         <PaymentForm />
       </div>
     </div>
