@@ -1,30 +1,31 @@
 import React from 'react';
-import { renderWithStateMgmt, user } from '../../../lib/test-util';
-import { PaymentForm } from './payment-form';
+import { renderWithStateMgmtAndRouter, user } from '../../../lib/test-util';
 import { cartActions } from '../cart.slice';
+import { PaymentForm } from './payment-form';
 
 test(`can complete make payment`, async () => {
-  const { getByLabelText, getByText, findByText } = renderWithStateMgmt(
-    <PaymentForm />,
-    {
-      actions: [
-        cartActions.addItem({
-          product: {
-            id: 1,
-            price: 200,
-            name: 'Product X',
-          },
-        }),
-        cartActions.addItem({
-          product: {
-            id: 2,
-            price: 100,
-            name: 'Product Y',
-          },
-        }),
-      ],
-    }
-  );
+  const {
+    getByLabelText,
+    getByText,
+    findByText,
+  } = renderWithStateMgmtAndRouter(<PaymentForm />, {
+    actions: [
+      cartActions.addItem({
+        product: {
+          id: 1,
+          price: 200,
+          name: 'Product X',
+        },
+      }),
+      cartActions.addItem({
+        product: {
+          id: 2,
+          price: 100,
+          name: 'Product Y',
+        },
+      }),
+    ],
+  });
 
   expect(getByText('Pay')).toBeDisabled();
 

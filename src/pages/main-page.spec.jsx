@@ -1,13 +1,13 @@
 import { act, fireEvent, wait } from '@testing-library/react';
 import React from 'react';
-import { renderWithStateMgmt } from '../lib/test-util';
+import { renderWithStateMgmtAndRouter } from '../lib/test-util';
 import { MainPage } from './main-page';
 
 jest.mock('../modules/products/product.service');
 jest.mock('../modules/marketing/marketing.service');
 
 function loadMainPage() {
-  const renderResults = renderWithStateMgmt(<MainPage />);
+  const renderResults = renderWithStateMgmtAndRouter(<MainPage />);
 
   const { container } = renderResults;
 

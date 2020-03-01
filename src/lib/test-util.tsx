@@ -1,26 +1,25 @@
 import { AnyAction, configureStore } from '@reduxjs/toolkit';
 import { act, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { createMemoryHistory, History } from 'history';
+import { createMemoryHistory } from 'history';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
 import { rootReducer } from '../modules/root-reducer';
 
-export function renderWithStateMgmt(
+export function renderWithStateMgmtAndRouter(
   ui: React.ReactNode,
   {
     actions = [],
     route = '/',
-    history = createMemoryHistory({
-      initialEntries: [route],
-    }),
   }: {
     actions?: AnyAction[];
     route?: string;
-    history?: History;
   } = {}
 ) {
+  const history = createMemoryHistory({
+    initialEntries: [route],
+  });
   const store = configureStore({
     reducer: rootReducer,
   });

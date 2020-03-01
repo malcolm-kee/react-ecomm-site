@@ -1,6 +1,6 @@
 import React from 'react';
 import App from './App';
-import { renderWithStateMgmt, user } from './lib/test-util';
+import { renderWithStateMgmtAndRouter, user } from './lib/test-util';
 
 jest.mock('./modules/auth/auth.service');
 jest.mock('./modules/marketing/marketing.service');
@@ -8,7 +8,7 @@ jest.mock('./modules/products/product.service');
 jest.mock('./modules/career/career.service');
 
 function loadApp({ url = '/' } = {}) {
-  const renderResult = renderWithStateMgmt(<App />, {
+  const renderResult = renderWithStateMgmtAndRouter(<App />, {
     route: url,
   });
 
