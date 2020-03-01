@@ -20,7 +20,9 @@ export const register = ({ email, name }) => dispatch => {
       dispatch(authActions.login(user));
       save('user', user);
     })
-    .catch(err => dispatch(authActions.authError(err)));
+    .catch(err =>
+      extractErrorMessage(err).then(msg => dispatch(authActions.authError(msg)))
+    );
 };
 
 export const attemptLogin = email => dispatch => {
@@ -32,10 +34,27 @@ export const attemptLogin = email => dispatch => {
       dispatch(authActions.login(user));
       save('user', user);
     })
-    .catch(err => dispatch(authActions.authError(err)));
+    .catch(err =>
+      extractErrorMessage(err).then(msg => dispatch(authActions.authError(msg)))
+    );
 };
 
 export const attemptLogout = () => dispatch => {
   clear('user');
   dispatch(authActions.logout());
 };
+
+function extractErrorMessage(err) {
+  return err.response
+    ? Promise.resolve()
+        .then(() => err.response.json())
+        .catch(() => err.response.text())
+        .then(extractErrorMessage)
+    : Promise.resolve(
+        err.message
+          ? err.message
+          : typeof err === 'string'
+          ? err
+          : 'Unknown Error'
+      );
+}
