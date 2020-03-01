@@ -67,7 +67,8 @@
     "prettier": "^1.19.1",
     "react-styleguidist": "^9.1.16",
     "rimraf": "^3.0.1",
-    "start-server-and-test": "^1.10.8"
+    "start-server-and-test": "^1.10.8",
+    "xhr-mock": "^2.5.1"
   },
   "nyc": {
     "report-dir": "cypress-coverage"
