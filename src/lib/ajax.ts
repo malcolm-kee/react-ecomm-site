@@ -1,3 +1,5 @@
+import fetch from 'unfetch';
+
 const DEFAULT_RETRIES = [1000, 3000];
 
 export class FetchError extends Error {
