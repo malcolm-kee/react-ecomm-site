@@ -1,5 +1,5 @@
 [build]
-  environment = { NODE_VERSION = "10.16", RUBY_VERSION = "2.6.2" }
+  environment = { NODE_VERSION = "12" }
 # The following redirect is intended for use with most SPAs that handle
 # routing internally.
 [[redirects]]
