@@ -28,7 +28,11 @@ export const register = ({
       dispatch(authActions.login(user));
       save('user', user);
     })
-    .catch(err => dispatch(authActions.authError(extractErrorMessage(err))));
+    .catch(err => {
+      extractErrorMessage(err).then(msg =>
+        dispatch(authActions.authError(msg))
+      );
+    });
 };
 
 export const attemptLogin = (email: string): ThunkAction<void> => dispatch => {
@@ -40,7 +44,9 @@ export const attemptLogin = (email: string): ThunkAction<void> => dispatch => {
       dispatch(authActions.login(user));
       save('user', user);
     })
-    .catch(err => dispatch(authActions.authError(extractErrorMessage(err))));
+    .catch(err =>
+      extractErrorMessage(err).then(msg => dispatch(authActions.authError(msg)))
+    );
 };
 
 export const attemptLogout = (): ThunkAction<void> => dispatch => {
@@ -48,10 +54,17 @@ export const attemptLogout = (): ThunkAction<void> => dispatch => {
   dispatch(authActions.logout());
 };
 
-function extractErrorMessage(err: any): string {
-  return err.message
-    ? err.message
-    : typeof err === 'string'
-    ? err
-    : 'Unknown Error';
+function extractErrorMessage(err: any): Promise<string> {
+  return err.response
+    ? Promise.resolve()
+        .then(() => err.response.json())
+        .catch(() => err.response.text())
+        .then(extractErrorMessage)
+    : Promise.resolve(
+        err.message
+          ? err.message
+          : typeof err === 'string'
+          ? err
+          : 'Unknown Error'
+      );
 }

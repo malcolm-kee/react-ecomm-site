@@ -41,16 +41,16 @@ describe(`auth`, () => {
       .should('be.visible');
   });
 
-  it(`shows error when offline`, () => {
-    cy.visit('/', {
-      onBeforeLoad: function(win) {
-        // no proper way to mock fetch now, see https://github.com/cypress-io/cypress/issues/95
-        delete win.fetch;
-        win.fetch = function() {
-          return new Promise((_, reject) => reject(new Error('Network Error')));
-        };
-      },
-    })
+  it(`shows error when server error`, () => {
+    cy.server();
+    cy.route({
+      method: 'POST',
+      url: '**/api/users',
+      status: 503,
+      response: 'Network Error',
+    });
+
+    cy.visit('/')
       .findByText('Login')
       .click()
 
@@ -60,12 +60,14 @@ describe(`auth`, () => {
       .findByLabelText('Name')
       .type('Malcolm Kee')
       .findByLabelText('Email')
-      .type('randomEmail@gmail.com')
+      .type(getRandomEmail())
       .findAllByText('Signup')
       .last()
       .click()
 
-      .findByText('Network Error')
+      .findByText('Network Error', {
+        timeout: 6000,
+      })
       .should('be.visible');
   });
 });
