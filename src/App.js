@@ -5,6 +5,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { Footer } from './components/footer';
 import { MainContent } from './components/main-content';
+import { LayoutContext } from './hooks/use-layout';
+import { useScrollTopOnNavigate } from './hooks/use-scroll-top-on-navigate';
 import { initAuthStatus } from './modules/auth/auth.actions';
 import { ChatLauncher } from './modules/auth/components/chat-launcher';
 import { CareersPage } from './pages/careers';
@@ -17,7 +19,6 @@ import { PaymentPage } from './pages/payment-page';
 import { ProductPage } from './pages/product-page';
 import { Signup } from './pages/signup';
 import { SiteNav } from './site-nav';
-import { LayoutContext } from './hooks/use-layout';
 
 function AppContainer({ initAuthStatus }) {
   React.useEffect(() => {
@@ -26,6 +27,8 @@ function AppContainer({ initAuthStatus }) {
 
   const layoutContextValue = React.useState('default');
   const layoutType = layoutContextValue[0];
+
+  useScrollTopOnNavigate();
 
   return (
     <LayoutContext.Provider value={layoutContextValue}>
