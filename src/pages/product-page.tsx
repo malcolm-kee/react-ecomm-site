@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import { toast } from 'react-toastify';
 import { Button } from '../components/button';
 import { ErrorBoundary } from '../components/error-boundary';
@@ -60,6 +61,12 @@ function ProductPageContent({
     <article className="max-w-4xl mx-auto py-2 px-4">
       {details ? (
         <>
+          <Helmet>
+            <title>
+              {details.name}{' '}
+              {details.descriptions && `- ${details.descriptions.join(', ')}`}
+            </title>
+          </Helmet>
           <h1 className="sm:hidden text-3xl">{details.name}</h1>
           <div className="sm:flex mb-4 pb-2 border-b border-gray-300">
             {details.images && (

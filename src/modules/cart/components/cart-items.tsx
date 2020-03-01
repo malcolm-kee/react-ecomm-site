@@ -111,7 +111,7 @@ function CartItemsContent({
                   </Link>
                 )}
               >
-                Pay
+                Check Out
               </Button>
             </div>
           </ErrorBoundary>

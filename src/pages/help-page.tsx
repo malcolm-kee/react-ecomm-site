@@ -5,6 +5,7 @@ import { Jumbotron } from '../components/jumbotron';
 import { ListGroup } from '../components/list-group';
 import { ComplainForm } from '../modules/support/components/complain-form';
 import { FeedbackPanel } from '../modules/support/components/feedback-panel';
+import { Helmet } from 'react-helmet';
 
 const HelpLanding = () => (
   <div>
@@ -40,6 +41,9 @@ const HelpShipping = () => (
 export function HelpPage() {
   return (
     <>
+      <Helmet>
+        <title>Help - Shopit</title>
+      </Helmet>
       <Jumbotron>
         <div className="max-w-2xl mx-auto">
           <h1 className="text-3xl lg:text-5xl text-gray-700 my-3">

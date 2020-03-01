@@ -3,10 +3,14 @@ import { Route, Switch } from 'react-router-dom';
 import serverWoman from '../images/server-woman.png';
 import { AllJobs } from '../modules/career/components/all-jobs';
 import { JobDetails } from '../modules/career/components/job-details';
+import { Helmet } from 'react-helmet';
 
 export const CareersPage = () => {
   return (
     <div className="max-w-4xl mx-auto">
+      <Helmet>
+        <title>Careers - Shopit</title>
+      </Helmet>
       <div className="block sm:hidden text-center">
         <img
           src={serverWoman}

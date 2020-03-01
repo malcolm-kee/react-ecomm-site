@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { connect, ConnectedProps } from 'react-redux';
 import { Jumbotron } from '../components/jumbotron';
 import { Spinner } from '../components/spinner';
@@ -45,6 +46,9 @@ function MainPageContent({
 
   return (
     <>
+      <Helmet>
+        <title>Shopit: Save Your Money</title>
+      </Helmet>
       <div className="hidden sm:block">
         <MarketingBanner />
       </div>
