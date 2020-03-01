@@ -6,6 +6,7 @@ import { ErrorBoundary } from '../components/error-boundary';
 import { Field } from '../components/field';
 import { Input } from '../components/input';
 import { Label } from '../components/label';
+import { Seo } from '../components/seo';
 import { ShareButton } from '../components/share-button';
 import { Spinner } from '../components/spinner';
 import { addProductToCart } from '../modules/cart/cart.actions';
@@ -54,6 +55,12 @@ function ProductPageContent({
     <article className="max-w-4xl mx-auto py-2 px-4">
       {details ? (
         <>
+          <Seo
+            title={details.name}
+            description={
+              details.descriptions && details.descriptions.join(', ')
+            }
+          />
           <h1 className="sm:hidden text-3xl">{details.name}</h1>
           <div className="sm:flex mb-4 pb-2 border-b border-gray-300">
             {details.images && (
