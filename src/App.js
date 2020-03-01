@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import { Footer } from './components/footer';
 import { MainContent } from './components/main-content';
 import { LayoutContext } from './hooks/use-layout';
+import { useScrollTopOnNavigate } from './hooks/use-scroll-top-on-navigate';
 import { initAuthStatus } from './modules/auth/auth.actions';
 import { ChatLauncher } from './modules/auth/components/chat-launcher';
 import { CareersPage } from './pages/careers';
@@ -26,6 +27,8 @@ function AppContainer({ initAuthStatus }) {
 
   const layoutState = React.useState('default');
   const isDefaultLayout = layoutState[0] === 'default';
+
+  useScrollTopOnNavigate();
 
   return (
     <LayoutContext.Provider value={layoutState}>
