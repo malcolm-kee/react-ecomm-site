@@ -1,4 +1,3 @@
-import { act } from '@testing-library/react';
 import React from 'react';
 import App from './App';
 import { renderWithStateMgmt, user } from './lib/test-util';
@@ -122,14 +121,16 @@ describe('<App />', () => {
       addQty,
       minusQty,
       addProductToCart,
-      history,
       getCartItemQty,
       queryCartItem,
       addMoreCartItem,
       reduceCartItem,
       removeCartItem,
+      navigate,
       findByTestId,
+      findByText,
       getByText,
+      getByLabelText,
     } = loadApp({
       url: '/product/1',
     });
@@ -141,7 +142,7 @@ describe('<App />', () => {
     minusQty();
     addProductToCart();
 
-    act(() => history.push('/product/2'));
+    navigate('/product/2');
 
     await waitForProductPageFinishLoading();
     addProductToCart();
@@ -165,11 +166,17 @@ describe('<App />', () => {
 
     expect(queryCartItem('1')).toBeNull();
     expect(queryCartItem('2')).not.toBeNull();
+
+    user.click(getByText('Pay'));
+
+    await user.type(getByLabelText('Name'), 'Malcolm Kee');
+    user.click(getByText('Pay'));
+    await findByText('Paid');
   });
 
   it('default customer name in comment form', async () => {
     const {
-      history,
+      navigate,
       getByLabelText,
       getByText,
       findByText,
@@ -187,9 +194,7 @@ describe('<App />', () => {
 
     await findByText("You're already login!");
 
-    act(() => {
-      history.push('/product/1');
-    });
+    navigate('/product/1');
 
     await waitForProductPageFinishLoading();
 
@@ -200,9 +205,9 @@ describe('<App />', () => {
 
   it('can signup and logout', async () => {
     const {
+      navigate,
       getByLabelText,
       container,
-      history,
       getByText,
       findByText,
       findByLabelText,
@@ -220,9 +225,7 @@ describe('<App />', () => {
 
     await findByText("You're already login!");
 
-    act(() => {
-      history.push('/product/1');
-    });
+    navigate('/product/1');
 
     await waitForProductPageFinishLoading();
 
