@@ -1,13 +1,15 @@
 import { wait } from '@testing-library/react';
 import React from 'react';
-import { renderWithStateMgmt, user } from '../lib/test-util';
+import { renderWithStateMgmtAndRouter, user } from '../lib/test-util';
 import { ProductPage } from './product-page';
 
 jest.mock('../modules/products/product.service');
 
 describe('<ProductPage />', () => {
   it('allows customer to add product to cart', async () => {
-    const { findByText } = renderWithStateMgmt(<ProductPage productId="1" />);
+    const { findByText } = renderWithStateMgmtAndRouter(
+      <ProductPage productId="1" />
+    );
 
     const addToCartBtn = await findByText('Add To Cart');
 
@@ -19,7 +21,7 @@ describe('<ProductPage />', () => {
       findByLabelText,
       getByLabelText,
       getByTestId,
-    } = renderWithStateMgmt(<ProductPage productId="1" />);
+    } = renderWithStateMgmtAndRouter(<ProductPage productId="1" />);
 
     await findByLabelText('Your Name');
 

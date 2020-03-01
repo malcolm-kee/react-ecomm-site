@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
 import { rootReducer } from '../modules/root-reducer';
 
-export function renderWithStateMgmt(
+export function renderWithStateMgmtAndRouter(
   ui,
   {
     actions = [],
