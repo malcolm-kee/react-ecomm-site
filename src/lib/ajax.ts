@@ -40,7 +40,7 @@ export function fetchWithRetry(
 
       request
         .then(response => {
-          if (response.status >= 200 && response.status < 300) {
+          if (response.ok) {
             fulfill(response);
           } else if (shouldRetry(attemptCount)) {
             retryRequest();
