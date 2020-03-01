@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import * as React from 'react';
+import React from 'react';
 import { user } from '../lib/test-util';
 import { ListGroup } from './list-group';
 

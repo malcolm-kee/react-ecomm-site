@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import * as React from 'react';
+import React from 'react';
 import { useId } from '../hooks/use-id';
 import { useLatest } from '../hooks/use-latest';
 import { useLazyRef } from '../hooks/use-lazy-ref';

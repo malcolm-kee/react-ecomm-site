@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Alert } from '../../../components/alert';
 import { Button } from '../../../components/button';
 import { Spinner } from '../../../components/spinner';
