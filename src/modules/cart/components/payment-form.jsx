@@ -1,20 +1,19 @@
 import * as React from 'react';
-import { connect, ConnectedProps } from 'react-redux';
+import { connect } from 'react-redux';
 import { Button } from '../../../components/button';
-import { formatMoney } from '../../../lib/format';
-import { RootState } from '../../../type';
-import { selectCartTotal } from '../cart.selectors';
-import { selectUser } from '../../auth/auth.selectors';
 import { TextField } from '../../../components/text-field';
+import { formatMoney } from '../../../lib/format';
+import { selectUser } from '../../auth/auth.selectors';
+import { selectCartTotal } from '../cart.selectors';
 
-const PaymentFormView = (props: ConnectedProps<typeof connector>) => {
-  const [name, setName] = React.useState(props.defaultName);
+const PaymentFormView = ({ defaultName, totalAmount }) => {
+  const [name, setName] = React.useState(defaultName);
 
   return (
     <form>
       <div className="text-center py-4">
         <div>Total Amount</div>
-        <div className="text-3xl">RM {props.totalAmount}</div>
+        <div className="text-3xl">RM {totalAmount}</div>
       </div>
       <fieldset>
         <legend className="pl-2 w-full border-b border-gray-400 font-semibold leading-loose">
@@ -31,13 +30,13 @@ const PaymentFormView = (props: ConnectedProps<typeof connector>) => {
   );
 };
 
-const connector = connect((state: RootState) => {
+const mapStates = state => {
   const user = selectUser(state);
 
   return {
     totalAmount: formatMoney(selectCartTotal(state)),
     defaultName: user ? user.name : '',
   };
-});
+};
 
-export const PaymentForm = connector(PaymentFormView);
+export const PaymentForm = connect(mapStates)(PaymentFormView);
