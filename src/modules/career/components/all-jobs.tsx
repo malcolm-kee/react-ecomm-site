@@ -1,24 +1,10 @@
 import * as React from 'react';
-import { getJobs } from '../career.service';
-import { Job } from '../career.type';
 import { ListGroup } from '../../../components/list-group';
-import { UiStatus } from '../../../type';
 import { Spinner } from '../../../components/spinner';
+import { useJobs } from '../career.service';
 
 export const AllJobs = () => {
-  const [status, setStatus] = React.useState<UiStatus>('busy');
-  const [jobs, setJobs] = React.useState<Job[]>([]);
-
-  React.useEffect(() => {
-    getJobs()
-      .then(allJobs => {
-        setJobs(allJobs);
-        setStatus('idle');
-      })
-      .catch(() => {
-        setStatus('error');
-      });
-  }, []);
+  const { jobs, status } = useJobs();
 
   return (
     <div>
