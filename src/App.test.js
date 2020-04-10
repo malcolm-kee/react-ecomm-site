@@ -1,11 +1,12 @@
 import React from 'react';
+import xhrMock from 'xhr-mock';
 import App from './App';
 import { renderWithStateMgmtAndRouter, user } from './lib/test-util';
+import { careers } from './modules/career/__mocks__/career.data';
 
 jest.mock('./modules/auth/auth.service');
 jest.mock('./modules/marketing/marketing.service');
 jest.mock('./modules/products/product.service');
-jest.mock('./modules/career/career.service');
 
 function loadApp({ url = '/' } = {}) {
   const renderResult = renderWithStateMgmtAndRouter(<App />, {
@@ -31,6 +32,14 @@ function loadApp({ url = '/' } = {}) {
 }
 
 describe('<App />', () => {
+  beforeEach(() => {
+    xhrMock.setup();
+  });
+
+  afterEach(() => {
+    xhrMock.teardown();
+  });
+
   it('renders without crashing', () => {
     const { getAllByText } = loadApp();
 
@@ -100,6 +109,18 @@ describe('<App />', () => {
   });
 
   it(`shows careers page`, async () => {
+    xhrMock.get(process.env.REACT_APP_CAREER_BASE_URL, {
+      status: 200,
+      body: JSON.stringify(careers),
+    });
+    xhrMock.get(
+      new RegExp('^' + process.env.REACT_APP_CAREER_BASE_URL + '\\?id='),
+      {
+        status: 200,
+        body: JSON.stringify([careers[0]]),
+      }
+    );
+
     const { getByText, findByText } = loadApp({
       url: '/',
     });

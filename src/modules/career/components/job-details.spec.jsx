@@ -1,24 +1,33 @@
 import { render } from '@testing-library/react';
 import React from 'react';
-import { getJob as getJobMock } from '../career.service';
+import xhrMock from 'xhr-mock';
+import { careers } from '../__mocks__/career.data';
 import { JobDetails } from './job-details';
 
-jest.mock('../career.service');
-
 describe(`<JobDetails />`, () => {
+  beforeEach(() => {
+    xhrMock.setup();
+  });
+
+  afterEach(() => {
+    xhrMock.teardown();
+  });
+
   it(`retrieves details for provided jobId`, async () => {
+    xhrMock.get(/.*/, {
+      status: 200,
+      body: JSON.stringify([careers[0]]),
+    });
+
     const { findByText } = render(<JobDetails jobId={3} />);
 
     await findByText('Department:');
-
-    expect(getJobMock).toHaveBeenCalledTimes(1);
-    expect(getJobMock).toHaveBeenCalledWith(3);
   });
 
   it(`shows error message when error`, async () => {
-    getJobMock.mockImplementationOnce(() =>
-      Promise.reject(new Error('Network Error'))
-    );
+    xhrMock.get(/.*/, {
+      status: 500,
+    });
 
     const { findByRole } = render(<JobDetails jobId={3} />);
 

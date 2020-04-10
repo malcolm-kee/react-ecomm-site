@@ -1,26 +1,12 @@
 import * as React from 'react';
-import { UiStatus } from '../../../type';
-import { getJob } from '../career.service';
-import { Job } from '../career.type';
-import { Spinner } from '../../../components/spinner';
-import { Button } from '../../../components/button';
-import { scrollTo } from '../../../lib/scroll-to';
 import { Alert } from '../../../components/alert';
+import { Button } from '../../../components/button';
+import { Spinner } from '../../../components/spinner';
+import { scrollTo } from '../../../lib/scroll-to';
+import { useJob } from '../career.service';
 
 export const JobDetails = (props: { jobId: number }) => {
-  const [status, setStatus] = React.useState<UiStatus>('busy');
-  const [job, setJob] = React.useState<Job | null>(null);
-  React.useEffect(() => {
-    setStatus('busy');
-    getJob(props.jobId)
-      .then(jobDetails => {
-        setJob(jobDetails);
-        setStatus('idle');
-      })
-      .catch(() => {
-        setStatus('error');
-      });
-  }, [props.jobId]);
+  const { job, status } = useJob(props.jobId);
 
   const jobDetailsRef = React.useRef<HTMLElement>(null);
   React.useEffect(() => {

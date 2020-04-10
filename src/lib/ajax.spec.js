@@ -76,7 +76,7 @@ describe(`fetchJson`, () => {
   });
 });
 
-describe.only(`xhrX`, () => {
+describe(`xhrX`, () => {
   beforeEach(() => {
     mock.setup();
   });

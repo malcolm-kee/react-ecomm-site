@@ -1,5 +1,3 @@
-const DEFAULT_RETRIES = [1000, 3000];
-
 export type SimpleResponse = {
   ok: boolean;
   statusText: string;
@@ -26,32 +24,28 @@ export class FetchError extends Error {
   }
 }
 
-type FetchInit = RequestInit & {
+export type FetchInit = RequestInit & {
   params?: Record<string, string | number | boolean | undefined>;
   data?: any;
+  json?: boolean;
+};
+
+type RetryOptions = {
   /** delay in millisecond before retry again. Default to [1000, 3000] (wait 1 sec, then 3 secs) */
   retryDelays?: number[];
 };
 
+const DEFAULT_RETRIES = [1000, 3000];
 export function fetchWithRetry(
   url: string,
-  { retryDelays = DEFAULT_RETRIES, params, data, ...init }: FetchInit = {}
+  { retryDelays = DEFAULT_RETRIES, ...init }: FetchInit & RetryOptions = {}
 ): Promise<SimpleResponse> {
   return new Promise((fulfill, reject) => {
     let attemptCount = -1;
-    const requestUrl = url + stringifyParams(params);
 
     function makeRequest(): void {
       attemptCount++;
-      const request = xhrX(
-        requestUrl,
-        data
-          ? {
-              ...init,
-              body: JSON.stringify(data),
-            }
-          : init
-      ).fetch();
+      const request = xhrX(url, init).fetch();
 
       request
         .then(response => {
@@ -89,64 +83,22 @@ export function fetchWithRetry(
   });
 }
 
-const hasOwnProperty = Object.prototype.hasOwnProperty;
-
-const stringifyParams = (params: FetchInit['params']): string => {
-  if (!params) {
-    return '';
-  }
-
-  let results: string[] = [];
-
-  for (let key in params) {
-    if (hasOwnProperty.call(params, key)) {
-      const value = params[key];
-      if (value) {
-        results.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
-      }
-    }
-  }
-
-  return `?${results.join('&')}`;
-};
-
-const getHeadersForJsonRequest = ({ headers, method }: FetchInit = {}) => {
-  const result: Record<string, string> =
-    method && method.toLowerCase() !== 'get'
-      ? {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        }
-      : {
-          Accept: 'application/json',
-        };
-
-  for (const key in headers) {
-    const value = (headers as Record<string, string>)[key];
-    result[key] = value;
-  }
-
-  return result;
-};
-
-export function fetchJson(url: string, options: FetchInit = {}) {
+export function fetchJson(url: string, options: FetchInit & RetryOptions = {}) {
   return fetchWithRetry(url, {
+    json: true,
     ...options,
-    headers: getHeadersForJsonRequest(options),
   }).then(res => res.json());
 }
 
 /**
  * Code inspired by `unfetch`
  */
-export const xhrX = (
-  url: string,
-  options: FetchInit & { json?: boolean } = {}
-) => {
+export const xhrX = (url: string, options: FetchInit = {}) => {
   const xhr = new XMLHttpRequest();
   const keys: string[] = [];
   const all: Array<[string, string]> = [];
   const headers: Record<string, string> = {};
+  const rUrl = options.params ? url + stringifyParams(options.params) : url;
 
   const response = (): SimpleResponse => ({
     // eslint-disable-next-line
@@ -166,16 +118,19 @@ export const xhrX = (
     },
   });
 
-  xhr.open(options.method || 'get', url, true);
+  xhr.open(options.method || 'get', rUrl, true);
 
   xhr.withCredentials = options.credentials === 'include';
 
-  const requestHeaders = options.json
-    ? getHeadersForJsonRequest(options)
-    : options.headers;
+  if (options.json) {
+    xhr.setRequestHeader('Accept', 'application/json');
+    if (options.method && options.method.toLowerCase() !== 'get') {
+      xhr.setRequestHeader('Content-Type', 'application/json');
+    }
+  }
 
-  for (const i in requestHeaders) {
-    xhr.setRequestHeader(i, (requestHeaders as Record<string, string>)[i]);
+  for (const i in options.headers) {
+    xhr.setRequestHeader(i, (options.headers as Record<string, string>)[i]);
   }
 
   return {
@@ -196,7 +151,29 @@ export const xhrX = (
         };
 
         xhr.onerror = reject;
-        xhr.send(options.body || null);
+        xhr.send(
+          options.body || (options.data && JSON.stringify(options.data)) || null
+        );
       }),
   };
+};
+
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+const stringifyParams = (params: FetchInit['params']): string => {
+  if (!params) {
+    return '';
+  }
+
+  let results: string[] = [];
+
+  for (let key in params) {
+    if (hasOwnProperty.call(params, key)) {
+      const value = params[key];
+      if (value) {
+        results.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+      }
+    }
+  }
+
+  return `?${results.join('&')}`;
 };
