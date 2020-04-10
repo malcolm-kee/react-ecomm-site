@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@reach/dialog": "^0.8.5",
+    "@reach/dialog": "^0.10.0",
     "@reduxjs/toolkit": "^1.1.0",
     "classnames": "^2.2.6",
     "date-fns": "^1.30.1",
