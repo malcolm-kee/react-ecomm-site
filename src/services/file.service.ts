@@ -1,3 +1,5 @@
+import { createRequest } from 'xhfetch';
+
 const UPLOAD_SERVICE_BASE_URL = process.env
   .REACT_APP_UPLOAD_SERVICE_BASE_URL as string;
 
@@ -7,7 +9,13 @@ type UploadCallbacks = {
 };
 
 export const upload = (file: File, { onDone, onProgress }: UploadCallbacks) => {
-  const xhr = new XMLHttpRequest();
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const { xhr, fetch } = createRequest(UPLOAD_SERVICE_BASE_URL, {
+    method: 'PUT',
+    body: formData,
+  });
 
   if (onProgress) {
     xhr.upload.addEventListener(
@@ -26,22 +34,16 @@ export const upload = (file: File, { onDone, onProgress }: UploadCallbacks) => {
     });
   }
 
-  xhr.onreadystatechange = () => {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-      if (xhr.status >= 200 && xhr.status < 300) {
-        const response = JSON.parse(xhr.responseText);
-        onDone(null, response.files[0]);
-      } else {
-        onDone(new Error(xhr.responseText), '');
+  fetch()
+    .then(res => {
+      if (res.ok) {
+        return res.json().then(res => onDone(null, res.files[0]));
       }
-    }
-  };
-
-  const formData = new FormData();
-
-  formData.append('file', file);
-  xhr.open('PUT', UPLOAD_SERVICE_BASE_URL);
-  xhr.send(formData);
+      return res.text().then(text => onDone(new Error(text), ''));
+    })
+    .catch(err => {
+      onDone(err, '');
+    });
 
   return function abort() {
     xhr.abort();

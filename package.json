@@ -22,7 +22,7 @@
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "unfetch": "^4.1.0"
+    "xhfetch": "^1.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -50,10 +50,10 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@cypress/code-coverage": "^1.11.0",
+    "@cypress/code-coverage": "^3.1.0",
     "@cypress/instrument-cra": "^1.0.0",
-    "@testing-library/cypress": "^5.0.2",
-    "@testing-library/jest-dom": "^5.1.1",
+    "@testing-library/cypress": "^6.0.0",
+    "@testing-library/jest-dom": "^5.5.0",
     "@testing-library/react": "^9.3.0",
     "@testing-library/user-event": "^10.0.0",
     "@types/classnames": "^2.2.9",
@@ -69,8 +69,8 @@
     "@types/react-transition-group": "^4.2.3",
     "axe-core": "^3.4.1",
     "cross-env": "^7.0.0",
-    "cypress-axe": "^0.5.3",
-    "cypress-file-upload": "^3.5.3",
+    "cypress-axe": "^0.8.1",
+    "cypress-file-upload": "^4.0.5",
     "eslint-plugin-cypress": "^2.8.1",
     "istanbul-lib-coverage": "^3.0.0",
     "jest-junit": "^10.0.0",

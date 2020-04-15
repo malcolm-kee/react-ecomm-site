@@ -1,5 +1,5 @@
-import mock, { delay } from 'xhr-mock';
-import { fetchJson, xhrX } from './ajax';
+import mock from 'xhr-mock';
+import { fetchJson } from './ajax';
 
 describe(`fetchJson`, () => {
   let consoleErrorSpy = jest.fn();
@@ -73,67 +73,5 @@ describe(`fetchJson`, () => {
     await expect(fetchJson('/api')).rejects.toBeDefined();
     expect(cb).toHaveBeenCalledTimes(3);
     expect(consoleErrorSpy).toHaveBeenCalledTimes(3);
-  });
-});
-
-describe(`xhrX`, () => {
-  beforeEach(() => {
-    mock.setup();
-  });
-
-  afterEach(() => {
-    mock.teardown();
-  });
-
-  it(`.fetch behaves just like fetch`, async () => {
-    expect.assertions(2);
-    const result = {
-      a: 'b',
-    };
-
-    mock.get('/api', (req, res) => {
-      expect(req.header('Content-Type')).toBeNull();
-      return res.status(200).body(JSON.stringify(result));
-    });
-
-    const response = await xhrX('/api')
-      .fetch()
-      .then(res => res.json());
-
-    expect(response).toStrictEqual(result);
-  });
-
-  it(`can be invoked for json`, async () => {
-    mock.get('/api', delay({ status: 200 }, 500));
-
-    const onSuccess = jest.fn();
-    const onError = jest.fn();
-
-    xhrX('/api', { json: true })
-      .fetch()
-      .then(onSuccess, onError);
-
-    await new Promise(fulfill => setTimeout(fulfill, 700));
-
-    expect(onSuccess).toHaveBeenCalled();
-    expect(onError).not.toHaveBeenCalled();
-  });
-
-  it(`can be cancelled`, async () => {
-    mock.get('/api', delay({ status: 200 }, 500));
-
-    const onSuccess = jest.fn();
-    const onError = jest.fn();
-
-    const { xhr, fetch } = xhrX('/api');
-
-    fetch().then(onSuccess, onError);
-
-    xhr.abort();
-
-    await new Promise(fulfill => setTimeout(fulfill, 700));
-
-    expect(onSuccess).not.toHaveBeenCalled();
-    expect(onError).not.toHaveBeenCalled();
   });
 });
