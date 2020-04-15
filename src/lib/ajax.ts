@@ -81,14 +81,18 @@ export const xhrX = (url: string, options: FetchInit = {}) => {
   const { xhr, fetch } = createRequest(rUrl, {
     ...options,
     body: options.data ? JSON.stringify(options.data) : options.body,
+    headers: options.json
+      ? {
+          Accept: 'application/json',
+          ...(options.method && options.method.toLowerCase() !== 'get'
+            ? {
+                'Content-Type': 'application/json',
+              }
+            : {}),
+          ...options.headers,
+        }
+      : options.headers,
   });
-
-  if (options.json) {
-    xhr.setRequestHeader('Accept', 'application/json');
-    if (options.method && options.method.toLowerCase() !== 'get') {
-      xhr.setRequestHeader('Content-Type', 'application/json');
-    }
-  }
 
   return {
     xhr,
