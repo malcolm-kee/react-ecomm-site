@@ -6,47 +6,35 @@ describe(`chat`, () => {
   it(`can launch chat for logged in user`, () => {
     cy.createUser({
       name: 'Malcolm Tee',
-    }).then(user => {
-      cy.visit('/careers');
+    }).then((user) => {
+      cy.visit('/');
       cy.findByText('Chat').click();
 
-      cy.findAllByText('Login')
-        .last()
-        .click();
+      cy.findAllByText('Login').last().click();
       cy.findByLabelText('Email').type(user.email);
-      cy.findAllByText('Login')
-        .last()
-        .click();
+      cy.findAllByText('Login').last().click();
 
-      cy.wait(1000);
       cy.findByLabelText('Chat message').type('Hello there!{enter}');
-
-      cy.findByLabelText('Close').click();
     });
   });
 
   it(`can receives message from other user`, () => {
     cy.createUser({
       name: 'Malcolm Kee',
-    }).then(user => {
+    }).then((user) => {
       cy.createUser({
         name: 'Other People',
-      }).then(otherUser => {
+      }).then((otherUser) => {
         cy.connectSocket({
           url: 'wss://ecomm-db.herokuapp.com/chat',
-        }).then(chatSocket => {
-          cy.visit('/careers');
+        }).then((chatSocket) => {
+          cy.visit('/');
           cy.findByText('Chat').click();
 
-          cy.findAllByText('Login')
-            .last()
-            .click();
+          cy.findAllByText('Login').last().click();
           cy.findByLabelText('Email').type(user.email);
-          cy.findAllByText('Login')
-            .last()
-            .click();
+          cy.findAllByText('Login').last().click();
 
-          cy.wait(1000);
           cy.findByLabelText('Chat message')
             .type('Hello there!{enter}')
 
@@ -78,19 +66,14 @@ describe(`chat`, () => {
   it(`allow scroll to bottom when there is too much message`, () => {
     cy.createUser({
       name: 'Malcolm Noisy',
-    }).then(user => {
-      cy.visit('/careers');
+    }).then((user) => {
+      cy.visit('/');
       cy.findByText('Chat').click();
 
-      cy.findAllByText('Login')
-        .last()
-        .click();
+      cy.findAllByText('Login').last().click();
       cy.findByLabelText('Email').type(user.email);
-      cy.findAllByText('Login')
-        .last()
-        .click();
+      cy.findAllByText('Login').last().click();
 
-      cy.wait(1000);
       cy.findByLabelText('Chat message')
         .type('Hello there!{enter}')
         .type('A{enter}')

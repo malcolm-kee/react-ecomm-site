@@ -3,14 +3,11 @@
 
 describe(`product`, () => {
   it(`can view job details`, () => {
-    cy.visit('/')
-      .findByText('Careers')
-      .click()
+    cy.visit('/');
+    cy.findByText('Careers').click();
 
-      .findByText('Web Designer')
-      .click()
+    cy.findByText('Web Designer').click();
 
-      .findByText('Apply')
-      .should('be.disabled');
+    cy.findByText('Apply').should('be.disabled');
   });
 });
