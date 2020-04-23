@@ -1,19 +1,7 @@
-import { ThunkAction } from '../../type';
-import { selectProduct } from '../products/product.selectors';
-import { cartActions } from './cart.slice';
-import { selectCartTotal } from './cart.selectors';
 import { toast } from 'react-toastify';
-
-export const addProductToCart = (
-  productId: number,
-  qty?: number
-): ThunkAction<void> => (dispatch, getState) =>
-  dispatch(
-    cartActions.addItem({
-      product: selectProduct(getState(), productId),
-      qty,
-    })
-  );
+import { ThunkAction } from '../../type';
+import { selectCartTotal } from './cart.selectors';
+import { cartActions } from './cart.slice';
 
 type PaymentDetails = {
   name: string;

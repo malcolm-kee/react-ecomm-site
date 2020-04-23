@@ -1,8 +1,8 @@
 import cx from 'classnames';
 import * as React from 'react';
-import styles from './chat-history.module.scss';
-import { throttle } from '../../lib/fn-lib';
 import { useId } from '../../hooks/use-id';
+import { throttle } from '../../lib/fn-lib';
+import styles from './chat-history.module.scss';
 
 export type ChatHistoryProps = JSX.IntrinsicElements['div'] & {
   height: number | string;

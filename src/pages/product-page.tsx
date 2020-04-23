@@ -1,6 +1,6 @@
 import React from 'react';
-import { connect, ConnectedProps } from 'react-redux';
 import { Helmet } from 'react-helmet';
+import { connect, ConnectedProps } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Button } from '../components/button';
 import { ErrorBoundary } from '../components/error-boundary';
@@ -9,12 +9,12 @@ import { Input } from '../components/input';
 import { Label } from '../components/label';
 import { ShareButton } from '../components/share-button';
 import { Spinner } from '../components/spinner';
-import { addProductToCart } from '../modules/cart/cart.actions';
+import { cartActions } from '../modules/cart/cart.slice';
 import { ProductBoxContainer } from '../modules/products/components/product-box-container';
 import { ProductImage } from '../modules/products/components/product-image';
-import { loadProductDetail } from '../modules/products/product.actions';
-import { selectProduct } from '../modules/products/product.selectors';
-import { RootState, ThunkDispatch } from '../type';
+import { useProductDetails } from '../modules/products/product.queries';
+import { Product } from '../modules/products/product.type';
+import { ThunkDispatch } from '../type';
 
 const ProductComments = React.lazy(() =>
   import(
@@ -45,15 +45,9 @@ type ReduxProps = ConnectedProps<typeof connector>;
 
 function ProductPageContent({
   productId,
-  details,
-  loadDetails,
   addToCart,
 }: ProductPageProps & ReduxProps) {
-  React.useEffect(() => {
-    if (!details) {
-      loadDetails();
-    }
-  }, [productId, details, loadDetails]);
+  const { data: details } = useProductDetails(productId);
 
   const { qty, increment, decrement } = useQty(productId);
 
@@ -117,7 +111,7 @@ function ProductPageContent({
               </div>
               <div>
                 <Button
-                  onClick={() => addToCart(qty)}
+                  onClick={() => addToCart(qty, details)}
                   color="success"
                   size="lg"
                   className="mr-2"
@@ -166,21 +160,16 @@ function ProductPageContent({
   );
 }
 
-const mapStates = (state: RootState, ownProps: ProductPageProps) => ({
-  details: selectProduct(state, ownProps.productId),
-});
-
-const mapDispatch = (dispatch: ThunkDispatch, ownProps: ProductPageProps) => ({
-  loadDetails: () => dispatch(loadProductDetail(ownProps.productId)),
-  addToCart: (qty: number) => {
+const mapDispatch = (dispatch: ThunkDispatch) => ({
+  addToCart: (qty: number, product: Product) => {
     toast('Added to Cart', {
       type: 'success',
       autoClose: 2000,
     });
-    return dispatch(addProductToCart(ownProps.productId, qty));
+    return dispatch(cartActions.addItem({ product, qty }));
   },
 });
 
-const connector = connect(mapStates, mapDispatch);
+const connector = connect(null, mapDispatch);
 
 export const ProductPage = connector(ProductPageContent);

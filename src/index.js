@@ -2,10 +2,15 @@ import { configureStore } from '@reduxjs/toolkit';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { ReactQueryConfigProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import App from './App';
 import { rootReducer } from './modules/root-reducer';
 import './global.scss';
+
+const reactQueryConfig = {
+  staleTime: 5000,
+};
 
 const store = configureStore({
   reducer: rootReducer,
@@ -14,9 +19,11 @@ const store = configureStore({
 function renderApp(AppComponent) {
   return ReactDOM.render(
     <Provider store={store}>
-      <Router>
-        <AppComponent />
-      </Router>
+      <ReactQueryConfigProvider config={reactQueryConfig}>
+        <Router>
+          <AppComponent />
+        </Router>
+      </ReactQueryConfigProvider>
     </Provider>,
     document.getElementById('root')
   );

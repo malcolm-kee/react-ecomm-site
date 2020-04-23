@@ -9,32 +9,27 @@ import { TextField } from '../../../components/text-field';
 import { Textarea } from '../../../components/textarea';
 import { RootState } from '../../../type';
 import { selectUser } from '../../auth/auth.selectors';
-import { submitAddProductComment } from '../product.actions';
+import { useAddProductComment } from '../product.queries';
 
 type ReduxProps = ConnectedProps<typeof connector> & { productId: number };
 
-function ProductCommentFormContent({
-  productId,
-  submitForm,
-  user,
-}: ReduxProps) {
+function ProductCommentFormContent({ productId, user }: ReduxProps) {
   const defaultName = (user && user.name) || '';
-  const [submitting, setSubmitting] = React.useState(false);
   const [userName, setUserName] = React.useState(defaultName);
   const [content, setContent] = React.useState('');
   const nameInputRef = React.useRef<HTMLInputElement>(null);
   const contentInputRef = React.useRef<HTMLTextAreaElement>(null);
+  const [mutate, { status }] = useAddProductComment(productId);
+  const submitting = status === 'loading';
 
   function handleSubmit(ev: React.FormEvent) {
     ev.preventDefault();
-    setSubmitting(true);
-    submitForm({
+    mutate({
       userName,
       content,
       productId,
       createdOn: Date.now(),
     }).then(() => {
-      setSubmitting(false);
       setContent('');
       setUserName(defaultName);
       if (defaultName) {
@@ -88,10 +83,6 @@ const mapStates = (state: RootState) => ({
   user: selectUser(state),
 });
 
-const mapDispatch = {
-  submitForm: submitAddProductComment,
-};
-
-const connector = connect(mapStates, mapDispatch);
+const connector = connect(mapStates);
 
 export const ProductCommentForm = connector(ProductCommentFormContent);

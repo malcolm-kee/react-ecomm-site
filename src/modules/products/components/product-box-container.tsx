@@ -1,8 +1,5 @@
 import React from 'react';
-import { connect, ConnectedProps } from 'react-redux';
-import { RootState, ThunkDispatch } from '../../../type';
-import { loadProductDetail } from '../product.actions';
-import { selectProduct } from '../product.selectors';
+import { useProductDetails } from '../product.queries';
 import { ProductBox } from './product-box';
 
 type ProductBoxContainerProps = {
@@ -10,36 +7,11 @@ type ProductBoxContainerProps = {
   className?: string;
 };
 
-type ReduxProps = ConnectedProps<typeof connector>;
-
-function ProductBoxContainerContent({
+export function ProductBoxContainer({
   productId,
-  productDetails,
-  loadDetails,
   className,
-}: ProductBoxContainerProps & ReduxProps) {
-  React.useEffect(() => {
-    if (!productDetails) {
-      loadDetails();
-    }
-  }, [productId, productDetails, loadDetails]);
+}: ProductBoxContainerProps) {
+  const { data } = useProductDetails(productId);
 
-  return productDetails ? (
-    <ProductBox className={className} {...productDetails} />
-  ) : null;
+  return data ? <ProductBox className={className} {...data} /> : null;
 }
-
-const mapStates = (state: RootState, ownProps: ProductBoxContainerProps) => ({
-  productDetails: selectProduct(state, ownProps.productId),
-});
-
-const mapDispatch = (
-  dispatch: ThunkDispatch,
-  ownProps: ProductBoxContainerProps
-) => ({
-  loadDetails: () => dispatch(loadProductDetail(ownProps.productId)),
-});
-
-const connector = connect(mapStates, mapDispatch);
-
-export const ProductBoxContainer = connector(ProductBoxContainerContent);

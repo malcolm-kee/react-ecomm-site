@@ -1,10 +1,7 @@
 import format from 'date-fns/format';
 import React from 'react';
-import { connect, ConnectedProps } from 'react-redux';
 import { Spinner } from '../../../components/spinner';
-import { RootState, ThunkDispatch } from '../../../type';
-import { loadProductComments } from '../product.actions';
-import { selectProductComments } from '../product.selectors';
+import { useProductComments } from '../product.queries';
 import { ProductCommentForm } from './product-comment-form';
 
 function ProductComment({
@@ -33,51 +30,24 @@ type ProductCommentsProps = {
   productId: number;
 };
 
-type ReduxProps = ConnectedProps<typeof connector>;
+function ProductComments({ productId }: ProductCommentsProps) {
+  const { data: comments } = useProductComments(productId);
 
-function ProductCommentsContent({
-  productId,
-  loadComments,
-  comments,
-}: ProductCommentsProps & ReduxProps) {
-  const [isLoading, setIsLoading] = React.useState(false);
-
-  React.useEffect(() => {
-    if (comments.length === 0) {
-      setIsLoading(true);
-      loadComments().then(() => setIsLoading(false));
-    }
-  }, [productId, comments.length, loadComments]);
-
-  return (
+  return comments ? (
     <>
-      {isLoading && <Spinner />}
       <div className="mb-3">
         {comments.map((comment) => (
           <ProductComment {...comment} key={comment.id} />
         ))}
-        {!isLoading && comments.length === 0 && (
+        {comments.length === 0 && (
           <p>There is no review for this product yet.</p>
         )}
       </div>
       <ProductCommentForm productId={productId} />
     </>
+  ) : (
+    <Spinner />
   );
 }
-
-const mapStates = (state: RootState, ownProps: ProductCommentsProps) => ({
-  comments: selectProductComments(state, ownProps.productId) || [],
-});
-
-const mapDispatch = (
-  dispatch: ThunkDispatch,
-  ownProps: ProductCommentsProps
-) => ({
-  loadComments: () => dispatch(loadProductComments(ownProps.productId)),
-});
-
-const connector = connect(mapStates, mapDispatch);
-
-export const ProductComments = connector(ProductCommentsContent);
 
 export default ProductComments;
