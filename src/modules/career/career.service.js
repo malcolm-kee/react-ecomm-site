@@ -11,5 +11,5 @@ export function getJob(jobId) {
     params: {
       id: jobId,
     },
-  }).then(res => res[0]);
+  }).then((res) => res[0]);
 }

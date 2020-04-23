@@ -8,7 +8,7 @@ export const useTransientState = (steadyState, restorationTime = 1000) => {
     newValue
   ) {
     setState(newValue);
-    setCallTimes(t => t + 1);
+    setCallTimes((t) => t + 1);
   },
   []);
 

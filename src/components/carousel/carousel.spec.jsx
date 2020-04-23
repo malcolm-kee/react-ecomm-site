@@ -10,9 +10,9 @@ jest.mock('react-transition-group', () => {
   const React = require('react');
 
   const FakeTransition = jest.fn(({ children }) => children);
-  const FakeCSSTransition = jest.fn(props => (
+  const FakeCSSTransition = jest.fn((props) => (
     <FakeTransition>
-      {React.Children.map(props.children, child =>
+      {React.Children.map(props.children, (child) =>
         React.cloneElement(child, {
           className:
             props.classNames && props.in
@@ -54,7 +54,7 @@ function renderCarousel({ additionUi, initialSlide, interval } = {}) {
       fireEvent.mouseLeave(
         container.querySelector('.carousel-inner > .item.active')
       ),
-    clickIndicator: index =>
+    clickIndicator: (index) =>
       fireEvent.click(getAllByTestId('carousel-indicator')[index]),
   };
 }

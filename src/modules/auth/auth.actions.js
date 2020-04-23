@@ -2,13 +2,13 @@ import { save, load, clear } from '../../lib/storage';
 import * as authService from './auth.service';
 import { authActions } from './auth.slice';
 
-export const initAuthStatus = () => dispatch => {
+export const initAuthStatus = () => (dispatch) => {
   const user = load('user');
 
   dispatch(user ? authActions.login(user) : authActions.logout());
 };
 
-export const register = ({ email, name }) => dispatch => {
+export const register = ({ email, name }) => (dispatch) => {
   dispatch(authActions.authenticating());
 
   return authService
@@ -16,30 +16,34 @@ export const register = ({ email, name }) => dispatch => {
       email,
       name,
     })
-    .then(user => {
+    .then((user) => {
       dispatch(authActions.login(user));
       save('user', user);
     })
-    .catch(err =>
-      extractErrorMessage(err).then(msg => dispatch(authActions.authError(msg)))
+    .catch((err) =>
+      extractErrorMessage(err).then((msg) =>
+        dispatch(authActions.authError(msg))
+      )
     );
 };
 
-export const attemptLogin = email => dispatch => {
+export const attemptLogin = (email) => (dispatch) => {
   dispatch(authActions.authenticating());
 
   return authService
     .login({ email })
-    .then(user => {
+    .then((user) => {
       dispatch(authActions.login(user));
       save('user', user);
     })
-    .catch(err =>
-      extractErrorMessage(err).then(msg => dispatch(authActions.authError(msg)))
+    .catch((err) =>
+      extractErrorMessage(err).then((msg) =>
+        dispatch(authActions.authError(msg))
+      )
     );
 };
 
-export const attemptLogout = () => dispatch => {
+export const attemptLogout = () => (dispatch) => {
   clear('user');
   dispatch(authActions.logout());
 };

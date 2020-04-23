@@ -9,7 +9,7 @@ export const AllJobs = () => {
 
   React.useEffect(() => {
     getJobs()
-      .then(allJobs => {
+      .then((allJobs) => {
         setJobs(allJobs);
         setStatus('idle');
       })
@@ -23,7 +23,7 @@ export const AllJobs = () => {
       {status === 'busy' && <Spinner />}
       <ListGroup
         variant="link"
-        items={jobs.map(job => ({
+        items={jobs.map((job) => ({
           label: job.title,
           to: `/careers/${job.id}`,
         }))}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const useLatest = value => {
+export const useLatest = (value) => {
   const valueRef = React.useRef(value);
   valueRef.current = value;
   return valueRef;

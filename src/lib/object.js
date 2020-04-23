@@ -1,7 +1,7 @@
 export function pick(oriObject, keysToPick) {
   const result = {};
 
-  keysToPick.forEach(key => {
+  keysToPick.forEach((key) => {
     result[key] = oriObject[key];
   });
 
@@ -11,7 +11,7 @@ export function pick(oriObject, keysToPick) {
 export function omit(oriObject, keysToOmit) {
   const result = Object.assign({}, oriObject);
 
-  keysToOmit.forEach(key => delete result[key]);
+  keysToOmit.forEach((key) => delete result[key]);
 
   return result;
 }

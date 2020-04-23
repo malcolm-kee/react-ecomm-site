@@ -1,11 +1,11 @@
-const selectProductStore = state => state.product;
+const selectProductStore = (state) => state.product;
 
-export const selectProducts = state => {
+export const selectProducts = (state) => {
   const productStore = selectProductStore(state);
-  return productStore.productIds.map(id => productStore.productsByKey[id]);
+  return productStore.productIds.map((id) => productStore.productsByKey[id]);
 };
 
-export const selectProductIsLoading = state =>
+export const selectProductIsLoading = (state) =>
   selectProductStore(state).loadingProducts;
 
 export const selectProduct = (state, productId) =>
@@ -14,6 +14,8 @@ export const selectProduct = (state, productId) =>
 export const selectProductComments = (state, productId) =>
   selectProductStore(state).productComments[productId];
 
-export const selectCurrentPage = state => selectProductStore(state).currentPage;
+export const selectCurrentPage = (state) =>
+  selectProductStore(state).currentPage;
 
-export const selectHasMoreProduct = state => selectProductStore(state).hasMore;
+export const selectHasMoreProduct = (state) =>
+  selectProductStore(state).hasMore;

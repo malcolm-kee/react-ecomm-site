@@ -15,7 +15,7 @@ export const Button = React.forwardRef(function Button(
     color,
     size,
     className,
-    renderContainer = providedProps => <button {...providedProps} />,
+    renderContainer = (providedProps) => <button {...providedProps} />,
     disabled,
     ...buttonProps
   },

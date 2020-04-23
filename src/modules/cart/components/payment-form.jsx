@@ -33,7 +33,7 @@ const PaymentFormView = ({ defaultName, totalAmount, pay }) => {
   ) : (
     <React.Suspense fallback={<Spinner />}>
       <form
-        onSubmit={ev => {
+        onSubmit={(ev) => {
           ev.preventDefault();
           pay(name).then(() => setPaid(true));
         }}
@@ -77,7 +77,7 @@ const PaymentFormView = ({ defaultName, totalAmount, pay }) => {
                   <TextField
                     label="Valid Thru"
                     value={expiry}
-                    onChangeValue={newExpiry =>
+                    onChangeValue={(newExpiry) =>
                       setExpiry(
                         newExpiry.length === 2 ? newExpiry + '/' : newExpiry
                       )
@@ -117,7 +117,7 @@ const PaymentFormView = ({ defaultName, totalAmount, pay }) => {
   );
 };
 
-const mapStates = state => {
+const mapStates = (state) => {
   const user = selectUser(state);
 
   return {
@@ -126,9 +126,9 @@ const mapStates = state => {
   };
 };
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
-    pay: name => dispatch(makePayment({ name })),
+    pay: (name) => dispatch(makePayment({ name })),
   };
 };
 

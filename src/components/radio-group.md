@@ -18,16 +18,16 @@ const RadioGroupExample = () => {
         options={[
           {
             value: 'malcolm',
-            label: 'Malcolm'
+            label: 'Malcolm',
           },
           {
             value: 'wendy',
-            label: 'Wendy'
+            label: 'Wendy',
           },
           {
             value: 'matt',
-            label: 'Matthew'
-          }
+            label: 'Matthew',
+          },
         ]}
       />
     </>
@@ -59,16 +59,16 @@ const RadioGroupExample = () => {
         options={[
           {
             value: 0,
-            label: 'Zero'
+            label: 'Zero',
           },
           {
             value: 4,
-            label: 'Four'
+            label: 'Four',
           },
           {
             value: 13,
-            label: 'Thirteen'
-          }
+            label: 'Thirteen',
+          },
         ]}
       />
     </>
@@ -86,23 +86,23 @@ const options = [
     label: 'Malcolm',
     value: {
       name: 'Malcolm',
-      gender: 'male'
-    }
+      gender: 'male',
+    },
   },
   {
     label: 'Wendy',
     value: {
       name: 'Wendy',
-      gender: 'female'
-    }
+      gender: 'female',
+    },
   },
   {
     label: 'Matt',
     value: {
       name: 'Matt',
-      gender: 'male'
-    }
-  }
+      gender: 'male',
+    },
+  },
 ];
 
 const RadioGroupExample = () => {

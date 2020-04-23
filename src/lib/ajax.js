@@ -23,7 +23,7 @@ export function fetchWithRetry(
       );
 
       request
-        .then(response => {
+        .then((response) => {
           if (response.status >= 200 && response.status < 300) {
             fulfill(response);
           } else if (shouldRetry(attemptCount)) {
@@ -36,7 +36,7 @@ export function fetchWithRetry(
             reject(error);
           }
         })
-        .catch(err => {
+        .catch((err) => {
           if (shouldRetry(attemptCount)) {
             retryRequest();
           } else {
@@ -60,7 +60,7 @@ export function fetchWithRetry(
 
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
-const stringifyParams = params => {
+const stringifyParams = (params) => {
   if (!params) {
     return '';
   }
@@ -95,5 +95,5 @@ export function fetchJson(url, { headers, ...init } = {}) {
       ...headers,
     },
     ...init,
-  }).then(response => response.json());
+  }).then((response) => response.json());
 }

@@ -57,7 +57,7 @@ function MainPageContent({
           </blockquote>
         </Jumbotron>
         <div className={styles.grid}>
-          {products.map(product => (
+          {products.map((product) => (
             <ProductBox {...product} key={product.id} />
           ))}
         </div>
@@ -67,7 +67,7 @@ function MainPageContent({
   );
 }
 
-const mapStates = state => ({
+const mapStates = (state) => ({
   products: selectProducts(state),
   hasMoreProduct: selectHasMoreProduct(state),
   isLoading: selectProductIsLoading(state),

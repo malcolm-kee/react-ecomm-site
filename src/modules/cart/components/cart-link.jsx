@@ -17,7 +17,7 @@ function CartLinkContent({ cartItemCount, className }) {
   );
 }
 
-const mapStates = state => ({
+const mapStates = (state) => ({
   cartItemCount: selectCartItemCount(state),
 });
 

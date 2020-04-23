@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { PanelContext } from './panel-context';
 
-export const PanelHeading = props => {
+export const PanelHeading = (props) => {
   const color = React.useContext(PanelContext);
 
   return (

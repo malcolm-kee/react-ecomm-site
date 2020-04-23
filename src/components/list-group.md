@@ -35,8 +35,8 @@ When variant is `button`, you can add any props to the underlying button by addi
 ```jsx
 const ListGroupButtonExample = () => {
   const [activeItem, setActiveItem] = React.useState(null);
-  const toggleActiveItem = item =>
-    setActiveItem(prevItem => (prevItem === item ? null : item));
+  const toggleActiveItem = (item) =>
+    setActiveItem((prevItem) => (prevItem === item ? null : item));
 
   return (
     <ListGroup

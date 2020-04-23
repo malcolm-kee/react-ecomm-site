@@ -67,7 +67,7 @@ function ProductCommentFormContent({ productId, submitForm, user }) {
   );
 }
 
-const mapStates = state => ({
+const mapStates = (state) => ({
   user: selectUser(state),
 });
 

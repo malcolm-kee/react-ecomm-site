@@ -98,11 +98,11 @@ ChatHistory.propTypes = {
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 };
 
-const getDiffToBottom = element => {
+const getDiffToBottom = (element) => {
   return element.scrollHeight - (element.scrollTop + element.clientHeight);
 };
 
-const scrollToBottom = element => {
+const scrollToBottom = (element) => {
   element.scrollTop = element.scrollHeight;
 };
 

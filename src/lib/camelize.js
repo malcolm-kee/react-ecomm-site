@@ -5,7 +5,7 @@ const hyphenPattern = /-(.)/g;
  * @example camelize('background-color') => 'backgroundColor'
  */
 export function camelize(stringWithHyphen) {
-  return stringWithHyphen.replace(hyphenPattern, function(_, character) {
+  return stringWithHyphen.replace(hyphenPattern, function (_, character) {
     return character.toUpperCase();
   });
 }

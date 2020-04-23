@@ -23,7 +23,7 @@ export const Panel = ({
   );
 };
 
-const DefaultContainer = injectedProps => <div {...injectedProps} />;
+const DefaultContainer = (injectedProps) => <div {...injectedProps} />;
 
 const colorClasses = {
   default: 'bg-white border-gray-700 text-gray-900',

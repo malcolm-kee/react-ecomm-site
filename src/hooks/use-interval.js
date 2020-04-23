@@ -28,6 +28,6 @@ export function useInterval(callback, delay) {
   }, [delay, resetCount]);
 
   return function reset() {
-    setResetCount(lastCount => lastCount + 1);
+    setResetCount((lastCount) => lastCount + 1);
   };
 }

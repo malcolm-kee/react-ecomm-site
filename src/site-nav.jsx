@@ -43,7 +43,7 @@ function SiteNavContent({ status, user, logout }) {
   );
 }
 
-const mapStates = state => ({
+const mapStates = (state) => ({
   status: selectAuthStatus(state),
   user: selectUser(state),
 });

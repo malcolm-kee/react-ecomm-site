@@ -24,7 +24,7 @@ export const ComplainForm = () => {
 
   return (
     <Form
-      onSubmit={ev => {
+      onSubmit={(ev) => {
         ev.preventDefault();
         if (!isLastPage) {
           setCurrentPage(currentPage + 1);
@@ -94,7 +94,7 @@ export const ComplainForm = () => {
   );
 };
 
-const ComplainFormSection = props => {
+const ComplainFormSection = (props) => {
   const sectionRef = useScrollOnMount();
 
   return <section ref={sectionRef}>{props.children}</section>;

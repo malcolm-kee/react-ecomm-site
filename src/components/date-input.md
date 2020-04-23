@@ -24,7 +24,7 @@ const ControlledExample = () => {
         onChangeValue={setValue}
         options={[
           { label: 'Christmas', value: '25-12-2019' },
-          { label: 'New Year', value: '01-01-2020' }
+          { label: 'New Year', value: '01-01-2020' },
         ]}
       />
     </div>

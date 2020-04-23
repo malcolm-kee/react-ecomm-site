@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './chat-message.module.scss';
 
-export const ChatMessage = props => {
+export const ChatMessage = (props) => {
   return (
     <div className={cx(styles.root, props.isMe && 'text-right')}>
       <div

@@ -117,18 +117,18 @@ function CartItemsContent({
   );
 }
 
-const mapStates = state => ({
+const mapStates = (state) => ({
   cartItems: selectCartItems(state),
   itemCount: selectCartItemCount(state),
   total: selectCartTotal(state),
 });
 
-const mapDispatch = dispatch => ({
-  incrementItem: itemIndex => () =>
+const mapDispatch = (dispatch) => ({
+  incrementItem: (itemIndex) => () =>
     dispatch(cartActions.incrementItemQty(itemIndex)),
-  decrementItem: itemIndex => () =>
+  decrementItem: (itemIndex) => () =>
     dispatch(cartActions.decrementItemQty(itemIndex)),
-  removeItem: itemIndex => () => dispatch(cartActions.removeItem(itemIndex)),
+  removeItem: (itemIndex) => () => dispatch(cartActions.removeItem(itemIndex)),
 });
 
 const connector = connect(mapStates, mapDispatch);

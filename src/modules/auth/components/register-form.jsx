@@ -34,7 +34,7 @@ function RegisterFormContent({ status, error, register, logout }) {
   return (
     <Form
       title="Signup"
-      onSubmit={ev => {
+      onSubmit={(ev) => {
         ev.preventDefault();
         register({ name, email });
       }}
@@ -80,7 +80,7 @@ function RegisterFormContent({ status, error, register, logout }) {
   );
 }
 
-const mapStates = state => ({
+const mapStates = (state) => ({
   status: selectAuthStatus(state),
   error: selectAuthError(state),
 });

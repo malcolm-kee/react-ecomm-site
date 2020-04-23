@@ -4,7 +4,7 @@ import { ErrorBoundary } from './error-boundary';
 
 let renderedTime = 0;
 
-const BuggyComponent = props => {
+const BuggyComponent = (props) => {
   if (renderedTime) {
     return <div>OK Now</div>;
   }
@@ -13,7 +13,7 @@ const BuggyComponent = props => {
   return <div>{props.test.something}</div>;
 };
 
-const ErrorBoundaryDemo = props => {
+const ErrorBoundaryDemo = (props) => {
   const [show, setShow] = React.useState(false);
 
   return (

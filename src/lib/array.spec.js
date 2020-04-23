@@ -19,6 +19,6 @@ test('flattenArray', () => {
 });
 
 test('map', () => {
-  expect(map([1, 2, 3], x => x * 2)).toEqual([2, 4, 6]);
-  expect(map(['Malcolm', 'Kee'], str => str[0])).toEqual(['M', 'K']);
+  expect(map([1, 2, 3], (x) => x * 2)).toEqual([2, 4, 6]);
+  expect(map(['Malcolm', 'Kee'], (str) => str[0])).toEqual(['M', 'K']);
 });

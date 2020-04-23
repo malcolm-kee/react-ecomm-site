@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import React from 'react';
 
-export const Badge = props => (
+export const Badge = (props) => (
   <span
     {...props}
     className={cx(

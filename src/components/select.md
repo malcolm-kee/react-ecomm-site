@@ -4,7 +4,7 @@
 const options = [
   { label: 'React', value: 'react' },
   { label: 'Angular', value: 'ng' },
-  { label: 'Vue', value: 'vue' }
+  { label: 'Vue', value: 'vue' },
 ];
 
 const SelectOptionPropsDemo = () => {

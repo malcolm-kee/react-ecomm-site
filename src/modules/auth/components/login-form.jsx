@@ -32,7 +32,7 @@ function LoginFormContent({ status, error, login, logout }) {
   return (
     <Form
       title="Login"
-      onSubmit={ev => {
+      onSubmit={(ev) => {
         ev.preventDefault();
         login(email);
       }}
@@ -70,7 +70,7 @@ function LoginFormContent({ status, error, login, logout }) {
   );
 }
 
-const mapStates = state => ({
+const mapStates = (state) => ({
   status: selectAuthStatus(state),
   error: selectAuthError(state),
 });

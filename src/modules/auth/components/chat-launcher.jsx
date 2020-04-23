@@ -8,7 +8,7 @@ import { LoginForm } from './login-form';
 
 const CHAT_SOCKET_URL = process.env.REACT_APP_CHAT_URL;
 
-const ChatLauncherView = props => {
+const ChatLauncherView = (props) => {
   const [showChat, setShowChat] = React.useState(false);
   const btnRef = React.useRef(null);
   const dismissChat = () => {
@@ -52,7 +52,7 @@ const ChatLauncherView = props => {
   );
 };
 
-const connector = connect(state => ({
+const connector = connect((state) => ({
   user: selectUser(state),
 }));
 

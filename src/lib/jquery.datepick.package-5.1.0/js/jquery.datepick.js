@@ -10,7 +10,7 @@ import './jquery.plugin';
 	Licensed under the MIT (http://keith-wood.name/licence.html) licence. 
 	Please attribute the author if you use it. */
 
-(function($) {
+(function ($) {
   // Hide scope, no $ conflict
   var pluginName = 'datepick';
 
@@ -124,7 +124,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         text: 'prevText',
         status: 'prevStatus', // Previous month
         keystroke: { keyCode: 33 }, // Page up
-        enabled: function(inst) {
+        enabled: function (inst) {
           var minDate = inst.curMinDate();
           return (
             !minDate ||
@@ -147,7 +147,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
               .getTime() >= minDate.getTime()
           );
         },
-        date: function(inst) {
+        date: function (inst) {
           return plugin.day(
             plugin._applyMonthsOffset(
               plugin.add(
@@ -160,7 +160,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
             1
           );
         },
-        action: function(inst) {
+        action: function (inst) {
           plugin.changeMonth(this, -inst.options.monthsToStep);
         },
       },
@@ -168,7 +168,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         text: 'prevJumpText',
         status: 'prevJumpStatus', // Previous year
         keystroke: { keyCode: 33, ctrlKey: true }, // Ctrl + Page up
-        enabled: function(inst) {
+        enabled: function (inst) {
           var minDate = inst.curMinDate();
           return (
             !minDate ||
@@ -191,7 +191,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
               .getTime() >= minDate.getTime()
           );
         },
-        date: function(inst) {
+        date: function (inst) {
           return plugin.day(
             plugin._applyMonthsOffset(
               plugin.add(
@@ -204,7 +204,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
             1
           );
         },
-        action: function(inst) {
+        action: function (inst) {
           plugin.changeMonth(this, -inst.options.monthsToJump);
         },
       },
@@ -212,7 +212,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         text: 'nextText',
         status: 'nextStatus', // Next month
         keystroke: { keyCode: 34 }, // Page down
-        enabled: function(inst) {
+        enabled: function (inst) {
           var maxDate = inst.get('maxDate');
           return (
             !maxDate ||
@@ -231,7 +231,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
               .getTime() <= maxDate.getTime()
           );
         },
-        date: function(inst) {
+        date: function (inst) {
           return plugin.day(
             plugin._applyMonthsOffset(
               plugin.add(
@@ -244,7 +244,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
             1
           );
         },
-        action: function(inst) {
+        action: function (inst) {
           plugin.changeMonth(this, inst.options.monthsToStep);
         },
       },
@@ -252,7 +252,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         text: 'nextJumpText',
         status: 'nextJumpStatus', // Next year
         keystroke: { keyCode: 34, ctrlKey: true }, // Ctrl + Page down
-        enabled: function(inst) {
+        enabled: function (inst) {
           var maxDate = inst.get('maxDate');
           return (
             !maxDate ||
@@ -271,7 +271,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
               .getTime() <= maxDate.getTime()
           );
         },
-        date: function(inst) {
+        date: function (inst) {
           return plugin.day(
             plugin._applyMonthsOffset(
               plugin.add(
@@ -284,7 +284,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
             1
           );
         },
-        action: function(inst) {
+        action: function (inst) {
           plugin.changeMonth(this, inst.options.monthsToJump);
         },
       },
@@ -292,7 +292,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         text: 'currentText',
         status: 'currentStatus', // Current month
         keystroke: { keyCode: 36, ctrlKey: true }, // Ctrl + Home
-        enabled: function(inst) {
+        enabled: function (inst) {
           var minDate = inst.curMinDate();
           var maxDate = inst.get('maxDate');
           var curDate = inst.selectedDates[0] || plugin.today();
@@ -301,10 +301,10 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
             (!maxDate || curDate.getTime() <= maxDate.getTime())
           );
         },
-        date: function(inst) {
+        date: function (inst) {
           return inst.selectedDates[0] || plugin.today();
         },
-        action: function(inst) {
+        action: function (inst) {
           var curDate = inst.selectedDates[0] || plugin.today();
           plugin.showMonth(this, curDate.getFullYear(), curDate.getMonth() + 1);
         },
@@ -313,7 +313,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         text: 'todayText',
         status: 'todayStatus', // Today's month
         keystroke: { keyCode: 36, ctrlKey: true }, // Ctrl + Home
-        enabled: function(inst) {
+        enabled: function (inst) {
           var minDate = inst.curMinDate();
           var maxDate = inst.get('maxDate');
           return (
@@ -321,10 +321,10 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
             (!maxDate || plugin.today().getTime() <= maxDate.getTime())
           );
         },
-        date: function() {
+        date: function () {
           return plugin.today();
         },
-        action: function() {
+        action: function () {
           plugin.showMonth(this);
         },
       },
@@ -332,13 +332,13 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         text: 'clearText',
         status: 'clearStatus', // Clear the datepicker
         keystroke: { keyCode: 35, ctrlKey: true }, // Ctrl + End
-        enabled: function() {
+        enabled: function () {
           return true;
         },
-        date: function() {
+        date: function () {
           return null;
         },
-        action: function() {
+        action: function () {
           plugin.clear(this);
         },
       },
@@ -346,13 +346,13 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         text: 'closeText',
         status: 'closeStatus', // Close the datepicker
         keystroke: { keyCode: 27 }, // Escape
-        enabled: function() {
+        enabled: function () {
           return true;
         },
-        date: function() {
+        date: function () {
           return null;
         },
-        action: function() {
+        action: function () {
           plugin.hide(this);
         },
       },
@@ -360,7 +360,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         text: 'prevWeekText',
         status: 'prevWeekStatus', // Previous week
         keystroke: { keyCode: 38, ctrlKey: true }, // Ctrl + Up
-        enabled: function(inst) {
+        enabled: function (inst) {
           var minDate = inst.curMinDate();
           return (
             !minDate ||
@@ -368,10 +368,10 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
               minDate.getTime()
           );
         },
-        date: function(inst) {
+        date: function (inst) {
           return plugin.add(plugin.newDate(inst.drawDate), -7, 'd');
         },
-        action: function() {
+        action: function () {
           plugin.changeDay(this, -7);
         },
       },
@@ -379,7 +379,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         text: 'prevDayText',
         status: 'prevDayStatus', // Previous day
         keystroke: { keyCode: 37, ctrlKey: true }, // Ctrl + Left
-        enabled: function(inst) {
+        enabled: function (inst) {
           var minDate = inst.curMinDate();
           return (
             !minDate ||
@@ -387,10 +387,10 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
               minDate.getTime()
           );
         },
-        date: function(inst) {
+        date: function (inst) {
           return plugin.add(plugin.newDate(inst.drawDate), -1, 'd');
         },
-        action: function() {
+        action: function () {
           plugin.changeDay(this, -1);
         },
       },
@@ -398,7 +398,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         text: 'nextDayText',
         status: 'nextDayStatus', // Next day
         keystroke: { keyCode: 39, ctrlKey: true }, // Ctrl + Right
-        enabled: function(inst) {
+        enabled: function (inst) {
           var maxDate = inst.get('maxDate');
           return (
             !maxDate ||
@@ -406,10 +406,10 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
               maxDate.getTime()
           );
         },
-        date: function(inst) {
+        date: function (inst) {
           return plugin.add(plugin.newDate(inst.drawDate), 1, 'd');
         },
-        action: function() {
+        action: function () {
           plugin.changeDay(this, 1);
         },
       },
@@ -417,7 +417,7 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
         text: 'nextWeekText',
         status: 'nextWeekStatus', // Next week
         keystroke: { keyCode: 40, ctrlKey: true }, // Ctrl + Down
-        enabled: function(inst) {
+        enabled: function (inst) {
           var maxDate = inst.get('maxDate');
           return (
             !maxDate ||
@@ -425,10 +425,10 @@ $(selector).datepick({minDate: 0, maxDate: '+1m +1w'}) */
               maxDate.getTime()
           );
         },
-        date: function(inst) {
+        date: function (inst) {
           return plugin.add(plugin.newDate(inst.drawDate), 7, 'd');
         },
-        action: function() {
+        action: function () {
           plugin.changeDay(this, 7);
         },
       },
@@ -861,7 +861,7 @@ monthsOffset: function(date) { // Always start on the quarter
 			@param {DatepickCalculateWeek} [settings.calculateWeek] Function that determines week of the year.
 			@return {string} The date in the above format.
 			@example var display = $.datepick.formatDate('yyyy-mm-dd', new Date(2014, 12-1, 25)) */
-    formatDate: function(format, date, settings) {
+    formatDate: function (format, date, settings) {
       if (typeof format !== 'string') {
         settings = date;
         date = format;
@@ -881,7 +881,7 @@ monthsOffset: function(date) { // Always start on the quarter
       var calculateWeek =
         settings.calculateWeek || this.defaultOptions.calculateWeek;
       // Check whether a format character is doubled
-      var doubled = function(match, step) {
+      var doubled = function (match, step) {
         var matches = 1;
         while (
           iFormat + matches < format.length &&
@@ -893,7 +893,7 @@ monthsOffset: function(date) { // Always start on the quarter
         return Math.floor(matches / (step || 1)) > 1;
       };
       // Format a number, with leading zeroes if necessary
-      var formatNumber = function(match, value, len, step) {
+      var formatNumber = function (match, value, len, step) {
         var num = '' + value;
         if (doubled(match, step)) {
           while (num.length < len) {
@@ -903,7 +903,7 @@ monthsOffset: function(date) { // Always start on the quarter
         return num;
       };
       // Format a name, short or long as requested
-      var formatName = function(match, value, shortNames, longNames) {
+      var formatName = function (match, value, shortNames, longNames) {
         return doubled(match) ? longNames[value] : shortNames[value];
       };
       var output = '';
@@ -984,7 +984,7 @@ monthsOffset: function(date) { // Always start on the quarter
 			@throws Errors if the format and/or value are missing, if the value doesn't match the format,
 					or if the date is invalid.
 			@example var date = $.datepick.parseDate('dd/mm/yyyy', '25/12/2014') */
-    parseDate: function(format, value, settings) {
+    parseDate: function (format, value, settings) {
       if (typeof value === 'undefined' || value === null) {
         throw 'Invalid arguments';
       }
@@ -1014,7 +1014,7 @@ monthsOffset: function(date) { // Always start on the quarter
       var literal = false;
       var date = null;
       // Check whether a format character is doubled
-      var doubled = function(match, step) {
+      var doubled = function (match, step) {
         var matches = 1;
         while (
           iFormat + matches < format.length &&
@@ -1026,7 +1026,7 @@ monthsOffset: function(date) { // Always start on the quarter
         return Math.floor(matches / (step || 1)) > 1;
       };
       // Extract a number from the string value
-      var getNumber = function(match, step) {
+      var getNumber = function (match, step) {
         var isDoubled = doubled(match, step);
         var size = [2, 3, isDoubled ? 4 : 2, 11, 20]['oy@!'.indexOf(match) + 1];
         var digits = new RegExp('^-?\\d{1,' + size + '}');
@@ -1038,7 +1038,7 @@ monthsOffset: function(date) { // Always start on the quarter
         return parseInt(num[0], 10);
       };
       // Extract a name from the string value and convert to an index
-      var getName = function(match, shortNames, longNames, step) {
+      var getName = function (match, shortNames, longNames, step) {
         var names = doubled(match, step) ? longNames : shortNames;
         for (var i = 0; i < names.length; i++) {
           if (
@@ -1052,7 +1052,7 @@ monthsOffset: function(date) { // Always start on the quarter
         throw 'Unknown name at position {0}'.replace(/\{0\}/, iValue);
       };
       // Confirm that a literal character matches the string value
-      var checkLiteral = function() {
+      var checkLiteral = function () {
         if (value.charAt(iValue) !== format.charAt(iFormat)) {
           throw 'Unexpected literal at position {0}'.replace(/\{0\}/, iValue);
         }
@@ -1175,7 +1175,7 @@ monthsOffset: function(date) { // Always start on the quarter
 			@param {string[]} [settings.monthNames] Names of the months.
 			@return {Date} The decoded date.
 			@example var date = $.datepick.determineDate('+1m +2w', new Date()) */
-    determineDate: function(
+    determineDate: function (
       dateSpec,
       defaultDate,
       currentDate,
@@ -1191,7 +1191,7 @@ monthsOffset: function(date) { // Always start on the quarter
         settings = dateFormat;
         dateFormat = '';
       }
-      var offsetString = function(offset) {
+      var offsetString = function (offset) {
         try {
           return plugin.parseDate(dateFormat, offset, settings);
         } catch (e) {
@@ -1229,7 +1229,7 @@ monthsOffset: function(date) { // Always start on the quarter
 			@return {number} The number of days in this month.
 			@example var days = $.datepick.daysInMonth(2014, 12)
 var days = $.datepick.daysInMonth(new Date(2014, 12-1, 25)) */
-    daysInMonth: function(year, month) {
+    daysInMonth: function (year, month) {
       month = year.getFullYear ? year.getMonth() + 1 : month;
       year = year.getFullYear ? year.getFullYear() : year;
       return this.newDate(year, month + 1, 0).getDate();
@@ -1242,7 +1242,7 @@ var days = $.datepick.daysInMonth(new Date(2014, 12-1, 25)) */
 			@return {number} The day of the year.
 			@example var doy = $.datepick.dayOfYear(2014, 12, 25)
 var doy = $.datepick.dayOfYear(new Date(2014, 12-1, 25)) */
-    dayOfYear: function(year, month, day) {
+    dayOfYear: function (year, month, day) {
       var date = year.getFullYear ? year : plugin.newDate(year, month, day);
       var newYear = plugin.newDate(date.getFullYear(), 1, 1);
       return (
@@ -1257,7 +1257,7 @@ var doy = $.datepick.dayOfYear(new Date(2014, 12-1, 25)) */
 			@return {number} The number of the week within the year that contains this date.
 			@example var week = $.datepick.iso8601Week(2014, 12, 25)
 var week = $.datepick.iso8601Week(new Date(2014, 12-1, 25)) */
-    iso8601Week: function(year, month, day) {
+    iso8601Week: function (year, month, day) {
       var checkDate = year.getFullYear
         ? new Date(year.getTime())
         : plugin.newDate(year, month, day);
@@ -1273,7 +1273,7 @@ var week = $.datepick.iso8601Week(new Date(2014, 12-1, 25)) */
     /** Return today's date.
 			@return {Date} Today.
 			@example var today = $.datepick.today() */
-    today: function() {
+    today: function () {
       return this._normaliseDate(new Date());
     },
 
@@ -1284,7 +1284,7 @@ var week = $.datepick.iso8601Week(new Date(2014, 12-1, 25)) */
 			@return {Date} The date.
 			@example $.datepick.newDate(oldDate)
 $.datepick.newDate(2014, 12, 25) */
-    newDate: function(year, month, day) {
+    newDate: function (year, month, day) {
       return !year
         ? null
         : year.getFullYear
@@ -1296,7 +1296,7 @@ $.datepick.newDate(2014, 12, 25) */
 			@private
 			@param {Date} date The date to standardise.
 			@return {Date} The normalised date. */
-    _normaliseDate: function(date) {
+    _normaliseDate: function (date) {
       if (date) {
         date.setHours(12, 0, 0, 0);
       }
@@ -1308,7 +1308,7 @@ $.datepick.newDate(2014, 12, 25) */
 			@param {number} year The new year.
 			@return {Date} The updated date.
 			@example $.datepick.year(date, 2014) */
-    year: function(date, year) {
+    year: function (date, year) {
       date.setFullYear(year);
       return this._normaliseDate(date);
     },
@@ -1318,7 +1318,7 @@ $.datepick.newDate(2014, 12, 25) */
 			@param {number} month The new month (1-12).
 			@return {Date} The updated date.
 			@example $.datepick.month(date, 12) */
-    month: function(date, month) {
+    month: function (date, month) {
       date.setMonth(month - 1);
       return this._normaliseDate(date);
     },
@@ -1328,7 +1328,7 @@ $.datepick.newDate(2014, 12, 25) */
 			@param {number} day The new day of the month.
 			@return {Date} The updated date.
 			@example $.datepick.day(date, 25) */
-    day: function(date, day) {
+    day: function (date, day) {
       date.setDate(day);
       return this._normaliseDate(date);
     },
@@ -1339,7 +1339,7 @@ $.datepick.newDate(2014, 12, 25) */
 			@param {string} period The type of period 'd' for days, 'w' for weeks, 'm' for months, 'y' for years.
 			@return {Date} The updated date.
 			@example $.datepick.add(date, 10, 'd') */
-    add: function(date, amount, period) {
+    add: function (date, amount, period) {
       if (period === 'd' || period === 'w') {
         this._normaliseDate(date);
         date.setDate(date.getDate() + amount * (period === 'w' ? 7 : 1));
@@ -1364,7 +1364,7 @@ $.datepick.newDate(2014, 12, 25) */
 			@param {Date} date The original date.
 			@param {object} inst The current instance settings.
 			@return {Date} The updated date. */
-    _applyMonthsOffset: function(date, inst) {
+    _applyMonthsOffset: function (date, inst) {
       var monthsOffset = inst.options.monthsOffset;
       if ($.isFunction(monthsOffset)) {
         monthsOffset = monthsOffset.apply(inst.elem[0], [date]);
@@ -1372,20 +1372,20 @@ $.datepick.newDate(2014, 12, 25) */
       return plugin.add(date, -monthsOffset, 'm');
     },
 
-    _init: function() {
+    _init: function () {
       this.defaultOptions.commands = this.commands;
       this.defaultOptions.calculateWeek = this.iso8601Week;
       this.regionalOptions[''].renderer = this.defaultRenderer;
       this._super();
     },
 
-    _instSettings: function(elem) {
+    _instSettings: function (elem) {
       return {
         selectedDates: [],
         drawDate: null,
         pickingRange: false,
         inline: $.inArray(elem[0].nodeName.toLowerCase(), ['div', 'span']) > -1,
-        get: function(name) {
+        get: function (name) {
           // Get a setting value, computing if necessary
           if ($.inArray(name, ['defaultDate', 'minDate', 'maxDate']) > -1) {
             // Decode date settings
@@ -1399,12 +1399,12 @@ $.datepick.newDate(2014, 12, 25) */
           }
           return this.options[name];
         },
-        curMinDate: function() {
+        curMinDate: function () {
           return this.pickingRange
             ? this.selectedDates[0]
             : this.get('minDate');
         },
-        getConfig: function() {
+        getConfig: function () {
           return {
             dayNamesShort: this.options.dayNamesShort,
             dayNames: this.options.dayNames,
@@ -1417,7 +1417,7 @@ $.datepick.newDate(2014, 12, 25) */
       };
     },
 
-    _postAttach: function(elem, inst) {
+    _postAttach: function (elem, inst) {
       if (inst.inline) {
         inst.drawDate = plugin._checkMinMax(
           plugin.newDate(
@@ -1442,9 +1442,9 @@ $.datepick.newDate(2014, 12, 25) */
       }
     },
 
-    _optionsChanged: function(elem, inst, options) {
+    _optionsChanged: function (elem, inst, options) {
       if (options.calendar && options.calendar !== inst.options.calendar) {
-        var discardDate = function(name) {
+        var discardDate = function (name) {
           return typeof inst.options[name] === 'object'
             ? null
             : inst.options[name];
@@ -1486,7 +1486,7 @@ $.datepick.newDate(2014, 12, 25) */
 			@private
 			@param {jQuery} elem The control to affect.
 			@param {object} inst The current instance settings. */
-    _attachments: function(elem, inst) {
+    _attachments: function (elem, inst) {
       elem.off('focus.' + inst.name);
       if (inst.options.showOnFocus) {
         elem.on('focus.' + inst.name, this.show);
@@ -1502,7 +1502,7 @@ $.datepick.newDate(2014, 12, 25) */
             .removeAttr('id')
             .addClass(this._triggerClass)
             [inst.options.isRTL ? 'insertBefore' : 'insertAfter'](elem)
-            .click(function() {
+            .click(function () {
               if (!plugin.isDisabled(elem[0])) {
                 plugin[plugin.curInst === inst ? 'hide' : 'show'](elem[0]);
               }
@@ -1526,12 +1526,12 @@ $.datepick.newDate(2014, 12, 25) */
 			@private
 			@param {jQuery} elem The control to affect.
 			@param {object} inst The current instance settings. */
-    _autoSize: function(elem, inst) {
+    _autoSize: function (elem, inst) {
       if (inst.options.autoSize && !inst.inline) {
         var date = plugin.newDate(2009, 10, 20); // Ensure double digits
         var dateFormat = inst.options.dateFormat;
         if (dateFormat.match(/[DM]/)) {
-          var findMax = function(names) {
+          var findMax = function (names) {
             var max = 0;
             var maxI = 0;
             for (var i = 0; i < names.length; i++) {
@@ -1570,7 +1570,7 @@ $.datepick.newDate(2014, 12, 25) */
       }
     },
 
-    _preDestroy: function(elem, inst) {
+    _preDestroy: function (elem, inst) {
       if (inst.trigger) {
         inst.trigger.remove();
       }
@@ -1586,9 +1586,9 @@ $.datepick.newDate(2014, 12, 25) */
     /** Apply multiple event functions.
 			@param {function} fns The functions to apply.
 			@example onShow: $.datepick.multipleEvents(fn1, fn2, ...) */
-    multipleEvents: function() {
+    multipleEvents: function () {
       var funcs = arguments;
-      return function() {
+      return function () {
         for (var i = 0; i < funcs.length; i++) {
           funcs[i].apply(this, arguments);
         }
@@ -1598,7 +1598,7 @@ $.datepick.newDate(2014, 12, 25) */
     /** Enable the control.
 			@param {Element} elem The control to affect.
 			@example $(selector).datepick('enable') */
-    enable: function(elem) {
+    enable: function (elem) {
       elem = $(elem);
       if (!elem.hasClass(this._getMarker())) {
         return;
@@ -1623,7 +1623,7 @@ $.datepick.newDate(2014, 12, 25) */
           .filter('img.' + this._triggerClass)
           .css({ opacity: '1.0', cursor: '' });
       }
-      this._disabled = $.map(this._disabled, function(value) {
+      this._disabled = $.map(this._disabled, function (value) {
         return value === elem[0] ? null : value;
       }); // Delete entry
     },
@@ -1631,7 +1631,7 @@ $.datepick.newDate(2014, 12, 25) */
     /** Disable the control.
 			@param {Element} elem The control to affect.
 			@example $(selector).datepick('disable') */
-    disable: function(elem) {
+    disable: function (elem) {
       elem = $(elem);
       if (!elem.hasClass(this._getMarker())) {
         return;
@@ -1641,7 +1641,7 @@ $.datepick.newDate(2014, 12, 25) */
         var inline = elem.children(':last');
         var offset = inline.offset();
         var relOffset = { left: 0, top: 0 };
-        inline.parents().each(function() {
+        inline.parents().each(function () {
           if ($(this).css('position') === 'relative') {
             relOffset = $(this).offset();
             return false;
@@ -1680,7 +1680,7 @@ $.datepick.newDate(2014, 12, 25) */
           .filter('img.' + this._triggerClass)
           .css({ opacity: '0.5', cursor: 'default' });
       }
-      this._disabled = $.map(this._disabled, function(value) {
+      this._disabled = $.map(this._disabled, function (value) {
         return value === elem[0] ? null : value;
       }); // Delete entry
       this._disabled.push(elem[0]);
@@ -1690,14 +1690,14 @@ $.datepick.newDate(2014, 12, 25) */
 			@param {Element} elem The control to examine.
 			@return {boolean} <code>true</code> if disabled, <code>false</code> if enabled.
 			@example if ($(selector).datepick('isDisabled')) {...} */
-    isDisabled: function(elem) {
+    isDisabled: function (elem) {
       return elem && $.inArray(elem, this._disabled) > -1;
     },
 
     /** Show a popup datepicker.
 			@param {Element|Event} elem The control to use or a focus event (internal).
 			@example $(selector).datepick('show') */
-    show: function(elem) {
+    show: function (elem) {
       elem = $(elem.target || elem);
       var inst = plugin._getInst(elem);
       if (plugin.curInst === inst) {
@@ -1762,7 +1762,7 @@ $.datepick.newDate(2014, 12, 25) */
 			@param {object} inst The current instance settings.
 			@param {string} text The text to extract from.
 			@return {Date[]} The extracted dates. */
-    _extractDates: function(inst, datesText) {
+    _extractDates: function (inst, datesText) {
       if (datesText === inst.lastVal) {
         return;
       }
@@ -1812,7 +1812,7 @@ $.datepick.newDate(2014, 12, 25) */
 			@private
 			@param {Event|Element} elem A focus event or the control to use.
 			@param {boolean} hidden <code>true</code> to initially hide the datepicker. */
-    _update: function(elem, hidden) {
+    _update: function (elem, hidden) {
       elem = $(elem.target || elem);
       var inst = plugin._getInst(elem);
       if (!$.isEmptyObject(inst)) {
@@ -1859,7 +1859,7 @@ $.datepick.newDate(2014, 12, 25) */
 			@private
 			@param {Element} elem The control to use.
 			@param {boolean} keyUp <code>true</code> if coming from <code>keyUp</code> processing (internal). */
-    _updateInput: function(elem, keyUp) {
+    _updateInput: function (elem, keyUp) {
       var inst = this._getInst(elem);
       if (!$.isEmptyObject(inst)) {
         var value = '';
@@ -1901,8 +1901,8 @@ $.datepick.newDate(2014, 12, 25) */
 			@private
 			@param {jQuery} elem The element of interest.
 			@return {number[]} The left and top borders. */
-    _getBorders: function(elem) {
-      var convert = function(value) {
+    _getBorders: function (elem) {
+      var convert = function (value) {
         return { thin: 1, medium: 3, thick: 5 }[value] || value;
       };
       return [
@@ -1915,7 +1915,7 @@ $.datepick.newDate(2014, 12, 25) */
 			@private
 			@param {object} inst The current instance settings.
 			@return {object} The updated offset for the datepicker. */
-    _checkOffset: function(inst) {
+    _checkOffset: function (inst) {
       var base =
         inst.elem.is(':hidden') && inst.trigger ? inst.trigger : inst.elem;
       var offset = base.offset();
@@ -1927,7 +1927,7 @@ $.datepick.newDate(2014, 12, 25) */
       var isFixed = false;
       $(inst.elem)
         .parents()
-        .each(function() {
+        .each(function () {
           isFixed = isFixed || $(this).css('position') === 'fixed';
           return !isFixed;
         });
@@ -1981,7 +1981,7 @@ $.datepick.newDate(2014, 12, 25) */
     /** Close date picker if clicked elsewhere.
 			@private
 			@param {MouseEvent} event The mouse click to check. */
-    _checkExternalClick: function(event) {
+    _checkExternalClick: function (event) {
       if (!plugin.curInst) {
         return;
       }
@@ -1999,7 +1999,7 @@ $.datepick.newDate(2014, 12, 25) */
 			@param {Element|object} elem The control to use or the current instance settings.
 			@param {boolean} [immediate=false] <code>true</code> to close immediately without animation (internal).
 			@example $(selector).datepick('hide') */
-    hide: function(elem, immediate) {
+    hide: function (elem, immediate) {
       if (!elem) {
         return;
       }
@@ -2016,7 +2016,7 @@ $.datepick.newDate(2014, 12, 25) */
           parseInt($.ui.version.substring(2)) >= 8
             ? '_default'
             : showSpeed;
-        var postProcess = function() {
+        var postProcess = function () {
           if (!inst.div) {
             return;
           }
@@ -2058,7 +2058,7 @@ $.datepick.newDate(2014, 12, 25) */
 			@private
 			@param {KeyEvent} event The keystroke.
 			@return {boolean} <code>true</code> if not handled, <code>false</code> if handled. */
-    _keyDown: function(event) {
+    _keyDown: function (event) {
       var elem = (event.data && event.data.elem) || event.target;
       var inst = plugin._getInst(elem);
       var handled = false;
@@ -2123,7 +2123,7 @@ $.datepick.newDate(2014, 12, 25) */
 			@private
 			@param {KeyEvent} event The keystroke.
 			@return {boolean} <code>true</code> if allowed, <code>false</code> if not allowed. */
-    _keyPress: function(event) {
+    _keyPress: function (event) {
       var inst = plugin._getInst(
         (event.data && event.data.elem) || event.target
       );
@@ -2145,7 +2145,7 @@ $.datepick.newDate(2014, 12, 25) */
 			@private
 			@param {object} inst The current instance settings.
 			@return {string} The set of allowed characters, or <code>null</code> if anything allowed. */
-    _allowedChars: function(inst) {
+    _allowedChars: function (inst) {
       var allowedChars = inst.options.multiSelect
         ? inst.options.multiSeparator
         : inst.options.rangeSelect
@@ -2204,7 +2204,7 @@ $.datepick.newDate(2014, 12, 25) */
 			@private
 			@param {KeyEvent} event The keystroke.
 			@return {boolean} <code>true</code> if allowed, <code>false</code> if not allowed. */
-    _keyUp: function(event) {
+    _keyUp: function (event) {
       var elem = (event.data && event.data.elem) || event.target;
       var inst = plugin._getInst(elem);
       if (
@@ -2228,7 +2228,7 @@ $.datepick.newDate(2014, 12, 25) */
 			@private
 			@param {event} event The mouse wheel event.
 			@param {number} delta The amount of change. */
-    _doMouseWheel: function(event, delta) {
+    _doMouseWheel: function (event, delta) {
       var elem =
         (plugin.curInst && plugin.curInst.elem[0]) ||
         $(event.target).closest('.' + plugin._getMarker())[0];
@@ -2249,7 +2249,7 @@ $.datepick.newDate(2014, 12, 25) */
     /** Clear an input and close a popup datepicker.
 			@param {Element} elem The control to use.
 			@example $(selector).datepick('clear') */
-    clear: function(elem) {
+    clear: function (elem) {
       var inst = this._getInst(elem);
       if (!$.isEmptyObject(inst)) {
         inst.selectedDates = [];
@@ -2267,7 +2267,7 @@ $.datepick.newDate(2014, 12, 25) */
 			@param {Element} elem The control to examine.
 			@return {Date[]} The selected date(s).
 			@example var dates = $(selector).datepick('getDate') */
-    getDate: function(elem) {
+    getDate: function (elem) {
       var inst = this._getInst(elem);
       return !$.isEmptyObject(inst) ? inst.selectedDates : [];
     },
@@ -2286,7 +2286,7 @@ $.datepick.newDate(2014, 12, 25) */
 			@example $(selector).datepick('setDate', new Date(2014, 12-1, 25))
 $(selector).datepick('setDate', '12/25/2014', '01/01/2015')
 $(selector).datepick('setDate', [date1, date2, date3]) */
-    setDate: function(elem, dates, endDate, keyUp, setOpt) {
+    setDate: function (elem, dates, endDate, keyUp, setOpt) {
       var inst = this._getInst(elem);
       if (!$.isEmptyObject(inst)) {
         if (!$.isArray(dates)) {
@@ -2364,7 +2364,7 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
 			@param {Date|string|number} date The date to check.
 			@return {boolean} <code>true</code> if selectable, <code>false</code> if not.
 			@example var selectable = $(selector).datepick('isSelectable', date) */
-    isSelectable: function(elem, date) {
+    isSelectable: function (elem, date) {
       var inst = this._getInst(elem);
       if ($.isEmptyObject(inst)) {
         return false;
@@ -2394,7 +2394,7 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
 			@param {Date} minDate The minimum allowed date.
 			@param {Date} maxDate The maximum allowed date.
 			@return {boolean} <code>true</code> if selectable, <code>false</code> if not. */
-    _isSelectable: function(elem, date, onDate, minDate, maxDate) {
+    _isSelectable: function (elem, date, onDate, minDate, maxDate) {
       var dateInfo =
         typeof onDate === 'boolean'
           ? { selectable: onDate }
@@ -2412,7 +2412,7 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
 			@param {element} elem The control to affect.
 			@param {string} action The name of the action.
 			@example $(selector).datepick('performAction', 'prev') */
-    performAction: function(elem, action) {
+    performAction: function (elem, action) {
       var inst = this._getInst(elem);
       if (!$.isEmptyObject(inst) && !this.isDisabled(elem)) {
         var commands = inst.options.commands;
@@ -2428,7 +2428,7 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
 			@param {number} [month] The month to show (1-12).
 			@param {number} [day] The day to show.
 			@example $(selector).datepick('showMonth', 2014, 12, 25) */
-    showMonth: function(elem, year, month, day) {
+    showMonth: function (elem, year, month, day) {
       var inst = this._getInst(elem);
       if (
         !$.isEmptyObject(inst) &&
@@ -2461,7 +2461,7 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
 			@param {Element} elem The control to affect.
 			@param {number} offset The number of months to change by.
 			@example $(selector).datepick('changeMonth', 2)*/
-    changeMonth: function(elem, offset) {
+    changeMonth: function (elem, offset) {
       var inst = this._getInst(elem);
       if (!$.isEmptyObject(inst)) {
         var date = plugin.add(plugin.newDate(inst.drawDate), offset, 'm');
@@ -2473,7 +2473,7 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
 			@param {Element} elem The control to affect.
 			@param {number} offset The number of days to change by.
 			@example $(selector).datepick('changeDay', 7)*/
-    changeDay: function(elem, offset) {
+    changeDay: function (elem, offset) {
       var inst = this._getInst(elem);
       if (!$.isEmptyObject(inst)) {
         var date = plugin.add(plugin.newDate(inst.drawDate), offset, 'd');
@@ -2490,7 +2490,7 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
 			@private
 			@param {Date} date The date to check.
 			@param {object} inst The current instance settings. */
-    _checkMinMax: function(date, inst) {
+    _checkMinMax: function (date, inst) {
       var minDate = inst.get('minDate');
       var maxDate = inst.get('maxDate');
       date =
@@ -2509,7 +2509,7 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
 			@param {Element} target The selected datepicker element.
 			@return {Date} The corresponding date, or <code>null</code>.
 			@example var date = $(selector).datepick('retrieveDate', $('div.datepick-popup a:contains(10)')[0]) */
-    retrieveDate: function(elem, target) {
+    retrieveDate: function (elem, target) {
       var inst = this._getInst(elem);
       return $.isEmptyObject(inst)
         ? null
@@ -2524,7 +2524,7 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
 			@param {Element} elem The control to examine.
 			@param {Element} target The selected datepicker element.
 			@example $(selector).datepick('selectDate', $('div.datepick-popup a:contains(10)')[0]) */
-    selectDate: function(elem, target) {
+    selectDate: function (elem, target) {
       var inst = this._getInst(elem);
       if (!$.isEmptyObject(inst) && !this.isDisabled(elem)) {
         var date = this.retrieveDate(elem, target);
@@ -2570,7 +2570,7 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
 			@param {Element} elem The control to affect.
 			@param {object} inst The current instance settings.
 			@return {jQuery} The datepicker content */
-    _generateContent: function(elem, inst) {
+    _generateContent: function (elem, inst) {
       var monthsToShow = inst.options.monthsToShow;
       monthsToShow = $.isArray(monthsToShow) ? monthsToShow : [1, monthsToShow];
       inst.drawDate = this._checkMinMax(
@@ -2608,7 +2608,7 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
           this._generateDayHeaders(inst, inst.options.renderer)
         );
       // Add commands
-      var addCommand = function(type, open, close, name, classes) {
+      var addCommand = function (type, open, close, name, classes) {
         if (picker.indexOf('{' + type + ':' + name + '}') === -1) {
           return;
         }
@@ -2668,7 +2668,7 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
       picker = $(picker);
       if (monthsToShow[1] > 1) {
         var count = 0;
-        $(inst.options.renderer.monthSelector, picker).each(function() {
+        $(inst.options.renderer.monthSelector, picker).each(function () {
           var nth = ++count % monthsToShow[1];
           $(this).addClass(nth === 1 ? 'first' : nth === 0 ? 'last' : '');
         });
@@ -2684,21 +2684,19 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
       }
       picker
         .find(inst.options.renderer.daySelector + ' a')
-        .hover(function() {
+        .hover(function () {
           removeHighlight.apply(this);
           $(this).addClass(inst.options.renderer.highlightedClass);
         }, removeHighlight)
-        .click(function() {
+        .click(function () {
           self.selectDate(elem, this);
         })
         .end()
         .find(
           'select.' + this._monthYearClass + ':not(.' + this._anyYearClass + ')'
         )
-        .change(function() {
-          var monthYear = $(this)
-            .val()
-            .split('/');
+        .change(function () {
+          var monthYear = $(this).val().split('/');
           self.showMonth(
             elem,
             parseInt(monthYear[1], 10),
@@ -2707,7 +2705,7 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
         })
         .end()
         .find('select.' + this._anyYearClass)
-        .click(function() {
+        .click(function () {
           $(this)
             .css('visibility', 'hidden')
             .next('input')
@@ -2722,7 +2720,7 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
         })
         .end()
         .find('input.' + self._monthYearClass)
-        .change(function() {
+        .change(function () {
           try {
             var year = parseInt($(this).val(), 10);
             year = isNaN(year) ? inst.drawDate.getFullYear() : year;
@@ -2736,16 +2734,13 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
             window.alert(e);
           }
         })
-        .keydown(function(event) {
+        .keydown(function (event) {
           if (event.keyCode === 13) {
             // Enter
             $(event.elem).change();
           } else if (event.keyCode === 27) {
             // Escape
-            $(event.elem)
-              .hide()
-              .prev('select')
-              .css('visibility', 'visible');
+            $(event.elem).hide().prev('select').css('visibility', 'visible');
             inst.elem.focus();
           }
         });
@@ -2756,7 +2751,7 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
         .keypress(data, this._keyPress)
         .keyup(data, this._keyUp);
       // Add command behaviour
-      picker.find('.' + inst.options.renderer.commandClass).click(function() {
+      picker.find('.' + inst.options.renderer.commandClass).click(function () {
         if (!$(this).hasClass(inst.options.renderer.disabledClass)) {
           var action = this.className.replace(
             new RegExp(
@@ -2780,7 +2775,7 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
       // Resize
       $('body').append(picker);
       var width = 0;
-      picker.find(inst.options.renderer.monthSelector).each(function() {
+      picker.find(inst.options.renderer.monthSelector).each(function () {
         width += $(this).outerWidth();
       });
       picker.width(width / monthsToShow[0]);
@@ -2800,7 +2795,7 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
 			@param {object} renderer The rendering templates.
 			@param {boolean} first <code>true</code> if first of multiple months.
 			@return {string} The month content. */
-    _generateMonth: function(elem, inst, year, month, renderer, first) {
+    _generateMonth: function (elem, inst, year, month, renderer, first) {
       var daysInMonth = plugin.daysInMonth(year, month);
       var monthsToShow = inst.options.monthsToShow;
       monthsToShow = $.isArray(monthsToShow) ? monthsToShow : [1, monthsToShow];
@@ -2954,7 +2949,7 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
 			@param {object} inst The current instance settings.
 			@param {object} renderer The rendering templates.
 			@return {string} A week's worth of day headers. */
-    _generateDayHeaders: function(inst, renderer) {
+    _generateDayHeaders: function (inst, renderer) {
       var header = '';
       for (var day = 0; day < 7; day++) {
         var dow = (day + inst.options.firstDay) % 7;
@@ -2982,7 +2977,7 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
 			@param {Date} maxDate The maximum date allowed.
 			@param {string} monthHeader The month/year format.
 			@return {string} The month selection content. */
-    _generateMonthSelection: function(
+    _generateMonthSelection: function (
       inst,
       year,
       month,
@@ -3070,7 +3065,7 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
           '">';
         start = plugin.add(plugin.newDate(start + 1, 1, 1), -1, 'd');
         end = plugin.newDate(end, 1, 1);
-        var addYear = function(y, yDisplay) {
+        var addYear = function (y, yDisplay) {
           if (y !== 0) {
             selector +=
               '<option value="' +
@@ -3138,8 +3133,8 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
 			@param {string} text The text to localise.
 			@param {object} inst The current instance settings.
 			@return {string} The localised text. */
-    _prepare: function(text, inst) {
-      var replaceSection = function(type, retain) {
+    _prepare: function (text, inst) {
+      var replaceSection = function (type, retain) {
         while (true) {
           var start = text.indexOf('{' + type + ':start}');
           if (start === -1) {
@@ -3169,10 +3164,10 @@ $(selector).datepick('setDate', [date1, date2, date3]) */
 
   var plugin = $.datepick; // Singleton instance
 
-  $(function() {
+  $(function () {
     $(document)
       .on('mousedown.' + pluginName, plugin._checkExternalClick)
-      .on('resize.' + pluginName, function() {
+      .on('resize.' + pluginName, function () {
         plugin.hide(plugin.curInst);
       });
   });

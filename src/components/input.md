@@ -23,6 +23,6 @@ import { Label } from './label';
 initialState = { name: '' };
 <div>
   <div>{state.name}</div>
-  <Input value={state.name} onChangeValue={name => setState({ name })} />
+  <Input value={state.name} onChangeValue={(name) => setState({ name })} />
 </div>;
 ```

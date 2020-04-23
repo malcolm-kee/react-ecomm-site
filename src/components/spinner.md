@@ -14,7 +14,7 @@ initialState = { show: true };
   <p>This is an example of `delayShow` of 1000 (1 sec).</p>
   <Button
     color="primary"
-    onClick={() => setState(prevState => ({ show: !prevState.show }))}
+    onClick={() => setState((prevState) => ({ show: !prevState.show }))}
   >
     {state.show ? 'Hide' : 'Show'} Spinner
   </Button>
