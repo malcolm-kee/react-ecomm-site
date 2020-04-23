@@ -44,11 +44,11 @@ const fileUploadSlice = createSlice({
   name: 'fileUpload',
   initialState: uploadInitialState,
   reducers: {
-    startUpload: state => {
+    startUpload: (state) => {
       const errorIds = state.fileIds.filter(
-        id => state.files[id] && state.files[id].status === 'error'
+        (id) => state.files[id] && state.files[id].status === 'error'
       );
-      errorIds.forEach(errorId => {
+      errorIds.forEach((errorId) => {
         state.fileIds.splice(state.fileIds.indexOf(errorId), 1);
         delete state.files[errorId];
       });
@@ -150,7 +150,7 @@ export const FileUpload = ({
   React.useEffect(() => {
     const map = abortMap.current;
     return function cleanup() {
-      map.forEach(abortFn => abortFn());
+      map.forEach((abortFn) => abortFn());
     };
   }, [abortMap]);
 
@@ -158,13 +158,13 @@ export const FileUpload = ({
     const files = Array.from(filelist);
     dispatch(actions.startUpload());
 
-    files.forEach(file => {
+    files.forEach((file) => {
       const fileId = getId();
       Promise.resolve(
         /^image\/*/.test(file.type)
           ? getFilePreviewUrl(file)
           : Promise.resolve('')
-      ).then(previewUrl => {
+      ).then((previewUrl) => {
         dispatch(
           actions.uploadFile({
             id: fileId,
@@ -184,7 +184,7 @@ export const FileUpload = ({
               latestOnNewFileAdded.current(fileUrl, file.name);
             }
           },
-          onProgress: progress =>
+          onProgress: (progress) =>
             dispatch(actions.updateUploadProgress({ fileId, progress })),
         });
         abortMap.current.set(fileId, abortUpload);
@@ -200,15 +200,15 @@ export const FileUpload = ({
       <div className={styles.dropZoneContainer}>
         <div
           className={cx(styles.dropZone, isDragOver && styles.dropZoneActive)}
-          onDragEnter={ev => {
+          onDragEnter={(ev) => {
             preventDefault(ev);
             setIsDragOver(true);
           }}
-          onDragLeave={ev => {
+          onDragLeave={(ev) => {
             preventDefault(ev);
             setIsDragOver(false);
           }}
-          onDrop={ev => {
+          onDrop={(ev) => {
             preventDefault(ev);
             if (ev.dataTransfer.files) {
               handleFiles(ev.dataTransfer.files);
@@ -228,7 +228,7 @@ export const FileUpload = ({
             {...props}
             id={id}
             className={`sr-only ${styles.input}`}
-            onChange={callAll(onChange, ev => {
+            onChange={callAll(onChange, (ev) => {
               if (ev.target.files) {
                 handleFiles(ev.target.files);
               }
@@ -249,7 +249,7 @@ export const FileUpload = ({
       </div>
       {totalFiles > 0 && (
         <div>
-          {uploadState.fileIds.map(fileId => {
+          {uploadState.fileIds.map((fileId) => {
             const file = uploadState.files[fileId];
 
             return file.status === 'error' ? (

@@ -62,7 +62,7 @@ function MainPageContent({
           </blockquote>
         </Jumbotron>
         <div className={styles.grid}>
-          {products.map(product => (
+          {products.map((product) => (
             <ProductBox {...product} key={product.id} />
           ))}
         </div>

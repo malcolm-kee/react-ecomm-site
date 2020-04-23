@@ -60,7 +60,7 @@ const ScrollDemo = () => {
   return (
     <div>
       <div className="btn-toolbar">
-        <Button color="warning" onClick={() => setShow(s => !s)}>
+        <Button color="warning" onClick={() => setShow((s) => !s)}>
           Show Scroll Effect
         </Button>
       </div>

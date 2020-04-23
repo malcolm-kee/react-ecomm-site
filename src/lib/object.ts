@@ -4,7 +4,7 @@ export function pick<T extends {}, KeysToPick extends keyof T>(
 ): Pick<T, KeysToPick> {
   const result = {} as Pick<T, KeysToPick>;
 
-  keysToPick.forEach(key => {
+  keysToPick.forEach((key) => {
     result[key] = oriObject[key];
   });
 
@@ -17,7 +17,7 @@ export function omit<T extends {}, KeysToOmit extends keyof T>(
 ): Omit<T, KeysToOmit> {
   const result = Object.assign({}, oriObject);
 
-  keysToOmit.forEach(key => delete result[key]);
+  keysToOmit.forEach((key) => delete result[key]);
 
   return result;
 }

@@ -34,7 +34,7 @@ function LoginFormContent({ status, error, login, logout }: ReduxProps) {
   return (
     <Form
       title="Login"
-      onSubmit={ev => {
+      onSubmit={(ev) => {
         ev.preventDefault();
         login(email);
       }}

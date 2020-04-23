@@ -32,8 +32,8 @@ function useQty(productId: number) {
 
   return {
     qty,
-    increment: () => setQty(q => q + 1),
-    decrement: () => setQty(q => q - 1),
+    increment: () => setQty((q) => q + 1),
+    decrement: () => setQty((q) => q - 1),
   };
 }
 
@@ -138,7 +138,7 @@ function ProductPageContent({
             <aside className="mb-4 pb-2 border-b border-gray-300">
               <h2 className="mb-2 text-gray-700">Related Products</h2>
               <div className="overflow-y-auto py-1 flex -mx-1 sm:-mx-2">
-                {details.related.map(productId => (
+                {details.related.map((productId) => (
                   <ProductBoxContainer
                     className="mx-1 sm:mx-2 flex-shrink-0 w-40"
                     productId={productId}

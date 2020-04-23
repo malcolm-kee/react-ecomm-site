@@ -19,8 +19,8 @@ const ChatToSelf = () => {
         ))}
       </ChatHistory>
       <ChatInput
-        onSend={newMsg =>
-          setMsgs(currentMsg =>
+        onSend={(newMsg) =>
+          setMsgs((currentMsg) =>
             currentMsg.concat({
               message: newMsg,
               sendTime: /(^\d{2}:\d{2})/.exec(new Date().toTimeString())[1],

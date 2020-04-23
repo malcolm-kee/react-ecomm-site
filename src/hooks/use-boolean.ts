@@ -8,7 +8,7 @@ import * as React from 'react';
 export const useBoolean = (initialValue: boolean | (() => boolean)) => {
   const [value, setValue] = React.useState(initialValue);
   const toggle = React.useCallback(() => {
-    setValue(val => !val);
+    setValue((val) => !val);
   }, []);
   return [value, toggle, setValue] as const;
 };

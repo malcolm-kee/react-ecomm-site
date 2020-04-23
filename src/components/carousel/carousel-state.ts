@@ -20,11 +20,11 @@ const carouselSlice = createSlice({
     activeIndex: 0,
   } as CarouselState,
   reducers: {
-    next: state => {
+    next: (state) => {
       state.previousIndex = state.activeIndex;
       state.activeIndex++;
     },
-    prev: state => {
+    prev: (state) => {
       state.previousIndex = state.activeIndex;
       state.activeIndex--;
     },
@@ -102,7 +102,7 @@ export const useCarouselState = (
         previousIndex,
         totalSlides
       ),
-      setActiveIndex: function(newIndex: number) {
+      setActiveIndex: function (newIndex: number) {
         dispatch(carouselActions.override(newIndex));
         resetRef.current();
       },

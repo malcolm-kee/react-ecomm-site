@@ -20,7 +20,7 @@ export const upload = (file: File, { onDone, onProgress }: UploadCallbacks) => {
   if (onProgress) {
     xhr.upload.addEventListener(
       'progress',
-      ev => {
+      (ev) => {
         if (ev.lengthComputable) {
           const percentage = Math.round(100 * (ev.loaded / ev.total));
           onProgress(percentage);
@@ -35,13 +35,13 @@ export const upload = (file: File, { onDone, onProgress }: UploadCallbacks) => {
   }
 
   fetch()
-    .then(res => {
+    .then((res) => {
       if (res.ok) {
-        return res.json().then(res => onDone(null, res.files[0]));
+        return res.json().then((res) => onDone(null, res.files[0]));
       }
-      return res.text().then(text => onDone(new Error(text), ''));
+      return res.text().then((text) => onDone(new Error(text), ''));
     })
-    .catch(err => {
+    .catch((err) => {
       onDone(err, '');
     });
 
@@ -56,7 +56,7 @@ export const getFilePreviewUrl = (file: File): Promise<string> => {
   }
   return new Promise((fulfill, reject) => {
     const reader = new FileReader();
-    reader.onload = ev => {
+    reader.onload = (ev) => {
       if (ev.target) {
         return fulfill(ev.target.result as string);
       }

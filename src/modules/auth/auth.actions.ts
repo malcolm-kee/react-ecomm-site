@@ -4,7 +4,7 @@ import * as authService from './auth.service';
 import { authActions } from './auth.slice';
 import { AuthUser } from './auth.type';
 
-export const initAuthStatus = (): ThunkAction<void> => dispatch => {
+export const initAuthStatus = (): ThunkAction<void> => (dispatch) => {
   const user = load('user');
 
   dispatch(user ? authActions.login(user as AuthUser) : authActions.logout());
@@ -16,7 +16,7 @@ export const register = ({
 }: {
   email: string;
   name: string;
-}): ThunkAction<void> => dispatch => {
+}): ThunkAction<void> => (dispatch) => {
   dispatch(authActions.authenticating());
 
   return authService
@@ -24,32 +24,36 @@ export const register = ({
       email,
       name,
     })
-    .then(user => {
+    .then((user) => {
       dispatch(authActions.login(user));
       save('user', user);
     })
-    .catch(err => {
-      extractErrorMessage(err).then(msg =>
+    .catch((err) => {
+      extractErrorMessage(err).then((msg) =>
         dispatch(authActions.authError(msg))
       );
     });
 };
 
-export const attemptLogin = (email: string): ThunkAction<void> => dispatch => {
+export const attemptLogin = (email: string): ThunkAction<void> => (
+  dispatch
+) => {
   dispatch(authActions.authenticating());
 
   return authService
     .login({ email })
-    .then(user => {
+    .then((user) => {
       dispatch(authActions.login(user));
       save('user', user);
     })
-    .catch(err =>
-      extractErrorMessage(err).then(msg => dispatch(authActions.authError(msg)))
+    .catch((err) =>
+      extractErrorMessage(err).then((msg) =>
+        dispatch(authActions.authError(msg))
+      )
     );
 };
 
-export const attemptLogout = (): ThunkAction<void> => dispatch => {
+export const attemptLogout = (): ThunkAction<void> => (dispatch) => {
   clear('user');
   dispatch(authActions.logout());
 };

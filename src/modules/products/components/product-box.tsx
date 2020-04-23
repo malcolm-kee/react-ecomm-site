@@ -17,7 +17,7 @@ export function ProductBox({
     <Panel
       color="default"
       className={cx('product-box', className)}
-      renderContainer={props => <Link to={`/product/${id}`} {...props} />}
+      renderContainer={(props) => <Link to={`/product/${id}`} {...props} />}
     >
       <PanelHeading className="product-box-name">{name}</PanelHeading>
       <PanelBody className="product-box-body">

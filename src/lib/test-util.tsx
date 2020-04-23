@@ -23,7 +23,7 @@ export function renderWithStateMgmtAndRouter(
   const store = configureStore({
     reducer: rootReducer,
   });
-  actions.forEach(action => store.dispatch(action));
+  actions.forEach((action) => store.dispatch(action));
 
   return {
     store,

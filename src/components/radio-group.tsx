@@ -44,7 +44,7 @@ export const RadioGroup = <Value extends any = string>({
               type="radio"
               id={`${usedId}-${index}`}
               value={isPrimitive(option.value) ? `${option.value}` : undefined}
-              onChange={ev => {
+              onChange={(ev) => {
                 if (ev.target.checked) {
                   onChangeValue(option.value);
                 } else {

@@ -33,7 +33,7 @@ export function fetchWithRetry(
       const request = xhrX(url, init).fetch();
 
       request
-        .then(response => {
+        .then((response) => {
           if (response.ok) {
             fulfill(response);
           } else if (shouldRetry(attemptCount)) {
@@ -46,7 +46,7 @@ export function fetchWithRetry(
             reject(error);
           }
         })
-        .catch(err => {
+        .catch((err) => {
           if (shouldRetry(attemptCount)) {
             retryRequest();
           } else {
@@ -72,7 +72,7 @@ export function fetchJson(url: string, options: FetchInit & RetryOptions = {}) {
   return fetchWithRetry(url, {
     json: true,
     ...options,
-  }).then(res => res.json());
+  }).then((res) => res.json());
 }
 
 export const xhrX = (url: string, options: FetchInit = {}) => {

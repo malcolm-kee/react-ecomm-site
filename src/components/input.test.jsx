@@ -4,7 +4,7 @@ import { Input } from './input';
 
 describe('<Input />', () => {
   it('call both onChange and onChangeValue when value change', () => {
-    const onChange = jest.fn(ev => ev.target.value);
+    const onChange = jest.fn((ev) => ev.target.value);
     const onChangeValue = jest.fn();
     const { getByTestId } = render(
       <Input

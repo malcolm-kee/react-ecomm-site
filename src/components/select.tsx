@@ -61,7 +61,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         id={inputId}
         onChange={callAll(
           onChange,
-          onChangeValue && (ev => onChangeValue(ev.target.value))
+          onChangeValue && ((ev) => onChangeValue(ev.target.value))
         )}
         {...selectProps}
         ref={ref}

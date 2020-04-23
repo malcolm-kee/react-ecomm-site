@@ -2,9 +2,9 @@
 import { Button } from './button';
 import { ErrorBoundary } from './error-boundary';
 
-const BuggyComponent = props => <div>{props.test.something}</div>;
+const BuggyComponent = (props) => <div>{props.test.something}</div>;
 
-const ErrorBoundaryDemo = props => {
+const ErrorBoundaryDemo = (props) => {
   const [show, setShow] = React.useState(false);
 
   return (

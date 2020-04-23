@@ -20,7 +20,7 @@ class MarketingBannerView extends React.Component<
   };
 
   loadImage = () =>
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       loadedImageCount: prevState.loadedImageCount + 1,
     }));
 
@@ -41,7 +41,7 @@ class MarketingBannerView extends React.Component<
       <Carousel>
         {isAllImageLoaded && <CarouselIndicators />}
         <Slides>
-          {banners.map(banner => (
+          {banners.map((banner) => (
             <Slide
               key={banner['500']}
               caption={

@@ -52,7 +52,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         aria-describedby={`${inputId}-help`}
         onChange={callAll(
           onChange,
-          onChangeValue && (ev => onChangeValue(ev.target.value))
+          onChangeValue && ((ev) => onChangeValue(ev.target.value))
         )}
         {...inputProps}
         ref={ref}

@@ -64,7 +64,7 @@ export const ListGroup = (props: ListGroupProps) => {
                 ? variantClasses[variant].active
                 : 'bg-blue-500 text-gray-100'
             }
-            isActive={match => (isDefined(active) ? active : !!match)}
+            isActive={(match) => (isDefined(active) ? active : !!match)}
             {...linkProps}
             key={index}
           >

@@ -1,2 +1,2 @@
 export const waitFor = (ms: number) =>
-  new Promise(fulfill => setTimeout(fulfill, ms));
+  new Promise((fulfill) => setTimeout(fulfill, ms));

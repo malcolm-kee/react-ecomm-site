@@ -53,7 +53,7 @@ function ProductCommentsContent({
     <>
       {isLoading && <Spinner />}
       <div className="mb-3">
-        {comments.map(comment => (
+        {comments.map((comment) => (
           <ProductComment {...comment} key={comment.id} />
         ))}
         {!isLoading && comments.length === 0 && (

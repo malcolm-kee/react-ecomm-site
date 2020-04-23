@@ -47,10 +47,10 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         id={inputId}
         onChange={callAll(
           onChange,
-          onChangeValue && (ev => onChangeValue(ev.target.value))
+          onChangeValue && ((ev) => onChangeValue(ev.target.value))
         )}
         {...textareaProps}
-        inputRef={ref => {
+        inputRef={(ref) => {
           if (isFunction(forwardedRef)) {
             forwardedRef(ref);
           } else {

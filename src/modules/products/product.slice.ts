@@ -15,7 +15,7 @@ const productSlice = createSlice({
   initialState: DEFAULT_STATE,
   reducers: {
     addProducts: (state, { payload }: PayloadAction<Product[]>) => {
-      payload.forEach(product => {
+      payload.forEach((product) => {
         state.productsByKey[product.id] = product;
         state.productIds.push(product.id);
       });
@@ -23,7 +23,7 @@ const productSlice = createSlice({
       state.hasMore = payload.length !== 0;
       state.loadingProducts = false;
     },
-    loadingProducts: state => {
+    loadingProducts: (state) => {
       state.loadingProducts = true;
     },
     setProductDetails: (state, { payload }: PayloadAction<Product>) => {

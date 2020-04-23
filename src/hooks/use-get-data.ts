@@ -13,8 +13,8 @@ export function useGetData<DataType>(
   React.useEffect(() => {
     const { xhr, fetch } = xhrX(url, { json: true, params });
     fetch()
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         setData(data);
         setStatus('idle');
       })

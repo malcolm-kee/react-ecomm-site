@@ -23,11 +23,11 @@ function loadApp({ url = '/' } = {}) {
     waitForProductPageFinishLoading: () => findByText(addToCartBtnLabel),
     addQty: () => user.click(getByTestId('add-qty-btn')),
     minusQty: () => user.click(getByTestId('reduce-qty-btn')),
-    getCartItemQty: id => getByTestId(`qty-for-${id}`).innerHTML,
-    queryCartItem: id => queryByTestId(`qty-for-${id}`),
-    addMoreCartItem: id => user.click(getByTestId(`add-${id}`)),
-    reduceCartItem: id => user.click(getByTestId(`reduce-${id}`)),
-    removeCartItem: id => user.click(getByTestId(`remove-${id}`)),
+    getCartItemQty: (id) => getByTestId(`qty-for-${id}`).innerHTML,
+    queryCartItem: (id) => queryByTestId(`qty-for-${id}`),
+    addMoreCartItem: (id) => user.click(getByTestId(`add-${id}`)),
+    reduceCartItem: (id) => user.click(getByTestId(`reduce-${id}`)),
+    removeCartItem: (id) => user.click(getByTestId(`remove-${id}`)),
   };
 }
 

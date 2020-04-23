@@ -36,7 +36,7 @@ function RegisterFormContent({ status, error, register, logout }: ReduxProps) {
   return (
     <Form
       title="Signup"
-      onSubmit={ev => {
+      onSubmit={(ev) => {
         ev.preventDefault();
         register({ name, email });
       }}

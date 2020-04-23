@@ -50,7 +50,7 @@ export const DateInput = ({
       dateFormat,
       pickerClass: styles.datepick,
       showAnim: '',
-      onSelect: dates => {
+      onSelect: (dates) => {
         if (onChangeValueRef.current) {
           onChangeValueRef.current(getDateValue(dates[0]));
         }

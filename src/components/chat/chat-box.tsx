@@ -21,7 +21,7 @@ export const ChatBox = ({
 }: ChatBoxProps) => {
   const [messages, setMessages] = React.useState<Message[]>([]);
   const [status, send] = useSocket(socketEndpoint, {
-    onMessage: data => setMessages(msgs => msgs.concat(data)),
+    onMessage: (data) => setMessages((msgs) => msgs.concat(data)),
   });
 
   return (
@@ -48,7 +48,7 @@ export const ChatBox = ({
         })}
       </ChatHistory>
       <ChatInput
-        onSend={message => {
+        onSend={(message) => {
           send({
             userId,
             message,

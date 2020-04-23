@@ -24,7 +24,7 @@ export const ComplainForm = () => {
 
   return (
     <Form
-      onSubmit={ev => {
+      onSubmit={(ev) => {
         ev.preventDefault();
         if (!isLastPage) {
           setCurrentPage(currentPage + 1);

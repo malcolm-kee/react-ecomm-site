@@ -75,7 +75,7 @@ function createMockSocketServer() {
   return {
     server,
     endpoint,
-    sendSystemMessage: message => {
+    sendSystemMessage: (message) => {
       act(() => {
         server.send({
           type: 'System',

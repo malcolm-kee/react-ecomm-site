@@ -37,7 +37,7 @@ const PaymentFormView = (props: ConnectedProps<typeof connector>) => {
   ) : (
     <React.Suspense fallback={<Spinner />}>
       <form
-        onSubmit={ev => {
+        onSubmit={(ev) => {
           ev.preventDefault();
           props.pay(name).then(() => setPaid(true));
         }}
@@ -81,7 +81,7 @@ const PaymentFormView = (props: ConnectedProps<typeof connector>) => {
                   <TextField
                     label="Valid Thru"
                     value={expiry}
-                    onChangeValue={newExpiry =>
+                    onChangeValue={(newExpiry) =>
                       setExpiry(
                         newExpiry.length === 2 ? newExpiry + '/' : newExpiry
                       )

@@ -283,7 +283,7 @@ export function getProducts(page: number, limit = 12) {
 
 export function getProduct(productId: number) {
   const foundProduct = PRODUCT_DB.find(
-    product => product.id === Number(productId)
+    (product) => product.id === Number(productId)
   );
   return Promise.resolve(foundProduct);
 }

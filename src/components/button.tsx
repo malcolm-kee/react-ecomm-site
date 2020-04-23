@@ -47,7 +47,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       color,
       size,
       className,
-      renderContainer = providedProps => <button {...providedProps} />,
+      renderContainer = (providedProps) => <button {...providedProps} />,
       disabled,
       ...buttonProps
     },

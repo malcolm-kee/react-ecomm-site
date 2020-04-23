@@ -4,7 +4,7 @@ const selectProductStore = (state: RootState) => state.product;
 
 export const selectProducts = (state: RootState) => {
   const productStore = selectProductStore(state);
-  return productStore.productIds.map(id => productStore.productsByKey[id]);
+  return productStore.productIds.map((id) => productStore.productsByKey[id]);
 };
 
 export const selectProductIsLoading = (state: RootState) =>
