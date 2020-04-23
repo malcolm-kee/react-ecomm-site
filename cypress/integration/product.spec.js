@@ -3,53 +3,41 @@
 
 describe(`product`, () => {
   it(`can view product details`, () => {
-    cy.visit('/')
-      .get('.product-box')
-      .first()
-      .click()
+    cy.visit('/').get('.product-box').first().click();
 
-      .findByText('Share')
-      .click()
+    cy.findByText('Share').click();
 
-      .findByText('Add To Cart')
-      .click()
-      .findByText('Cart')
-      .click();
+    cy.findByText('Add To Cart').click();
+    cy.findByText('Cart').click();
   });
 
   it(`focus on content input when user name is default`, () => {
     cy.createUser({
       name: 'Winnie The Pooth',
-    }).then(user => {
-      cy.visit('/')
-        .findByText('Login')
-        .click()
-        .findByLabelText('Email')
+    }).then((user) => {
+      cy.visit('/');
+      cy.findByText('Login').click();
+      cy.findByLabelText('Email')
         .type(user.email)
         .get('form')
-        .within(subject => {
+        .within((subject) => {
           cy.findByText('Login', {
             container: subject,
             selector: 'button',
           }).click();
-        })
+        });
 
-        .findByAltText('Shopit', {
-          selector: 'a',
-        })
+      cy.findByAltText('Shopit', {
+        selector: 'a',
+      })
         .first()
-        .click()
+        .click();
 
-        .get('.product-box')
-        .last()
-        .click()
+      cy.get('.product-box').last().click();
 
-        .findByLabelText('Your Review')
-        .type('I love honey{enter}do you?')
-        .findByText('Add')
-        .click()
-        .findByLabelText('Your Review')
-        .should('be.focused');
+      cy.findByLabelText('Your Review').type('I love honey{enter}do you?');
+      cy.findByText('Add').click();
+      cy.findByLabelText('Your Review').should('be.focused');
     });
   });
 });
