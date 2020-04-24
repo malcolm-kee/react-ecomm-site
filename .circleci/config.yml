@@ -133,13 +133,10 @@ workflows:
             - setup
       - teste2e:
           requires:
-            - setup
+            - build
       - build:
           requires:
             - setup
-          filters:
-            branches:
-              only: master
       - deploy:
           requires:
             - build
