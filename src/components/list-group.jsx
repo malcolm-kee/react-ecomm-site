@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 import { omit } from '../lib/object';
 import { isDefined } from '../lib/typecheck';
 

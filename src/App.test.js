@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import App from './App';
 import { renderWithStateMgmtAndRouter, user } from './lib/test-util';
 

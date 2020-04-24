@@ -1,6 +1,6 @@
 import { act, render } from '@testing-library/react';
 import user from '@testing-library/user-event';
-import React from 'react';
+import * as React from 'react';
 import { toast as toastMock } from 'react-toastify';
 import { FeedbackPanel } from './feedback-panel';
 jest.mock('react-toastify');

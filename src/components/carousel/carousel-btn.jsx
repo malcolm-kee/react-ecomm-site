@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 import { LeftIcon } from '../icon/left-icon';
 import { RightIcon } from '../icon/right-icon';
 import styles from './carousel-btn.module.scss';

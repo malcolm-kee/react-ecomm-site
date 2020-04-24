@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Seo } from '../components/seo';
 import serverWoman from '../images/server-woman.png';

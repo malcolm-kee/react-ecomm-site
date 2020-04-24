@@ -1,5 +1,5 @@
 import format from 'date-fns/format';
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { Spinner } from '../../../components/spinner';
 import { loadProductComments } from '../product.actions';

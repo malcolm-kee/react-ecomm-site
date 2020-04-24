@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import React from 'react';
+import * as React from 'react';
 import { useInterval } from '../../hooks/use-interval';
 
 // modulus in JS is different from modules in Maths, thus this

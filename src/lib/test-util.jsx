@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { act, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
-import React from 'react';
+import * as React from 'react';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
 import { rootReducer } from '../modules/root-reducer';

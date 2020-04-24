@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Seo } from '../components/seo';
 import { usePlainLayout } from '../hooks/use-layout';
 import { PaymentForm } from '../modules/cart/components/payment-form';

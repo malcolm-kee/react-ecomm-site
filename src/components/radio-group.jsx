@@ -1,5 +1,5 @@
 import PropsTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 import { useId } from '../hooks/use-id';
 import { isPrimitive } from '../lib/typecheck';
 

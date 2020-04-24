@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Seo } from '../components/seo';
 import { CartItems } from '../modules/cart/components/cart-items';
 

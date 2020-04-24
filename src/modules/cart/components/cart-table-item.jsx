@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../../../components/button';
 import { CloseIcon } from '../../../components/icon/close-icon';

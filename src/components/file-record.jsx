@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 import { useId } from '../hooks/use-id';
 import styles from './file-record.module.scss';
 import { CheckIcon } from './icon/check-icon';

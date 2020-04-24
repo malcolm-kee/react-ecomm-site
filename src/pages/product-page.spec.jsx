@@ -1,5 +1,5 @@
 import { wait } from '@testing-library/react';
-import React from 'react';
+import * as React from 'react';
 import { renderWithStateMgmtAndRouter, user } from '../lib/test-util';
 import { ProductPage } from './product-page';
 

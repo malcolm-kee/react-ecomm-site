@@ -1,9 +1,10 @@
-import { act, fireEvent, wait } from '@testing-library/react';
-import React from 'react';
+import { fireEvent } from '@testing-library/react';
+import * as React from 'react';
+import xhrMock, { sequence } from 'xhr-mock';
 import { renderWithStateMgmtAndRouter } from '../lib/test-util';
+import { PRODUCT_DB } from '../modules/products/__mocks__/product.service';
 import { MainPage } from './main-page';
 
-jest.mock('../modules/products/product.service');
 jest.mock('../modules/marketing/marketing.service');
 
 function loadMainPage() {
@@ -23,39 +24,48 @@ function loadMainPage() {
   };
 }
 
+const PRODUCT_URL = process.env.REACT_APP_PRODUCT_BASE_URL;
+
 describe('<MainPage />', () => {
-  it('renders without crashing', () => {
-    const { getByText } = loadMainPage();
+  beforeEach(() => xhrMock.setup());
+  afterEach(() => xhrMock.teardown());
+
+  it('renders without crashing', async () => {
+    xhrMock.get(new RegExp(PRODUCT_URL, 'u'), {
+      status: 200,
+      body: JSON.stringify([PRODUCT_DB[0]]),
+    });
+
+    const { getByText, findByText } = loadMainPage();
     expect(getByText('Shopit')).not.toBeNull();
-  });
 
-  it('shows the product from API', async () => {
-    const { findByText } = loadMainPage();
-
-    const iPhoneXBox = await findByText('iPhone X');
-
-    expect(iPhoneXBox).not.toBeNull();
+    await findByText(PRODUCT_DB[0].name);
   });
 
   it('load more products when scroll', async () => {
+    xhrMock.get(
+      new RegExp(PRODUCT_URL, 'u'),
+      sequence([
+        {
+          status: 200,
+          body: JSON.stringify(PRODUCT_DB.slice(0, 2)),
+        },
+        {
+          status: 200,
+          body: JSON.stringify(PRODUCT_DB.slice(2, 4)),
+        },
+      ])
+    );
+
     const { findByText, scrollWindow, getNumberOfProducts } = loadMainPage();
 
-    await findByText('iPhone X');
+    await findByText(PRODUCT_DB[0].name);
 
     expect(getNumberOfProducts()).toBe(2);
 
-    jest.useFakeTimers();
-
     scrollWindow();
 
-    act(() => {
-      jest.runOnlyPendingTimers();
-    });
-
-    // restore timer so it doesn't break promise
-    jest.useRealTimers();
-
-    await wait();
+    await findByText(PRODUCT_DB[3].name);
 
     expect(getNumberOfProducts()).toBe(4);
   });

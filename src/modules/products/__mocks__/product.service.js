@@ -1,4 +1,4 @@
-const PRODUCT_DB = [
+export const PRODUCT_DB = [
   {
     id: 1,
     name: 'iPhone X',

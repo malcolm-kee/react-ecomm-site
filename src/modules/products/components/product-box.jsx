@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import React from 'react';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Panel, PanelBody, PanelHeading } from '../../../components/panel';
 import './product-box.css';

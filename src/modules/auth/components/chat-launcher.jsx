@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { Button } from '../../../components/button';
 import { ChatBox } from '../../../components/chat/chat-box';

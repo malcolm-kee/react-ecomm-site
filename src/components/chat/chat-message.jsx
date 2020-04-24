@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 import styles from './chat-message.module.scss';
 
 export const ChatMessage = (props) => {

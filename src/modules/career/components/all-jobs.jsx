@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { ListGroup } from '../../../components/list-group';
 import { Spinner } from '../../../components/spinner';
 import { getJobs } from '../career.service';

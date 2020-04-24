@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { useLatest } from './use-latest';
 
 export const useSocket = (endpoint, { onMessage, onOpen, onError }) => {

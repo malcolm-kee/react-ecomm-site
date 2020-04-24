@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import { callAll } from '../lib/fn-lib';
 import { FieldContext } from './field-context';

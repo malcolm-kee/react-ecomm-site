@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { scrollTo } from '../lib/scroll-to';
 
 export const useScrollOnMount = () => {

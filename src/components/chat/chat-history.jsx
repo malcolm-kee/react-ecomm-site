@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 import { useId } from '../../hooks/use-id';
 import { throttle } from '../../lib/fn-lib';
 import styles from './chat-history.module.scss';
