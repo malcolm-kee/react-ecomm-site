@@ -40,8 +40,10 @@ describe('<App />', () => {
     xhrMock.teardown();
   });
 
-  it('renders without crashing', () => {
-    const { getAllByText } = loadApp();
+  it('renders without crashing', async () => {
+    const { getAllByText, findAllByText } = loadApp();
+
+    await findAllByText('Just Buy It.');
 
     expect(getAllByText('Shopit').length).toBeGreaterThan(0);
   });

@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { renderWithQuery } from 'lib/test-util';
 import React from 'react';
 import xhrMock from 'xhr-mock';
 import { careers } from '../__mocks__/career.data';
@@ -19,7 +19,7 @@ describe(`<JobDetails />`, () => {
       body: JSON.stringify([careers[0]]),
     });
 
-    const { findByText } = render(<JobDetails jobId={3} />);
+    const { findByText } = renderWithQuery(<JobDetails jobId={3} />);
 
     await findByText('Department:');
   });
@@ -29,7 +29,7 @@ describe(`<JobDetails />`, () => {
       status: 500,
     });
 
-    const { findByRole } = render(<JobDetails jobId={3} />);
+    const { findByRole } = renderWithQuery(<JobDetails jobId={3} />);
 
     const alert = await findByRole('alert');
     expect(alert).toMatchInlineSnapshot(`

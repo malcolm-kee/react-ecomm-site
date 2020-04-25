@@ -10,4 +10,4 @@ export const getJob = (jobId: number) =>
     params: {
       id: jobId,
     },
-  }) as Promise<Job>;
+  }).then((jobs) => jobs[0]) as Promise<Job>;

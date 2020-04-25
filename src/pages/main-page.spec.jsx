@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/react';
-import React from 'react';
+import * as React from 'react';
 import xhrMock, { sequence } from 'xhr-mock';
 import { renderWithStateMgmtAndRouter } from '../lib/test-util';
 import { PRODUCT_DB } from '../modules/products/__mocks__/product.service';

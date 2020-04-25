@@ -1,5 +1,5 @@
 import { wait } from '@testing-library/react';
-import React from 'react';
+import * as React from 'react';
 import { renderWithStateMgmtAndRouter, user } from '../lib/test-util';
 import { ProductPage } from './product-page';
 
@@ -14,6 +14,8 @@ describe('<ProductPage />', () => {
     const addToCartBtn = await findByText('Add To Cart');
 
     user.click(addToCartBtn);
+
+    await wait(); // to suppress act() warning
   });
 
   it('allows customer to add comment', async () => {
@@ -30,6 +32,6 @@ describe('<ProductPage />', () => {
 
     user.click(getByTestId('product-comment-submit-btn'));
 
-    await wait(); // to suppress act() warning, I have no idea I am doing actually.
+    await wait(); // to suppress act() warning
   });
 });
