@@ -1,9 +1,9 @@
 import { render } from '@testing-library/react';
-import React from 'react';
-import { toast as toastMock } from 'react-toastify';
-import { user } from '../../../lib/test-util';
+import { toast as toastMock } from 'components/toast';
+import { user } from 'lib/test-util';
+import * as React from 'react';
 import { FeedbackPanel } from './feedback-panel';
-jest.mock('react-toastify');
+jest.mock('components/toast');
 
 afterEach(() => {
   jest.clearAllMocks();

@@ -5,12 +5,10 @@ import {
 } from 'redux-thunk';
 import { AuthState } from './modules/auth/auth.type';
 import { CartState } from './modules/cart/cart.type';
-import { MarketingState } from './modules/marketing/marketing.type';
 
 export type RootState = {
   auth: AuthState;
   cart: CartState;
-  marketing: MarketingState;
 };
 
 export type ThunkAction<Result> = OriThunkAction<

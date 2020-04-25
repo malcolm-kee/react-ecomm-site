@@ -8,7 +8,3 @@ export type MarketingBanner = {
   '700Blur': string;
   '500Blur': string;
 };
-
-export type MarketingState = {
-  banners: MarketingBanner[];
-};

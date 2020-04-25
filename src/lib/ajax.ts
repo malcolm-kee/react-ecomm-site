@@ -119,3 +119,22 @@ const stringifyParams = (params: FetchInit['params']): string => {
 
   return `?${results.join('&')}`;
 };
+
+export function xFetchJson(url: string, options: FetchInit = {}) {
+  const { xhr, fetch } = xhrX(url, {
+    json: true,
+    ...options,
+  });
+
+  const response = fetch().then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      throw new Error(res.statusText);
+    }
+  });
+
+  (response as any).cancel = () => xhr.abort();
+
+  return response;
+}

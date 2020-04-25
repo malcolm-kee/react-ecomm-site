@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
 import { Footer } from './components/footer';
 import { MainContent } from './components/main-content';
+import { ToastContainer } from './components/toast';
 import { LayoutContext, LayoutType } from './hooks/use-layout';
 import { useScrollTopOnNavigate } from './hooks/use-scroll-top-on-navigate';
 import { initAuthStatus } from './modules/auth/auth.actions';

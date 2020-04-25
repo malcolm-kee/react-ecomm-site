@@ -1,27 +1,26 @@
+import { Alert } from 'components/alert';
+import { Button } from 'components/button';
+import { Spinner } from 'components/spinner';
+import { scrollTo } from 'lib/scroll-to';
 import * as React from 'react';
-import { Alert } from '../../../components/alert';
-import { Button } from '../../../components/button';
-import { Spinner } from '../../../components/spinner';
-import { scrollTo } from '../../../lib/scroll-to';
-import { useJob } from '../career.service';
+import { useJob } from '../career.queries';
 
 export const JobDetails = (props: { jobId: number }) => {
-  const { job, status } = useJob(props.jobId);
+  const { data: job, status } = useJob(props.jobId);
 
   const jobDetailsRef = React.useRef<HTMLElement>(null);
   React.useEffect(() => {
-    if (status === 'idle') {
+    if (status === 'success') {
       scrollTo(jobDetailsRef.current);
     }
   }, [status]);
 
   return (
     <div>
-      {status === 'busy' && <Spinner />}
       {status === 'error' && (
         <Alert color="danger">Fails to get details.</Alert>
       )}
-      {job && (
+      {job ? (
         <section ref={jobDetailsRef} className="max-w-xl my-10 px-3 mx-auto">
           <h2 className="text-4xl mb-2">{job.title}</h2>
           <div className="my-4">
@@ -55,6 +54,8 @@ export const JobDetails = (props: { jobId: number }) => {
             </p>
           </div>
         </section>
+      ) : (
+        <Spinner />
       )}
     </div>
   );

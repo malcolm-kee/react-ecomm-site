@@ -1,4 +1,4 @@
-import { toast } from 'react-toastify';
+import { toast } from 'components/toast';
 import { ThunkAction } from '../../type';
 import { selectCartTotal } from './cart.selectors';
 import { cartActions } from './cart.slice';

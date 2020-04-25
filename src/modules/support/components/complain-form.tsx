@@ -1,15 +1,15 @@
+import { Button } from 'components/button';
+import { Field } from 'components/field';
+import { FileUpload } from 'components/file-upload';
+import { Form } from 'components/form';
+import { Label } from 'components/label';
+import { SelectField } from 'components/select-field';
+import { Spinner } from 'components/spinner';
+import { TextField } from 'components/text-field';
+import { Textarea } from 'components/textarea';
+import { toast } from 'components/toast';
+import { useScrollOnMount } from 'hooks/use-scroll-on-mount';
 import * as React from 'react';
-import { toast } from 'react-toastify';
-import { Button } from '../../../components/button';
-import { Field } from '../../../components/field';
-import { FileUpload } from '../../../components/file-upload';
-import { Form } from '../../../components/form';
-import { Label } from '../../../components/label';
-import { SelectField } from '../../../components/select-field';
-import { Spinner } from '../../../components/spinner';
-import { TextField } from '../../../components/text-field';
-import { Textarea } from '../../../components/textarea';
-import { useScrollOnMount } from '../../../hooks/use-scroll-on-mount';
 import styles from './complain-form.module.scss';
 
 const DateInput = React.lazy(() =>
