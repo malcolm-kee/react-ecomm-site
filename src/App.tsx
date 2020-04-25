@@ -1,11 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import * as React from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { Footer } from './components/footer';
 import { MainContent } from './components/main-content';
-import { LayoutContext } from './hooks/use-layout';
+import { LayoutContext, LayoutType } from './hooks/use-layout';
 import { useScrollTopOnNavigate } from './hooks/use-scroll-top-on-navigate';
 import { initAuthStatus } from './modules/auth/auth.actions';
 import { ChatLauncher } from './modules/auth/components/chat-launcher';
@@ -20,12 +20,12 @@ import { ProductPage } from './pages/product-page';
 import { Signup } from './pages/signup';
 import { SiteNav } from './site-nav';
 
-function AppContainer({ initAuthStatus }) {
+function AppContainer({ initAuthStatus }: ConnectedProps<typeof connector>) {
   React.useEffect(() => {
     initAuthStatus();
   }, [initAuthStatus]);
 
-  const layoutContextValue = React.useState('default');
+  const layoutContextValue = React.useState<LayoutType>('default');
   const layoutType = layoutContextValue[0];
 
   useScrollTopOnNavigate();
@@ -64,10 +64,10 @@ function AppContainer({ initAuthStatus }) {
   );
 }
 
-const mapDispatch = {
+const connector = connect(null, {
   initAuthStatus,
-};
+});
 
-const App = connect(null, mapDispatch)(AppContainer);
+const App = connector(AppContainer);
 
 export default App;

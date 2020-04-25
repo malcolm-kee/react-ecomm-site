@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import React from 'react';
+import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ReactQueryConfigProvider } from 'react-query';
@@ -16,7 +16,7 @@ const store = configureStore({
   reducer: rootReducer,
 });
 
-function renderApp(AppComponent) {
+function renderApp(AppComponent: typeof App) {
   return ReactDOM.render(
     <Provider store={store}>
       <ReactQueryConfigProvider config={reactQueryConfig}>
