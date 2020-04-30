@@ -1888,6 +1888,11 @@
   dependencies:
     any-observable "^0.3.0"
 
+"@scarf/scarf@^1.0.0":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@scarf/scarf/-/scarf-1.0.4.tgz#d7c09e7d38428123df18a8d83a4bb5d09517d952"
+  integrity sha512-lkhjzeYyYAG4VvdrjvbZCOYzXH5vCwfzYj9xJ4zHDgyYIOzObZwcsbW6W1q5Z4tywrb14oG/tfsFAMMQPCTFqw==
+
 "@sheerun/mutationobserver-shim@^0.3.2":
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/@sheerun/mutationobserver-shim/-/mutationobserver-shim-0.3.3.tgz#5405ee8e444ed212db44e79351f0c70a582aae25"
@@ -13867,6 +13872,14 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
+react-query@^1.2.9:
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/react-query/-/react-query-1.2.9.tgz#a1804224e6e3c51b018f73355b6904662e10e3c7"
+  integrity sha512-f4o9USEuWNIfQblWjWHXUvTTTRvvoEVKv++ZDLTSKGFzicxeEXSmQtEzIeT9l7z4VptJ6nQB8ypga6aTrKqYYw==
+  dependencies:
+    "@scarf/scarf" "^1.0.0"
+    ts-toolbelt "^6.4.2"
+
 react-redux@^7.1.1:
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.0.tgz#f970f62192b3981642fec46fd0db18a074fe879d"
@@ -16344,6 +16357,11 @@ ts-pnp@^1.1.6:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/ts-pnp/-/ts-pnp-1.2.0.tgz#a500ad084b0798f1c3071af391e65912c86bca92"
   integrity sha512-csd+vJOb/gkzvcCHgTGSChYpy5f1/XKNsmvBGO4JXS+z1v2HobugDz4s1IeFXM3wZB44uczs+eazB5Q/ccdhQw==
+
+ts-toolbelt@^6.4.2:
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/ts-toolbelt/-/ts-toolbelt-6.5.1.tgz#1316b8c6522797c0bee289ca5deaa159af846231"
+  integrity sha512-zjnZ/vy1eUA0li3H0JXecl0R3jiP42snpLimsrppt9V3LLbM4NM4jMgjXQ4S67hvehq+r9CxpX4Wj6RnFRzReA==
 
 tslib@^1, tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   version "1.11.1"
