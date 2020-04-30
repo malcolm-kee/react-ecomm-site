@@ -46,31 +46,10 @@ jobs:
           name: Build site
           command: yarn build
 
-      - run:
-          name: Build docs
-          command: yarn build:docs
-
       - persist_to_workspace:
           root: ./
           paths:
-            - styleguide
             - build
-
-  deploy:
-    docker:
-      - image: circleci/node:12.14.1
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "yarn.lock" }}
-            - v1-dependencies-
-      - attach_workspace:
-          at: ./
-
-      - run:
-          name: Deploy Docs to Netlify
-          command: yarn deploy:docs --message "Deploy from CircleCI"
 
   test:
     docker:
@@ -137,9 +116,3 @@ workflows:
       - build:
           requires:
             - setup
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
