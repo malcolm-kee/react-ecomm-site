@@ -32,6 +32,7 @@ export const Button = React.forwardRef(function Button(
     ),
     type,
     disabled,
+    ref,
     ...buttonProps,
   });
 });
