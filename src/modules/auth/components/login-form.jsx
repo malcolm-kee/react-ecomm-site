@@ -62,6 +62,7 @@ function LoginFormContent({ status, error, login, logout }) {
           type="submit"
           disabled={isSubmitting}
           className="w-full"
+          data-testid="submitBtn"
         >
           Login
         </Button>
