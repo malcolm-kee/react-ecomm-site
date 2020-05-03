@@ -1871,6 +1871,11 @@
   dependencies:
     "@types/node" ">= 8"
 
+"@open-draft/until@^1.0.0":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@open-draft/until/-/until-1.0.2.tgz#9ca97314d58ac13e343dd0516d3f1fb0a656998d"
+  integrity sha512-hMXQs2UDAugL6eBoPI1LQ8cM0Tv+Bs4/cdtLRgwGhpMIBq/YUFUOBdAT/kHyoAEAiIz4DKvAVTG4G07EFMzBqg==
+
 "@reach/dialog@^0.10.0":
   version "0.10.1"
   resolved "https://registry.yarnpkg.com/@reach/dialog/-/dialog-0.10.1.tgz#c4056a0eef402a46ce94017415dd3c947855f73b"
@@ -4369,6 +4374,14 @@ chalk@^3.0.0, chalk@^3.0.0-beta.2:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
+chalk@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.0.0.tgz#6e98081ed2d17faab615eb52ac66ec1fe6209e72"
+  integrity sha512-N9oWFcegS0sFr9oh1oz2d7Npos6vNoWW9HvtCg5N1KRFpUhaAhvTv5Y58g880fZaEYSNm3qDz8SU1UrGvp+n7A==
+  dependencies:
+    ansi-styles "^4.1.0"
+    supports-color "^7.1.0"
+
 character-entities-html4@^1.0.0:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/character-entities-html4/-/character-entities-html4-1.1.4.tgz#0e64b0a3753ddbf1fdc044c5fd01d0199a02e125"
@@ -5106,7 +5119,7 @@ cookie@0.4.0:
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.4.0.tgz#beb437e7022b3b6d49019d088665303ebe9c14ba"
   integrity sha512-+Hp8fLp57wnUSt0tY0tHEXh4voZRDnoIrZPqlo3DPiI4y9lwg/jqx+1Om94/W6ZaPDOUbnjOt/99w66zk+l1Xg==
 
-cookie@^0.4.0:
+cookie@^0.4.0, cookie@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.4.1.tgz#afd713fe26ebd21ba95ceb61f9a8116e50a537d1"
   integrity sha512-ZwrFkGJxUR3EIoXtO+yVE69Eb7KlixbaeAWfBQB9vVsNn/o+Yw69gBWSSDK825hQNdN+wF8zELf3dFNl/kxkUA==
@@ -8124,6 +8137,11 @@ graceful-fs@^4.1.10, graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/graceful-readlink/-/graceful-readlink-1.0.1.tgz#4cafad76bc62f02fa039b2f94e9a3dd3a391a725"
   integrity sha1-TK+tdrxi8C+gObL5Tpo906ORpyU=
+
+graphql@^15.0.0:
+  version "15.0.0"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.0.0.tgz#042a5eb5e2506a2e2111ce41eb446a8e570b8be9"
+  integrity sha512-ZyVO1xIF9F+4cxfkdhOJINM+51B06Friuv4M66W7HzUOeFd+vNzUn4vtswYINPi6sysjf1M2Ri/rwZALqgwbaQ==
 
 group-by@^0.0.1:
   version "0.0.1"
@@ -11362,6 +11380,19 @@ ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
+msw@^0.15.4:
+  version "0.15.4"
+  resolved "https://registry.yarnpkg.com/msw/-/msw-0.15.4.tgz#4560fbbf89eac4d7a23cc6d46dc818dff83debe5"
+  integrity sha512-h1OaVi6BiSTGBxyMCeDQ/Rs4179P+lHD+lRkUXLdHrMSNf3a30hf7mYuOvLpOi2EH/bCIkYsnx+hknqzjfFbeQ==
+  dependencies:
+    "@open-draft/until" "^1.0.0"
+    chalk "^4.0.0"
+    cookie "^0.4.1"
+    graphql "^15.0.0"
+    node-match-path "^0.4.2"
+    statuses "^2.0.0"
+    yargs "^15.3.1"
+
 multicast-dns-service-types@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/multicast-dns-service-types/-/multicast-dns-service-types-1.1.0.tgz#899f11d9686e5e05cb91b35d5f0e63b773cfc901"
@@ -11648,6 +11679,11 @@ node-libs-browser@^2.2.1:
     url "^0.11.0"
     util "^0.11.0"
     vm-browserify "^1.0.1"
+
+node-match-path@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/node-match-path/-/node-match-path-0.4.2.tgz#30cc39510fa493bff03c3d0d2fff711c868ec457"
+  integrity sha512-wfde4FOC5A8RTSUVZ7pTpBV+dJsr2vVxT6374VrNam6wnnhx6EvwAwL/E/r3AW/YU6XkeZggF5xfBlu4a/ULBg==
 
 node-modules-regexp@^1.0.0:
   version "1.0.0"
@@ -15649,6 +15685,11 @@ static-server@^2.2.1:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
   integrity sha1-Fhx9rBd2Wf2YEfQ3cfqZOBR4Yow=
+
+statuses@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/statuses/-/statuses-2.0.0.tgz#aa7b107e018eb33e08e8aee2e7337e762dda1028"
+  integrity sha512-w9jNUUQdpuVoYqXxnyOakhckBbOxRaoYqJscyIBYCS5ixyCnO7nQn7zBZvP9zf5QOPZcz2DLUpE3KsNPbJBOFA==
 
 stdout-stream@^1.4.0:
   version "1.4.1"

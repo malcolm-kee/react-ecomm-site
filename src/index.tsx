@@ -8,6 +8,10 @@ import App from './App';
 import { rootReducer } from './modules/root-reducer';
 import './global.scss';
 
+if (process.env.NODE_ENV === 'development') {
+  require('./mocks');
+}
+
 const reactQueryConfig = {
   staleTime: 5000,
 };
