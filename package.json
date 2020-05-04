@@ -25,6 +25,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:mock": "json-server -p 4000 mock/db.json",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:ci": "react-scripts test --coverage --ci --watchAll=false",
@@ -76,6 +77,7 @@
     "istanbul-lib-coverage": "^3.0.0",
     "jest-junit": "^10.0.0",
     "jest-websocket-mock": "^2.0.1",
+    "json-server": "^0.16.1",
     "mock-socket": "^9.0.3",
     "netlify-cli": "^2.30.0",
     "node-sass": "^4.13.0",
