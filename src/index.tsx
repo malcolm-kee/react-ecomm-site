@@ -7,6 +7,11 @@ import { Provider } from 'react-redux';
 import App from './App';
 import { rootReducer } from './modules/root-reducer';
 import './global.scss';
+import { createMockServer } from './mocks';
+
+if (process.env.NODE_ENV === 'development') {
+  createMockServer();
+}
 
 const reactQueryConfig = {
   staleTime: 5000,
