@@ -1,0 +1,56 @@
+name: CI
+on: ['push', 'pull_request']
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Begin CI...
+        uses: actions/checkout@v2
+
+      - name: Use Node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Use cached node_modules
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: cacheCypress-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            cacheCypress-
+
+      - name: Cache Cypress
+        uses: actions/cache@v1
+        with:
+          path: '~/.cache/Cypress'
+          key: cacheCypressBinary-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            cacheCypressBinary-
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        env:
+          CI: true
+
+      - name: Install Cypress dependencies
+        run: sudo apt-get install -yq libgtk2.0-0 libgtk-3-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+
+      - name: Install Cypress
+        run: yarn add cypress
+
+      - name: Run All Tests with Coverage Reports
+        run: sh ./e2e-test.sh
+        env:
+          CI: true
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./coverage-report/lcov.info
