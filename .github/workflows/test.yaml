@@ -13,13 +13,25 @@ jobs:
         with:
           node-version: 12.x
 
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
       - name: Use cached node_modules
         uses: actions/cache@v1
         with:
-          path: node_modules
-          key: nodeModulesCypress-${{ hashFiles('**/yarn.lock') }}
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: cacheCypress-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            nodeModulesCypress-
+            cacheCypress-
+
+      - name: Cache Cypress
+        uses: actions/cache@v1
+        with:
+          path: '~/.cache/Cypress'
+          key: cacheCypressBinary-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            cacheCypressBinary-
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
