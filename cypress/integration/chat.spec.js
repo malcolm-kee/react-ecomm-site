@@ -14,6 +14,8 @@ describe(`chat`, () => {
       cy.findAllByText('Login').last().click();
 
       cy.findByLabelText('Chat message').type('Hello there!{enter}');
+
+      cy.findByText('Close').click();
     });
   });
 
