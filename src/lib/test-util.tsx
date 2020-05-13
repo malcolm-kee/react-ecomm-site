@@ -83,6 +83,7 @@ export const user = {
   click: wrapAct(userEvent.click),
   dblClick: wrapAct(userEvent.dblClick),
   type: wrapAct(userEvent.type),
+  clear: wrapAct(userEvent.clear),
   selectOptions: wrapAct(userEvent.selectOptions),
   tab: wrapAct(userEvent.tab),
 };

@@ -1,4 +1,5 @@
-import React from 'react';
+import { cleanup } from '@testing-library/react';
+import * as React from 'react';
 import xhrMock from 'xhr-mock';
 import App from './App';
 import { renderWithStateMgmtAndRouter, user } from './lib/test-util';
@@ -46,6 +47,8 @@ describe('<App />', () => {
     await findAllByText('Just Buy It.');
 
     expect(getAllByText('Shopit').length).toBeGreaterThan(0);
+
+    cleanup();
   });
 
   it('show login form at login url', () => {
@@ -55,6 +58,8 @@ describe('<App />', () => {
 
     expect(getAllByText('Login').length).toBeGreaterThan(0);
     expect(getByLabelText('Email')).not.toBeNull();
+
+    cleanup();
   });
 
   it('shows signup page at signup url', () => {
@@ -63,6 +68,7 @@ describe('<App />', () => {
     });
 
     expect(getAllByText('Signup').length).toBeGreaterThan(0);
+    cleanup();
   });
 
   it(`shows help page at help url`, async () => {
@@ -100,6 +106,7 @@ describe('<App />', () => {
 
     await user.type(getByLabelText('Your Full Name'), 'Malcolm Key');
     user.click(getByText('Submit'));
+    cleanup();
   });
 
   it('show page not found for invalid url', () => {
@@ -136,6 +143,8 @@ describe('<App />', () => {
     user.click(jobPost);
 
     await findByText('Department:');
+
+    cleanup();
   });
 
   it(`tracks product added to cart`, async () => {
@@ -198,6 +207,8 @@ describe('<App />', () => {
     await user.type(getByLabelText('CVC'), '123');
     user.click(getByText('Pay'));
     await findByText('Paid');
+
+    cleanup();
   });
 
   it('default customer name in comment form', async () => {
@@ -227,6 +238,8 @@ describe('<App />', () => {
     expect(getByLabelText('Your Name').value).not.toBe('');
 
     user.click(getByText('Logout'));
+
+    cleanup();
   });
 
   it('can signup and logout', async () => {
@@ -262,5 +275,7 @@ describe('<App />', () => {
 
     expect(getByText('Login')).not.toBeNull();
     expect(queryByText('Logout')).toBeNull();
+
+    cleanup();
   });
 });
