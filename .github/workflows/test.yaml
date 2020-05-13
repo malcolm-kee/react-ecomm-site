@@ -1,7 +1,7 @@
 name: CI
 on: ['push', 'pull_request']
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -30,6 +30,12 @@ jobs:
         run: sudo apt-get install -yq libgtk2.0-0 libgtk-3-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
 
       - name: Run All Tests with Coverage Reports
-        run: sh ./.circleci/e2e-test.sh
+        run: sh ./e2e-test.sh
         env:
           CI: true
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./coverage-report/lcov.info
