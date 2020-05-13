@@ -44,11 +44,6 @@ jobs:
       - name: Install Cypress
         run: yarn add cypress
 
-      - name: Build
-        run: yarn build
-        env:
-          CI: true
-
       - name: Run All Tests with Coverage Reports
         run: sh ./e2e-test.sh
         env:
