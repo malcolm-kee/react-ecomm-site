@@ -88,6 +88,14 @@ describe(`chat`, () => {
         .type('J{enter}')
         .type('K{enter}')
         .type('L{enter}')
+        .type('E{shift}{enter}e{enter}')
+        .type('F{enter}')
+        .type('G{enter}')
+        .type('H{enter}')
+        .type('I{enter}')
+        .type('J{enter}')
+        .type('K{enter}')
+        .type('L{enter}')
         .type('M{enter}');
 
       cy.findByTestId('chat-history').scrollTo('top');

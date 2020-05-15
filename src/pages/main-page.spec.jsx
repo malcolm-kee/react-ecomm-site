@@ -1,6 +1,7 @@
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, cleanup } from '@testing-library/react';
 import * as React from 'react';
 import xhrMock, { sequence } from 'xhr-mock';
+import { queryCache } from 'react-query';
 import { renderWithStateMgmtAndRouter } from '../lib/test-util';
 import { PRODUCT_DB } from '../modules/products/__mocks__/product.service';
 import { MainPage } from './main-page';
@@ -29,7 +30,10 @@ function loadMainPage() {
 describe('<MainPage />', () => {
   beforeEach(() => xhrMock.setup());
 
-  afterEach(() => xhrMock.teardown());
+  afterEach(() => {
+    xhrMock.teardown();
+    queryCache.clear();
+  });
 
   it('renders without crashing', () => {
     xhrMock.get(new RegExp(PRODUCT_BASE_URL, 'u'), {
@@ -38,6 +42,7 @@ describe('<MainPage />', () => {
     });
     const { getByText } = loadMainPage();
     expect(getByText('Shopit')).not.toBeNull();
+    cleanup();
   });
 
   it('shows the product from API', async () => {
@@ -51,6 +56,7 @@ describe('<MainPage />', () => {
     const iPhoneXBox = await findByText('iPhone X');
 
     expect(iPhoneXBox).not.toBeNull();
+    cleanup();
   });
 
   it('load more products when scroll', async () => {
@@ -78,5 +84,6 @@ describe('<MainPage />', () => {
 
     await findByText('dodo');
     expect(getNumberOfProducts()).toBe(4);
+    cleanup();
   });
 });
