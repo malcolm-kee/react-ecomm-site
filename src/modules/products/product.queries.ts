@@ -17,7 +17,7 @@ export function useProducts(initialProducts?: Product[]) {
     'products',
     (_, page = 1) => getProducts(page, 12),
     {
-      initialData: initialProducts ? [initialProducts] : [],
+      initialData: initialProducts ? [initialProducts] : undefined,
       getFetchMore: (lastGroup, allGroups) =>
         lastGroup.length === 0 ? false : allGroups.length + 1,
     }
