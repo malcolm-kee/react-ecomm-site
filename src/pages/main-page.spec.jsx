@@ -1,7 +1,7 @@
-import { fireEvent, cleanup } from '@testing-library/react';
+import { cleanup, fireEvent, screen } from '@testing-library/react';
 import * as React from 'react';
-import xhrMock, { sequence } from 'xhr-mock';
 import { queryCache } from 'react-query';
+import xhrMock, { sequence } from 'xhr-mock';
 import { renderWithStateMgmtAndRouter } from '../lib/test-util';
 import { PRODUCT_DB } from '../modules/products/__mocks__/product.service';
 import { MainPage } from './main-page';
@@ -11,19 +11,14 @@ jest.mock('../modules/marketing/marketing.service');
 const PRODUCT_BASE_URL = process.env.REACT_APP_PRODUCT_BASE_URL;
 
 function loadMainPage() {
-  const renderResults = renderWithStateMgmtAndRouter(<MainPage />);
-
-  const { container } = renderResults;
-
   return {
-    ...renderResults,
+    ...renderWithStateMgmtAndRouter(<MainPage />),
     scrollWindow: () =>
       fireEvent(
         window,
         new UIEvent('scroll', { bubbles: false, cancelable: false })
       ),
-    getNumberOfProducts: () =>
-      container.querySelectorAll('.product-box').length,
+    getNumberOfProducts: () => screen.getAllByTestId('productBox').length,
   };
 }
 
@@ -40,8 +35,8 @@ describe('<MainPage />', () => {
       status: 200,
       body: JSON.stringify(PRODUCT_DB.slice(0, 2)),
     });
-    const { getByText } = loadMainPage();
-    expect(getByText('Shopit')).not.toBeNull();
+    loadMainPage();
+    expect(screen.getByText('Shopit')).not.toBeNull();
     cleanup();
   });
 
@@ -51,9 +46,9 @@ describe('<MainPage />', () => {
       body: JSON.stringify(PRODUCT_DB.slice(0, 2)),
     });
 
-    const { findByText } = loadMainPage();
+    loadMainPage();
 
-    const iPhoneXBox = await findByText('iPhone X');
+    const iPhoneXBox = await screen.findByText('iPhone X');
 
     expect(iPhoneXBox).not.toBeNull();
     cleanup();
