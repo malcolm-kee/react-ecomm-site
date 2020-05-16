@@ -15,6 +15,6 @@ export const getJobs = () =>
   >;
 
 export const getJob = (jobId: number) =>
-  fetch(`${CAREER_BASE_URL}?id=${jobId}`, fetchOptions)
-    .then((res) => res.json())
-    .then((jobs) => jobs[0]) as Promise<Job>;
+  fetch(`${CAREER_BASE_URL}/${jobId}`, fetchOptions).then((res) =>
+    res.json()
+  ) as Promise<Job>;

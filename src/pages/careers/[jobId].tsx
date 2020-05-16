@@ -5,7 +5,9 @@ import { JobDetails } from 'modules/career/components/job-details';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import * as React from 'react';
 
-function JobDetailsPage(props: { job: Job }) {
+type PageProps = { job: Job };
+
+function JobDetailsPage(props: PageProps) {
   return (
     <CareerPageWrapper>
       <JobDetails job={props.job} />
@@ -22,7 +24,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps<PageProps> = async ({ params }) => {
   if (!params) {
     throw new Error('missing params');
   }

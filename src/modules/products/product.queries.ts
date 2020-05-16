@@ -1,22 +1,23 @@
 import {
-  useQuery,
-  useMutation,
   queryCache,
   useInfiniteQuery,
+  useMutation,
+  useQuery,
 } from 'react-query';
 import {
-  getProducts,
+  createProductComment,
   getProduct,
   getProductComments,
-  createProductComment,
+  getProducts,
 } from './product.service';
 import { Product } from './product.type';
 
-export function useProducts() {
+export function useProducts(initialProducts?: Product[]) {
   return useInfiniteQuery<Product[], 'products', number>(
     'products',
     (_, page = 1) => getProducts(page, 12),
     {
+      initialData: initialProducts ? [initialProducts] : [],
       getFetchMore: (lastGroup, allGroups) =>
         lastGroup.length === 0 ? false : allGroups.length + 1,
     }

@@ -1,3 +1,7 @@
+import fetch from 'isomorphic-unfetch';
+import { PRODUCT_BASE_URL } from 'modules/products/product.service';
+import { Product } from 'modules/products/product.type';
+import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import * as React from 'react';
 import { Jumbotron } from '../components/jumbotron';
@@ -8,14 +12,16 @@ import { ProductBox } from '../modules/products/components/product-box';
 import { useProducts } from '../modules/products/product.queries';
 import styles from './index.module.scss';
 
-function MainPage() {
+type PageProps = { products?: Product[] };
+
+function MainPage(props: PageProps) {
   const {
     data: productGroups,
     canFetchMore,
     status,
     isFetchingMore,
     fetchMore,
-  } = useProducts();
+  } = useProducts(props.products);
 
   useWindowEvent(
     'scroll',
@@ -63,5 +69,18 @@ function MainPage() {
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps<PageProps> = async () => {
+  const products = await fetch(`${PRODUCT_BASE_URL}?_page=1&_limit=12`, {
+    headers: {
+      Accept: 'application/json',
+    },
+  }).then((res) => res.json());
+  return {
+    props: {
+      products,
+    },
+  };
+};
 
 export default MainPage;
