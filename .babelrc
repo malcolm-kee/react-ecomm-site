@@ -1,7 +1,7 @@
 {
   "presets": ["next/babel"],
   "env": {
-    "test": {
+    "instrument": {
       "plugins": ["istanbul"]
     }
   }
