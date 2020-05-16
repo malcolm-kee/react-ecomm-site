@@ -10,7 +10,7 @@ An e-commerce site SPA implemented with React.
 
 ## State Management Library
 
-There are 3 implementations of this site:
+There are 4 implementations of this site:
 
 1. Redux with TypeScript - [`master` branch][master-branch] ([Preview][master-preview])
 1. Redux - [`redux` branch][redux-branch] ([Preview][redux-preview])
