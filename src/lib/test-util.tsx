@@ -9,22 +9,6 @@ import {
 import { Provider } from 'react-redux';
 import { rootReducer } from '../modules/root-reducer';
 
-export function renderWithQuery(
-  ui: React.ReactNode,
-  config: ReactQueryProviderConfig = {}
-) {
-  return render(
-    <ReactQueryConfigProvider
-      config={{
-        retry: false,
-        ...config,
-      }}
-    >
-      {ui}
-    </ReactQueryConfigProvider>
-  );
-}
-
 export function renderWithStateMgmtAndRouter(
   ui: React.ReactNode,
   {
@@ -45,7 +29,6 @@ export function renderWithStateMgmtAndRouter(
 
   return {
     store,
-    history,
     ...render(
       <ReactQueryConfigProvider config={queryConfig}>
         <Provider store={store}>{ui}</Provider>
