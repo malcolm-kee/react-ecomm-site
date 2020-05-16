@@ -1,25 +1,18 @@
 import { ListGroup } from 'components/list-group';
-import { Spinner } from 'components/spinner';
 import * as React from 'react';
-import { useJobs } from '../career.queries';
+import { Job } from '../career.type';
 
-export const AllJobs = () => {
-  const { data: jobs } = useJobs();
-
+export const AllJobs = (props: { jobs: Job[] }) => {
   return (
     <div>
-      {jobs ? (
-        <ListGroup
-          variant="link"
-          items={jobs.map((job) => ({
-            label: job.title,
-            href: '/careers/[jobId]',
-            as: `/careers/${job.id}`,
-          }))}
-        />
-      ) : (
-        <Spinner />
-      )}
+      <ListGroup
+        variant="link"
+        items={props.jobs.map((job) => ({
+          label: job.title,
+          href: '/careers/[jobId]',
+          as: `/careers/${job.id}`,
+        }))}
+      />
     </div>
   );
 };
