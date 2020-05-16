@@ -42,7 +42,8 @@
     "start:instrument": "cross-env BABEL_ENV=instrument next build && next start",
     "test:e2e": "start-server-and-test start:instrument http://localhost:3000 cy:open",
     "test:e2e:ci": "start-server-and-test start:instrument http://localhost:3000 cy:run",
-    "test:all": "npm run test:ci && npm run test:e2e:ci"
+    "test:all": "npm run test:ci && npm run test:e2e:ci",
+    "deploy": "vercel"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -94,6 +95,7 @@
     "rimraf": "^3.0.1",
     "start-server-and-test": "^1.10.8",
     "typescript": "^3.7.5",
+    "vercel": "^19.0.1",
     "xhr-mock": "^2.5.1"
   },
   "nyc": {
