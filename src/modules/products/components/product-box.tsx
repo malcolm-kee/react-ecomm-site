@@ -1,9 +1,9 @@
 import cx from 'classnames';
-import React from 'react';
+import { Panel, PanelBody, PanelHeading } from 'components/panel';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Panel, PanelBody, PanelHeading } from '../../../components/panel';
 import { Product } from '../product.type';
-import './product-box.css';
+import styles from './product-box.module.scss';
 import { ProductImage } from './product-image';
 
 export function ProductBox({
@@ -16,11 +16,13 @@ export function ProductBox({
   return (
     <Panel
       color="default"
-      className={cx('product-box', className)}
-      renderContainer={(props) => <Link to={`/product/${id}`} {...props} />}
+      className={cx(styles.productBox, className)}
+      renderContainer={(props) => (
+        <Link to={`/product/${id}`} data-testid="productBox" {...props} />
+      )}
     >
-      <PanelHeading className="product-box-name">{name}</PanelHeading>
-      <PanelBody className="product-box-body">
+      <PanelHeading className={styles.name}>{name}</PanelHeading>
+      <PanelBody className={styles.body}>
         {images ? (
           <ProductImage
             url={images.thumbStandard}
@@ -31,10 +33,10 @@ export function ProductBox({
             height={188}
           />
         ) : (
-          <div className="product-image-placeholder" />
+          <div className={styles.placeholder} />
         )}
         {price && (
-          <div className="product-box-desc">
+          <div className={styles.desc}>
             <p>RM {price}</p>
           </div>
         )}
