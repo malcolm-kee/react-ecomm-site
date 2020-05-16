@@ -1,9 +1,9 @@
 import { xFetchJson } from 'lib/ajax';
 import { Product, ProductComment } from './product.type';
 
-const PRODUCT_BASE_URL = process.env.REACT_APP_PRODUCT_BASE_URL as string;
+const PRODUCT_BASE_URL = process.env.NEXT_PUBLIC_PRODUCT_BASE_URL as string;
 const PRODUCT_COMMENT_BASE_URL = process.env
-  .REACT_APP_PRODUCT_COMMENT_BASE_URL as string;
+  .NEXT_PUBLIC_PRODUCT_COMMENT_BASE_URL as string;
 
 export function getProducts(page: number, limit = 12): Promise<Product[]> {
   return xFetchJson(PRODUCT_BASE_URL, {

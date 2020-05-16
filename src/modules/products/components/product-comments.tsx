@@ -30,7 +30,7 @@ type ProductCommentsProps = {
   productId: number;
 };
 
-function ProductComments({ productId }: ProductCommentsProps) {
+export function ProductComments({ productId }: ProductCommentsProps) {
   const { data: comments } = useProductComments(productId);
 
   return comments ? (
@@ -49,5 +49,3 @@ function ProductComments({ productId }: ProductCommentsProps) {
     <Spinner />
   );
 }
-
-export default ProductComments;

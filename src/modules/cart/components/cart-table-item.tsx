@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
+import * as React from 'react';
 import { Button } from '../../../components/button';
 import { CloseIcon } from '../../../components/icon/close-icon';
 import { formatMoney } from '../../../lib/format';
@@ -14,7 +14,7 @@ type CartItemProps = {
   onDelete: () => void;
 };
 
-function CartTableItem({
+export function CartTableItem({
   index,
   item,
   onDecrement,
@@ -37,8 +37,8 @@ function CartTableItem({
         )}
       </td>
       <td className="px-2">
-        <Link className="text-blue-700" to={`/product/${item.product.id}`}>
-          {item.product.name}
+        <Link href="/product/[pid]" as={`/product/${item.product.id}`}>
+          <a className="text-blue-700">{item.product.name}</a>
         </Link>
       </td>
       <td className="text-right">{item.product.price}</td>
@@ -84,5 +84,3 @@ function CartTableItem({
     </tr>
   );
 }
-
-export default CartTableItem;

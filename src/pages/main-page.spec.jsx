@@ -1,14 +1,13 @@
-import { fireEvent, cleanup } from '@testing-library/react';
+import { cleanup, fireEvent } from '@testing-library/react';
 import * as React from 'react';
 import xhrMock, { sequence } from 'xhr-mock';
-import { queryCache } from 'react-query';
+import MainPage from '.';
 import { renderWithStateMgmtAndRouter } from '../lib/test-util';
 import { PRODUCT_DB } from '../modules/products/__mocks__/product.service';
-import { MainPage } from './main-page';
 
 jest.mock('../modules/marketing/marketing.service');
 
-const PRODUCT_BASE_URL = process.env.REACT_APP_PRODUCT_BASE_URL;
+const PRODUCT_BASE_URL = process.env.NEXT_PUBLIC_PRODUCT_BASE_URL;
 
 function loadMainPage() {
   const renderResults = renderWithStateMgmtAndRouter(<MainPage />);
@@ -32,7 +31,6 @@ describe('<MainPage />', () => {
 
   afterEach(() => {
     xhrMock.teardown();
-    queryCache.clear();
   });
 
   it('renders without crashing', () => {

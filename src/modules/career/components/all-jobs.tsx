@@ -1,6 +1,6 @@
+import { ListGroup } from 'components/list-group';
+import { Spinner } from 'components/spinner';
 import * as React from 'react';
-import { ListGroup } from '../../../components/list-group';
-import { Spinner } from '../../../components/spinner';
 import { useJobs } from '../career.queries';
 
 export const AllJobs = () => {
@@ -13,7 +13,8 @@ export const AllJobs = () => {
           variant="link"
           items={jobs.map((job) => ({
             label: job.title,
-            to: `/careers/${job.id}`,
+            href: '/careers/[jobId]',
+            as: `/careers/${job.id}`,
           }))}
         />
       ) : (

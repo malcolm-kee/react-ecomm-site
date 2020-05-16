@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
+import * as React from 'react';
 
 const currentYear = new Date().getFullYear();
 
@@ -12,22 +12,34 @@ export function Footer() {
       <div className="container mx-auto px-3">
         <ul className="flex flex-wrap">
           <li className="px-2 pb-2">
-            <Link to="/">Home</Link>
+            <Link href="/">
+              <a>Home</a>
+            </Link>
           </li>
           <li className="px-2 pb-2">
-            <Link to="/help">Help</Link>
+            <Link href="/help">
+              <a>Help</a>
+            </Link>
           </li>
           <li className="px-2 pb-2">
-            <Link to="/about-us">About Us</Link>
+            <Link href="/about-us">
+              <a>About Us</a>
+            </Link>
           </li>
           <li className="px-2 pb-2">
-            <Link to="/privacy-policy">Privacy Policy</Link>
+            <Link href="/privacy-policy">
+              <a>Privacy Policy</a>
+            </Link>
           </li>
           <li className="px-2 pb-2">
-            <Link to="/careers">Careers</Link>
+            <Link href="/careers">
+              <a>Careers</a>
+            </Link>
           </li>
           <li className="px-2 pb-2">
-            <Link to="/contact-us">Contact Us</Link>
+            <Link href="/contact-us">
+              <a>Contact Us</a>
+            </Link>
           </li>
         </ul>
         <div className="text-right">

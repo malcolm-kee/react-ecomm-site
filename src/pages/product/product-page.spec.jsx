@@ -1,7 +1,7 @@
 import { wait } from '@testing-library/react';
+import { renderWithStateMgmtAndRouter, user } from 'lib/test-util';
 import * as React from 'react';
-import { renderWithStateMgmtAndRouter, user } from '../lib/test-util';
-import { ProductPage } from './product-page';
+import ProductPage from './[productId]';
 
 jest.mock('../modules/products/product.service');
 

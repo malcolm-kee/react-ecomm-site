@@ -1,7 +1,7 @@
 import { createRequest } from 'xhfetch';
 
 const UPLOAD_SERVICE_BASE_URL = process.env
-  .REACT_APP_UPLOAD_SERVICE_BASE_URL as string;
+  .NEXT_PUBLIC_UPLOAD_SERVICE_BASE_URL as string;
 
 type UploadCallbacks = {
   onDone: (error: Error | null, fileUrl: string) => void;

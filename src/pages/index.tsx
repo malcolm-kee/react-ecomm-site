@@ -1,14 +1,14 @@
-import React from 'react';
-import { Helmet } from 'react-helmet';
+import Head from 'next/head';
+import * as React from 'react';
 import { Jumbotron } from '../components/jumbotron';
 import { Spinner } from '../components/spinner';
 import { useWindowEvent } from '../hooks/use-window-event';
 import { MarketingBanner } from '../modules/marketing/components/marketing-banner';
 import { ProductBox } from '../modules/products/components/product-box';
 import { useProducts } from '../modules/products/product.queries';
-import styles from './main-page.module.scss';
+import styles from './index.module.scss';
 
-export function MainPage() {
+function MainPage() {
   const {
     data: productGroups,
     canFetchMore,
@@ -34,9 +34,9 @@ export function MainPage() {
 
   return (
     <>
-      <Helmet>
+      <Head>
         <title>Shopit: Save Your Money</title>
-      </Helmet>
+      </Head>
       <div className="hidden sm:block">
         <MarketingBanner />
       </div>
@@ -63,3 +63,5 @@ export function MainPage() {
     </>
   );
 }
+
+export default MainPage;

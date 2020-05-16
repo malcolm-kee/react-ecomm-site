@@ -1,9 +1,8 @@
 import cx from 'classnames';
-import React from 'react';
-import { LinkProps, NavLink } from 'react-router-dom';
-import { omit } from '../lib/object';
-import { isDefined } from '../lib/typecheck';
 import { callAll } from 'lib/fn-lib';
+import * as React from 'react';
+import { omit } from '../lib/object';
+import { NavLink, NavLinkProps } from './nav-link';
 
 type ItemBaseProps = {
   label: React.ReactNode;
@@ -12,9 +11,13 @@ type ItemBaseProps = {
   variant?: 'success' | 'warning' | 'info' | 'danger';
 };
 
-type LinkItemsProps = ItemBaseProps & Omit<LinkProps<any>, 'ref'>;
-type ButtonItemProps = ItemBaseProps & JSX.IntrinsicElements['button'];
-type DefaultItemProps = ItemBaseProps & JSX.IntrinsicElements['li'];
+type LinkItemsProps = ItemBaseProps &
+  Omit<React.ComponentPropsWithRef<'a'>, 'href'> & {
+    href: NavLinkProps['href'];
+    as?: NavLinkProps['as'];
+  };
+type ButtonItemProps = ItemBaseProps & React.ComponentPropsWithRef<'button'>;
+type DefaultItemProps = ItemBaseProps & React.ComponentPropsWithRef<'li'>;
 
 export type ListGroupProps =
   | ({
@@ -46,6 +49,8 @@ export const ListGroup = (props: ListGroupProps) => {
       {props.items.map(
         (
           {
+            href,
+            as,
             label,
             active,
             disabled,
@@ -58,14 +63,8 @@ export const ListGroup = (props: ListGroupProps) => {
           allItems
         ) => (
           <NavLink
-            className={cx(
-              'block w-full border px-4 py-2 text-left',
-              disabled
-                ? 'bg-gray-200 text-gray-600 cursor-not-allowed'
-                : variant && variantClasses[variant].base,
-              index === allItems.length - 1 && 'rounded-b-lg',
-              className
-            )}
+            href={href}
+            as={as}
             activeClassName={
               disabled
                 ? undefined
@@ -73,15 +72,25 @@ export const ListGroup = (props: ListGroupProps) => {
                 ? variantClasses[variant].active
                 : 'bg-blue-500 text-gray-100'
             }
-            isActive={(match) => (isDefined(active) ? active : !!match)}
-            onClick={callAll(
-              onClick,
-              disabled ? (ev) => ev.preventDefault() : undefined
-            )}
-            {...linkProps}
             key={index}
           >
-            {label}
+            <a
+              className={cx(
+                'block w-full border px-4 py-2 text-left',
+                disabled
+                  ? 'bg-gray-200 text-gray-600 cursor-not-allowed'
+                  : variant && variantClasses[variant].base,
+                index === allItems.length - 1 && 'rounded-b-lg',
+                className
+              )}
+              onClick={callAll(
+                onClick,
+                disabled ? (ev) => ev.preventDefault() : undefined
+              )}
+              {...linkProps}
+            >
+              {label}
+            </a>
           </NavLink>
         )
       )}

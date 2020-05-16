@@ -1,8 +1,8 @@
 import cx from 'classnames';
-import React from 'react';
-import { getId } from '../lib/id';
+import * as React from 'react';
 import { FieldContext } from './field-context';
 import { FieldStatus } from './type';
+import { useId } from 'hooks/use-id';
 
 export type FieldProps = {
   /**
@@ -20,10 +20,11 @@ export type FieldProps = {
  * Props not specified will be spreaded to the underlying `div` element.
  */
 export function Field({ status, className, ...props }: FieldProps) {
-  const [inputId, setInputId] = React.useState(() => getId());
+  const id = useId();
+  const [inputId, setInputId] = React.useState<string | undefined>(undefined);
 
   return (
-    <FieldContext.Provider value={{ inputId, setInputId }}>
+    <FieldContext.Provider value={{ inputId: inputId || id, setInputId }}>
       <div
         className={cx('mb-2', status && statusClasses[status], className)}
         {...props}

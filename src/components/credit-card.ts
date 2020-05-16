@@ -1,4 +1,3 @@
-import CreditCard from 'react-credit-cards';
-import 'react-credit-cards/lib/styles.scss';
+import ReactCreditCard from 'react-credit-cards';
 
-export default CreditCard;
+export const CreditCard = ReactCreditCard;

@@ -1,14 +1,12 @@
 import { AnyAction, configureStore } from '@reduxjs/toolkit';
 import { act, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { createMemoryHistory } from 'history';
-import React from 'react';
+import * as React from 'react';
 import {
   ReactQueryConfigProvider,
   ReactQueryProviderConfig,
 } from 'react-query';
 import { Provider } from 'react-redux';
-import { Router } from 'react-router-dom';
 import { rootReducer } from '../modules/root-reducer';
 
 export function renderWithQuery(
@@ -31,7 +29,6 @@ export function renderWithStateMgmtAndRouter(
   ui: React.ReactNode,
   {
     actions = [],
-    route = '/',
     queryConfig = {
       retry: false,
     },
@@ -41,9 +38,6 @@ export function renderWithStateMgmtAndRouter(
     queryConfig?: ReactQueryProviderConfig;
   } = {}
 ) {
-  const history = createMemoryHistory({
-    initialEntries: [route],
-  });
   const store = configureStore({
     reducer: rootReducer,
   });
@@ -52,16 +46,9 @@ export function renderWithStateMgmtAndRouter(
   return {
     store,
     history,
-    navigate: (to: string) => {
-      act(() => {
-        history.push(to);
-      });
-    },
     ...render(
       <ReactQueryConfigProvider config={queryConfig}>
-        <Router history={history}>
-          <Provider store={store}>{ui}</Provider>
-        </Router>
+        <Provider store={store}>{ui}</Provider>
       </ReactQueryConfigProvider>
     ),
   };

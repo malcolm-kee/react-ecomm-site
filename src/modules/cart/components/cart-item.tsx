@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
+import * as React from 'react';
 import { Button } from '../../../components/button';
 import { CloseIcon } from '../../../components/icon/close-icon';
 import { formatMoney } from '../../../lib/format';
@@ -14,7 +14,7 @@ type CartItemProps = {
   onDelete: () => void;
 };
 
-function CartItem({
+export function CartItem({
   index,
   item,
   onDecrement,
@@ -24,8 +24,10 @@ function CartItem({
   return (
     <div className="mb-2 pb-2 border-b border-gray-300">
       <div className="flex justify-between items-center">
-        <Link className="text-blue-700" to={`/product/${item.product.id}`}>
-          #{index + 1} {item.product.name}
+        <Link href="/product/[pid]" as={`/product/${item.product.id}`}>
+          <a className="text-blue-700">
+            #{index + 1} {item.product.name}
+          </a>
         </Link>
         <Button
           onClick={onDelete}
@@ -78,5 +80,3 @@ function CartItem({
     </div>
   );
 }
-
-export default CartItem;

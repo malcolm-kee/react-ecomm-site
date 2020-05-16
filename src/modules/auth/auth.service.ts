@@ -1,7 +1,7 @@
 import { fetchJson } from '../../lib/ajax';
 import { AuthUser } from './auth.type';
 
-const AUTH_BASE_URL = process.env.REACT_APP_AUTH_BASE_URL as string;
+const AUTH_BASE_URL = process.env.NEXT_PUBLIC_AUTH_BASE_URL as string;
 
 export function register({
   name,
