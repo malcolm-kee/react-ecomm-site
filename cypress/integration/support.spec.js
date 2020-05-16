@@ -2,6 +2,27 @@
 /// <reference types="../support" />
 
 describe(`support`, () => {
+  it(`can load all support pages`, () => {
+    cy.visit('/help');
+
+    cy.findByText('Account').click();
+
+    cy.findByText('If you forget password, just create another one.', {
+      exact: false,
+    }).should('be.visible');
+
+    cy.findByText('Payment').click();
+    cy.findByText("when you can't even pay?", { exact: false }).should(
+      'be.visible'
+    );
+
+    cy.findByText('Shipping').click();
+    cy.findByText('3-5 years', { exact: false }).should('be.visible');
+
+    cy.findByText('Complaint').click();
+    cy.findByText('Category').should('be.visible');
+  });
+
   it(`can submit complain`, () => {
     cy.visit('/');
     cy.findAllByText('Help').first().click();

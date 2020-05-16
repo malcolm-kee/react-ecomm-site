@@ -2,14 +2,34 @@ import { wait } from '@testing-library/react';
 import { renderWithStateMgmtAndRouter, user } from 'lib/test-util';
 import * as React from 'react';
 import ProductPage from './[productId]';
+import { useRouter } from 'next/router';
 
-jest.mock('../modules/products/product.service');
+/**
+ * @type {jest.MockedFunction<typeof useRouter>}
+ */
+const useRouterMock = useRouter;
+
+jest.mock('modules/products/product.service');
+
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(() => ({
+    query: {},
+  })),
+}));
 
 describe('<ProductPage />', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('allows customer to add product to cart', async () => {
-    const { findByText } = renderWithStateMgmtAndRouter(
-      <ProductPage productId="1" />
-    );
+    useRouterMock.mockImplementation(() => ({
+      query: {
+        productId: '1',
+      },
+    }));
+
+    const { findByText } = renderWithStateMgmtAndRouter(<ProductPage />);
 
     const addToCartBtn = await findByText('Add To Cart');
 
@@ -19,11 +39,16 @@ describe('<ProductPage />', () => {
   });
 
   it('allows customer to add comment', async () => {
+    useRouterMock.mockImplementation(() => ({
+      query: {
+        productId: '1',
+      },
+    }));
     const {
       findByLabelText,
       getByLabelText,
       getByTestId,
-    } = renderWithStateMgmtAndRouter(<ProductPage productId="1" />);
+    } = renderWithStateMgmtAndRouter(<ProductPage />);
 
     await findByLabelText('Your Name');
 

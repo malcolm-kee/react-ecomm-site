@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { DialogOverlay, DialogContent } from '@reach/dialog';
-import '@reach/dialog/styles.css';
 import styles from './dialog.module.scss';
 
 type DialogOverlayProps = React.ComponentPropsWithRef<typeof DialogOverlay>;

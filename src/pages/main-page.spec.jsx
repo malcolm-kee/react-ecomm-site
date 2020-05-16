@@ -21,17 +21,14 @@ function loadMainPage() {
         window,
         new UIEvent('scroll', { bubbles: false, cancelable: false })
       ),
-    getNumberOfProducts: () =>
-      container.querySelectorAll('.product-box').length,
+    getNumberOfProducts: () => container.querySelectorAll('.productBox').length,
   };
 }
 
 describe('<MainPage />', () => {
   beforeEach(() => xhrMock.setup());
 
-  afterEach(() => {
-    xhrMock.teardown();
-  });
+  afterEach(() => xhrMock.teardown());
 
   it('renders without crashing', () => {
     xhrMock.get(new RegExp(PRODUCT_BASE_URL, 'u'), {

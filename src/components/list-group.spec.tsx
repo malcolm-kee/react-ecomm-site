@@ -2,8 +2,17 @@ import { render, screen } from '@testing-library/react';
 import { renderWithStateMgmtAndRouter, user } from 'lib/test-util';
 import * as React from 'react';
 import { ListGroup } from './list-group';
+import { useRouter } from 'next/router';
+
+const useRouterMock = useRouter as jest.MockedFunction<typeof useRouter>;
+
+jest.mock('next/router');
 
 describe('ListGroup button variant', () => {
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
+
   test('all button props will be passed on', () => {
     const callBack = jest.fn();
     const onFocus = jest.fn();
@@ -49,33 +58,31 @@ describe('ListGroup button variant', () => {
   });
 
   test('all link props will be passed on', () => {
-    const { history } = renderWithStateMgmtAndRouter(
+    useRouterMock.mockImplementation(
+      () =>
+        ({
+          pathname: '/malcolm',
+        } as any)
+    );
+
+    renderWithStateMgmtAndRouter(
       <ListGroup
         variant="link"
         items={[
           {
             label: 'Malcolm',
-            to: '/malcolm',
+            href: '/malcolm',
             variant: 'success',
           },
           {
             label: 'Hello',
-            to: '/hello',
+            href: '/hello',
             variant: 'warning',
             disabled: true,
           },
         ]}
-      />,
-      {
-        route: '/',
-      }
+      />
     );
-
-    user.click(screen.getByText('Malcolm'));
-    expect(history.location.pathname).toBe('/malcolm');
-
-    user.click(screen.getByText('Hello'));
-    expect(history.location.pathname).toBe('/malcolm');
   });
 
   test('normal list', () => {

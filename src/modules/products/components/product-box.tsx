@@ -19,7 +19,7 @@ export function ProductBox({
       className={cx(styles.productBox, className)}
       renderContainer={(props) => (
         <Link href="/product/[productId]" as={`/product/${id}`}>
-          <a {...props} />
+          <a {...props} data-testid="productBox" />
         </Link>
       )}
     >

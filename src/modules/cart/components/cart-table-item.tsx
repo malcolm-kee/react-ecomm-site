@@ -49,6 +49,7 @@ export function CartTableItem({
           size="sm"
           disabled={item.qty === 1}
           data-testid={`reduce-${item.product.id}`}
+          aria-label="Reduce Quantity"
         >
           -
         </Button>
@@ -60,6 +61,7 @@ export function CartTableItem({
           color="primary"
           size="sm"
           data-testid={`add-${item.product.id}`}
+          aria-label="Increase Quantity"
         >
           +
         </Button>

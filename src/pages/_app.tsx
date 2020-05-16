@@ -1,3 +1,4 @@
+import '@reach/dialog/styles.css';
 import { AppProps } from 'next/app';
 import * as React from 'react';
 import 'react-credit-cards/lib/styles.scss';
