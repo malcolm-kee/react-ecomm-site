@@ -1,19 +1,22 @@
+import { Button } from 'components/button';
+import { Field } from 'components/field';
+import { Form } from 'components/form';
+import { Label } from 'components/label';
+import { Spinner } from 'components/spinner';
+import { TextField } from 'components/text-field';
+import { Textarea } from 'components/textarea';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Button } from '../../../components/button';
-import { Field } from '../../../components/field';
-import { Form } from '../../../components/form';
-import { Label } from '../../../components/label';
-import { Spinner } from '../../../components/spinner';
-import { TextField } from '../../../components/text-field';
-import { Textarea } from '../../../components/textarea';
 import { selectUser } from '../../auth/auth.selectors';
 import { submitAddProductComment } from '../product.actions';
 
 function ProductCommentFormContent({ productId, submitForm, user }) {
+  const defaultName = (user && user.name) || '';
   const [submitting, setSubmitting] = React.useState(false);
   const [userName, setUserName] = React.useState(user ? user.name : '');
   const [content, setContent] = React.useState('');
+  const nameInputRef = React.useRef(null);
+  const contentInputRef = React.useRef(null);
 
   function handleSubmit(ev) {
     ev.preventDefault();
@@ -26,7 +29,12 @@ function ProductCommentFormContent({ productId, submitForm, user }) {
     }).then(() => {
       setSubmitting(false);
       setContent('');
-      setUserName('');
+      setUserName(defaultName);
+      if (defaultName) {
+        contentInputRef.current && contentInputRef.current.focus();
+      } else {
+        nameInputRef.current && nameInputRef.current.focus();
+      }
     });
   }
 
@@ -38,6 +46,7 @@ function ProductCommentFormContent({ productId, submitForm, user }) {
         onChangeValue={setUserName}
         disabled={submitting}
         required
+        ref={nameInputRef}
       />
       <Field>
         <Label>Your Review</Label>
@@ -48,6 +57,7 @@ function ProductCommentFormContent({ productId, submitForm, user }) {
           minRows={3}
           disabled={submitting}
           required
+          ref={contentInputRef}
         />
       </Field>
       <div>

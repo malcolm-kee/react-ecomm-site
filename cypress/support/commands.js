@@ -1,4 +1,5 @@
 import '@testing-library/cypress/add-commands';
+import 'cypress-file-upload';
 import { getRandomEmail } from '../test-helper';
 
 Cypress.Commands.add('createUser', ({ name, email = getRandomEmail() }) => {
@@ -10,14 +11,14 @@ Cypress.Commands.add('createUser', ({ name, email = getRandomEmail() }) => {
       email,
       joinedDate: Date.now(),
     },
-  }).then(response => response.body);
+  }).then((response) => response.body);
 });
 
 Cypress.Commands.add('connectSocket', ({ url }) => {
   const ws = new WebSocket(url);
 
   return new Cypress.Promise((fulfill, reject) => {
-    ws.onopen = function() {
+    ws.onopen = function () {
       fulfill(ws);
     };
     ws.onerror = reject;

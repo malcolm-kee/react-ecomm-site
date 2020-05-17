@@ -100,14 +100,14 @@ function CartItemsContent({
             <div className="text-right py-4">
               <Button
                 color="success"
-                className="w-full sm:w-24 text-center"
+                className="w-full sm:w-32 text-center"
                 renderContainer={({ className, children }) => (
                   <Link to="/pay" className={className}>
                     {children}
                   </Link>
                 )}
               >
-                Pay
+                Check Out
               </Button>
             </div>
           </ErrorBoundary>

@@ -6,7 +6,7 @@ describe(`chat`, () => {
     cy.createUser({
       name: 'Malcolm Tee',
     }).then((user) => {
-      cy.visit('/');
+      cy.visit('/help');
       cy.findByText('Chat').click();
 
       cy.findAllByText('Login').last().click();
@@ -29,7 +29,7 @@ describe(`chat`, () => {
         cy.connectSocket({
           url: 'wss://ecomm-db.herokuapp.com/chat',
         }).then((chatSocket) => {
-          cy.visit('/');
+          cy.visit('/help');
           cy.findByText('Chat').click();
 
           cy.findAllByText('Login').last().click();
@@ -68,7 +68,7 @@ describe(`chat`, () => {
     cy.createUser({
       name: 'Malcolm Noisy',
     }).then((user) => {
-      cy.visit('/');
+      cy.visit('/help');
       cy.findByText('Chat').click();
 
       cy.findAllByText('Login').last().click();
@@ -89,7 +89,14 @@ describe(`chat`, () => {
         .type('J{enter}')
         .type('K{enter}')
         .type('L{enter}')
-        .type('M{enter}');
+        .type('E{shift}{enter}e{enter}')
+        .type('F{enter}')
+        .type('G{enter}')
+        .type('H{enter}')
+        .type('I{enter}')
+        .type('J{enter}')
+        .type('K{enter}')
+        .type('L{enter}');
 
       cy.findByTestId('chat-history').scrollTo('top');
 

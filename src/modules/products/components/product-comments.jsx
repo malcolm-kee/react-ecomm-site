@@ -1,7 +1,7 @@
+import { Spinner } from 'components/spinner';
 import format from 'date-fns/format';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Spinner } from '../../../components/spinner';
 import { loadProductComments } from '../product.actions';
 import { selectProductComments } from '../product.selectors';
 import { ProductCommentForm } from './product-comment-form';

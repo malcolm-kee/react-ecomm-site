@@ -36,13 +36,7 @@ function useQty(productId) {
   };
 }
 
-function ProductPageContent({
-  productId,
-  details,
-  loadDetails,
-  addToCart,
-  location,
-}) {
+function ProductPageContent({ productId, details, loadDetails, addToCart }) {
   React.useEffect(() => {
     if (!details) {
       loadDetails();

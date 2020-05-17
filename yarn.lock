@@ -5513,6 +5513,13 @@ cyclist@^1.0.1:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
 
+cypress-file-upload@^4.0.6:
+  version "4.0.6"
+  resolved "https://registry.yarnpkg.com/cypress-file-upload/-/cypress-file-upload-4.0.6.tgz#dc1d160b85b4b6ea4af97e5e9138331465740cd2"
+  integrity sha512-CltcHrspJtGjuwpF/Kgs2gVmJMWlSvZFFW9i6w1kpQIcm7q76/XDuoOBqTKJztrSHOgRT9Vq9g0jpoUBoty+HQ==
+  dependencies:
+    mime "^2.4.4"
+
 cypress@*:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/cypress/-/cypress-4.4.1.tgz#f5aa1aa5f328f1299bff328103f7cbad89e80f29"
@@ -17553,6 +17560,11 @@ xdg-basedir@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/xdg-basedir/-/xdg-basedir-4.0.0.tgz#4bc8d9984403696225ef83a1573cbbcb4e79db13"
   integrity sha512-PSNhEJDejZYV7h50BohL09Er9VaIefr2LMAf3OEmpCkjOi34eYyQYAXUTjEQtZJTKcF0E2UKTh+osDLsgNim9Q==
+
+xhfetch@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/xhfetch/-/xhfetch-1.0.2.tgz#93e3c2dc645d862523c7e1db8197e47cf89a1b84"
+  integrity sha512-rtKPPI1ZBlF8WVl+Kug8CFSoox7YkYcWDQMOtCIBCqy/MsGhzlm4n7kyhIGrGqutiHogXza5yEILigp/0amOKQ==
 
 xhr-mock@^2.5.1:
   version "2.5.1"

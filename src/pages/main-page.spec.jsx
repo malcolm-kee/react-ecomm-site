@@ -1,4 +1,4 @@
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import * as React from 'react';
 import xhrMock, { sequence } from 'xhr-mock';
 import { renderWithStateMgmtAndRouter } from '../lib/test-util';
@@ -8,19 +8,14 @@ import { MainPage } from './main-page';
 jest.mock('../modules/marketing/marketing.service');
 
 function loadMainPage() {
-  const renderResults = renderWithStateMgmtAndRouter(<MainPage />);
-
-  const { container } = renderResults;
-
   return {
-    ...renderResults,
+    ...renderWithStateMgmtAndRouter(<MainPage />),
     scrollWindow: () =>
       fireEvent(
         window,
         new UIEvent('scroll', { bubbles: false, cancelable: false })
       ),
-    getNumberOfProducts: () =>
-      container.querySelectorAll('.product-box').length,
+    getNumberOfProducts: () => screen.getAllByTestId('productBox').length,
   };
 }
 

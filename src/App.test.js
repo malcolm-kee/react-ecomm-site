@@ -167,7 +167,7 @@ describe('<App />', () => {
     expect(queryCartItem('1')).toBeNull();
     expect(queryCartItem('2')).not.toBeNull();
 
-    user.click(getByText('Pay'));
+    user.click(getByText('Check Out'));
 
     await user.type(getByLabelText('Card Number'), '5521783746553547');
     await user.type(getByLabelText('Name'), 'Malcolm Kee');

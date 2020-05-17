@@ -50,7 +50,7 @@ describe(`auth`, () => {
     cy.findAllByText('Signup').last().click();
 
     cy.findByText('Network Error', {
-      timeout: 6000,
+      timeout: 10000,
     }).should('be.visible');
   });
 });

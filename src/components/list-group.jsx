@@ -1,9 +1,10 @@
-import { NavLink } from 'react-router-dom';
 import cx from 'classnames';
+import { callAll } from 'lib/fn-lib';
+import { omit } from 'lib/object';
+import { isDefined } from 'lib/typecheck';
 import PropTypes from 'prop-types';
 import * as React from 'react';
-import { omit } from '../lib/object';
-import { isDefined } from '../lib/typecheck';
+import { NavLink } from 'react-router-dom';
 
 /**
  * `ListGroup` renders a list of items.
@@ -19,7 +20,15 @@ export const ListGroup = (props) => {
     >
       {props.items.map(
         (
-          { label, active, disabled, variant, className, ...linkProps },
+          {
+            label,
+            active,
+            disabled,
+            variant,
+            className,
+            onClick,
+            ...linkProps
+          },
           index,
           allItems
         ) => (
@@ -40,6 +49,10 @@ export const ListGroup = (props) => {
                 : 'bg-blue-500 text-gray-100'
             }
             isActive={(match) => (isDefined(active) ? active : !!match)}
+            onClick={callAll(
+              onClick,
+              disabled ? (ev) => ev.preventDefault() : undefined
+            )}
             {...linkProps}
             key={index}
           >

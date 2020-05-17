@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
 import {
   Carousel,
   CarouselIndicators,
   Slide,
   Slides,
-} from '../../../components/carousel';
+} from 'components/carousel';
+import * as React from 'react';
+import { connect } from 'react-redux';
 import { loadBanners } from '../marketing.actions';
 import { selectBanners, selectNoBanner } from '../marketing.selectors';
 

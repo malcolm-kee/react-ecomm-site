@@ -1,30 +1,21 @@
-import fetch from 'unfetch';
+import { createRequest } from 'xhfetch';
 
 const DEFAULT_RETRIES = [1000, 3000];
 
 export function fetchWithRetry(
   url,
-  { retryDelays = DEFAULT_RETRIES, params, data, ...init } = {}
+  { retryDelays = DEFAULT_RETRIES, ...init } = {}
 ) {
   return new Promise((fulfill, reject) => {
     let attemptCount = -1;
-    const requestUrl = url + stringifyParams(params);
 
     function makeRequest() {
       attemptCount++;
-      const request = fetch(
-        requestUrl,
-        data
-          ? {
-              ...init,
-              body: JSON.stringify(data),
-            }
-          : init
-      );
+      const request = xhrX(url, init).fetch();
 
       request
         .then((response) => {
-          if (response.status >= 200 && response.status < 300) {
+          if (response.ok) {
             fulfill(response);
           } else if (shouldRetry(attemptCount)) {
             retryRequest();
@@ -58,8 +49,39 @@ export function fetchWithRetry(
   });
 }
 
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+export function fetchJson(url, options = {}) {
+  return fetchWithRetry(url, {
+    json: true,
+    ...options,
+  }).then((res) => res.json());
+}
 
+export const xhrX = (url, options = {}) => {
+  const rUrl = url + stringifyParams(options.params);
+
+  const { xhr, fetch } = createRequest(rUrl, {
+    ...options,
+    body: options.data ? JSON.stringify(options.data) : options.body,
+    headers: options.json
+      ? {
+          Accept: 'application/json',
+          ...(options.method && options.method.toLowerCase() !== 'get'
+            ? {
+                'Content-Type': 'application/json',
+              }
+            : {}),
+          ...options.headers,
+        }
+      : options.headers,
+  });
+
+  return {
+    xhr,
+    fetch,
+  };
+};
+
+const hasOwnProperty = Object.prototype.hasOwnProperty;
 const stringifyParams = (params) => {
   if (!params) {
     return '';
@@ -77,23 +99,3 @@ const stringifyParams = (params) => {
 
   return `?${results.join('&')}`;
 };
-
-export function fetchJson(url, { headers, ...init } = {}) {
-  const additionalHeaders =
-    init.method && init.method !== 'GET'
-      ? {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        }
-      : {
-          Accept: 'application/json',
-        };
-
-  return fetchWithRetry(url, {
-    headers: {
-      ...additionalHeaders,
-      ...headers,
-    },
-    ...init,
-  }).then((response) => response.json());
-}

@@ -1,6 +1,6 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import * as React from 'react';
-import { user } from '../lib/test-util';
+import { renderWithStateMgmtAndRouter, user } from '../lib/test-util';
 import { ListGroup } from './list-group';
 
 describe('ListGroup button variant', () => {
@@ -42,5 +42,53 @@ describe('ListGroup button variant', () => {
     onFocus.mockClear();
     buttonRef.current.focus();
     expect(onFocus).toHaveBeenCalledTimes(1);
+  });
+
+  test('all link props will be passed on', () => {
+    const { history } = renderWithStateMgmtAndRouter(
+      <ListGroup
+        variant="link"
+        items={[
+          {
+            label: 'Malcolm',
+            to: '/malcolm',
+            variant: 'success',
+          },
+          {
+            label: 'Hello',
+            to: '/hello',
+            variant: 'warning',
+            disabled: true,
+          },
+        ]}
+      />,
+      {
+        route: '/',
+      }
+    );
+
+    user.click(screen.getByText('Malcolm'));
+    expect(history.location.pathname).toBe('/malcolm');
+
+    user.click(screen.getByText('Hello'));
+    expect(history.location.pathname).toBe('/malcolm');
+  });
+
+  test('normal list', () => {
+    render(
+      <ListGroup
+        items={[
+          {
+            label: 'Malcolm',
+            variant: 'success',
+          },
+          {
+            label: 'Hello',
+            variant: 'warning',
+            disabled: true,
+          },
+        ]}
+      />
+    );
   });
 });
