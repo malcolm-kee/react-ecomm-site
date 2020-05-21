@@ -1,54 +1,30 @@
-import { fireEvent, waitForElement, wait } from '@testing-library/react';
+import { screen, wait } from '@testing-library/react';
 import * as React from 'react';
-import { renderWithStateMgmt } from '../lib/test-util';
+import { renderWithStateMgmt, user } from '../lib/test-util';
 import { ProductPage } from './product-page';
 
 jest.mock('../modules/products/product.service');
 
 describe('<ProductPage />', () => {
   function loadProductPage() {
-    const renderResult = renderWithStateMgmt(<ProductPage productId="1" />);
-
-    const { getByText, getByLabelText, getByTestId } = renderResult;
-
-    return {
-      ...renderResult,
-      getAddToCartBtn: () => getByText('Add To Cart'),
-      getCommentNameInput: () => getByLabelText('Your Name'),
-      inputCommentorName: (name) =>
-        fireEvent.change(getByLabelText('Your Name'), {
-          target: { value: name },
-        }),
-      inputComment: (comment) =>
-        fireEvent.change(getByLabelText('Your Review'), {
-          target: { value: comment },
-        }),
-      submitComment: () =>
-        fireEvent.click(getByTestId('product-comment-submit-btn')),
-    };
+    return renderWithStateMgmt(<ProductPage productId="1" />);
   }
 
   it('allows customer to add product to cart', async () => {
-    const { getAddToCartBtn } = loadProductPage();
+    loadProductPage();
 
-    const addToCartBtn = await waitForElement(() => getAddToCartBtn());
+    const addToCartBtn = await screen.findByText('Add To Cart');
 
-    fireEvent.click(addToCartBtn);
+    user.click(addToCartBtn);
   });
 
   it('allows customer to add comment', async () => {
-    const {
-      getCommentNameInput,
-      inputCommentorName,
-      inputComment,
-      submitComment,
-    } = loadProductPage();
+    loadProductPage();
 
-    await waitForElement(() => getCommentNameInput());
+    await user.type(await screen.findByLabelText('Your Name'), 'Malcolm Kee');
+    await user.type(screen.getByLabelText('Your Review'), 'I like it');
 
-    inputCommentorName('Malcolm Kee');
-    inputComment('I like it');
-    submitComment();
+    user.click(screen.getByTestId('product-comment-submit-btn'));
 
     await wait(); // to suppress act() warning, I have no idea I am doing actually.
   });

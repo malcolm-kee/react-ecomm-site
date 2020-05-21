@@ -1,4 +1,4 @@
-import { act, fireEvent, wait, waitForElement } from '@testing-library/react';
+import { act, fireEvent, screen, wait } from '@testing-library/react';
 import * as React from 'react';
 import { renderWithStateMgmt } from '../lib/test-util';
 import { MainPage } from './main-page';
@@ -7,40 +7,35 @@ jest.mock('../modules/products/product.service');
 jest.mock('../modules/marketing/marketing.service');
 
 function loadMainPage() {
-  const renderResults = renderWithStateMgmt(<MainPage />);
-
-  const { container } = renderResults;
-
   return {
-    ...renderResults,
+    ...renderWithStateMgmt(<MainPage />),
     scrollWindow: () =>
       fireEvent(
         window,
         new UIEvent('scroll', { bubbles: false, cancelable: false })
       ),
-    getNumberOfProducts: () =>
-      container.querySelectorAll('.product-box').length,
+    getNumberOfProducts: () => screen.getAllByTestId('productBox').length,
   };
 }
 
 describe('<MainPage />', () => {
   it('renders without crashing', () => {
-    const { getByText } = loadMainPage();
-    expect(getByText('Shopit')).not.toBeNull();
+    loadMainPage();
+    expect(screen.getByText('Shopit')).not.toBeNull();
   });
 
   it('shows the product from API', async () => {
-    const { getByText } = loadMainPage();
+    loadMainPage();
 
-    const iPhoneXBox = await waitForElement(() => getByText('iPhone X'));
+    const iPhoneXBox = await screen.findByText('iPhone X');
 
     expect(iPhoneXBox).not.toBeNull();
   });
 
   it('load more products when scroll', async () => {
-    const { getByText, scrollWindow, getNumberOfProducts } = loadMainPage();
+    const { scrollWindow, getNumberOfProducts } = loadMainPage();
 
-    await waitForElement(() => getByText('iPhone X'));
+    await screen.findByText('iPhone X');
 
     expect(getNumberOfProducts()).toBe(2);
 

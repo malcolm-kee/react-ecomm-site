@@ -1,9 +1,4 @@
-import {
-  fireEvent,
-  wait,
-  waitForElement,
-  screen,
-} from '@testing-library/react';
+import { fireEvent, screen, wait } from '@testing-library/react';
 import * as React from 'react';
 import App from './App';
 import { renderWithStateMgmt, user } from './lib/test-util';
@@ -14,43 +9,32 @@ jest.mock('./modules/products/product.service');
 jest.mock('./modules/career/career.service');
 
 function loadApp({ url = '/' } = {}) {
-  const renderResult = renderWithStateMgmt(<App />, {
-    route: url,
-  });
-
-  const {
-    getByText,
-    getByTestId,
-    queryByTestId,
-    getByLabelText,
-    container,
-  } = renderResult;
-
-  const getAddToCartBtn = () => getByText('Add To Cart');
+  const addToCartBtnLabel = 'Add To Cart';
 
   return {
-    ...renderResult,
-    addProductToCart: () => user.click(getAddToCartBtn()),
-    waitForProductPageFinishLoading: () =>
-      waitForElement(() => getAddToCartBtn()),
-    addQty: () => user.click(getByTestId('add-qty-btn')),
-    minusQty: () => user.click(getByTestId('reduce-qty-btn')),
-    getCartItemQty: (id) => getByTestId(`qty-for-${id}`).innerHTML,
-    queryCartItem: (id) => queryByTestId(`qty-for-${id}`),
-    addMoreCartItem: (id) => user.click(getByTestId(`add-${id}`)),
-    reduceCartItem: (id) => user.click(getByTestId(`reduce-${id}`)),
-    removeCartItem: (id) => user.click(getByTestId(`remove-${id}`)),
+    ...renderWithStateMgmt(<App />, {
+      route: url,
+    }),
+    addProductToCart: () => user.click(screen.getByText(addToCartBtnLabel)),
+    waitForProductPageFinishLoading: () => screen.findByText(addToCartBtnLabel),
+    addQty: () => user.click(screen.getByTestId('add-qty-btn')),
+    minusQty: () => user.click(screen.getByTestId('reduce-qty-btn')),
+    getCartItemQty: (id) => screen.getByTestId(`qty-for-${id}`).innerHTML,
+    queryCartItem: (id) => screen.queryByTestId(`qty-for-${id}`),
+    addMoreCartItem: (id) => user.click(screen.getByTestId(`add-${id}`)),
+    reduceCartItem: (id) => user.click(screen.getByTestId(`reduce-${id}`)),
+    removeCartItem: (id) => user.click(screen.getByTestId(`remove-${id}`)),
     inputName: (name) =>
-      fireEvent.change(getByLabelText('Name'), {
+      fireEvent.change(screen.getByLabelText('Name'), {
         target: { value: name },
       }),
     inputEmail: (email) =>
-      fireEvent.change(getByLabelText('Email'), {
+      fireEvent.change(screen.getByLabelText('Email'), {
         target: { value: email },
       }),
     submitForm: () =>
-      user.click(container.querySelector('button[type="submit"]')),
-    logout: () => user.click(getByText('Logout')),
+      user.click(document.querySelector('button[type="submit"]')),
+    logout: () => user.click(screen.getByText('Logout')),
   };
 }
 
@@ -182,7 +166,7 @@ describe('<App />', () => {
     inputEmail('mk@test.com');
     submitForm();
 
-    await waitForElement(() => getByText("You're already login!"));
+    await screen.findByText("You're already login!");
 
     navigate('/product/1');
 
@@ -213,7 +197,7 @@ describe('<App />', () => {
     inputEmail('mk@test.com');
     submitForm();
 
-    await waitForElement(() => getByText("You're already login!"));
+    await screen.findByText("You're already login!");
 
     navigate('/product/1');
 
@@ -229,14 +213,7 @@ describe('<App />', () => {
   });
 
   it(`can update user profile`, async () => {
-    const {
-      navigate,
-      inputEmail,
-      inputName,
-      submitForm,
-      logout,
-      getByText,
-    } = loadApp({
+    const { navigate, inputEmail, inputName, submitForm, logout } = loadApp({
       url: '/login',
     });
 
@@ -245,14 +222,14 @@ describe('<App />', () => {
     inputEmail('mk@test.com');
     submitForm();
 
-    await waitForElement(() => getByText("You're already login!"));
+    await screen.findByText("You're already login!");
 
     navigate('/profile');
 
     inputName('Malcolm Key');
     submitForm();
 
-    await waitForElement(() => getByText('Profile Updated.'));
+    await screen.findByText('Profile Updated.');
 
     logout();
   });
