@@ -1,5 +1,5 @@
 import { inject, observer } from 'mobx-react';
-import React from 'react';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../../../components/button';
 import { CloseIcon } from '../../../components/icon/close-icon';
@@ -36,6 +36,7 @@ function CartTableItem({ cart: { items }, index, onDelete }) {
           size="sm"
           disabled={!item.canDecrement}
           data-testid={`reduce-${item.product.id}`}
+          aria-label="Reduce Quantity"
         >
           -
         </Button>
@@ -47,6 +48,7 @@ function CartTableItem({ cart: { items }, index, onDelete }) {
           color="primary"
           size="sm"
           data-testid={`add-${item.product.id}`}
+          aria-label="Increase Quantity"
         >
           +
         </Button>

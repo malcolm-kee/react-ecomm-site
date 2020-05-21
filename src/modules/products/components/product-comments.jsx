@@ -1,6 +1,6 @@
 import format from 'date-fns/format';
 import { inject, observer } from 'mobx-react';
-import React from 'react';
+import * as React from 'react';
 import { Spinner } from '../../../components/spinner';
 import { ProductCommentForm } from './product-comment-form';
 
@@ -32,7 +32,7 @@ function ProductCommentsContent({ productId, loadComments, comments }) {
     <>
       {isLoading && <Spinner />}
       <div className="mb-3">
-        {comments.map(comment => (
+        {comments.map((comment) => (
           <ProductComment {...comment} key={comment.id} />
         ))}
         {!isLoading && comments.length === 0 && (

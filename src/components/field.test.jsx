@@ -1,5 +1,5 @@
 import { fireEvent, render } from '@testing-library/react';
-import React from 'react';
+import * as React from 'react';
 import { Field } from './field';
 import { HelpText } from './help-text';
 import { Input } from './input';

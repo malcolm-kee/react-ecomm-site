@@ -2,7 +2,7 @@ import { act, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'mobx-react';
-import React from 'react';
+import * as React from 'react';
 import { Router } from 'react-router-dom';
 import { AuthStore } from '../modules/auth/auth.store';
 import { CartStore } from '../modules/cart/cart.store';
@@ -29,7 +29,7 @@ export function renderWithStateMgmt(
     cartStore,
     marketingStore,
     history,
-    navigate: to =>
+    navigate: (to) =>
       act(() => {
         history.push(to);
       }),

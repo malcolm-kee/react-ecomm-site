@@ -1,4 +1,4 @@
-const copyTextFallback = textToCopy => {
+const copyTextFallback = (textToCopy) => {
   const currentActive = document.activeElement;
   const textarea = document.createElement('textarea');
   textarea.value = textToCopy;
@@ -19,7 +19,7 @@ const copyTextFallback = textToCopy => {
   }
 };
 
-export const copyText = textToCopy => {
+export const copyText = (textToCopy) => {
   if (!navigator.clipboard) {
     try {
       copyTextFallback(textToCopy);

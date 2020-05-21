@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 
 /**
  * Button is a wrapper of `button` element.
@@ -15,7 +15,7 @@ export const Button = React.forwardRef(function Button(
     color,
     size,
     className,
-    renderContainer = providedProps => <button {...providedProps} />,
+    renderContainer = (providedProps) => <button {...providedProps} />,
     disabled,
     ...buttonProps
   },

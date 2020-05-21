@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 import { omit } from '../lib/object';
 import { isDefined } from '../lib/typecheck';
 
@@ -11,7 +11,7 @@ import { isDefined } from '../lib/typecheck';
  * All props except `variant` and `items` will be spreaded to the underlying container.
  *
  */
-export const ListGroup = props => {
+export const ListGroup = (props) => {
   return props.variant === 'link' ? (
     <div
       {...omit(props, ['items', 'variant'])}
@@ -39,7 +39,7 @@ export const ListGroup = props => {
                 ? variantClasses[variant].active
                 : 'bg-blue-500 text-gray-100'
             }
-            isActive={match => (isDefined(active) ? active : !!match)}
+            isActive={(match) => (isDefined(active) ? active : !!match)}
             {...linkProps}
             key={index}
           >

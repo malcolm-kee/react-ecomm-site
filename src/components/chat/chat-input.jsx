@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 import { useId } from '../../hooks/use-id';
 import { callAll } from '../../lib/fn-lib';
 import { Textarea } from '../textarea';
@@ -27,7 +27,7 @@ export const ChatInput = ({
 
   return (
     <form
-      onSubmit={ev => {
+      onSubmit={(ev) => {
         ev.preventDefault();
         handleSend();
       }}
@@ -42,7 +42,7 @@ export const ChatInput = ({
           useCacheForDOMMeasurements
           placeholder={placeholder}
           {...props}
-          onKeyDown={callAll(ev => {
+          onKeyDown={callAll((ev) => {
             if (ev.keyCode === 13 && !ev.shiftKey) {
               ev.preventDefault();
               handleSend();

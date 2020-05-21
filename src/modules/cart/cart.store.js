@@ -26,8 +26,8 @@ export class CartStore {
     );
   }
 
-  getItemByProductId = productId =>
-    this.items.find(item => item.productId === productId);
+  getItemByProductId = (productId) =>
+    this.items.find((item) => item.productId === productId);
 
   addItem = (productId, qty) => {
     const item = this.getItemByProductId(productId);
@@ -39,7 +39,7 @@ export class CartStore {
     }
   };
 
-  removeItem = item => {
+  removeItem = (item) => {
     this.items.remove(item);
   };
 
@@ -92,7 +92,7 @@ class CartItem {
     return '';
   }
 
-  incrementQty = amount => {
+  incrementQty = (amount) => {
     if (isNumber(amount)) {
       this.qty += amount;
     } else {

@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 import { callAll } from '../lib/fn-lib';
 import { FieldContext } from './field-context';
 
@@ -44,7 +44,7 @@ export const Select = React.forwardRef(function Select(
       id={inputId}
       onChange={callAll(
         onChange,
-        onChangeValue && (ev => onChangeValue(ev.target.value))
+        onChangeValue && ((ev) => onChangeValue(ev.target.value))
       )}
       {...selectProps}
       ref={ref}

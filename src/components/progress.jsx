@@ -1,9 +1,9 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 import styles from './progress.module.scss';
 
-export const Progress = props => (
+export const Progress = (props) => (
   <div
     className={cx(
       'shadow-inner my-1',

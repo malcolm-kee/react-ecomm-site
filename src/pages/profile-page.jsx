@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { UserProfileForm } from '../modules/auth/components/user-profile-form';
 
 export function ProfilePage() {

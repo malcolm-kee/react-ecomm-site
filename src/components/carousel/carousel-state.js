@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { useInterval } from '../../hooks/use-interval';
 
 // modulus in JS is different from modules in Maths, thus this
@@ -34,7 +34,7 @@ function carouselReducer(state, action) {
 const carouselActions = {
   next: () => ({ type: 'next' }),
   prev: () => ({ type: 'prev' }),
-  override: newIndex => ({ type: 'override', payload: newIndex }),
+  override: (newIndex) => ({ type: 'override', payload: newIndex }),
 };
 
 function getTransitionDirection(newIndex, previousIndex, totalSlides) {
@@ -92,7 +92,7 @@ export const useCarouselState = (interval, initialSlide) => {
         previousIndex,
         totalSlides
       ),
-      setActiveIndex: function(newIndex) {
+      setActiveIndex: function (newIndex) {
         dispatch(carouselActions.override(newIndex));
         resetRef.current();
       },

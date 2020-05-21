@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 import { useSocket } from '../../hooks/use-socket';
 import { Alert } from '../alert';
 import { Spinner } from '../spinner';
@@ -12,7 +12,7 @@ import { ChatSystemMessage } from './chat-system-message';
 export const ChatBox = ({ height = 400, socketEndpoint, userId }) => {
   const [messages, setMessages] = React.useState([]);
   const [status, send] = useSocket(socketEndpoint, {
-    onMessage: data => setMessages(msgs => msgs.concat(data)),
+    onMessage: (data) => setMessages((msgs) => msgs.concat(data)),
   });
 
   return (
@@ -39,7 +39,7 @@ export const ChatBox = ({ height = 400, socketEndpoint, userId }) => {
         })}
       </ChatHistory>
       <ChatInput
-        onSend={message => {
+        onSend={(message) => {
           send({
             userId,
             message,

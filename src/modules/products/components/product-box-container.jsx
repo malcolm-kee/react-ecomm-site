@@ -1,5 +1,5 @@
 import { inject, observer } from 'mobx-react';
-import React from 'react';
+import * as React from 'react';
 import { ProductBox } from './product-box';
 
 function ProductBoxContainerContent({

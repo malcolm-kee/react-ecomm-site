@@ -1,5 +1,5 @@
 import { inject, observer } from 'mobx-react';
-import React from 'react';
+import * as React from 'react';
 import { Button } from '../../../components/button';
 import { Field } from '../../../components/field';
 import { Form } from '../../../components/form';
@@ -31,7 +31,7 @@ function RegisterFormContent({
     );
   }
 
-  const onSubmit = ev => {
+  const onSubmit = (ev) => {
     ev.preventDefault();
     register({ name, email });
   };

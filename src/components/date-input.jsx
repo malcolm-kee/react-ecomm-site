@@ -29,7 +29,7 @@ export const DateInput = ({
   const onChangeValueRef = useLatest(onChangeValue);
 
   const getDateValue = React.useCallback(
-    date => {
+    (date) => {
       return $.datepick.formatDate(dateFormat, date);
     },
     [dateFormat]
@@ -40,7 +40,7 @@ export const DateInput = ({
       dateFormat,
       pickerClass: styles.datepick,
       showAnim: '',
-      onSelect: dates => {
+      onSelect: (dates) => {
         if (onChangeValueRef.current) {
           onChangeValueRef.current(getDateValue(dates[0]));
         }

@@ -8,7 +8,7 @@ export const upload = (file, { onDone, onProgress }) => {
   if (onProgress) {
     xhr.upload.addEventListener(
       'progress',
-      ev => {
+      (ev) => {
         if (ev.lengthComputable) {
           const percentage = Math.round(100 * (ev.loaded / ev.total));
           onProgress(percentage);
@@ -44,13 +44,13 @@ export const upload = (file, { onDone, onProgress }) => {
   };
 };
 
-export const getFilePreviewUrl = file => {
+export const getFilePreviewUrl = (file) => {
   if (window.URL && typeof window.URL.createObjectURL === 'function') {
     return Promise.resolve(window.URL.createObjectURL(file));
   }
   return new Promise((fulfill, reject) => {
     const reader = new FileReader();
-    reader.onload = ev => {
+    reader.onload = (ev) => {
       if (ev.target) {
         return fulfill(ev.target.result);
       }
@@ -61,7 +61,7 @@ export const getFilePreviewUrl = file => {
   });
 };
 
-export const cleanupFilePreviewUrl = previewUrl => {
+export const cleanupFilePreviewUrl = (previewUrl) => {
   if (window.URL && typeof window.URL.revokeObjectURL === 'function') {
     try {
       window.URL.revokeObjectURL(previewUrl);

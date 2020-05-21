@@ -1,5 +1,10 @@
-import { fireEvent, wait, waitForElement } from '@testing-library/react';
-import React from 'react';
+import {
+  fireEvent,
+  wait,
+  waitForElement,
+  screen,
+} from '@testing-library/react';
+import * as React from 'react';
 import App from './App';
 import { renderWithStateMgmt, user } from './lib/test-util';
 
@@ -30,16 +35,16 @@ function loadApp({ url = '/' } = {}) {
       waitForElement(() => getAddToCartBtn()),
     addQty: () => user.click(getByTestId('add-qty-btn')),
     minusQty: () => user.click(getByTestId('reduce-qty-btn')),
-    getCartItemQty: id => getByTestId(`qty-for-${id}`).innerHTML,
-    queryCartItem: id => queryByTestId(`qty-for-${id}`),
-    addMoreCartItem: id => user.click(getByTestId(`add-${id}`)),
-    reduceCartItem: id => user.click(getByTestId(`reduce-${id}`)),
-    removeCartItem: id => user.click(getByTestId(`remove-${id}`)),
-    inputName: name =>
+    getCartItemQty: (id) => getByTestId(`qty-for-${id}`).innerHTML,
+    queryCartItem: (id) => queryByTestId(`qty-for-${id}`),
+    addMoreCartItem: (id) => user.click(getByTestId(`add-${id}`)),
+    reduceCartItem: (id) => user.click(getByTestId(`reduce-${id}`)),
+    removeCartItem: (id) => user.click(getByTestId(`remove-${id}`)),
+    inputName: (name) =>
       fireEvent.change(getByLabelText('Name'), {
         target: { value: name },
       }),
-    inputEmail: email =>
+    inputEmail: (email) =>
       fireEvent.change(getByLabelText('Email'), {
         target: { value: email },
       }),
@@ -148,6 +153,15 @@ describe('<App />', () => {
 
     expect(queryCartItem('1')).toBeNull();
     expect(queryCartItem('2')).not.toBeNull();
+
+    user.click(screen.getByText('Check Out'));
+
+    await user.type(screen.getByLabelText('Card Number'), '5521783746553547');
+    await user.type(screen.getByLabelText('Name'), 'Malcolm Kee');
+    await user.type(screen.getByLabelText('Valid Thru'), '05/22');
+    await user.type(screen.getByLabelText('CVC'), '123');
+    user.click(screen.getByText('Pay'));
+    await screen.findByText('Paid');
   });
 
   it('default customer name in comment form', async () => {

@@ -1,7 +1,9 @@
+import { Button } from 'components/button';
+import { ErrorBoundary } from 'components/error-boundary';
+import { Spinner } from 'components/spinner';
 import { inject, observer } from 'mobx-react';
-import React from 'react';
-import { ErrorBoundary } from '../../../components/error-boundary';
-import { Spinner } from '../../../components/spinner';
+import * as React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './cart-items.module.scss';
 
 const CartItem = React.lazy(() =>
@@ -65,6 +67,19 @@ function CartItemsContent({
                   key={index}
                 />
               ))}
+            </div>
+            <div className="text-right py-4">
+              <Button
+                color="success"
+                className="w-full sm:w-32 text-center"
+                renderContainer={({ className, children }) => (
+                  <Link to="/pay" className={className}>
+                    {children}
+                  </Link>
+                )}
+              >
+                Check Out
+              </Button>
             </div>
           </ErrorBoundary>
         </React.Suspense>

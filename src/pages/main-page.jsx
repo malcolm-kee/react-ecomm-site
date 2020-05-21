@@ -1,5 +1,5 @@
 import { inject, observer } from 'mobx-react';
-import React from 'react';
+import * as React from 'react';
 import { Jumbotron } from '../components/jumbotron';
 import { Spinner } from '../components/spinner';
 import { useWindowEvent } from '../hooks/use-window-event';
@@ -49,7 +49,7 @@ function MainPageContent({
           </blockquote>
         </Jumbotron>
         <div className={styles.grid}>
-          {products.map(product => (
+          {products.map((product) => (
             <ProductBox {...product} key={product.id} />
           ))}
         </div>

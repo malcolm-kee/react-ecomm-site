@@ -8,10 +8,10 @@ export class ProductStore {
   hasMore = true;
   loadingProducts = false;
 
-  getProduct = productId =>
-    this.products.find(product => product.id === productId);
+  getProduct = (productId) =>
+    this.products.find((product) => product.id === productId);
 
-  getProductComments = productId => this.productComments.get(productId) || [];
+  getProductComments = (productId) => this.productComments.get(productId) || [];
 
   loadProducts = async () => {
     this.loadingProducts = true;
@@ -20,16 +20,16 @@ export class ProductStore {
     runInAction('addProducts', () => {
       this.currentPage = nextPage;
       this.hasMore = products.length !== 0;
-      products.forEach(product => {
+      products.forEach((product) => {
         this.products.push(product);
       });
       this.loadingProducts = false;
     });
   };
 
-  loadProductDetail = async productId => {
+  loadProductDetail = async (productId) => {
     const productIsLoaded =
-      this.products.findIndex(product => product.id === productId) !== -1;
+      this.products.findIndex((product) => product.id === productId) !== -1;
     if (productIsLoaded) {
       return;
     }
@@ -38,7 +38,7 @@ export class ProductStore {
 
     runInAction('setProductDetails', () => {
       const productIndex = this.products.findIndex(
-        item => item.id === product.id
+        (item) => item.id === product.id
       );
       if (productIndex === -1) {
         this.products.push(product);
@@ -48,7 +48,7 @@ export class ProductStore {
     });
   };
 
-  loadProductComments = async productId => {
+  loadProductComments = async (productId) => {
     if (this.productComments.get(productId) !== undefined) {
       return;
     }
@@ -60,7 +60,7 @@ export class ProductStore {
     });
   };
 
-  createProductComment = async comment => {
+  createProductComment = async (comment) => {
     const returnedComment = await productService.createProductComment(comment);
     runInAction('addProductComment', () => {
       const productId = returnedComment.productId;

@@ -22,7 +22,7 @@ export class AuthStore {
   setupSyncStorage() {
     reaction(
       () => this.user,
-      user => {
+      (user) => {
         if (user) {
           save('user', user);
         } else {
@@ -33,7 +33,7 @@ export class AuthStore {
     );
   }
 
-  updateUser = user => {
+  updateUser = (user) => {
     this.user = user;
     this.error = '';
   };
@@ -48,7 +48,7 @@ export class AuthStore {
     }
   };
 
-  login = async email => {
+  login = async (email) => {
     this.pending = true;
     try {
       const user = await authService.login({ email });
@@ -58,7 +58,7 @@ export class AuthStore {
     }
   };
 
-  updateProfile = async user => {
+  updateProfile = async (user) => {
     this.pending = true;
     try {
       const updatedUser = await authService.update(user);
@@ -68,14 +68,32 @@ export class AuthStore {
     }
   };
 
-  handleError = error => {
-    this.error = error instanceof Error ? error.message : error;
+  setError = (errorMsg) => {
+    this.error = errorMsg;
     this.pending = false;
   };
+
+  handleError = (error) =>
+    extractErrorMessage(error).then((errorMsg) => this.setError(errorMsg));
 
   logout = () => {
     this.user = null;
   };
+}
+
+function extractErrorMessage(err) {
+  return err.response
+    ? Promise.resolve()
+        .then(() => err.response.json())
+        .catch(() => err.response.text())
+        .then(extractErrorMessage)
+    : Promise.resolve(
+        err.message
+          ? err.message
+          : typeof err === 'string'
+          ? err
+          : 'Unknown Error'
+      );
 }
 
 decorate(AuthStore, {
@@ -87,6 +105,6 @@ decorate(AuthStore, {
   register: action,
   login: action,
   updateProfile: action,
-  handleError: action,
+  setError: action,
   logout: action,
 });

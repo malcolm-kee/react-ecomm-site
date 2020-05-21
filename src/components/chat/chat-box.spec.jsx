@@ -1,6 +1,6 @@
 import { act, render, waitForElementToBeRemoved } from '@testing-library/react';
 import WS from 'jest-websocket-mock';
-import React from 'react';
+import * as React from 'react';
 import { ChatBox } from './chat-box';
 import { user } from '../../lib/test-util';
 
@@ -61,7 +61,7 @@ function createMockSocketServer() {
   return {
     server,
     endpoint,
-    sendSystemMessage: message => {
+    sendSystemMessage: (message) => {
       act(() => {
         server.send({
           type: 'System',

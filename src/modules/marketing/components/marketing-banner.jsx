@@ -1,12 +1,11 @@
-import { inject, observer } from 'mobx-react';
-import React from 'react';
 import {
   Carousel,
   CarouselIndicators,
   Slide,
   Slides,
-} from '../../../components/carousel';
-import { MarketingImage } from './marketing-image';
+} from 'components/carousel';
+import { inject, observer } from 'mobx-react';
+import * as React from 'react';
 
 class MarketingBannerView extends React.Component {
   state = {
@@ -14,7 +13,7 @@ class MarketingBannerView extends React.Component {
   };
 
   loadImage = () =>
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       loadedImageCount: prevState.loadedImageCount + 1,
     }));
 
@@ -37,7 +36,7 @@ class MarketingBannerView extends React.Component {
       <Carousel interval={2000}>
         {isAllImageLoaded && <CarouselIndicators />}
         <Slides>
-          {banners.map(banner => (
+          {banners.map((banner) => (
             <Slide
               caption={
                 <>
@@ -50,7 +49,12 @@ class MarketingBannerView extends React.Component {
               }
               key={banner['500']}
             >
-              <MarketingImage banner={banner} onLoad={this.loadImage} />
+              <img
+                srcSet={`${banner['500']} 500w, ${banner['700']} 700w, ${banner['1242']} 1242w`}
+                src={banner['700']}
+                alt=""
+                onLoad={this.loadImage}
+              />
             </Slide>
           ))}
         </Slides>

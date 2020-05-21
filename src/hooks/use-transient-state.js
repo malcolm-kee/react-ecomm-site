@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 export const useTransientState = (steadyState, restorationTime = 1000) => {
   const [state, setState] = React.useState(steadyState);
@@ -8,7 +8,7 @@ export const useTransientState = (steadyState, restorationTime = 1000) => {
     newValue
   ) {
     setState(newValue);
-    setCallTimes(t => t + 1);
+    setCallTimes((t) => t + 1);
   },
   []);
 

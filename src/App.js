@@ -1,10 +1,12 @@
 // import DevTools from 'mobx-react-devtools';
-import React from 'react';
+import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { Footer } from './components/footer';
 import { MainContent } from './components/main-content';
+import { LayoutContext } from './hooks/use-layout';
+import { useScrollTopOnNavigate } from './hooks/use-scroll-top-on-navigate';
 import { ChatLauncher } from './modules/auth/components/chat-launcher';
 import { CareersPage } from './pages/careers';
 import { CartPage } from './pages/cart-page';
@@ -12,15 +14,21 @@ import { HelpPage } from './pages/help-page';
 import { Login } from './pages/login';
 import { MainPage } from './pages/main-page';
 import { NotFoundPage } from './pages/not-found-page';
+import { PaymentPage } from './pages/payment-page';
 import { ProductPage } from './pages/product-page';
 import { ProfilePage } from './pages/profile-page';
 import { Signup } from './pages/signup';
 import { SiteNav } from './site-nav';
 
 function App() {
+  const layoutState = React.useState('default');
+  const isDefaultLayout = layoutState[0] === 'default';
+
+  useScrollTopOnNavigate();
+
   return (
-    <div>
-      <SiteNav />
+    <LayoutContext.Provider value={layoutState}>
+      {isDefaultLayout && <SiteNav />}
       <MainContent>
         <Switch>
           <Route
@@ -34,6 +42,7 @@ function App() {
           />
           <Route path="/careers" component={CareersPage} />
           <Route path="/cart" component={CartPage} />
+          <Route path="/pay" component={PaymentPage} />
           <Route path="/login" component={Login} />
           <Route path="/profile" component={ProfilePage} />
           <Route path="/signup" component={Signup} />
@@ -42,11 +51,15 @@ function App() {
           <Route component={NotFoundPage} />
         </Switch>
       </MainContent>
-      <Footer />
-      {/* <DevTools /> */}
-      <ChatLauncher />
+      {isDefaultLayout && (
+        <>
+          <Footer />
+          {/* <DevTools /> */}
+          <ChatLauncher />
+        </>
+      )}
       <ToastContainer hideProgressBar />
-    </div>
+    </LayoutContext.Provider>
   );
 }
 

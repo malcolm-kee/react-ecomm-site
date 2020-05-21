@@ -10,11 +10,11 @@ import { safeEval } from '../../safe-eval';
  * MIT Licensed.
  */
 // Inspired by base2 and Prototype
-(function() {
+(function () {
   var initializing = false;
 
   // The base JQClass implementation (does nothing)
-  window.JQClass = function() {};
+  window.JQClass = function () {};
 
   // Collection of derived classes
   JQClass.classes = {};
@@ -36,11 +36,11 @@ import { safeEval } from '../../safe-eval';
         typeof prop[name] === 'function' &&
         typeof base[name] === 'function'
       ) {
-        prototype[name] = (function(name, fn) {
-          return function() {
+        prototype[name] = (function (name, fn) {
+          return function () {
             var __super = this._super;
             // Add a new ._super() method that is the same method but on the super-class
-            this._super = function(args) {
+            this._super = function (args) {
               return base[name].apply(this, args || []);
             };
             var ret = fn.apply(this, arguments);
@@ -96,7 +96,7 @@ import { safeEval } from '../../safe-eval';
 /*! Abstract base class for collection plugins v1.0.2.
 	Written by Keith Wood (wood.keith{at}optusnet.com.au) December 2013.
 	Licensed under the MIT license (http://keith-wood.name/licence.html). */
-(function($) {
+(function ($) {
   // Ensure $, encapsulate
 
   /** <p>Abstract base class for collection plugins v1.0.2.</p>
@@ -149,7 +149,7 @@ import { safeEval } from '../../safe-eval';
 			In the format: <code>is-&lt;pluginName&gt;</code>.
 			@protected
 			@return {string} The marker class. */
-    _getMarker: function() {
+    _getMarker: function () {
       return 'is-' + this.name;
     },
 
@@ -157,7 +157,7 @@ import { safeEval } from '../../safe-eval';
 			Create the jQuery bridge - plugin name <code>xyz</code>
 			produces singleton <code>$.xyz</code> and collection function <code>$.fn.xyz</code>.
 			@protected */
-    _init: function() {
+    _init: function () {
       // Apply default localisations
       $.extend(
         this.defaultOptions,
@@ -168,11 +168,11 @@ import { safeEval } from '../../safe-eval';
       // Expose jQuery singleton manager
       $[jqName] = this;
       // Expose jQuery collection plugin
-      $.fn[jqName] = function(options) {
+      $.fn[jqName] = function (options) {
         var otherArgs = Array.prototype.slice.call(arguments, 1);
         var inst = this;
         var returnValue = this;
-        this.each(function() {
+        this.each(function () {
           if (typeof options === 'string') {
             if (options[0] === '_' || !$[jqName][options]) {
               throw 'Unknown method: ' + options;
@@ -196,7 +196,7 @@ import { safeEval } from '../../safe-eval';
     /** Set default options for all subsequent instances.
 			@param {object} options The new default options.
 			@example $.pluginName.setDefaults({name: value, ...}) */
-    setDefaults: function(options) {
+    setDefaults: function (options) {
       $.extend(this.defaultOptions, options || {});
     },
 
@@ -206,7 +206,7 @@ import { safeEval } from '../../safe-eval';
 			@private
 			@param {Element} elem The element to enhance.
 			@param {object} options Overriding settings. */
-    _attach: function(elem, options) {
+    _attach: function (elem, options) {
       elem = $(elem);
       if (elem.hasClass(this._getMarker())) {
         return;
@@ -242,7 +242,7 @@ import { safeEval } from '../../safe-eval';
 			@example _instSettings: function(elem, options) {
   return {nav: elem.find(options.navSelector)};
 } */
-    _instSettings: function(elem, options) {
+    _instSettings: function (elem, options) {
       // jshint unused:false
       return {};
     },
@@ -258,7 +258,7 @@ import { safeEval } from '../../safe-eval';
     ...
   });
 } */
-    _postAttach: function(elem, inst) {
+    _postAttach: function (elem, inst) {
       // jshint unused:false
     },
 
@@ -269,14 +269,14 @@ import { safeEval } from '../../safe-eval';
 			@private
 			@param {jQuery} elem The source element.
 			@return {object} The inline configuration or {}. */
-    _getMetadata: function(elem) {
+    _getMetadata: function (elem) {
       try {
         var data = elem.data(this.name.toLowerCase()) || '';
         data = data
-          .replace(/(\\?)'/g, function(e, t) {
+          .replace(/(\\?)'/g, function (e, t) {
             return t ? "'" : '"';
           })
-          .replace(/([a-zA-Z0-9]+):/g, function(match, group, i) {
+          .replace(/([a-zA-Z0-9]+):/g, function (match, group, i) {
             var count = data.substring(0, i).match(/"/g); // Handle embedded ':'
             return !count || count.length % 2 === 0
               ? '"' + group + '":'
@@ -306,7 +306,7 @@ import { safeEval } from '../../safe-eval';
 			@protected
 			@param {Element} elem The source element.
 			@return {object} The instance data or <code>{}</code> if none. */
-    _getInst: function(elem) {
+    _getInst: function (elem) {
       return $(elem).data(this.name) || {};
     },
 
@@ -324,7 +324,7 @@ import { safeEval } from '../../safe-eval';
 $(selector).plugin('option', {name: value, ...}) // Set multiple options
 var value = $(selector).plugin('option', 'name') // Get one option
 var options = $(selector).plugin('option') // Get all options */
-    option: function(elem, name, value) {
+    option: function (elem, name, value) {
       elem = $(elem);
       var inst = elem.data(this.name);
       var options = name || {};
@@ -355,7 +355,7 @@ var options = $(selector).plugin('option') // Get all options */
     elem.removeClass(inst.options.name).addClass(options.name);
   }
 } */
-    _optionsChanged: function(elem, inst, options) {
+    _optionsChanged: function (elem, inst, options) {
       // jshint unused:false
     },
 
@@ -363,7 +363,7 @@ var options = $(selector).plugin('option') // Get all options */
 			Override {@linkcode module:JQPlugin~_preDestroy|_preDestroy} for plugin-specific processing.
 			@param {Element} elem The source element.
 			@example $(selector).plugin('destroy') */
-    destroy: function(elem) {
+    destroy: function (elem) {
       elem = $(elem);
       if (!elem.hasClass(this._getMarker())) {
         return;
@@ -383,7 +383,7 @@ var options = $(selector).plugin('option') // Get all options */
 			@example _preDestroy: function(elem, inst) {
   elem.off('.' + this.name);
 } */
-    _preDestroy: function(elem, inst) {
+    _preDestroy: function (elem, inst) {
       // jshint unused:false
     },
   });
@@ -393,7 +393,7 @@ var options = $(selector).plugin('option') // Get all options */
 		@param {string} value The original hyphenated name.
 		@return {string} The camel-case version. */
   function camelCase(name) {
-    return name.replace(/-([a-z])/g, function(match, group) {
+    return name.replace(/-([a-z])/g, function (match, group) {
       return group.toUpperCase();
     });
   }
@@ -413,7 +413,7 @@ var options = $(selector).plugin('option') // Get all options */
   _postAttach: function(elem, inst) { ... }
 });
 $('selector').tabs(); // And instantiate it */
-    createPlugin: function(superClass, overrides) {
+    createPlugin: function (superClass, overrides) {
       if (typeof superClass === 'object') {
         overrides = superClass;
         superClass = 'JQPlugin';

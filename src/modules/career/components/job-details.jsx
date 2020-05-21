@@ -12,7 +12,7 @@ export const JobDetails = ({ jobId }) => {
   React.useEffect(() => {
     setStatus('busy');
     getJob(jobId)
-      .then(jobDetails => {
+      .then((jobDetails) => {
         setJob(jobDetails);
         setStatus('idle');
       })

@@ -141,7 +141,7 @@ export const getJobs = jest.fn(() => {
   ]);
 });
 
-export const getJob = jest.fn(jobId => {
+export const getJob = jest.fn((jobId) => {
   return Promise.resolve({
     id: jobId,
     title: 'Memer',

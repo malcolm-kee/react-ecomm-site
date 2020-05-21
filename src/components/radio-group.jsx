@@ -1,5 +1,5 @@
 import PropsTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 import { useId } from '../hooks/use-id';
 import { isPrimitive } from '../lib/typecheck';
 
@@ -31,7 +31,7 @@ export const RadioGroup = ({
               type="radio"
               id={`${usedId}-${index}`}
               value={isPrimitive(option.value) ? `${option.value}` : undefined}
-              onChange={ev => {
+              onChange={(ev) => {
                 if (ev.target.checked) {
                   onChangeValue(option.value);
                 } else {

@@ -1,9 +1,9 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 import { PanelContext } from './panel-context';
 
-export const PanelFooter = props => {
+export const PanelFooter = (props) => {
   const color = React.useContext(PanelContext);
 
   return (

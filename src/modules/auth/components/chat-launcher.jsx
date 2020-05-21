@@ -8,7 +8,7 @@ import { LoginForm } from './login-form';
 const CHAT_SOCKET_URL =
   process.env.REACT_APP_CHAT_URL || 'wss://ecomm-db.herokuapp.com/chat';
 
-const ChatLauncherView = props => {
+const ChatLauncherView = (props) => {
   const [showChat, setShowChat] = React.useState(false);
   const btnRef = React.useRef(null);
   const dismissChat = () => {

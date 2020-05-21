@@ -1,5 +1,5 @@
 import { fireEvent, waitForElement, wait } from '@testing-library/react';
-import React from 'react';
+import * as React from 'react';
 import { renderWithStateMgmt } from '../lib/test-util';
 import { ProductPage } from './product-page';
 
@@ -15,11 +15,11 @@ describe('<ProductPage />', () => {
       ...renderResult,
       getAddToCartBtn: () => getByText('Add To Cart'),
       getCommentNameInput: () => getByLabelText('Your Name'),
-      inputCommentorName: name =>
+      inputCommentorName: (name) =>
         fireEvent.change(getByLabelText('Your Name'), {
           target: { value: name },
         }),
-      inputComment: comment =>
+      inputComment: (comment) =>
         fireEvent.change(getByLabelText('Your Review'), {
           target: { value: comment },
         }),

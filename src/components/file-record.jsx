@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 import { useId } from '../hooks/use-id';
 import styles from './file-record.module.scss';
 import { CheckIcon } from './icon/check-icon';
@@ -13,7 +13,7 @@ import { Progress } from './progress';
  *
  * You could use it to render uploaded file if you use `FileUpload` as controlled component.
  */
-export const FileRecord = props => {
+export const FileRecord = (props) => {
   const id = useId();
 
   if (props.status === 'error') {
@@ -62,7 +62,7 @@ FileRecord.propTypes = {
   onRemove: PropTypes.func,
 };
 
-const FileErrorRecord = props => (
+const FileErrorRecord = (props) => (
   <div className={styles.fileRecord}>
     <FilePreview fileName={props.fileName} previewUrl={props.previewUrl} />
     <div className={styles.fileRecordDetails}>
@@ -78,7 +78,7 @@ const FileErrorRecord = props => (
   </div>
 );
 
-const FilePreview = props => {
+const FilePreview = (props) => {
   const isImage =
     props.previewUrl && /(.jpe?g|.gif|.png)$/i.test(props.fileName);
 
