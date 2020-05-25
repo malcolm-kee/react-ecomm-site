@@ -16,7 +16,7 @@ const cartSlice = createSlice({
       }: PayloadAction<{ product: CartItem['product']; qty?: number }>
     ) => {
       const itemIndex = state.items.findIndex(
-        (item) => item.product.id === product.id
+        (item) => item.product._id === product._id
       );
 
       if (itemIndex > -1) {

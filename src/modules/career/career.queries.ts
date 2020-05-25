@@ -5,6 +5,6 @@ export function useJobs() {
   return useQuery(['jobs'], getJobs);
 }
 
-export function useJob(jobId: number) {
+export function useJob(jobId: string) {
   return useQuery(['job', jobId], (_, id) => getJob(id));
 }

@@ -122,11 +122,14 @@ describe('<App />', () => {
       status: 200,
       body: JSON.stringify(careers),
     });
+
+    const webDesignerData = careers.find((job) => job.title === 'Web Designer');
+
     xhrMock.get(
-      new RegExp('^' + process.env.REACT_APP_CAREER_BASE_URL + '\\?id='),
+      `${process.env.REACT_APP_CAREER_BASE_URL}/${webDesignerData._id}`,
       {
         status: 200,
-        body: JSON.stringify([careers[0]]),
+        body: JSON.stringify(webDesignerData),
       }
     );
 
@@ -139,7 +142,7 @@ describe('<App />', () => {
     const careerPageTitle = await findByText('Careers in Shopit');
     expect(careerPageTitle).toBeVisible();
 
-    const jobPost = await findByText('Web Designer');
+    const jobPost = await findByText(webDesignerData.title);
     user.click(jobPost);
 
     await findByText('Department:');

@@ -1,6 +1,5 @@
 import { cleanup, fireEvent, screen } from '@testing-library/react';
 import * as React from 'react';
-import { queryCache } from 'react-query';
 import xhrMock, { sequence } from 'xhr-mock';
 import { renderWithStateMgmtAndRouter } from '../lib/test-util';
 import { PRODUCT_DB } from '../modules/products/__mocks__/product.service';
@@ -27,7 +26,6 @@ describe('<MainPage />', () => {
 
   afterEach(() => {
     xhrMock.teardown();
-    queryCache.clear();
   });
 
   it('renders without crashing', () => {
@@ -54,7 +52,7 @@ describe('<MainPage />', () => {
     cleanup();
   });
 
-  it('load more products when scroll', async () => {
+  it(`load more products when scroll`, async () => {
     xhrMock.get(
       new RegExp(PRODUCT_BASE_URL, 'u'),
       sequence([

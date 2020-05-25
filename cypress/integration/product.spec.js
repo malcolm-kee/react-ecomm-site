@@ -64,6 +64,8 @@ describe(`product`, () => {
           }).click();
         });
 
+      cy.findByText(`You're already login!`).should('be.visible');
+
       cy.findByAltText('Shopit', {
         selector: 'a',
       })

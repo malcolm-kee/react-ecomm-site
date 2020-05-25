@@ -3,7 +3,7 @@ import { useProductDetails } from '../product.queries';
 import { ProductBox } from './product-box';
 
 type ProductBoxContainerProps = {
-  productId: number;
+  productId: string;
   className?: string;
 };
 

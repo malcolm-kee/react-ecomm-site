@@ -1,5 +1,6 @@
+import { cleanup } from '@testing-library/react';
 import { renderWithQuery } from 'lib/test-util';
-import React from 'react';
+import * as React from 'react';
 import xhrMock from 'xhr-mock';
 import { careers } from '../__mocks__/career.data';
 import { JobDetails } from './job-details';
@@ -16,12 +17,14 @@ describe(`<JobDetails />`, () => {
   it(`retrieves details for provided jobId`, async () => {
     xhrMock.get(/.*/, {
       status: 200,
-      body: JSON.stringify([careers[0]]),
+      body: JSON.stringify(careers[0]),
     });
 
     const { findByText } = renderWithQuery(<JobDetails jobId={3} />);
 
     await findByText('Department:');
+
+    cleanup();
   });
 
   it(`shows error message when error`, async () => {
@@ -40,5 +43,7 @@ describe(`<JobDetails />`, () => {
         Fails to get details.
       </div>
     `);
+
+    cleanup();
   });
 });

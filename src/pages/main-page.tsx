@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { Jumbotron } from '../components/jumbotron';
 import { Spinner } from '../components/spinner';
@@ -53,7 +53,7 @@ export function MainPage() {
           {productGroups.map((products, i) => (
             <React.Fragment key={i}>
               {products.map((product) => (
-                <ProductBox {...product} key={product.id} />
+                <ProductBox {...product} key={product._id} />
               ))}
             </React.Fragment>
           ))}

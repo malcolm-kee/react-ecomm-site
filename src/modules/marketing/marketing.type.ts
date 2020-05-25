@@ -8,3 +8,11 @@ export type MarketingBanner = {
   '700Blur': string;
   '500Blur': string;
 };
+
+export type MarketingData<DataType> = {
+  _id: string;
+  type: string;
+  data: DataType;
+  createdAt: string;
+  updatedAt: string;
+};

@@ -5,7 +5,7 @@ import { scrollTo } from 'lib/scroll-to';
 import * as React from 'react';
 import { useJob } from '../career.queries';
 
-export const JobDetails = (props: { jobId: number }) => {
+export const JobDetails = (props: { jobId: string }) => {
   const { data: job, status } = useJob(props.jobId);
 
   const jobDetailsRef = React.useRef<HTMLElement>(null);

@@ -22,7 +22,7 @@ const ProductComments = React.lazy(() =>
   )
 );
 
-function useQty(productId: number) {
+function useQty(productId: string) {
   const [qty, setQty] = React.useState(1);
 
   // reset qty when product id change
@@ -38,7 +38,7 @@ function useQty(productId: number) {
 }
 
 type ProductPageProps = {
-  productId: number;
+  productId: string;
 };
 
 type ReduxProps = ConnectedProps<typeof connector>;
@@ -147,7 +147,10 @@ function ProductPageContent({
               <h2 className="text-gray-700 mb-2">Reviews</h2>
               <React.Suspense fallback={<Spinner />}>
                 <ErrorBoundary>
-                  <ProductComments productId={productId} />
+                  <ProductComments
+                    productId={productId}
+                    comments={details.comments}
+                  />
                 </ErrorBoundary>
               </React.Suspense>
             </div>

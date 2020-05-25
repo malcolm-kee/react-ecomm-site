@@ -8,23 +8,26 @@ export type ProductImages = {
 };
 
 export type Product = {
-  id: number;
+  _id: string;
   name: string;
   descriptions: string[];
   image: string;
   department: string;
   price: string;
-  related: number[];
+  related: string[];
   images: ProductImages | null;
+  comments: ProductComment[];
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type ProductComment = {
-  id: number;
-  productId: number;
+  _id: string;
   userId: number;
+  rating: number;
   userName: string;
   content: string;
-  createdOn: number;
+  createdAt: string;
 };
 
 export type ProductState = {

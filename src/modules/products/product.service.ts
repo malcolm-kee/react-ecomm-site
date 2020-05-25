@@ -5,34 +5,32 @@ const PRODUCT_BASE_URL = process.env.REACT_APP_PRODUCT_BASE_URL as string;
 const PRODUCT_COMMENT_BASE_URL = process.env
   .REACT_APP_PRODUCT_COMMENT_BASE_URL as string;
 
-export function getProducts(page: number, limit = 12): Promise<Product[]> {
+export function getProducts({
+  before,
+  limit = 12,
+}: { before?: string; limit?: number } = {}): Promise<Product[]> {
   return xFetchJson(PRODUCT_BASE_URL, {
     params: {
-      _page: page,
-      _limit: limit,
+      before,
+      limit,
     },
   });
 }
 
-export function getProduct(productId: number): Promise<Product> {
+export function getProduct(productId: string): Promise<Product> {
   return xFetchJson(`${PRODUCT_BASE_URL}/${productId}`);
 }
 
-export function getProductComments(
-  productId: number
-): Promise<ProductComment[]> {
-  return xFetchJson(PRODUCT_COMMENT_BASE_URL, {
-    params: {
-      productId,
-    },
-  });
-}
-
 export function createProductComment(
-  comment: Omit<ProductComment, 'id' | 'userId'>
+  productId: string,
+  comment: Pick<ProductComment, 'userName' | 'content' | 'rating'>
 ): Promise<ProductComment> {
-  return xFetchJson(PRODUCT_COMMENT_BASE_URL, {
+  return xFetchJson(`${PRODUCT_COMMENT_BASE_URL}/${productId}`, {
     method: 'POST',
-    data: comment,
+    data: {
+      userName: comment.userName,
+      content: comment.content,
+      rating: comment.rating,
+    },
   });
 }

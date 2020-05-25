@@ -1,12 +1,39 @@
+const COMMENT_DB = [
+  {
+    _id: '1552750775328',
+    productId: 2,
+    userId: 1552750775317,
+    userName: 'Skye Watsica',
+    content: 'Repudiandae quos occaecati dignissimos.',
+    createdAt: 1549749247748,
+  },
+  {
+    _id: '1552750775329',
+    productId: 2,
+    userId: 1552750775232,
+    userName: "Shaina O'Kon",
+    content: 'Soluta ipsam vel.',
+    createdAt: 1551735807637,
+  },
+  {
+    _id: '1552750775330',
+    productId: 2,
+    userId: 1552750775317,
+    userName: 'Skye Watsica',
+    content: 'Hic alias quam corrupti velit.',
+    createdAt: 1530457269057,
+  },
+];
+
 export const PRODUCT_DB = [
   {
-    id: 1,
+    _id: '1',
     name: 'iPhone X',
     descriptions: ['user-friendly', 'change the world', 'cool', 'expensive'],
     image: 'iphone-x.jpg',
     department: 'Electronics',
     price: '3499.00',
-    related: [1552750775152, 1552750775200, 1552750775171],
+    related: ['1552750775152', '1552750775200', '1552750775171'],
     images: {
       standard: 'i-phone-x.standard.600x600.jpeg',
       webp: 'i-phone-x.webp.600x600.webp',
@@ -15,15 +42,17 @@ export const PRODUCT_DB = [
       blur: 'i-phone-x.blur.600x600.jpeg',
       thumbBlur: 'i-phone-x.thumbBlur.188x188.jpeg',
     },
+    comments: COMMENT_DB,
+    createdAt: '2020-05-25T11:26:01.399Z',
   },
   {
-    id: 2,
+    _id: '2',
     name: 'Samsung Galaxy S10',
     descriptions: ['big', 'heavy', 'expensive'],
     image: 'samsung-galaxy-s10.jpg',
     department: 'Electronics',
     price: '3299.00',
-    related: [1552750775133, 1],
+    related: ['1552750775133', '1'],
     images: {
       standard: 'samsung-galaxy-s10.standard.600x600.jpeg',
       webp: 'samsung-galaxy-s10.webp.600x600.webp',
@@ -32,15 +61,16 @@ export const PRODUCT_DB = [
       blur: 'samsung-galaxy-s10.blur.600x600.jpeg',
       thumbBlur: 'samsung-galaxy-s10.thumbBlur.188x188.jpeg',
     },
+    createdAt: '2020-05-25T11:26:01.399Z',
   },
   {
-    id: 3,
+    _id: '3',
     name: 'Daniel Wellington Classic Cambridge',
     descriptions: ['pretty', 'elegent', 'expensive'],
     image: 'dw-watch.png',
     department: 'Clothing',
     price: '1999.00',
-    related: [1552750775194, 1552750775147],
+    related: ['1552750775194', '1552750775147'],
     images: {
       standard: 'daniel-wellington-classic-cambridge.standard.600x600.jpeg',
       webp: 'daniel-wellington-classic-cambridge.webp.600x600.webp',
@@ -50,9 +80,11 @@ export const PRODUCT_DB = [
       blur: 'daniel-wellington-classic-cambridge.blur.600x600.jpeg',
       thumbBlur: 'daniel-wellington-classic-cambridge.thumbBlur.188x188.jpeg',
     },
+    comments: COMMENT_DB,
+    createdAt: '2020-05-25T11:26:01.399Z',
   },
   {
-    id: 4,
+    _id: '4',
     name: 'dodo',
     descriptions: [],
     image: 'dono.png',
@@ -60,15 +92,16 @@ export const PRODUCT_DB = [
     price: '2.50',
     related: [],
     images: null,
+    createdAt: '2020-05-25T11:26:01.399Z',
   },
   {
-    id: 1552750775126,
+    _id: '1552750775126',
     name: 'Generic Concrete Car',
     descriptions: ['Refined', 'Handmade'],
     image: 'http://lorempixel.com/700/700/technics',
     department: 'Sports',
     price: '365.00',
-    related: [1552750775192, 1552750775163],
+    related: ['1552750775192', '1552750775163'],
     images: {
       standard: 'generic-concrete-car.standard.600x600.jpeg',
       webp: 'generic-concrete-car.webp.600x600.webp',
@@ -79,13 +112,13 @@ export const PRODUCT_DB = [
     },
   },
   {
-    id: 1552750775127,
+    _id: '1552750775127',
     name: 'Incredible Granite Sausages',
     descriptions: ['Unbranded', 'Small'],
     image: 'http://lorempixel.com/700/700/technics',
     department: 'Kids',
     price: '670.00',
-    related: [1552750775148, 1552750775188],
+    related: ['1552750775148', '1552750775188'],
     images: {
       standard: 'incredible-granite-sausages.standard.600x600.jpeg',
       webp: 'incredible-granite-sausages.webp.600x600.webp',
@@ -96,7 +129,7 @@ export const PRODUCT_DB = [
     },
   },
   {
-    id: 1552750775128,
+    _id: '1552750775128',
     name: 'Fantastic Plastic Mouse',
     descriptions: ['Rustic', 'Gorgeous'],
     image: 'http://lorempixel.com/700/700/technics',
@@ -113,7 +146,7 @@ export const PRODUCT_DB = [
     },
   },
   {
-    id: 1552750775129,
+    _id: '1552750775129',
     name: 'Small Cotton Mouse',
     descriptions: ['Unbranded', 'Sleek'],
     image: 'http://lorempixel.com/700/700/fashion',
@@ -130,13 +163,13 @@ export const PRODUCT_DB = [
     },
   },
   {
-    id: 1552750775130,
+    _id: '1552750775130',
     name: 'Tasty Concrete Hat',
     descriptions: ['Ergonomic', 'Handmade'],
     image: 'http://lorempixel.com/700/700/fashion',
     department: 'Movies',
     price: '301.00',
-    related: [1552750775220, 1552750775142],
+    related: ['1552750775220', '1552750775142'],
     images: {
       standard: 'tasty-concrete-hat.standard.600x600.jpeg',
       webp: 'tasty-concrete-hat.webp.600x600.webp',
@@ -147,13 +180,13 @@ export const PRODUCT_DB = [
     },
   },
   {
-    id: 1552750775131,
+    _id: '1552750775131',
     name: 'Awesome Plastic Keyboard',
     descriptions: ['Generic', 'Generic'],
     image: 'http://lorempixel.com/700/700/technics',
     department: 'Beauty',
     price: '79.00',
-    related: [1552750775179],
+    related: ['1552750775179'],
     images: {
       standard: 'awesome-plastic-keyboard.standard.600x600.jpeg',
       webp: 'awesome-plastic-keyboard.webp.600x600.webp',
@@ -164,13 +197,13 @@ export const PRODUCT_DB = [
     },
   },
   {
-    id: 1552750775132,
+    _id: '1552750775132',
     name: 'Rustic Concrete Bacon',
     descriptions: ['Gorgeous', 'Generic'],
     image: 'http://lorempixel.com/700/700/technics',
     department: 'Toys',
     price: '160.00',
-    related: [1552750775202],
+    related: ['1552750775202'],
     images: {
       standard: 'rustic-concrete-bacon.standard.600x600.jpeg',
       webp: 'rustic-concrete-bacon.webp.600x600.webp',
@@ -181,13 +214,13 @@ export const PRODUCT_DB = [
     },
   },
   {
-    id: 1552750775133,
+    _id: '1552750775133',
     name: 'Refined Fresh Chips',
     descriptions: ['Awesome', 'Tasty'],
     image: 'http://lorempixel.com/700/700/technics',
     department: 'Electronics',
     price: '699.00',
-    related: [1552750775181, 1552750775189],
+    related: ['1552750775181', '1552750775189'],
     images: {
       standard: 'refined-fresh-chips.standard.600x600.jpeg',
       webp: 'refined-fresh-chips.webp.600x600.webp',
@@ -198,13 +231,13 @@ export const PRODUCT_DB = [
     },
   },
   {
-    id: 1552750775152,
+    _id: '1552750775152',
     name: 'Sleek Metal Car',
     descriptions: ['Tasty', 'Awesome'],
     image: 'http://lorempixel.com/700/700/fashion',
     department: 'Electronics',
     price: '735.00',
-    related: [1552750775189, 1552750775212, 1552750775171],
+    related: ['1552750775189', '1552750775212', '1552750775171'],
     images: {
       standard: 'sleek-metal-car.standard.600x600.jpeg',
       webp: 'sleek-metal-car.webp.600x600.webp',
@@ -215,13 +248,13 @@ export const PRODUCT_DB = [
     },
   },
   {
-    id: 1552750775200,
+    _id: '1552750775200',
     name: 'Fantastic Plastic Hat',
     descriptions: ['Intelligent', 'Intelligent'],
     image: 'http://lorempixel.com/700/700/technics',
     department: 'Electronics',
     price: '485.00',
-    related: [1552750775181, 1552750775212],
+    related: ['1552750775181', '1552750775212'],
     images: {
       standard: 'fantastic-plastic-hat.standard.600x600.jpeg',
       webp: 'fantastic-plastic-hat.webp.600x600.webp',
@@ -232,13 +265,13 @@ export const PRODUCT_DB = [
     },
   },
   {
-    id: 1552750775171,
+    _id: '1552750775171',
     name: 'Practical Frozen Gloves',
     descriptions: ['Practical', 'Sleek'],
     image: 'http://lorempixel.com/700/700/fashion',
     department: 'Electronics',
     price: '452.00',
-    related: [1, 1552750775200, 1552750775152],
+    related: ['1', '1552750775200', '1552750775152'],
     images: {
       standard: 'practical-frozen-gloves.standard.600x600.jpeg',
       webp: 'practical-frozen-gloves.webp.600x600.webp',
@@ -250,46 +283,13 @@ export const PRODUCT_DB = [
   },
 ];
 
-const COMMENT_DB = [
-  {
-    id: 1552750775328,
-    productId: 2,
-    userId: 1552750775317,
-    userName: 'Skye Watsica',
-    content: 'Repudiandae quos occaecati dignissimos.',
-    createdOn: 1549749247748,
-  },
-  {
-    id: 1552750775329,
-    productId: 2,
-    userId: 1552750775232,
-    userName: "Shaina O'Kon",
-    content: 'Soluta ipsam vel.',
-    createdOn: 1551735807637,
-  },
-  {
-    id: 1552750775330,
-    productId: 2,
-    userId: 1552750775317,
-    userName: 'Skye Watsica',
-    content: 'Hic alias quam corrupti velit.',
-    createdOn: 1530457269057,
-  },
-];
-
 export function getProducts(page: number, limit = 12) {
   return Promise.resolve(PRODUCT_DB.slice((page - 1) * 2, page * 2));
 }
 
-export function getProduct(productId: number) {
-  const foundProduct = PRODUCT_DB.find(
-    (product) => product.id === Number(productId)
-  );
+export function getProduct(productId: string) {
+  const foundProduct = PRODUCT_DB.find((product) => product._id === productId);
   return Promise.resolve(foundProduct);
-}
-
-export function getProductComments(productId: number) {
-  return Promise.resolve(COMMENT_DB);
 }
 
 export function createProductComment(comment: any) {

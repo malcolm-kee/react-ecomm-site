@@ -24,17 +24,17 @@ function CartItem({
   return (
     <div className="mb-2 pb-2 border-b border-gray-300">
       <div className="flex justify-between items-center">
-        <Link className="text-blue-700" to={`/product/${item.product.id}`}>
+        <Link className="text-blue-700" to={`/product/${item.product._id}`}>
           #{index + 1} {item.product.name}
         </Link>
         <Button
           onClick={onDelete}
           size="sm"
-          aria-labelledby={`${item.product.id}-remove-label`}
+          aria-labelledby={`${item.product._id}-remove-label`}
         >
           <CloseIcon width={36} className="fill-current text-gray-500" />
         </Button>
-        <span className="sr-only" id={`${item.product.id}-remove-label`}>
+        <span className="sr-only" id={`${item.product._id}-remove-label`}>
           Remove {item.product.name}
         </span>
       </div>

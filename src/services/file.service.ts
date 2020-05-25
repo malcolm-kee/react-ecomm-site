@@ -13,7 +13,7 @@ export const upload = (file: File, { onDone, onProgress }: UploadCallbacks) => {
   formData.append('file', file);
 
   const { xhr, fetch } = createRequest(UPLOAD_SERVICE_BASE_URL, {
-    method: 'PUT',
+    method: 'POST',
     body: formData,
   });
 
@@ -37,7 +37,7 @@ export const upload = (file: File, { onDone, onProgress }: UploadCallbacks) => {
   fetch()
     .then((res) => {
       if (res.ok) {
-        return res.json().then((res) => onDone(null, res.files[0]));
+        return res.json().then((res) => onDone(null, res.filePath));
       }
       return res.text().then((text) => onDone(new Error(text), ''));
     })

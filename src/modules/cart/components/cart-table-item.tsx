@@ -37,7 +37,7 @@ function CartTableItem({
         )}
       </td>
       <td className="px-2">
-        <Link className="text-blue-700" to={`/product/${item.product.id}`}>
+        <Link className="text-blue-700" to={`/product/${item.product._id}`}>
           {item.product.name}
         </Link>
       </td>
@@ -48,19 +48,19 @@ function CartTableItem({
           color="primary"
           size="sm"
           disabled={item.qty === 1}
-          data-testid={`reduce-${item.product.id}`}
+          data-testid={`reduce-${item.product._id}`}
           aria-label="Reduce Quantity"
         >
           -
         </Button>
-        <span className="mx-1" data-testid={`qty-for-${item.product.id}`}>
+        <span className="mx-1" data-testid={`qty-for-${item.product._id}`}>
           {item.qty}
         </span>
         <Button
           onClick={onIncrement}
           color="primary"
           size="sm"
-          data-testid={`add-${item.product.id}`}
+          data-testid={`add-${item.product._id}`}
           aria-label="Increase Quantity"
         >
           +
@@ -74,12 +74,12 @@ function CartTableItem({
         <Button
           onClick={onDelete}
           size="sm"
-          data-testid={`remove-${item.product.id}`}
-          aria-labelledby={`${item.product.id}-remove-label`}
+          data-testid={`remove-${item.product._id}`}
+          aria-labelledby={`${item.product._id}-remove-label`}
         >
           <CloseIcon width={36} className="fill-current text-gray-500" />
         </Button>
-        <span className="sr-only" id={`${item.product.id}-remove-label`}>
+        <span className="sr-only" id={`${item.product._id}-remove-label`}>
           Remove {item.product.name}
         </span>
       </td>

@@ -2,7 +2,7 @@ import { Job } from '../career.type';
 
 export const careers: Job[] = [
   {
-    id: 404,
+    _id: '404',
     title: 'Web Designer',
     department: 'UI / UX Design',
     level: 'experienced',
@@ -25,7 +25,7 @@ export const careers: Job[] = [
     ],
   },
   {
-    id: 403,
+    _id: '403',
     title: 'Customer Service Agent',
     department: 'Operations',
     level: 'entry',
@@ -50,7 +50,7 @@ export const careers: Job[] = [
     ],
   },
   {
-    id: 200,
+    _id: '200',
     title: 'Janitor',
     department: 'Health/Wellfare',
     level: 'experienced',
@@ -70,7 +70,7 @@ export const careers: Job[] = [
     ],
   },
   {
-    id: 500,
+    _id: '500',
     title: 'GitHub Issue Commentor',
     department: 'Engineering',
     level: 'internship',
@@ -87,7 +87,7 @@ export const careers: Job[] = [
     ],
   },
   {
-    id: 700,
+    _id: '700',
     title: 'Recruiter',
     department: 'Human Resources',
     level: 'experienced',
@@ -105,7 +105,7 @@ export const careers: Job[] = [
     ],
   },
   {
-    id: 3,
+    _id: '3',
     title: 'Slack Chatter',
     department: 'Engineering',
     level: 'entry',
@@ -122,7 +122,7 @@ export const careers: Job[] = [
     ],
   },
   {
-    id: 36,
+    _id: '36',
     title: 'Memer',
     department: 'UI / UX Design',
     level: 'experienced',
