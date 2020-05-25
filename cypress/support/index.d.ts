@@ -10,11 +10,14 @@ declare namespace Cypress {
     createUser(user: {
       name: string;
       email?: string;
+      password?: string;
+      avatar?: string;
     }): Chainable<{
       name: string;
       email: string;
-      id: number;
-      joinedDate: number;
+      password: string;
+      avatar: string;
+      userId: string;
     }>;
 
     /**

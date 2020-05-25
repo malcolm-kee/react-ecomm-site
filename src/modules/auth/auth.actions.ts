@@ -1,5 +1,6 @@
+import { extractError } from 'lib/ajax';
+import { clear, load, save } from 'lib/storage';
 import { ThunkAction } from 'type';
-import { clear, load, save } from '../../lib/storage';
 import * as authService from './auth.service';
 import { authActions } from './auth.slice';
 import { AuthUser } from './auth.type';
@@ -31,9 +32,7 @@ export const attemptLogin = (
       save('user', user);
     })
     .catch((err) =>
-      extractErrorMessage(err).then((msg) =>
-        dispatch(authActions.authError(msg))
-      )
+      extractError(err).then((msg) => dispatch(authActions.authError(msg[0])))
     );
 };
 
@@ -41,18 +40,3 @@ export const attemptLogout = (): ThunkAction<void> => (dispatch) => {
   clear('user');
   dispatch(authActions.logout());
 };
-
-function extractErrorMessage(err: any): Promise<string> {
-  return err.response
-    ? Promise.resolve()
-        .then(() => err.response.json())
-        .catch(() => err.response.text())
-        .then(extractErrorMessage)
-    : Promise.resolve(
-        err.message
-          ? err.message
-          : typeof err === 'string'
-          ? err
-          : 'Unknown Error'
-      );
-}

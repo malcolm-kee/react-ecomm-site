@@ -10,6 +10,7 @@ import {
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
 import { rootReducer } from '../modules/root-reducer';
+import { ToastContainer } from "../components/toast";
 
 export function renderWithQuery(
   ui: React.ReactNode,
@@ -62,6 +63,7 @@ export function renderWithStateMgmtAndRouter(
         <Router history={history}>
           <Provider store={store}>{ui}</Provider>
         </Router>
+        <ToastContainer />
       </ReactQueryConfigProvider>
     ),
   };

@@ -36,6 +36,7 @@ function LoginFormContent({ status, error, login, logout }: ReduxProps) {
   return (
     <Form
       title="Login"
+      data-testid="login-form"
       onSubmit={(ev) => {
         ev.preventDefault();
         login(email, password);
@@ -74,6 +75,7 @@ function LoginFormContent({ status, error, login, logout }: ReduxProps) {
           type="submit"
           disabled={isSubmitting}
           className="w-full"
+          data-testid="submit-login"
         >
           Login
         </Button>

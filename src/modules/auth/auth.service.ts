@@ -1,4 +1,4 @@
-import { fetchJson } from '../../lib/ajax';
+import { fetchJson } from 'lib/ajax';
 
 const LOGIN_URL = process.env.REACT_APP_LOGIN_URL as string;
 const REGISTER_URL = process.env.REACT_APP_REGISTER_URL as string;

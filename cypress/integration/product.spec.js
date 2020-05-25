@@ -54,15 +54,15 @@ describe(`product`, () => {
     }).then((user) => {
       cy.visit('/');
       cy.findByText('Login').click();
-      cy.findByLabelText('Email')
-        .type(user.email)
-        .get('form')
-        .within((subject) => {
-          cy.findByText('Login', {
-            container: subject,
-            selector: 'button',
-          }).click();
-        });
+      cy.findByLabelText('Email').type(user.email);
+      cy.findByLabelText('Password').type(user.password);
+
+      cy.get('form').within((subject) => {
+        cy.findByText('Login', {
+          container: subject,
+          selector: 'button',
+        }).click();
+      });
 
       cy.findByText(`You're already login!`).should('be.visible');
 

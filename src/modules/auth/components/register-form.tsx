@@ -1,3 +1,4 @@
+import { Alert } from 'components/alert';
 import { Button } from 'components/button';
 import { Field } from 'components/field';
 import { Form } from 'components/form';
@@ -6,6 +7,7 @@ import { Label } from 'components/label';
 import { Spinner } from 'components/spinner';
 import { TextField } from 'components/text-field';
 import { toast } from 'components/toast';
+import { extractError } from 'lib/ajax';
 import * as React from 'react';
 import { Redirect } from 'react-router-dom';
 import { UiStatus } from 'type';
@@ -17,6 +19,7 @@ export function RegisterForm() {
   const [password, setPassword] = React.useState('');
   const [avatar, setAvatar] = React.useState('');
   const [status, setStatus] = React.useState<UiStatus | 'success'>('idle');
+  const [errors, setErrors] = React.useState<string[]>([]);
   const submitRegistration = () => {
     setStatus('busy');
     register({
@@ -32,8 +35,8 @@ export function RegisterForm() {
         setStatus('success');
       })
       .catch((err) => {
+        extractError(err).then(setErrors);
         setStatus('error');
-        console.error(err);
       });
   };
 
@@ -52,6 +55,15 @@ export function RegisterForm() {
       }}
     >
       {isSubmitting && <Spinner />}
+      {errors.length > 0 && (
+        <Alert color="danger">
+          <ul>
+            {errors.map((err, i) => (
+              <li key={i}>{err}</li>
+            ))}
+          </ul>
+        </Alert>
+      )}
       <TextField
         label="Name"
         id="name"
@@ -90,7 +102,6 @@ export function RegisterForm() {
       <TextField
         label="Avatar URL"
         id="avatar"
-        type="url"
         value={avatar}
         onChangeValue={setAvatar}
         disabled={isSubmitting}
