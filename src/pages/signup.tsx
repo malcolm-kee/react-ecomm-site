@@ -1,14 +1,12 @@
-import React from 'react';
+import { Seo } from 'components/seo';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { RegisterForm } from '../modules/auth/components/register-form';
-import { Helmet } from 'react-helmet';
 
 export function Signup() {
   return (
     <div className="max-w-xs p-3 mx-auto">
-      <Helmet>
-        <title>Signup - Shopit</title>
-      </Helmet>
+      <Seo title="Signup - Shopit" />
       <RegisterForm />
       <p className="py-2">
         Already have an account?{' '}

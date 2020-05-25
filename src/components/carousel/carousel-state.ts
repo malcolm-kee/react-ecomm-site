@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import React from 'react';
+import * as React from 'react';
 import { useInterval } from '../../hooks/use-interval';
 import { CarouselContextValue } from './carousel-context';
 

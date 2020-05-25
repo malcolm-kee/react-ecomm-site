@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import React from 'react';
+import * as React from 'react';
 import { getId } from '../lib/id';
 import { FieldContext } from './field-context';
 import { FieldStatus } from './type';

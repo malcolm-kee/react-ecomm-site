@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { act, fireEvent, render } from '@testing-library/react';
 import { Carousel } from './carousel';
 import { CarouselBtn } from './carousel-btn';

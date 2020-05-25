@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { useTransientState } from '../hooks/use-transient-state';
 import { copyText } from '../lib/copy';
 import { isShareSupported, share } from '../lib/share';

@@ -1,44 +1,54 @@
 import { fetchJson } from '../../lib/ajax';
-import { AuthUser } from './auth.type';
 
-const AUTH_BASE_URL = process.env.REACT_APP_AUTH_BASE_URL as string;
+const LOGIN_URL = process.env.REACT_APP_LOGIN_URL as string;
+const REGISTER_URL = process.env.REACT_APP_REGISTER_URL as string;
+const PROFILE_URL = process.env.REACT_APP_PROFILE_URL as string;
 
 export function register({
   name,
   email,
+  password,
+  avatar,
 }: {
   name: string;
   email: string;
-}): Promise<AuthUser> {
-  return fetchJson(AUTH_BASE_URL, {
-    params: {
+  password: string;
+  avatar: string;
+}): Promise<void> {
+  return fetchJson(REGISTER_URL, {
+    method: 'POST',
+    data: {
       email,
+      name,
+      password,
+      avatar,
     },
-  }).then(function checkEmailHasUsed(users) {
-    if (users.length === 0) {
-      return fetchJson(AUTH_BASE_URL, {
-        method: 'POST',
-        data: {
-          name,
-          email,
-          joinedDate: Date.now(),
-        },
-      });
-    }
-
-    throw new Error('Email already used');
   });
 }
 
-export function login({ email }: { email: string }): Promise<AuthUser> {
-  return fetchJson(AUTH_BASE_URL, {
-    params: {
-      email,
+export function login(data: {
+  email: string;
+  password: string;
+}): Promise<{ access_token: string }> {
+  return fetchJson(LOGIN_URL, {
+    method: 'POST',
+    data: {
+      username: data.email,
+      password: data.password,
     },
-  }).then(function checkUser(users) {
-    if (users.length === 1) {
-      return users[0];
-    }
-    throw new Error('Invalid user');
+  });
+}
+
+export function getProfile(
+  accessToken: string
+): Promise<{
+  userId: string;
+  email: string;
+  name: string;
+}> {
+  return fetchJson(PROFILE_URL, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
   });
 }

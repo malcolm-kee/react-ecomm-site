@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { throttle } from '../lib/fn-lib';
 
 export function useWindowEvent<EventType extends keyof WindowEventMap>(

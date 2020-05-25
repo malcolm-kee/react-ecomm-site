@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import React from 'react';
+import * as React from 'react';
 import { ContainerProps } from '../type';
 import { PanelContext } from './panel-context';
 

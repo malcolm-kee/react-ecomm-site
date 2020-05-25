@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { MarketingBanner } from '../marketing.type';
 import styles from './marketing-image.module.scss';
 

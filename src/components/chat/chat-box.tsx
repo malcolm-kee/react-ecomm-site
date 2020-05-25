@@ -1,5 +1,5 @@
+import { useSocket } from 'hooks/use-socket';
 import * as React from 'react';
-import { useSocket } from '../../hooks/use-socket';
 import { Alert } from '../alert';
 import { Spinner } from '../spinner';
 import styles from './chat-box.module.scss';
@@ -7,10 +7,11 @@ import { ChatHistory } from './chat-history';
 import { ChatInput } from './chat-input';
 import { ChatMessage } from './chat-message';
 import { ChatSystemMessage } from './chat-system-message';
+import { useGlobalChatRoom } from './chat.queries';
 
 type ChatBoxProps = {
   socketEndpoint: string;
-  userId: number;
+  userId: string;
   height?: number;
 };
 
@@ -19,28 +20,47 @@ export const ChatBox = ({
   socketEndpoint,
   userId,
 }: ChatBoxProps) => {
+  const globalChat = useGlobalChatRoom();
   const [messages, setMessages] = React.useState<Message[]>([]);
-  const [status, send] = useSocket(socketEndpoint, {
-    onMessage: (data) => setMessages((msgs) => msgs.concat(data)),
-  });
+  const [status, send] = useSocket(
+    globalChat.data ? `${socketEndpoint}?roomId=${globalChat.data._id}` : null,
+    {
+      onMessage: (data: Message) => {
+        setMessages((msgs) => msgs.concat(data));
+        if (data.type === 'System') {
+          globalChat.refetch();
+        }
+      },
+    }
+  );
 
   return (
     <div className={styles.root}>
-      {status === 'initializing' ? (
+      {status === 'initializing' || !globalChat.data ? (
         <Spinner className={styles.spinner} />
-      ) : status === 'error' ? (
+      ) : status === 'error' || globalChat.error ? (
         <Alert color="danger">Fail to connect. Please try again</Alert>
       ) : null}
       <ChatHistory height={height}>
         {messages.map((message, i) => {
-          const isMe = message.userId === userId;
-          return message.type === 'System' ? (
-            <ChatSystemMessage key={i}>{message.message}</ChatSystemMessage>
-          ) : (
+          if (message.type === 'System') {
+            return (
+              <ChatSystemMessage key={i}>{message.message}</ChatSystemMessage>
+            );
+          }
+
+          const isMe = message.data.senderId === userId;
+          const sender = isMe
+            ? undefined
+            : globalChat.data!.participants.find(
+                (p) => p._id === message.data.senderId
+              );
+
+          return (
             <ChatMessage
               message={message.message}
-              sendTime={message.displayedDate}
-              sender={isMe ? undefined : message.userName}
+              sendTime={message.data.createdAt}
+              sender={sender && sender.name}
               isMe={isMe}
               key={i}
             />
@@ -50,8 +70,8 @@ export const ChatBox = ({
       <ChatInput
         onSend={(message) => {
           send({
-            userId,
-            message,
+            senderId: userId,
+            content: message,
           });
         }}
         disabled={status !== 'connected'}
@@ -60,10 +80,18 @@ export const ChatBox = ({
   );
 };
 
-type Message = {
-  type: 'User' | 'System';
-  userName: string;
-  userId: number;
-  message: string;
-  displayedDate: string;
-};
+type Message =
+  | {
+      type: 'System';
+      message: string;
+    }
+  | {
+      type: 'User';
+      message: string;
+      data: {
+        content: string;
+        senderId: string;
+        createdAt: string;
+        updatedAt: string;
+      };
+    };

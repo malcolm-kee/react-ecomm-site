@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import React from 'react';
+import * as React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Navbar } from './components/navbar';
 import { attemptLogout } from './modules/auth/auth.actions';

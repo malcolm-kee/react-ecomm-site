@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import React from 'react';
+import * as React from 'react';
 import { LinkProps, NavLink } from 'react-router-dom';
 import { omit } from '../lib/object';
 import { isDefined } from '../lib/typecheck';

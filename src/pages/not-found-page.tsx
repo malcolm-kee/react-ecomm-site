@@ -1,12 +1,10 @@
-import React from 'react';
-import { Helmet } from 'react-helmet';
+import { Seo } from 'components/seo';
+import * as React from 'react';
 
 export function NotFoundPage() {
   return (
     <div className="max-w-lg mx-auto px-3 py-6">
-      <Helmet>
-        <title>Page Not Found - Shopit</title>
-      </Helmet>
+      <Seo title="Page Not Found - Shopit" />
       <h1 className="text-4xl text-gray-700">Page Not Found</h1>
       <div className="py-3">
         <p>This is probably my fault.</p>

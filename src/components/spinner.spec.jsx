@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import React from 'react';
+import * as React from 'react';
 import { Spinner } from './spinner';
 
 test(`renders without props will show instantly`, () => {

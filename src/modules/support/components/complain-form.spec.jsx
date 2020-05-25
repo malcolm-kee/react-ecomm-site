@@ -1,7 +1,7 @@
 import { fireEvent, render } from '@testing-library/react';
 import { toast as toastMock } from 'components/toast';
 import { user } from 'lib/test-util';
-import React from 'react';
+import * as React from 'react';
 import { ComplainForm } from './complain-form';
 jest.mock('components/toast');
 

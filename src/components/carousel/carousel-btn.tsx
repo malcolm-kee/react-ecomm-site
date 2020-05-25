@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import React from 'react';
+import * as React from 'react';
 import { CarouselContext } from './carousel-context';
 import styles from './carousel-btn.module.scss';
 import { RightIcon } from '../icon/right-icon';

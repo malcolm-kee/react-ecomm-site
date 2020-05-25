@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { renderWithStateMgmtAndRouter, user } from '../../../lib/test-util';
 import { cartActions } from '../cart.slice';
 import { PaymentForm } from './payment-form';

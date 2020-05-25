@@ -1,11 +1,11 @@
+import { Jumbotron } from 'components/jumbotron';
+import { Seo } from 'components/seo';
+import { Spinner } from 'components/spinner';
+import { useWindowEvent } from 'hooks/use-window-event';
+import { MarketingBanner } from 'modules/marketing/components/marketing-banner';
+import { ProductBox } from 'modules/products/components/product-box';
+import { useProducts } from 'modules/products/product.queries';
 import * as React from 'react';
-import { Helmet } from 'react-helmet';
-import { Jumbotron } from '../components/jumbotron';
-import { Spinner } from '../components/spinner';
-import { useWindowEvent } from '../hooks/use-window-event';
-import { MarketingBanner } from '../modules/marketing/components/marketing-banner';
-import { ProductBox } from '../modules/products/components/product-box';
-import { useProducts } from '../modules/products/product.queries';
 import styles from './main-page.module.scss';
 
 export function MainPage() {
@@ -34,9 +34,7 @@ export function MainPage() {
 
   return (
     <>
-      <Helmet>
-        <title>Shopit: Save Your Money</title>
-      </Helmet>
+      <Seo title="Shopit: Save Your Money" />
       <div className="hidden sm:block">
         <MarketingBanner />
       </div>

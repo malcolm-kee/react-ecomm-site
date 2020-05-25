@@ -1,11 +1,10 @@
 export type AuthStatus = 'Authenticating' | 'Authenticated' | 'Anonymous';
 
 export type AuthUser = {
-  id: number;
+  userId: string;
   name: string;
   email: string;
-  joinedDate: number;
-  profileImage?: string;
+  accessToken: string;
 };
 
 export type AuthState = {

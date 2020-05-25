@@ -3,11 +3,11 @@ import { ErrorBoundary } from 'components/error-boundary';
 import { Field } from 'components/field';
 import { Input } from 'components/input';
 import { Label } from 'components/label';
+import { Seo } from 'components/seo';
 import { ShareButton } from 'components/share-button';
 import { Spinner } from 'components/spinner';
 import { toast } from 'components/toast';
 import * as React from 'react';
-import { Helmet } from 'react-helmet';
 import { connect, ConnectedProps } from 'react-redux';
 import { cartActions } from '../modules/cart/cart.slice';
 import { ProductBoxContainer } from '../modules/products/components/product-box-container';
@@ -55,12 +55,11 @@ function ProductPageContent({
     <article className="max-w-4xl mx-auto py-2 px-4">
       {details ? (
         <>
-          <Helmet>
-            <title>
-              {details.name}{' '}
-              {details.descriptions && `- ${details.descriptions.join(', ')}`}
-            </title>
-          </Helmet>
+          <Seo
+            title={`${details.name} ${
+              details.descriptions && `- ${details.descriptions.join(', ')}`
+            }`}
+          />
           <h1 className="sm:hidden text-3xl">{details.name}</h1>
           <div className="sm:flex mb-4 pb-2 border-b border-gray-300">
             {details.images && (
@@ -165,8 +164,7 @@ function ProductPageContent({
 
 const mapDispatch = (dispatch: ThunkDispatch) => ({
   addToCart: (qty: number, product: Product) => {
-    toast('Added to Cart', {
-      type: 'success',
+    toast.success('Added to Cart', {
       autoClose: 2000,
     });
     return dispatch(cartActions.addItem({ product, qty }));

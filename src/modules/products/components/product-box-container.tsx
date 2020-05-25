@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { useProductDetails } from '../product.queries';
 import { ProductBox } from './product-box';
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { CarouselContext } from './carousel-context';
 import { useCarouselState } from './carousel-state';
 

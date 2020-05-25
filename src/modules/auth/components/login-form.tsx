@@ -1,20 +1,22 @@
-import React from 'react';
+import { Alert } from 'components/alert';
+import { Button } from 'components/button';
+import { Field } from 'components/field';
+import { Form } from 'components/form';
+import { Input } from 'components/input';
+import { Label } from 'components/label';
+import { Spinner } from 'components/spinner';
+import * as React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { Alert } from '../../../components/alert';
-import { Button } from '../../../components/button';
-import { Field } from '../../../components/field';
-import { Form } from '../../../components/form';
-import { Input } from '../../../components/input';
-import { Label } from '../../../components/label';
-import { Spinner } from '../../../components/spinner';
-import { RootState } from '../../../type';
+import { RootState } from 'type';
 import { attemptLogin, attemptLogout } from '../auth.actions';
 import { selectAuthError, selectAuthStatus } from '../auth.selectors';
+import { TextField } from 'components/text-field';
 
 type ReduxProps = ConnectedProps<typeof connector>;
 
 function LoginFormContent({ status, error, login, logout }: ReduxProps) {
   const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
   if (status === 'Authenticated') {
     return (
@@ -36,7 +38,7 @@ function LoginFormContent({ status, error, login, logout }: ReduxProps) {
       title="Login"
       onSubmit={(ev) => {
         ev.preventDefault();
-        login(email);
+        login(email, password);
       }}
     >
       {isSubmitting && <Spinner />}
@@ -58,6 +60,14 @@ function LoginFormContent({ status, error, login, logout }: ReduxProps) {
           />
         </div>
       </Field>
+      <TextField
+        label="Password"
+        type="password"
+        value={password}
+        onChangeValue={setPassword}
+        required
+        disabled={isSubmitting}
+      />
       <div className="py-3">
         <Button
           color="primary"
@@ -72,16 +82,15 @@ function LoginFormContent({ status, error, login, logout }: ReduxProps) {
   );
 }
 
-const mapStates = (state: RootState) => ({
-  status: selectAuthStatus(state),
-  error: selectAuthError(state),
-});
-
-const mapDispatch = {
-  login: attemptLogin,
-  logout: attemptLogout,
-};
-
-const connector = connect(mapStates, mapDispatch);
+const connector = connect(
+  (state: RootState) => ({
+    status: selectAuthStatus(state),
+    error: selectAuthError(state),
+  }),
+  {
+    login: attemptLogin,
+    logout: attemptLogout,
+  }
+);
 
 export const LoginForm = connector(LoginFormContent);
