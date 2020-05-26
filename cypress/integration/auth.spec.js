@@ -13,7 +13,7 @@ describe(`auth`, () => {
 
     cy.findByText('Signup here').click();
 
-    cy.findByLabelText('Name').type('Malcolm Kee');
+    cy.findByLabelText('Name').type(faker.name.findName());
 
     cy.findByLabelText('Email').type(email);
     cy.findByLabelText('Password').type(password);
@@ -32,13 +32,19 @@ describe(`auth`, () => {
     cy.findAllByText('Logout').last().click();
   });
 
-  it(`shows error when server error`, () => {
+  it(`shows error response from server`, () => {
+    const errorText = 'email must be an email';
+
     cy.server();
     cy.route({
       method: 'POST',
       url: '**/register',
-      status: 503,
-      response: 'Network Error',
+      status: 400,
+      response: {
+        statusCode: 400,
+        message: [errorText],
+        error: 'Bad Request',
+      },
     });
 
     cy.visit('/');
@@ -46,12 +52,39 @@ describe(`auth`, () => {
 
     cy.findByText('Signup here').click();
 
-    cy.findByLabelText('Name').type('Malcolm Kee');
+    cy.findByLabelText('Name').type(faker.name.findName());
+    cy.findByLabelText('Email').type(faker.internet.email());
+    cy.findByLabelText('Password').type(faker.internet.password(10));
+    cy.findByLabelText('Avatar URL').type(faker.random.image());
+    cy.findAllByText('Signup').last().click();
+
+    cy.findByText(errorText, {
+      timeout: 6000,
+    }).should('be.visible');
+  });
+
+  it(`shows error when network error`, () => {
+    const errorText = 'Network Error';
+
+    cy.server();
+    cy.route({
+      method: 'POST',
+      url: '**/register',
+      status: 503,
+      response: errorText,
+    });
+
+    cy.visit('/');
+    cy.findByText('Login').click();
+
+    cy.findByText('Signup here').click();
+
+    cy.findByLabelText('Name').type(faker.name.findName());
     cy.findByLabelText('Email').type(faker.internet.email());
     cy.findByLabelText('Password').type(faker.internet.password(10));
     cy.findAllByText('Signup').last().click();
 
-    cy.findByText('Network Error', {
+    cy.findByText(errorText, {
       timeout: 6000,
     }).should('be.visible');
   });

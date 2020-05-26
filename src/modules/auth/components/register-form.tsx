@@ -105,6 +105,7 @@ export function RegisterForm() {
         value={avatar}
         onChangeValue={setAvatar}
         disabled={isSubmitting}
+        type="url"
       />
       <div className="py-3">
         <Button

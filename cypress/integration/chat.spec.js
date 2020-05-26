@@ -14,7 +14,9 @@ describe(`chat`, () => {
       cy.findByLabelText('Password').type(user.password);
       cy.findAllByText('Login').last().click();
 
-      cy.findByLabelText('Chat message').type('Hello there!{enter}');
+      cy.findByLabelText('Chat message', {
+        timeout: 6000,
+      }).type('Hello there!{enter}');
     });
   });
 
@@ -39,7 +41,9 @@ describe(`chat`, () => {
             cy.findByLabelText('Password').type(user.password);
             cy.findAllByText('Login').last().click();
 
-            cy.findByLabelText('Chat message')
+            cy.findByLabelText('Chat message', {
+              timeout: 6000,
+            })
               .type('Hello there!{enter}')
 
               .then(() => {
@@ -80,7 +84,9 @@ describe(`chat`, () => {
       cy.findByLabelText('Password').type(user.password);
       cy.findAllByText('Login').last().click();
 
-      cy.findByLabelText('Chat message')
+      cy.findByLabelText('Chat message', {
+        timeout: 6000,
+      })
         .type('Hello there!{enter}')
         .type('A{enter}')
         .type('B{enter}')
