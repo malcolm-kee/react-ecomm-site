@@ -1,9 +1,7 @@
-/// <reference types="Cypress" />
-/// <reference types="../support" />
-
-describe(`product`, () => {
+describe(`career`, () => {
   it(`can view job details`, () => {
     cy.visit('/');
+
     cy.findByText('Careers').click();
 
     cy.findByText('Web Designer').click();

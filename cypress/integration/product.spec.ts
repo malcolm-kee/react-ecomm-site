@@ -1,6 +1,3 @@
-/// <reference types="Cypress" />
-/// <reference types="../support" />
-
 describe(`product`, () => {
   it(`can view product details`, () => {
     cy.visit('/');
@@ -66,11 +63,7 @@ describe(`product`, () => {
 
       cy.findByText(`You're already login!`).should('be.visible');
 
-      cy.findByAltText('Shopit', {
-        selector: 'a',
-      })
-        .first()
-        .click();
+      cy.findAllByAltText('Shopit').first().click();
 
       cy.findAllByTestId('productBox').last().click();
 

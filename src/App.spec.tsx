@@ -1,4 +1,5 @@
 import { cleanup, screen } from '@testing-library/react';
+import { Job } from 'modules/career/career.type';
 import * as React from 'react';
 import xhrMock from 'xhr-mock';
 import App from './App';
@@ -20,11 +21,15 @@ function loadApp({ url = '/' } = {}) {
     waitForProductPageFinishLoading: () => screen.findByText(addToCartBtnLabel),
     addQty: () => user.click(screen.getByTestId('add-qty-btn')),
     minusQty: () => user.click(screen.getByTestId('reduce-qty-btn')),
-    getCartItemQty: (id) => screen.getByTestId(`qty-for-${id}`).innerHTML,
-    queryCartItem: (id) => screen.queryByTestId(`qty-for-${id}`),
-    addMoreCartItem: (id) => user.click(screen.getByTestId(`add-${id}`)),
-    reduceCartItem: (id) => user.click(screen.getByTestId(`reduce-${id}`)),
-    removeCartItem: (id) => user.click(screen.getByTestId(`remove-${id}`)),
+    getCartItemQty: (id: string) =>
+      screen.getByTestId(`qty-for-${id}`).innerHTML,
+    queryCartItem: (id: string) => screen.queryByTestId(`qty-for-${id}`),
+    addMoreCartItem: (id: string) =>
+      user.click(screen.getByTestId(`add-${id}`)),
+    reduceCartItem: (id: string) =>
+      user.click(screen.getByTestId(`reduce-${id}`)),
+    removeCartItem: (id: string) =>
+      user.click(screen.getByTestId(`remove-${id}`)),
   };
 }
 
@@ -114,12 +119,14 @@ describe('<App />', () => {
   });
 
   it(`shows careers page`, async () => {
-    xhrMock.get(process.env.REACT_APP_CAREER_BASE_URL, {
+    xhrMock.get(process.env.REACT_APP_CAREER_BASE_URL as string, {
       status: 200,
       body: JSON.stringify(careers),
     });
 
-    const webDesignerData = careers.find((job) => job.title === 'Web Designer');
+    const webDesignerData = careers.find(
+      (job) => job.title === 'Web Designer'
+    ) as Job;
 
     xhrMock.get(
       `${process.env.REACT_APP_CAREER_BASE_URL}/${webDesignerData._id}`,
@@ -214,7 +221,7 @@ describe('<App />', () => {
     await screen.findByLabelText('Email');
 
     await user.type(screen.getByLabelText('Email'), 'mk@test.com');
-    user.click(container.querySelector('button[type="submit"]'));
+    user.click(container.querySelector('button[type="submit"]') as HTMLElement);
 
     await screen.findByText("You're already login!");
 
@@ -222,7 +229,7 @@ describe('<App />', () => {
 
     await waitForProductPageFinishLoading();
 
-    expect(screen.getByLabelText('Your Name').value).not.toBe('');
+    expect(screen.getByLabelText('Your Name')).not.toHaveValue('');
 
     user.click(screen.getByText('Logout'));
 
@@ -239,7 +246,7 @@ describe('<App />', () => {
     await user.type(screen.getByLabelText('Name'), 'Malcolm Kee');
     await user.type(screen.getByLabelText('Email'), 'mk@test.com');
     await user.type(screen.getByLabelText('Password'), '12345678');
-    user.click(container.querySelector('button[type="submit"]'));
+    user.click(container.querySelector('button[type="submit"]') as HTMLElement);
 
     await screen.findByTestId('login-form');
     await user.type(screen.getByLabelText('Email'), 'mk@test.com');

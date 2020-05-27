@@ -1,5 +1,3 @@
-/// <reference types="Cypress" />
-
 import * as faker from 'faker';
 
 describe(`auth`, () => {

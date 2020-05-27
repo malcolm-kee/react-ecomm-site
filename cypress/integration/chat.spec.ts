@@ -1,6 +1,3 @@
-/// <reference types="Cypress" />
-/// <reference types="../support" />
-
 describe(`chat`, () => {
   it(`can launch chat for logged in user`, () => {
     cy.createUser({

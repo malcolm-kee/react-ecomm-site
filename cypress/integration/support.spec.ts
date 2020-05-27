@@ -1,6 +1,3 @@
-/// <reference types="Cypress" />
-/// <reference types="../support" />
-
 describe(`support`, () => {
   it(`can load all support pages`, () => {
     cy.visit('/help');

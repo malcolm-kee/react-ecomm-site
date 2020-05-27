@@ -7,34 +7,23 @@ import { MainPage } from './main-page';
 
 jest.mock('../modules/marketing/marketing.service');
 
-const PRODUCT_BASE_URL = process.env.REACT_APP_PRODUCT_BASE_URL;
-
-function loadMainPage() {
-  return {
-    ...renderWithStateMgmtAndRouter(<MainPage />),
-    scrollWindow: () =>
-      fireEvent(
-        window,
-        new UIEvent('scroll', { bubbles: false, cancelable: false })
-      ),
-    getNumberOfProducts: () => screen.getAllByTestId('productBox').length,
-  };
-}
+const PRODUCT_BASE_URL = process.env.REACT_APP_PRODUCT_BASE_URL as string;
 
 describe('<MainPage />', () => {
   beforeEach(() => xhrMock.setup());
 
-  afterEach(() => {
-    xhrMock.teardown();
-  });
+  afterEach(() => xhrMock.teardown());
 
   it('renders without crashing', () => {
     xhrMock.get(new RegExp(PRODUCT_BASE_URL, 'u'), {
       status: 200,
       body: JSON.stringify(PRODUCT_DB.slice(0, 2)),
     });
-    loadMainPage();
+
+    renderWithStateMgmtAndRouter(<MainPage />);
+
     expect(screen.getByText('Shopit')).not.toBeNull();
+
     cleanup();
   });
 
@@ -44,11 +33,12 @@ describe('<MainPage />', () => {
       body: JSON.stringify(PRODUCT_DB.slice(0, 2)),
     });
 
-    loadMainPage();
+    renderWithStateMgmtAndRouter(<MainPage />);
 
     const iPhoneXBox = await screen.findByText('iPhone X');
 
     expect(iPhoneXBox).not.toBeNull();
+
     cleanup();
   });
 
@@ -67,16 +57,19 @@ describe('<MainPage />', () => {
       ])
     );
 
-    const { findByText, scrollWindow, getNumberOfProducts } = loadMainPage();
+    renderWithStateMgmtAndRouter(<MainPage />);
 
-    await findByText('iPhone X');
+    await screen.findByText('iPhone X');
+    expect(screen.getAllByTestId('productBox')).toHaveLength(2);
 
-    expect(getNumberOfProducts()).toBe(2);
+    fireEvent(
+      window,
+      new UIEvent('scroll', { bubbles: false, cancelable: false })
+    );
 
-    scrollWindow();
+    await screen.findByText('dodo');
+    expect(screen.getAllByTestId('productBox')).toHaveLength(4);
 
-    await findByText('dodo');
-    expect(getNumberOfProducts()).toBe(4);
     cleanup();
   });
 });
