@@ -27,7 +27,7 @@ You can cross-reference them and see the difference between them. I will put my 
 
 ## Backend API
 
-The backend API that supports this site is a NestJS application. Its API is available [here](backend-api) and its repo [here](backend-api-repo).
+The backend API that supports this site is a NestJS application. Its API is available [here][backend-api] and its repo [here][backend-api-repo].
 
 Its database will refresh everytime Heroku restart it, so usually you can get a clean state to test this site.
 
