@@ -1,5 +1,5 @@
+import { Image, ImageProps } from 'components/image';
 import * as React from 'react';
-import { Image, ImageProps } from '../../../components/image';
 
 export type ProductImageProps = Omit<
   ImageProps,

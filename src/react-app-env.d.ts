@@ -1,11 +1,5 @@
 /// <reference types="react-scripts" />
 
-declare namespace React {
-  interface ImgHTMLAttributes {
-    loading?: 'lazy' | 'eager' | 'auto';
-  }
-}
-
 type DatePickOption = {
   dateFormat?: string;
   onSelect?: (dates: Date[]) => void;

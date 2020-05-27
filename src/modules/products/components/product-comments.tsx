@@ -1,6 +1,6 @@
+import { Spinner } from 'components/spinner';
 import format from 'date-fns/format';
 import * as React from 'react';
-import { Spinner } from '../../../components/spinner';
 import { ProductComment } from '../product.type';
 import { ProductCommentForm } from './product-comment-form';
 

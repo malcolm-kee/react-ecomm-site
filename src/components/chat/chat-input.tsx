@@ -1,8 +1,8 @@
 import cx from 'classnames';
+import { useId } from 'hooks/use-id';
+import { callAll } from 'lib/fn-lib';
 import * as React from 'react';
 import { Textarea, TextareaProps } from '../textarea';
-import { callAll } from '../../lib/fn-lib';
-import { useId } from '../../hooks/use-id';
 import styles from './chat-input.module.scss';
 
 export type ChatInputProps = Omit<TextareaProps, 'ref'> & {
@@ -46,7 +46,7 @@ export const ChatInput = ({
           aria-labelledby={`${ensuredId}-label`}
           className={cx(styles.textarea, className)}
           minRows={1}
-          useCacheForDOMMeasurements
+          cacheMeasurements
           placeholder={placeholder}
           {...props}
           onKeyDown={callAll((ev) => {

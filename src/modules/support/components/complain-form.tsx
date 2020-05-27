@@ -13,7 +13,7 @@ import * as React from 'react';
 import styles from './complain-form.module.scss';
 
 const DateInput = React.lazy(() =>
-  import('../../../components/date-input-default')
+  import('components/date-input-default')
 );
 
 const TOTAL_PAGE = 2;

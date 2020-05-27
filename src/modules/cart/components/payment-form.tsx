@@ -1,18 +1,18 @@
+import { Alert } from 'components/alert';
+import { Button } from 'components/button';
+import { Spinner } from 'components/spinner';
+import { TextField } from 'components/text-field';
+import { formatMoney } from 'lib/format';
 import * as React from 'react';
 import { Focused } from 'react-credit-cards';
 import { connect, ConnectedProps } from 'react-redux';
-import { Button } from '../../../components/button';
-import { formatMoney } from '../../../lib/format';
-import { RootState, ThunkDispatch } from '../../../type';
-import { selectCartTotal } from '../cart.selectors';
-import { selectUser } from '../../auth/auth.selectors';
-import { TextField } from '../../../components/text-field';
-import { makePayment } from '../cart.actions';
-import { Alert } from '../../../components/alert';
 import { Link } from 'react-router-dom';
-import { Spinner } from '../../../components/spinner';
+import { RootState, ThunkDispatch } from 'type';
+import { selectUser } from '../../auth/auth.selectors';
+import { makePayment } from '../cart.actions';
+import { selectCartTotal } from '../cart.selectors';
 
-const CreditCard = React.lazy(() => import('../../../components/credit-card'));
+const CreditCard = React.lazy(() => import('components/credit-card'));
 
 const PaymentFormView = (props: ConnectedProps<typeof connector>) => {
   const [name, setName] = React.useState(props.defaultName);

@@ -9,9 +9,7 @@ An e-commerce site SPA implemented with React.
 [Component Library](https://react-ecomm-docs.netlify.com/)
 
 <p align="center">
-
-![Home Page](screenshot/shopit-home.png)
-
+    <img src="screenshot/shopit-home.png" alt="Home Page" />
 </p>
 
 ## State Management Library

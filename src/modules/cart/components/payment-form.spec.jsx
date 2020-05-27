@@ -1,14 +1,10 @@
+import { renderWithStateMgmtAndRouter, user } from 'lib/test-util';
 import * as React from 'react';
-import { renderWithStateMgmtAndRouter, user } from '../../../lib/test-util';
 import { cartActions } from '../cart.slice';
 import { PaymentForm } from './payment-form';
 
 test(`can complete make payment`, async () => {
-  const {
-    getByLabelText,
-    getByText,
-    findByText,
-  } = renderWithStateMgmtAndRouter(<PaymentForm />, {
+  const helpers = renderWithStateMgmtAndRouter(<PaymentForm />, {
     actions: [
       cartActions.addItem({
         product: {
@@ -27,16 +23,16 @@ test(`can complete make payment`, async () => {
     ],
   });
 
-  expect(getByText('Pay')).toBeDisabled();
+  expect(helpers.getByText('Pay')).toBeDisabled();
 
-  await user.type(getByLabelText('Card Number'), '5521783746553547');
-  await user.type(getByLabelText('Name'), 'Malcolm Kee');
-  await user.type(getByLabelText('Valid Thru'), '05/22');
-  await user.type(getByLabelText('CVC'), '123');
-  user.click(getByText('Pay'));
+  await user.type(helpers.getByLabelText('Card Number'), '5521783746553547');
+  await user.type(helpers.getByLabelText('Name'), 'Malcolm Kee');
+  await user.type(helpers.getByLabelText('Valid Thru'), '05/22');
+  await user.type(helpers.getByLabelText('CVC'), '123');
+  user.click(helpers.getByText('Pay'));
 
-  const successMessage = await findByText('Paid');
+  const successMessage = await helpers.findByText('Paid');
 
   expect(successMessage).toBeVisible();
-  expect(getByText('Back to Home')).toBeVisible();
+  expect(helpers.getByText('Back to Home')).toBeVisible();
 });

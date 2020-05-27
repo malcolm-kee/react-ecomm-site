@@ -1,19 +1,19 @@
+import { Button } from 'components/button';
+import { ErrorBoundary } from 'components/error-boundary';
+import { Spinner } from 'components/spinner';
+import { formatMoney } from 'lib/format';
 import * as React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Dispatch } from 'redux';
-import { ErrorBoundary } from '../../../components/error-boundary';
-import { Spinner } from '../../../components/spinner';
-import { RootState } from '../../../type';
+import { RootState } from 'type';
 import {
   selectCartItemCount,
   selectCartItems,
-  selectCartTotal,
+  selectCartTotal
 } from '../cart.selectors';
 import { cartActions } from '../cart.slice';
 import styles from './cart-items.module.scss';
-import { formatMoney } from '../../../lib/format';
-import { Button } from '../../../components/button';
-import { Link } from 'react-router-dom';
 
 const CartItem = React.lazy(() =>
   import(/* webpackChunkName: "CartItem" */ './cart-item')
@@ -104,7 +104,7 @@ function CartItemsContent({
             <div className="text-right py-4">
               <Button
                 color="success"
-                className="w-full sm:w-24 text-center"
+                className="w-full sm:w-32 text-center"
                 renderContainer={({ className, children }) => (
                   <Link to="/pay" className={className}>
                     {children}
@@ -121,21 +121,17 @@ function CartItemsContent({
   );
 }
 
-const mapStates = (state: RootState) => ({
+const connector = connect((state: RootState) => ({
   cartItems: selectCartItems(state),
   itemCount: selectCartItemCount(state),
   total: selectCartTotal(state),
-});
-
-const mapDispatch = (dispatch: Dispatch) => ({
+}), (dispatch: Dispatch) => ({
   incrementItem: (itemIndex: number) => () =>
     dispatch(cartActions.incrementItemQty(itemIndex)),
   decrementItem: (itemIndex: number) => () =>
     dispatch(cartActions.decrementItemQty(itemIndex)),
   removeItem: (itemIndex: number) => () =>
     dispatch(cartActions.removeItem(itemIndex)),
-});
-
-const connector = connect(mapStates, mapDispatch);
+}));
 
 export const CartItems = connector(CartItemsContent);

@@ -1,8 +1,8 @@
+import { Button } from 'components/button';
+import { CloseIcon } from 'components/icon/close-icon';
+import { formatMoney } from 'lib/format';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '../../../components/button';
-import { CloseIcon } from '../../../components/icon/close-icon';
-import { formatMoney } from '../../../lib/format';
 import { ProductImage } from '../../products/components/product-image';
 import { CartItem as CardItemType } from '../cart.type';
 

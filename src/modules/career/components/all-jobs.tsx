@@ -1,6 +1,6 @@
+import { ListGroup } from 'components/list-group';
+import { Spinner } from 'components/spinner';
 import * as React from 'react';
-import { ListGroup } from '../../../components/list-group';
-import { Spinner } from '../../../components/spinner';
 import { useJobs } from '../career.queries';
 
 export const AllJobs = () => {

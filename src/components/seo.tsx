@@ -5,6 +5,9 @@ export type SeoProps = {
   title: string;
 };
 
+/**
+ * Configure metadata to be added in `head` for SEO purpose.
+ */
 export const Seo = (props: SeoProps) => (
   <Helmet>
     <title>{props.title}</title>
