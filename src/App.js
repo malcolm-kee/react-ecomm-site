@@ -1,10 +1,9 @@
 // import DevTools from 'mobx-react-devtools';
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
 import { Footer } from './components/footer';
 import { MainContent } from './components/main-content';
+import { ToastContainer } from './components/toast';
 import { LayoutContext } from './hooks/use-layout';
 import { useScrollTopOnNavigate } from './hooks/use-scroll-top-on-navigate';
 import { ChatLauncher } from './modules/auth/components/chat-launcher';

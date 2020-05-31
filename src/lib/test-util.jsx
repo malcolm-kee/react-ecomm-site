@@ -5,6 +5,7 @@ import { Provider } from 'mobx-react';
 import * as React from 'react';
 import { ReactQueryConfigProvider } from 'react-query';
 import { Router } from 'react-router-dom';
+import { ToastContainer } from '../components/toast';
 import { AuthStore } from '../modules/auth/auth.store';
 import { CartStore } from '../modules/cart/cart.store';
 import { ProductStore } from '../modules/products/product.store';
@@ -54,6 +55,7 @@ export function renderWithStateMgmt(
             {ui}
           </Provider>
         </Router>
+        <ToastContainer />
       </ReactQueryConfigProvider>
     ),
   };

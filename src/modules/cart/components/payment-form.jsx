@@ -2,12 +2,12 @@ import { Alert } from 'components/alert';
 import { Button } from 'components/button';
 import { Spinner } from 'components/spinner';
 import { TextField } from 'components/text-field';
+import { toast } from 'components/toast';
 import { inject, observer } from 'mobx-react';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
-const CreditCard = React.lazy(() => import('../../../components/credit-card'));
+const CreditCard = React.lazy(() => import('components/credit-card'));
 
 const PaymentFormView = ({ defaultName, totalAmount, pay }) => {
   const [name, setName] = React.useState(defaultName);

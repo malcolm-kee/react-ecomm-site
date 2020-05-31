@@ -7,9 +7,9 @@ import { SelectField } from 'components/select-field';
 import { Spinner } from 'components/spinner';
 import { TextField } from 'components/text-field';
 import { Textarea } from 'components/textarea';
+import { toast } from 'components/toast';
 import { useScrollOnMount } from 'hooks/use-scroll-on-mount';
 import * as React from 'react';
-import { toast } from 'react-toastify';
 import styles from './complain-form.module.scss';
 
 const DateInput = React.lazy(() => import('components/date-input-default'));

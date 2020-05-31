@@ -1,19 +1,19 @@
+import { Button } from 'components/button';
+import { ErrorBoundary } from 'components/error-boundary';
+import { Field } from 'components/field';
+import { Input } from 'components/input';
+import { Label } from 'components/label';
+import { ShareButton } from 'components/share-button';
+import { Spinner } from 'components/spinner';
+import { toast } from 'components/toast';
 import { inject, observer } from 'mobx-react';
+import { ProductBoxContainer } from 'modules/products/components/product-box-container';
+import { ProductImage } from 'modules/products/components/product-image';
 import * as React from 'react';
-import { toast } from 'react-toastify';
-import { Button } from '../components/button';
-import { ErrorBoundary } from '../components/error-boundary';
-import { Field } from '../components/field';
-import { Input } from '../components/input';
-import { Label } from '../components/label';
-import { ShareButton } from '../components/share-button';
-import { Spinner } from '../components/spinner';
-import { ProductBoxContainer } from '../modules/products/components/product-box-container';
-import { ProductImage } from '../modules/products/components/product-image';
 
 const ProductComments = React.lazy(() =>
   import(
-    /* webpackChunkName: "ProductComments" */ '../modules/products/components/product-comments'
+    /* webpackChunkName: "ProductComments" */ 'modules/products/components/product-comments'
   )
 );
 
