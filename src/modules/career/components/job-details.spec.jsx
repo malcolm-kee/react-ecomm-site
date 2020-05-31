@@ -1,26 +1,38 @@
-import { render } from '@testing-library/react';
+import { cleanup } from '@testing-library/react';
+import { renderWithQuery } from 'lib/test-util';
 import * as React from 'react';
-import { getJob as getJobMock } from '../career.service';
+import xhrMock from 'xhr-mock';
+import { careers } from '../__mocks__/career.data';
 import { JobDetails } from './job-details';
 
-jest.mock('../career.service');
-
 describe(`<JobDetails />`, () => {
+  beforeEach(() => {
+    xhrMock.setup();
+  });
+
+  afterEach(() => {
+    xhrMock.teardown();
+  });
+
   it(`retrieves details for provided jobId`, async () => {
-    const { findByText } = render(<JobDetails jobId={3} />);
+    xhrMock.get(/.*/, {
+      status: 200,
+      body: JSON.stringify(careers[0]),
+    });
+
+    const { findByText } = renderWithQuery(<JobDetails jobId={3} />);
 
     await findByText('Department:');
 
-    expect(getJobMock).toHaveBeenCalledTimes(1);
-    expect(getJobMock).toHaveBeenCalledWith(3);
+    cleanup();
   });
 
   it(`shows error message when error`, async () => {
-    getJobMock.mockImplementationOnce(() =>
-      Promise.reject(new Error('Network Error'))
-    );
+    xhrMock.get(/.*/, {
+      status: 500,
+    });
 
-    const { findByRole } = render(<JobDetails jobId={3} />);
+    const { findByRole } = renderWithQuery(<JobDetails jobId={3} />);
 
     const alert = await findByRole('alert');
     expect(alert).toMatchInlineSnapshot(`
@@ -31,5 +43,7 @@ describe(`<JobDetails />`, () => {
         Fails to get details.
       </div>
     `);
+
+    cleanup();
   });
 });

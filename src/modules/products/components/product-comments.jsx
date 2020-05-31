@@ -1,7 +1,7 @@
+import { Spinner } from 'components/spinner';
 import format from 'date-fns/format';
 import { inject, observer } from 'mobx-react';
 import * as React from 'react';
-import { Spinner } from '../../../components/spinner';
 import { ProductCommentForm } from './product-comment-form';
 
 function ProductComment({ userName, content, createdOn }) {

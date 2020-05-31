@@ -1,7 +1,7 @@
+import { Button } from 'components/button';
+import { ChatBox } from 'components/chat/chat-box';
 import { inject, observer } from 'mobx-react';
 import * as React from 'react';
-import { Button } from '../../../components/button';
-import { ChatBox } from '../../../components/chat/chat-box';
 import styles from './chat-launcher.module.scss';
 import { LoginForm } from './login-form';
 

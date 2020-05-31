@@ -3,11 +3,24 @@ import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'mobx-react';
 import * as React from 'react';
+import { ReactQueryConfigProvider } from 'react-query';
 import { Router } from 'react-router-dom';
 import { AuthStore } from '../modules/auth/auth.store';
 import { CartStore } from '../modules/cart/cart.store';
-import { MarketingStore } from '../modules/marketing/marketing.store';
 import { ProductStore } from '../modules/products/product.store';
+
+export function renderWithQuery(ui, config = {}) {
+  return render(
+    <ReactQueryConfigProvider
+      config={{
+        retry: false,
+        ...config,
+      }}
+    >
+      {ui}
+    </ReactQueryConfigProvider>
+  );
+}
 
 export function renderWithStateMgmt(
   ui,
@@ -16,34 +29,32 @@ export function renderWithStateMgmt(
     history = createMemoryHistory({
       initialEntries: [route],
     }),
+    queryConfig = {
+      retry: false,
+    },
   } = {}
 ) {
   const authStore = new AuthStore();
   const productStore = new ProductStore();
   const cartStore = new CartStore(productStore);
-  const marketingStore = new MarketingStore();
 
   return {
     authStore,
     productStore,
     cartStore,
-    marketingStore,
     history,
     navigate: (to) =>
       act(() => {
         history.push(to);
       }),
     ...render(
-      <Router history={history}>
-        <Provider
-          auth={authStore}
-          product={productStore}
-          cart={cartStore}
-          marketing={marketingStore}
-        >
-          {ui}
-        </Provider>
-      </Router>
+      <ReactQueryConfigProvider config={queryConfig}>
+        <Router history={history}>
+          <Provider auth={authStore} product={productStore} cart={cartStore}>
+            {ui}
+          </Provider>
+        </Router>
+      </ReactQueryConfigProvider>
     ),
   };
 }

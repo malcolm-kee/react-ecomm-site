@@ -1,4 +1,4 @@
-import { act, fireEvent, screen, wait } from '@testing-library/react';
+import { act, fireEvent, screen, wait, cleanup } from '@testing-library/react';
 import * as React from 'react';
 import { renderWithStateMgmt } from '../lib/test-util';
 import { MainPage } from './main-page';
@@ -22,14 +22,17 @@ describe('<MainPage />', () => {
   it('renders without crashing', () => {
     loadMainPage();
     expect(screen.getByText('Shopit')).not.toBeNull();
+
+    cleanup();
   });
 
   it('shows the product from API', async () => {
     loadMainPage();
-
     const iPhoneXBox = await screen.findByText('iPhone X');
 
     expect(iPhoneXBox).not.toBeNull();
+
+    cleanup();
   });
 
   it('load more products when scroll', async () => {
@@ -53,5 +56,7 @@ describe('<MainPage />', () => {
     await wait();
 
     expect(getNumberOfProducts()).toBe(4);
+
+    cleanup();
   });
 });

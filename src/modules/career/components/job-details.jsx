@@ -1,29 +1,16 @@
+import { Alert } from 'components/alert';
+import { Button } from 'components/button';
+import { Spinner } from 'components/spinner';
+import { scrollTo } from 'lib/scroll-to';
 import * as React from 'react';
-import { Alert } from '../../../components/alert';
-import { Button } from '../../../components/button';
-import { Spinner } from '../../../components/spinner';
-import { scrollTo } from '../../../lib/scroll-to';
-import { getJob } from '../career.service';
+import { useJob } from '../career.queries';
 
 export const JobDetails = ({ jobId }) => {
-  const [status, setStatus] = React.useState('busy');
-  const [job, setJob] = React.useState(null);
-
-  React.useEffect(() => {
-    setStatus('busy');
-    getJob(jobId)
-      .then((jobDetails) => {
-        setJob(jobDetails);
-        setStatus('idle');
-      })
-      .catch(() => {
-        setStatus('error');
-      });
-  }, [jobId]);
+  const { data: job, status } = useJob(jobId);
 
   const jobDetailsRef = React.useRef(null);
   React.useEffect(() => {
-    if (status === 'idle') {
+    if (status === 'success') {
       scrollTo(jobDetailsRef.current);
     }
   }, [status]);

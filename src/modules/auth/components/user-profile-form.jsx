@@ -1,10 +1,10 @@
+import { Button } from 'components/button';
+import { Form } from 'components/form';
+import { Spinner } from 'components/spinner';
+import { TextField } from 'components/text-field';
 import { inject, observer } from 'mobx-react';
 import * as React from 'react';
 import { Redirect } from 'react-router-dom';
-import { Button } from '../../../components/button';
-import { Form } from '../../../components/form';
-import { Spinner } from '../../../components/spinner';
-import { TextField } from '../../../components/text-field';
 
 function UserProfileFormView({
   id,

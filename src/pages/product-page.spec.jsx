@@ -6,12 +6,8 @@ import { ProductPage } from './product-page';
 jest.mock('../modules/products/product.service');
 
 describe('<ProductPage />', () => {
-  function loadProductPage() {
-    return renderWithStateMgmt(<ProductPage productId="1" />);
-  }
-
   it('allows customer to add product to cart', async () => {
-    loadProductPage();
+    renderWithStateMgmt(<ProductPage productId="1" />);
 
     const addToCartBtn = await screen.findByText('Add To Cart');
 
@@ -19,7 +15,7 @@ describe('<ProductPage />', () => {
   });
 
   it('allows customer to add comment', async () => {
-    loadProductPage();
+    renderWithStateMgmt(<ProductPage productId="1" />);
 
     await user.type(await screen.findByLabelText('Your Name'), 'Malcolm Kee');
     await user.type(screen.getByLabelText('Your Review'), 'I like it');

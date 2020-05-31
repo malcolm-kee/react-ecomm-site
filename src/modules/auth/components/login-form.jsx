@@ -1,11 +1,11 @@
+import { Button } from 'components/button';
+import { Field } from 'components/field';
+import { Form } from 'components/form';
+import { Input } from 'components/input';
+import { Label } from 'components/label';
+import { Spinner } from 'components/spinner';
 import { inject, observer } from 'mobx-react';
 import * as React from 'react';
-import { Button } from '../../../components/button';
-import { Field } from '../../../components/field';
-import { Form } from '../../../components/form';
-import { Input } from '../../../components/input';
-import { Label } from '../../../components/label';
-import { Spinner } from '../../../components/spinner';
 
 function FormContent({ pending, error, login }) {
   const [email, setEmail] = React.useState('');

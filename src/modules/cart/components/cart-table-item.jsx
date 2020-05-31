@@ -1,9 +1,9 @@
+import { Button } from 'components/button';
+import { CloseIcon } from 'components/icon/close-icon';
 import { inject, observer } from 'mobx-react';
+import { ProductImage } from 'modules/products/components/product-image';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '../../../components/button';
-import { CloseIcon } from '../../../components/icon/close-icon';
-import { ProductImage } from '../../products/components/product-image';
 
 function CartTableItem({ cart: { items }, index, onDelete }) {
   const item = items[index];

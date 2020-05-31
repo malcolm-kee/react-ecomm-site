@@ -1,4 +1,4 @@
-import { fireEvent, screen, wait } from '@testing-library/react';
+import { cleanup, screen } from '@testing-library/react';
 import * as React from 'react';
 import App from './App';
 import { renderWithStateMgmt, user } from './lib/test-util';
@@ -24,14 +24,6 @@ function loadApp({ url = '/' } = {}) {
     addMoreCartItem: (id) => user.click(screen.getByTestId(`add-${id}`)),
     reduceCartItem: (id) => user.click(screen.getByTestId(`reduce-${id}`)),
     removeCartItem: (id) => user.click(screen.getByTestId(`remove-${id}`)),
-    inputName: (name) =>
-      fireEvent.change(screen.getByLabelText('Name'), {
-        target: { value: name },
-      }),
-    inputEmail: (email) =>
-      fireEvent.change(screen.getByLabelText('Email'), {
-        target: { value: email },
-      }),
     submitForm: () =>
       user.click(document.querySelector('button[type="submit"]')),
     logout: () => user.click(screen.getByText('Logout')),
@@ -43,52 +35,56 @@ describe('<App />', () => {
     const { getAllByText } = loadApp();
 
     expect(getAllByText('Shopit').length).toBeGreaterThan(0);
+
+    cleanup();
   });
 
   it(`shows help page at help url`, async () => {
-    const { getByText, findByText } = loadApp({
+    loadApp({
       url: '/help',
     });
 
-    user.click(getByText('Account'));
-    await findByText('If you forget password, just create another one.');
+    user.click(screen.getByText('Account'));
+    await screen.findByText('If you forget password, just create another one.');
 
-    user.click(getByText('Payment'));
-    await findByText(
+    user.click(screen.getByText('Payment'));
+    await screen.findByText(
       `Seriously u look for help for payment when you can't even pay?`
     );
 
-    user.click(getByText('Shipping'));
-    await findByText(
+    user.click(screen.getByText('Shipping'));
+    await screen.findByText(
       'All shipping will be delivered within 3-5 years. Please be patient.'
     );
 
-    user.click(getByText('Complaint'));
-    await findByText('Make a Complaint');
+    user.click(screen.getByText('Complaint'));
+    await screen.findByText('Make a Complaint');
   });
 
   it('show page not found for invalid url', () => {
-    const { getByText } = loadApp({
+    loadApp({
       url: '/wulala-weird-url',
     });
 
-    expect(getByText('Page Not Found')).not.toBeNull();
+    expect(screen.getByText('Page Not Found')).not.toBeNull();
   });
 
   it(`shows careers page`, async () => {
-    const { getByText, findByText } = loadApp({
+    loadApp({
       url: '/',
     });
 
-    user.click(getByText('Careers'));
+    user.click(screen.getByText('Careers'));
 
-    const careerPageTitle = await findByText('Careers in Shopit');
+    const careerPageTitle = await screen.findByText('Careers in Shopit');
     expect(careerPageTitle).toBeVisible();
 
-    const jobPost = await findByText('Web Designer');
+    const jobPost = await screen.findByText('Web Designer');
     user.click(jobPost);
 
-    await findByText('Department:');
+    await screen.findByText('Department:');
+
+    cleanup();
   });
 
   it(`tracks product added to cart`, async () => {
@@ -98,7 +94,6 @@ describe('<App />', () => {
       minusQty,
       addProductToCart,
       navigate,
-      findByTestId,
       getCartItemQty,
       queryCartItem,
       addMoreCartItem,
@@ -122,7 +117,7 @@ describe('<App />', () => {
     addProductToCart();
 
     navigate('/cart');
-    await findByTestId('qty-for-2');
+    await screen.findByTestId('qty-for-2');
 
     expect(getCartItemQty('1')).toBe('2');
     expect(getCartItemQty('2')).toBe('3');
@@ -151,19 +146,17 @@ describe('<App />', () => {
   it('default customer name in comment form', async () => {
     const {
       navigate,
-      getByLabelText,
-      getByText,
       waitForProductPageFinishLoading,
-      inputEmail,
       submitForm,
       logout,
     } = loadApp({
       url: '/login',
     });
 
-    await wait();
+    const $emailInput = await screen.findByLabelText('Email');
 
-    inputEmail('mk@test.com');
+    await user.type($emailInput, 'mk@test.com');
+
     submitForm();
 
     await screen.findByText("You're already login!");
@@ -172,15 +165,13 @@ describe('<App />', () => {
 
     await waitForProductPageFinishLoading();
 
-    expect(getByLabelText('Your Name').value).not.toBe('');
+    expect(screen.getByLabelText('Your Name').value).not.toBe('');
 
     logout();
   });
 
   it('can signup and logout', async () => {
     const {
-      inputEmail,
-      inputName,
       submitForm,
       navigate,
       getByText,
@@ -191,10 +182,11 @@ describe('<App />', () => {
       url: '/signup',
     });
 
-    await wait();
+    await screen.findByLabelText('Email');
 
-    inputName('Malcolm Kee');
-    inputEmail('mk@test.com');
+    await user.type(screen.getByLabelText('Name'), 'Malcolm Kee');
+    await user.type(screen.getByLabelText('Email'), 'mk@test.com');
+
     submitForm();
 
     await screen.findByText("You're already login!");
@@ -213,20 +205,20 @@ describe('<App />', () => {
   });
 
   it(`can update user profile`, async () => {
-    const { navigate, inputEmail, inputName, submitForm, logout } = loadApp({
+    const { navigate, submitForm, logout } = loadApp({
       url: '/login',
     });
 
-    await wait();
+    const $emailInput = await screen.findByLabelText('Email');
 
-    inputEmail('mk@test.com');
+    await user.type($emailInput, 'mk@test.com');
     submitForm();
 
     await screen.findByText("You're already login!");
 
     navigate('/profile');
 
-    inputName('Malcolm Key');
+    await user.type(screen.getByLabelText('Name'), 'Malcolm Key');
     submitForm();
 
     await screen.findByText('Profile Updated.');

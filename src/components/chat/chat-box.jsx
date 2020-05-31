@@ -1,6 +1,6 @@
+import { useSocket } from 'hooks/use-socket';
 import PropTypes from 'prop-types';
 import * as React from 'react';
-import { useSocket } from '../../hooks/use-socket';
 import { Alert } from '../alert';
 import { Spinner } from '../spinner';
 import styles from './chat-box.module.scss';
