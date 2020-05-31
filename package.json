@@ -29,15 +29,9 @@
     "test": "react-scripts test",
     "test:ci": "react-scripts test --coverage --ci --watchAll=false",
     "format": "prettier --write src",
-    "local": "cross-env BROWSER=none react-scripts -r @cypress/instrument-cra start",
     "start:docs": "styleguidist server",
     "build:docs": "styleguidist build",
-    "deploy:docs": "netlify deploy --dir=styleguide --prod",
-    "cy:open": "cypress open",
-    "cy:run": "cypress run --config video=false",
-    "test:e2e": "start-server-and-test local http://localhost:3000 cy:open",
-    "test:e2e:ci": "start-server-and-test local http://localhost:3000 cy:run",
-    "test:all": "npm run test:ci && npm run test:e2e:ci"
+    "deploy:docs": "netlify deploy --dir=styleguide --prod"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -49,9 +43,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@cypress/code-coverage": "^3.1.0",
-    "@cypress/instrument-cra": "^1.0.0",
-    "@testing-library/cypress": "^6.0.0",
     "@testing-library/jest-dom": "^5.5.0",
     "@testing-library/react": "^9.3.0",
     "@testing-library/user-event": "^10.0.0",
@@ -69,9 +60,6 @@
     "@types/webpack-env": "^1.15.2",
     "axe-core": "^3.4.1",
     "cross-env": "^7.0.0",
-    "cypress-axe": "^0.8.1",
-    "cypress-file-upload": "^4.0.5",
-    "eslint-plugin-cypress": "^2.8.1",
     "faker": "^4.1.0",
     "istanbul-lib-coverage": "^3.0.0",
     "jest-junit": "^10.0.0",
@@ -85,11 +73,7 @@
     "react-docgen-typescript": "^1.15.0",
     "react-styleguidist": "^11.0.6",
     "rimraf": "^3.0.1",
-    "start-server-and-test": "^1.10.8",
     "typescript": "^3.7.5",
     "xhr-mock": "^2.5.1"
-  },
-  "nyc": {
-    "report-dir": "cypress-coverage"
   }
 }

@@ -1,7 +1,5 @@
 # react-ecomm-site
 
-[![Coverage Status](https://coveralls.io/repos/github/malcolm-kee/react-ecomm-site/badge.svg?branch=master)](https://coveralls.io/github/malcolm-kee/react-ecomm-site?branch=master)
-
 An e-commerce site SPA implemented with React.
 
 [Live](https://shopit.space/)
