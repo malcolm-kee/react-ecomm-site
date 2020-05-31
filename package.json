@@ -32,7 +32,8 @@
     "start:docs": "styleguidist server",
     "build:docs": "styleguidist build",
     "deploy:docs": "netlify deploy --dir=styleguide --prod",
-    "cy:open": "cypress open"
+    "cy:open": "cypress open",
+    "test:e2e": "start-server-and-test start http://localhost:3000 cy:open"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -44,6 +45,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@testing-library/cypress": "^6.0.0",
     "@testing-library/jest-dom": "^5.5.0",
     "@testing-library/react": "^9.3.0",
     "@testing-library/user-event": "^10.0.0",
@@ -62,6 +64,7 @@
     "axe-core": "^3.4.1",
     "cross-env": "^7.0.0",
     "cypress": "^4.7.0",
+    "eslint-plugin-cypress": "^2.11.1",
     "faker": "^4.1.0",
     "istanbul-lib-coverage": "^3.0.0",
     "jest-junit": "^10.0.0",
@@ -75,6 +78,7 @@
     "react-docgen-typescript": "^1.15.0",
     "react-styleguidist": "^11.0.6",
     "rimraf": "^3.0.1",
+    "start-server-and-test": "^1.11.0",
     "typescript": "^3.7.5",
     "xhr-mock": "^2.5.1"
   }

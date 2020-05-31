@@ -2,16 +2,16 @@
 
 describe(`canary`, () => {
   it(`can visit home page`, () => {
-    cy.visit(`http://localhost:3000`);
+    cy.visit('/');
 
-    cy.contains('Shopit').should('be.visible');
+    cy.findByText('Shopit').should('be.visible');
   });
 
   it(`can go to login page`, () => {
-    cy.visit(`http://localhost:3000`);
+    cy.visit('/');
 
-    cy.contains('Login').click();
+    cy.findByText('Login').click();
 
-    cy.contains('Email').should('be.visible');
+    cy.findByText('Email').should('be.visible');
   });
 });
