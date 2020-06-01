@@ -1,4 +1,8 @@
+/// <reference types="Cypress" />
+
 import '@testing-library/cypress/add-commands';
+import faker from 'faker';
+
 //
 //
 // -- This is a parent command --
@@ -15,3 +19,26 @@ import '@testing-library/cypress/add-commands';
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add(
+  'createUser',
+  ({
+    name = faker.name.findName(),
+    email = faker.internet.email(),
+    password = faker.internet.password(),
+    avatar = faker.random.image(),
+  } = {}) => {
+    const user = {
+      name,
+      email,
+      password,
+      avatar,
+    };
+
+    cy.request({
+      url: 'https://ecomm-service.herokuapp.com/register',
+      method: 'POST',
+      body: user,
+    }).then(() => user);
+  }
+);
