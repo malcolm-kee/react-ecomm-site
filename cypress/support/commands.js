@@ -1,6 +1,7 @@
 /// <reference types="Cypress" />
 
 import '@testing-library/cypress/add-commands';
+import 'cypress-file-upload';
 import faker from 'faker';
 
 //
