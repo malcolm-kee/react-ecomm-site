@@ -34,7 +34,9 @@ export function useAddProductComment(productId: string) {
       createProductComment(productId, data),
     {
       onSuccess: () => {
-        queryCache.refetchQueries(['product', productId]);
+        queryCache.refetchQueries(['product', productId], {
+          force: true,
+        });
       },
     }
   );
