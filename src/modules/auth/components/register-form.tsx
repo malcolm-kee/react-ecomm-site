@@ -1,14 +1,14 @@
-import React from 'react';
+import { Alert } from 'components/alert';
+import { Button } from 'components/button';
+import { Field } from 'components/field';
+import { Form } from 'components/form';
+import { Input } from 'components/input';
+import { Label } from 'components/label';
+import { Spinner } from 'components/spinner';
+import { TextField } from 'components/text-field';
+import * as React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { Alert } from '../../../components/alert';
-import { Button } from '../../../components/button';
-import { Field } from '../../../components/field';
-import { Form } from '../../../components/form';
-import { Input } from '../../../components/input';
-import { Label } from '../../../components/label';
-import { Spinner } from '../../../components/spinner';
-import { TextField } from '../../../components/text-field';
-import { RootState } from '../../../type';
+import { RootState } from 'type';
 import { attemptLogout, register } from '../auth.actions';
 import { selectAuthError, selectAuthStatus } from '../auth.selectors';
 

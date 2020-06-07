@@ -1,8 +1,8 @@
+import { Button } from 'components/button';
+import { ChatBox } from 'components/chat/chat-box';
 import * as React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { Button } from '../../../components/button';
-import { ChatBox } from '../../../components/chat/chat-box';
-import { RootState } from '../../../type';
+import { RootState } from 'type';
 import { selectUser } from '../auth.selectors';
 import styles from './chat-launcher.module.scss';
 import { LoginForm } from './login-form';

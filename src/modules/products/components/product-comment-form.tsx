@@ -1,14 +1,14 @@
-import React from 'react';
+import { Button } from 'components/button';
+import { Field } from 'components/field';
+import { Form } from 'components/form';
+import { Label } from 'components/label';
+import { Spinner } from 'components/spinner';
+import { TextField } from 'components/text-field';
+import { Textarea } from 'components/textarea';
+import { selectUser } from 'modules/auth/auth.selectors';
+import * as React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { Button } from '../../../components/button';
-import { Field } from '../../../components/field';
-import { Form } from '../../../components/form';
-import { Label } from '../../../components/label';
-import { Spinner } from '../../../components/spinner';
-import { TextField } from '../../../components/text-field';
-import { Textarea } from '../../../components/textarea';
-import { RootState } from '../../../type';
-import { selectUser } from '../../auth/auth.selectors';
+import { RootState } from 'type';
 import { useAddProductComment } from '../product.queries';
 
 type ReduxProps = ConnectedProps<typeof connector> & { productId: number };
@@ -79,10 +79,8 @@ function ProductCommentFormContent({ productId, user }: ReduxProps) {
   );
 }
 
-const mapStates = (state: RootState) => ({
+const connector = connect((state: RootState) => ({
   user: selectUser(state),
-});
-
-const connector = connect(mapStates);
+}));
 
 export const ProductCommentForm = connector(ProductCommentFormContent);

@@ -37,7 +37,9 @@ export function useProductComments(productId: number) {
 export function useAddProductComment(productId: number) {
   return useMutation(createProductComment, {
     onSuccess: () => {
-      queryCache.refetchQueries(['productComments', productId]);
+      queryCache.refetchQueries(['productComments', productId], {
+        force: true,
+      });
     },
   });
 }

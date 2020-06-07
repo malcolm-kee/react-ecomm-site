@@ -1,9 +1,9 @@
 import cx from 'classnames';
+import { Badge } from 'components/badge';
 import Link from 'next/link';
 import * as React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { Badge } from '../../../components/badge';
-import { RootState } from '../../../type';
+import { RootState } from 'type';
 import { selectCartItemCount } from '../cart.selectors';
 
 type CartLinkContentProps = ConnectedProps<typeof connector> & {

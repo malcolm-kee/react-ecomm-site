@@ -1,7 +1,7 @@
 import { Button } from 'components/button';
 import { formatMoney } from 'lib/format';
 import Link from 'next/link';
-import React from 'react';
+import * as React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Dispatch } from 'redux';
 import { RootState } from 'type';
