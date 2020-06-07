@@ -38,3 +38,6 @@ jobs:
       - name: Deploy
         run: yarn deploy --prod
         if: ${{ github.ref == 'refs/heads/master' }}
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
