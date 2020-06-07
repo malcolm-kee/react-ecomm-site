@@ -1,3 +1,5 @@
+import * as faker from 'faker';
+
 describe(`product`, () => {
   it(`can view product details`, () => {
     cy.visit('/');
@@ -66,10 +68,14 @@ describe(`product`, () => {
       cy.findAllByAltText('Shopit').first().click();
 
       cy.findAllByTestId('productBox').last().click();
+      cy.findByLabelText('Your Name').should('have.value', user.name);
 
-      cy.findByLabelText('Your Review').type('I love honey{enter}do you?');
+      const review = faker.lorem.sentences(2);
+      cy.findByLabelText('Your Review').type(review);
       cy.findByText('Add').click();
       cy.findByLabelText('Your Review').should('be.focused');
+
+      cy.findByText(review).should('be.visible');
     });
   });
 });
