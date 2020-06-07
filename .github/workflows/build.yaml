@@ -1,10 +1,13 @@
-name: CI
+name: Build and Deploy
 on: ['push', 'pull_request']
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Branch Name
+        run: echo Running on branch ${GITHUB_REF##*/}
+
       - name: Begin CI...
         uses: actions/checkout@v2
 
