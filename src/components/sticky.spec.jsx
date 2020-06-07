@@ -1,4 +1,4 @@
-import { fireEvent, render, wait } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import * as React from 'react';
 import { Sticky } from './sticky';
 
@@ -12,7 +12,7 @@ describe(`Sticky`, () => {
 
     fireEvent.scroll(window);
 
-    await wait();
+    await waitFor(() => {});
   });
 
   it(`will works`, async () => {
@@ -24,6 +24,6 @@ describe(`Sticky`, () => {
 
     fireEvent.scroll(window);
 
-    await wait();
+    await waitFor(() => {});
   });
 });

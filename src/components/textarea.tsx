@@ -4,10 +4,9 @@ import TextareaAutosize, {
   TextareaAutosizeProps,
 } from 'react-textarea-autosize';
 import { callAll } from '../lib/fn-lib';
-import { isFunction } from '../lib/typecheck';
 import { FieldContext } from './field-context';
 
-export type TextareaProps = Omit<TextareaAutosizeProps, 'ref' | 'inputRef'> & {
+export type TextareaProps = Omit<TextareaAutosizeProps, 'ref'> & {
   /**
    * callback to be invoked when value change. The parameter will
    * be the value instead of the event object
@@ -50,17 +49,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           onChangeValue && ((ev) => onChangeValue(ev.target.value))
         )}
         {...textareaProps}
-        inputRef={(ref) => {
-          if (isFunction(forwardedRef)) {
-            forwardedRef(ref);
-          } else {
-            if (forwardedRef) {
-              (forwardedRef as React.MutableRefObject<
-                HTMLTextAreaElement
-              >).current = ref;
-            }
-          }
-        }}
+        ref={forwardedRef}
       />
     );
   }
