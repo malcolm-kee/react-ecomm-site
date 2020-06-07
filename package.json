@@ -30,6 +30,7 @@
     "test:ci": "react-scripts test --coverage --ci --watchAll=false",
     "format": "prettier --write src",
     "local": "cross-env BROWSER=none react-scripts -r @cypress/instrument-cra start",
+    "deploy": "netlify deploy --dir=build",
     "start:docs": "styleguidist server",
     "build:docs": "styleguidist build",
     "deploy:docs": "netlify deploy --dir=styleguide --prod",
