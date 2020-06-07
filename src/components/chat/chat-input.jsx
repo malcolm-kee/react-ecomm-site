@@ -39,7 +39,7 @@ export const ChatInput = ({
           aria-labelledby={`${ensuredId}-label`}
           className={cx(styles.textarea, className)}
           minRows={1}
-          useCacheForDOMMeasurements
+          cacheMeasurements
           placeholder={placeholder}
           {...props}
           onKeyDown={callAll((ev) => {

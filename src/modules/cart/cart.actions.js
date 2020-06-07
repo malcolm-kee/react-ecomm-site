@@ -1,4 +1,4 @@
-import { toast } from 'react-toastify';
+import { toast } from 'components/toast';
 import { selectProduct } from '../products/product.selectors';
 import { selectCartTotal } from './cart.selectors';
 import { cartActions } from './cart.slice';

@@ -5,6 +5,7 @@ import { createMemoryHistory } from 'history';
 import * as React from 'react';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
+import { ToastContainer } from '../components/toast';
 import { rootReducer } from '../modules/root-reducer';
 
 export function renderWithStateMgmtAndRouter(
@@ -33,6 +34,7 @@ export function renderWithStateMgmtAndRouter(
     ...render(
       <Router history={history}>
         <Provider store={store}>{ui}</Provider>
+        <ToastContainer />
       </Router>
     ),
   };
@@ -57,6 +59,10 @@ export const user = {
    * @type typeof userEvent.type
    */
   type: wrapAct(userEvent.type),
+  /**
+   * @type typeof userEvent.clear
+   */
+  clear: wrapAct(userEvent.clear),
   /**
    * @type typeof userEvent.selectOptions
    */

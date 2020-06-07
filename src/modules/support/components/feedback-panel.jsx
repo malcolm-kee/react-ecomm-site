@@ -1,7 +1,7 @@
+import { Button } from 'components/button';
+import { Panel, PanelBody } from 'components/panel';
+import { toast } from 'components/toast';
 import * as React from 'react';
-import { toast } from 'react-toastify';
-import { Button } from '../../../components/button';
-import { Panel, PanelBody } from '../../../components/panel';
 
 export const FeedbackPanel = ({ className }) => {
   const [hovered, setHovered] = React.useState(false);

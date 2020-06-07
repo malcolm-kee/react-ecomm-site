@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
 import { Footer } from './components/footer';
 import { MainContent } from './components/main-content';
 import { LayoutContext } from './hooks/use-layout';
@@ -59,7 +57,6 @@ function AppContainer({ initAuthStatus }) {
           <ChatLauncher />
         </>
       )}
-      <ToastContainer hideProgressBar />
     </LayoutContext.Provider>
   );
 }

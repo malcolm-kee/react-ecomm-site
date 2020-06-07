@@ -39,9 +39,7 @@ export const Textarea = React.forwardRef(function Textarea(
         onChangeValue && ((ev) => onChangeValue(ev.target.value))
       )}
       {...textareaProps}
-      inputRef={(ref) => {
-        if (forwardedRef) forwardedRef.current = ref;
-      }}
+      ref={forwardedRef}
     />
   );
 });

@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
+import { ToastContainer } from './components/toast';
 import './global.scss';
 import { rootReducer } from './modules/root-reducer';
 
@@ -16,6 +17,7 @@ function renderApp(AppComponent) {
     <Provider store={store}>
       <Router>
         <AppComponent />
+        <ToastContainer hideProgressBar />
       </Router>
     </Provider>,
     document.getElementById('root')
