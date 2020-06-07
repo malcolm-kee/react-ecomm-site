@@ -30,10 +30,11 @@ export function Footer() {
             <Link to="/contact-us">Contact Us</Link>
           </li>
         </ul>
-        <div className="text-right">
+        <div className="flex justify-between">
           <small>
             &copy; Copyright {currentYear} Shopit. All Rights Reserved.
           </small>
+          <small>Branch: Redux</small>
         </div>
       </div>
     </footer>
