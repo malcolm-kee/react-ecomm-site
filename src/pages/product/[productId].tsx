@@ -13,7 +13,7 @@ import { ProductImage } from 'modules/products/components/product-image';
 import { useProductDetails } from 'modules/products/product.queries';
 import { PRODUCT_BASE_URL } from 'modules/products/product.service';
 import { Product } from 'modules/products/product.type';
-import type { GetStaticPaths, GetStaticProps } from 'next';
+import type { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import * as React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
@@ -152,31 +152,19 @@ function ProductPageWrapper(props: ReduxProps & PageProps) {
   return <ProductPageContent {...props} key={props.product._id} />;
 }
 
-const requestOptions = {
-  headers: {
-    Accept: 'application/json',
-  },
-};
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const products: Product[] = await fetch(
-    `${PRODUCT_BASE_URL}?limit=10000`,
-    requestOptions
-  ).then((res) => res.json());
-
-  return {
-    paths: products.map((product) => `/product/${product._id}`),
-    fallback: false,
-  };
-};
-
-export const getStaticProps: GetStaticProps<PageProps> = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps<PageProps> = async ({
+  params,
+}) => {
   if (!params) {
     throw new Error(`productId is undefined`);
   }
   const product: Product = await fetch(
     `${PRODUCT_BASE_URL}/${params.productId}`,
-    requestOptions
+    {
+      headers: {
+        Accept: 'application/json',
+      },
+    }
   ).then((res) => res.json());
 
   return {

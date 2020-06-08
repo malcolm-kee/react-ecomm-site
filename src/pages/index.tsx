@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-unfetch';
 import { PRODUCT_BASE_URL } from 'modules/products/product.service';
 import { Product } from 'modules/products/product.type';
-import type { GetStaticProps } from 'next';
+import type { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import * as React from 'react';
 import { Jumbotron } from '../components/jumbotron';
@@ -70,7 +70,7 @@ function MainPage(props: PageProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps<PageProps> = async () => {
+export const getServerSideProps: GetServerSideProps<PageProps> = async () => {
   const products = await fetch(`${PRODUCT_BASE_URL}?limit=12`, {
     headers: {
       Accept: 'application/json',
