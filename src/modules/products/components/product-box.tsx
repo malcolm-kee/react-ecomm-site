@@ -7,7 +7,7 @@ import styles from './product-box.module.scss';
 import { ProductImage } from './product-image';
 
 export function ProductBox({
-  id,
+  _id,
   name,
   images,
   price,
@@ -18,7 +18,7 @@ export function ProductBox({
       color="default"
       className={cx(styles.productBox, className)}
       renderContainer={(props) => (
-        <Link href="/product/[productId]" as={`/product/${id}`}>
+        <Link href="/product/[productId]" as={`/product/${_id}`}>
           <a {...props} data-testid="productBox" />
         </Link>
       )}

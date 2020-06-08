@@ -10,6 +10,7 @@ import { cartActions } from 'modules/cart/cart.slice';
 import { ProductBoxContainer } from 'modules/products/components/product-box-container';
 import { ProductComments } from 'modules/products/components/product-comments';
 import { ProductImage } from 'modules/products/components/product-image';
+import { useProductDetails } from 'modules/products/product.queries';
 import { PRODUCT_BASE_URL } from 'modules/products/product.service';
 import { Product } from 'modules/products/product.type';
 import type { GetStaticPaths, GetStaticProps } from 'next';
@@ -18,13 +19,8 @@ import * as React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { ThunkDispatch } from 'type';
 
-function useQty(productId: number) {
+function useQty() {
   const [qty, setQty] = React.useState(1);
-
-  // reset qty when product id change
-  React.useEffect(() => {
-    setQty(1);
-  }, [productId]);
 
   return {
     qty,
@@ -39,8 +35,12 @@ type PageProps = {
   product: Product;
 };
 
-function ProductPageContent({ addToCart, product }: ReduxProps & PageProps) {
-  const { qty, increment, decrement } = useQty(product.id);
+function ProductPageContent(props: ReduxProps & PageProps) {
+  const { qty, increment, decrement } = useQty();
+
+  const { data } = useProductDetails(props.product._id, props.product);
+
+  const product = data as Product;
 
   const isClient = useIsClient();
 
@@ -103,7 +103,7 @@ function ProductPageContent({ addToCart, product }: ReduxProps & PageProps) {
             </div>
             <div>
               <Button
-                onClick={() => addToCart(qty, product)}
+                onClick={() => props.addToCart(qty, product)}
                 color="success"
                 size="lg"
                 className="mr-2"
@@ -137,12 +137,19 @@ function ProductPageContent({ addToCart, product }: ReduxProps & PageProps) {
         <div className="row">
           <div className="col-xs-12">
             <h2 className="text-gray-700 mb-2">Reviews</h2>
-            <ProductComments productId={product.id} />
+            <ProductComments
+              productId={product._id}
+              comments={product.comments}
+            />
           </div>
         </div>
       </>
     </article>
   );
+}
+
+function ProductPageWrapper(props: ReduxProps & PageProps) {
+  return <ProductPageContent {...props} key={props.product._id} />;
 }
 
 const requestOptions = {
@@ -153,12 +160,12 @@ const requestOptions = {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const products: Product[] = await fetch(
-    `${PRODUCT_BASE_URL}?_limit=10000`,
+    `${PRODUCT_BASE_URL}?limit=10000`,
     requestOptions
   ).then((res) => res.json());
 
   return {
-    paths: products.map((product) => `/product/${product.id}`),
+    paths: products.map((product) => `/product/${product._id}`),
     fallback: false,
   };
 };
@@ -189,4 +196,4 @@ const connector = connect(null, (dispatch: ThunkDispatch) => ({
   },
 }));
 
-export default connector(ProductPageContent);
+export default connector(ProductPageWrapper);

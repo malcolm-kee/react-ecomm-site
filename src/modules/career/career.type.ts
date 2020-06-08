@@ -1,5 +1,5 @@
 export type Job = {
-  id: number;
+  _id: string;
   title: string;
   department: string;
   level: 'internship' | 'entry' | 'experienced' | 'manager';

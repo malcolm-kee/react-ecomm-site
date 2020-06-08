@@ -24,7 +24,7 @@ export function CartItem({
   return (
     <div className="mb-2 pb-2 border-b border-gray-300">
       <div className="flex justify-between items-center">
-        <Link href="/product/[pid]" as={`/product/${item.product.id}`}>
+        <Link href="/product/[pid]" as={`/product/${item.product._id}`}>
           <a className="text-blue-700">
             #{index + 1} {item.product.name}
           </a>
@@ -32,11 +32,11 @@ export function CartItem({
         <Button
           onClick={onDelete}
           size="sm"
-          aria-labelledby={`${item.product.id}-remove-label`}
+          aria-labelledby={`${item.product._id}-remove-label`}
         >
           <CloseIcon width={36} className="fill-current text-gray-500" />
         </Button>
-        <span className="sr-only" id={`${item.product.id}-remove-label`}>
+        <span className="sr-only" id={`${item.product._id}-remove-label`}>
           Remove {item.product.name}
         </span>
       </div>

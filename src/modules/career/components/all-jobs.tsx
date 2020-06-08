@@ -10,7 +10,7 @@ export const AllJobs = (props: { jobs: Job[] }) => {
         items={props.jobs.map((job) => ({
           label: job.title,
           href: '/careers/[jobId]',
-          as: `/careers/${job.id}`,
+          as: `/careers/${job._id}`,
         }))}
       />
     </div>

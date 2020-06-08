@@ -19,7 +19,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const jobs = await getJobs();
 
   return {
-    paths: jobs.map((job) => `/careers/${job.id}`),
+    paths: jobs.map((job) => `/careers/${job._id}`),
     fallback: false,
   };
 };
@@ -29,7 +29,7 @@ export const getStaticProps: GetStaticProps<PageProps> = async ({ params }) => {
     throw new Error('missing params');
   }
 
-  const job = await getJob(Number(params.jobId));
+  const job = await getJob(params.jobId as string);
 
   return {
     props: {

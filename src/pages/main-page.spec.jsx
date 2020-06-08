@@ -1,4 +1,4 @@
-import { cleanup, fireEvent } from '@testing-library/react';
+import { cleanup, fireEvent, screen } from '@testing-library/react';
 import * as React from 'react';
 import xhrMock, { sequence } from 'xhr-mock';
 import MainPage from '.';
@@ -8,22 +8,6 @@ import { PRODUCT_DB } from '../modules/products/__mocks__/product.service';
 jest.mock('../modules/marketing/marketing.service');
 
 const PRODUCT_BASE_URL = process.env.NEXT_PUBLIC_PRODUCT_BASE_URL;
-
-function loadMainPage() {
-  const renderResults = renderWithStateMgmtAndRouter(<MainPage />);
-
-  const { container } = renderResults;
-
-  return {
-    ...renderResults,
-    scrollWindow: () =>
-      fireEvent(
-        window,
-        new UIEvent('scroll', { bubbles: false, cancelable: false })
-      ),
-    getNumberOfProducts: () => container.querySelectorAll('.productBox').length,
-  };
-}
 
 describe('<MainPage />', () => {
   beforeEach(() => xhrMock.setup());
@@ -35,8 +19,10 @@ describe('<MainPage />', () => {
       status: 200,
       body: JSON.stringify(PRODUCT_DB.slice(0, 2)),
     });
-    const { getByText } = loadMainPage();
-    expect(getByText('Shopit')).not.toBeNull();
+
+    renderWithStateMgmtAndRouter(<MainPage />);
+
+    expect(screen.getByText('Shopit')).not.toBeNull();
     cleanup();
   });
 
@@ -46,9 +32,9 @@ describe('<MainPage />', () => {
       body: JSON.stringify(PRODUCT_DB.slice(0, 2)),
     });
 
-    const { findByText } = loadMainPage();
+    renderWithStateMgmtAndRouter(<MainPage />);
 
-    const iPhoneXBox = await findByText('iPhone X');
+    const iPhoneXBox = await screen.findByText('iPhone X');
 
     expect(iPhoneXBox).not.toBeNull();
     cleanup();
@@ -69,16 +55,19 @@ describe('<MainPage />', () => {
       ])
     );
 
-    const { findByText, scrollWindow, getNumberOfProducts } = loadMainPage();
+    renderWithStateMgmtAndRouter(<MainPage />);
 
-    await findByText('iPhone X');
+    await screen.findByText('iPhone X');
 
-    expect(getNumberOfProducts()).toBe(2);
+    expect(screen.getAllByTestId('productBox')).toHaveLength(2);
 
-    scrollWindow();
+    fireEvent(
+      window,
+      new UIEvent('scroll', { bubbles: false, cancelable: false })
+    );
 
-    await findByText('dodo');
-    expect(getNumberOfProducts()).toBe(4);
+    await screen.findByText('dodo');
+    expect(screen.getAllByTestId('productBox')).toHaveLength(4);
     cleanup();
   });
 });

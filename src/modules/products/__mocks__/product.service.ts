@@ -1,6 +1,6 @@
 export const PRODUCT_DB = [
   {
-    id: 1,
+    _id: '1',
     name: 'iPhone X',
     descriptions: ['user-friendly', 'change the world', 'cool', 'expensive'],
     image: 'iphone-x.jpg',
@@ -15,9 +15,10 @@ export const PRODUCT_DB = [
       blur: 'i-phone-x.blur.600x600.jpeg',
       thumbBlur: 'i-phone-x.thumbBlur.188x188.jpeg',
     },
+    createdAt: '2020-05-25T11:26:01.399Z',
   },
   {
-    id: 2,
+    _id: '2',
     name: 'Samsung Galaxy S10',
     descriptions: ['big', 'heavy', 'expensive'],
     image: 'samsung-galaxy-s10.jpg',
@@ -32,9 +33,10 @@ export const PRODUCT_DB = [
       blur: 'samsung-galaxy-s10.blur.600x600.jpeg',
       thumbBlur: 'samsung-galaxy-s10.thumbBlur.188x188.jpeg',
     },
+    createdAt: '2020-05-25T11:26:01.399Z',
   },
   {
-    id: 3,
+    _id: '3',
     name: 'Daniel Wellington Classic Cambridge',
     descriptions: ['pretty', 'elegent', 'expensive'],
     image: 'dw-watch.png',
@@ -50,9 +52,10 @@ export const PRODUCT_DB = [
       blur: 'daniel-wellington-classic-cambridge.blur.600x600.jpeg',
       thumbBlur: 'daniel-wellington-classic-cambridge.thumbBlur.188x188.jpeg',
     },
+    createdAt: '2020-05-25T11:26:01.399Z',
   },
   {
-    id: 4,
+    _id: '4',
     name: 'dodo',
     descriptions: [],
     image: 'dono.png',
@@ -60,6 +63,7 @@ export const PRODUCT_DB = [
     price: '2.50',
     related: [],
     images: null,
+    createdAt: '2020-05-25T11:26:01.399Z',
   },
   {
     id: 1552750775126,

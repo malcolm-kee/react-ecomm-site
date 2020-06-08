@@ -1,23 +1,23 @@
 import { Spinner } from 'components/spinner';
 import format from 'date-fns/format';
 import * as React from 'react';
-import { useProductComments } from '../product.queries';
+import { ProductComment } from '../product.type';
 import { ProductCommentForm } from './product-comment-form';
 
-function ProductComment({
+function Comment({
   userName,
   content,
-  createdOn,
+  createdAt,
 }: {
   userName: string;
   content: string;
-  createdOn: number;
+  createdAt: string;
 }) {
   return (
     <div className="py-2">
       <div className="product-comment-info">
         <strong>{userName}</strong> reviewed on{' '}
-        {format(new Date(createdOn), 'DD MMM YY')}
+        {format(new Date(createdAt), 'DD MMM YY')}
       </div>
       <div className="whitespace-pre-wrap">
         <p>{content}</p>
@@ -27,17 +27,16 @@ function ProductComment({
 }
 
 type ProductCommentsProps = {
-  productId: number;
+  productId: string;
+  comments: ProductComment[];
 };
 
-export function ProductComments({ productId }: ProductCommentsProps) {
-  const { data: comments } = useProductComments(productId);
-
+export function ProductComments({ productId, comments }: ProductCommentsProps) {
   return comments ? (
     <>
       <div className="mb-3">
         {comments.map((comment) => (
-          <ProductComment {...comment} key={comment.id} />
+          <Comment {...comment} key={comment._id} />
         ))}
         {comments.length === 0 && (
           <p>There is no review for this product yet.</p>

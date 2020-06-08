@@ -7,39 +7,40 @@ import {
 import {
   createProductComment,
   getProduct,
-  getProductComments,
   getProducts,
 } from './product.service';
 import { Product } from './product.type';
 
 export function useProducts(initialProducts?: Product[]) {
-  return useInfiniteQuery<Product[], 'products', number>(
+  return useInfiniteQuery<Product[], 'products', string>(
     'products',
-    (_, page = 1) => getProducts(page, 12),
+    (_, before = '') => getProducts({ before }),
     {
       initialData: initialProducts ? [initialProducts] : undefined,
-      getFetchMore: (lastGroup, allGroups) =>
-        lastGroup.length === 0 ? false : allGroups.length + 1,
+      getFetchMore: (lastGroup) =>
+        lastGroup.length === 0
+          ? false
+          : lastGroup && lastGroup[lastGroup.length - 1].createdAt,
     }
   );
 }
 
-export function useProductDetails(productId: number) {
-  return useQuery(['product', productId], (_, id) => getProduct(id));
-}
-
-export function useProductComments(productId: number) {
-  return useQuery(['productComments', productId], (_, id) =>
-    getProductComments(id)
-  );
-}
-
-export function useAddProductComment(productId: number) {
-  return useMutation(createProductComment, {
-    onSuccess: () => {
-      queryCache.refetchQueries(['productComments', productId], {
-        force: true,
-      });
-    },
+export function useProductDetails(productId: string, initialData?: Product) {
+  return useQuery(['product', productId], (_, id) => getProduct(id), {
+    initialData,
   });
+}
+
+export function useAddProductComment(productId: string) {
+  return useMutation(
+    (data: Parameters<typeof createProductComment>[1]) =>
+      createProductComment(productId, data),
+    {
+      onSuccess: () => {
+        queryCache.refetchQueries(['product', productId], {
+          force: true,
+        });
+      },
+    }
+  );
 }

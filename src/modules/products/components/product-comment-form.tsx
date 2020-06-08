@@ -11,7 +11,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from 'type';
 import { useAddProductComment } from '../product.queries';
 
-type ReduxProps = ConnectedProps<typeof connector> & { productId: number };
+type ReduxProps = ConnectedProps<typeof connector> & { productId: string };
 
 function ProductCommentFormContent({ productId, user }: ReduxProps) {
   const defaultName = (user && user.name) || '';
@@ -27,8 +27,7 @@ function ProductCommentFormContent({ productId, user }: ReduxProps) {
     mutate({
       userName,
       content,
-      productId,
-      createdOn: Date.now(),
+      rating: 5,
     }).then(() => {
       setContent('');
       setUserName(defaultName);

@@ -59,7 +59,7 @@ function MainPage(props: PageProps) {
           {productGroups.map((products, i) => (
             <React.Fragment key={i}>
               {products.map((product) => (
-                <ProductBox {...product} key={product.id} />
+                <ProductBox {...product} key={product._id} />
               ))}
             </React.Fragment>
           ))}
@@ -71,7 +71,7 @@ function MainPage(props: PageProps) {
 }
 
 export const getStaticProps: GetStaticProps<PageProps> = async () => {
-  const products = await fetch(`${PRODUCT_BASE_URL}?_page=1&_limit=12`, {
+  const products = await fetch(`${PRODUCT_BASE_URL}?limit=12`, {
     headers: {
       Accept: 'application/json',
     },
