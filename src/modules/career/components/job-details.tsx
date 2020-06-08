@@ -41,7 +41,6 @@ export const JobDetails = ({ job }: { job: Job }) => {
           </p>
         </div>
       </section>
-      )
     </div>
   );
 };
