@@ -1,6 +1,3 @@
-/// <reference types="Cypress" />
-/// <reference types="../support" />
-
 describe(`support`, () => {
   it(`can load all support pages`, () => {
     cy.visit('/help');
@@ -60,7 +57,7 @@ describe(`support`, () => {
 
     cy.route({
       url: /upload$/,
-      method: 'PUT',
+      method: 'POST',
       delay: 2000,
     });
 
@@ -87,7 +84,7 @@ describe(`support`, () => {
 
     cy.route({
       url: /upload$/,
-      method: 'PUT',
+      method: 'POST',
       status: 500,
       response: 'Internal Server Error',
       delay: 200,

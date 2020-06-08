@@ -5,6 +5,7 @@ module.exports = {
     '!**/*.d.ts',
     '!**/node_modules/**',
   ],
+  setupFiles: ['dotenv/config'],
   setupFilesAfterEnv: ['<rootDir>/setupTests.js'],
   testMatch: ['<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}'],
   testPathIgnorePatterns: ['/node_modules/', '/.next/'],

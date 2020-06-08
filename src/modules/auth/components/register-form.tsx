@@ -6,43 +6,68 @@ import { Input } from 'components/input';
 import { Label } from 'components/label';
 import { Spinner } from 'components/spinner';
 import { TextField } from 'components/text-field';
+import { toast } from 'components/toast';
+import { extractError } from 'lib/ajax';
+import { useRouter } from 'next/router';
 import * as React from 'react';
-import { connect, ConnectedProps } from 'react-redux';
-import { RootState } from 'type';
-import { attemptLogout, register } from '../auth.actions';
-import { selectAuthError, selectAuthStatus } from '../auth.selectors';
+import { UiStatus } from 'type';
+import { register } from '../auth.service';
 
-type ReduxProps = ConnectedProps<typeof connector>;
-
-function RegisterFormContent({ status, error, register, logout }: ReduxProps) {
+export function RegisterForm() {
   const [email, setEmail] = React.useState('');
   const [name, setName] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [avatar, setAvatar] = React.useState('');
+  const [status, setStatus] = React.useState<UiStatus | 'success'>('idle');
+  const [errors, setErrors] = React.useState<string[]>([]);
+  const submitRegistration = () => {
+    setStatus('busy');
+    register({
+      email,
+      name,
+      password,
+      avatar,
+    })
+      .then(() => {
+        toast.success('You register successfully!', {
+          autoClose: 2000,
+        });
+        setStatus('success');
+      })
+      .catch((err) => {
+        extractError(err).then(setErrors);
+        setStatus('error');
+      });
+  };
 
-  if (status === 'Authenticated') {
-    return (
-      <Alert color="success">
-        You're already login!
-        <div>
-          <Button onClick={logout} color="danger">
-            Logout
-          </Button>
-        </div>
-      </Alert>
-    );
-  }
+  const router = useRouter();
 
-  const isSubmitting = status === 'Authenticating';
+  React.useEffect(() => {
+    if (status === 'success') {
+      router.push('/login');
+    }
+  }, [status]);
+
+  const isSubmitting = status === 'busy';
 
   return (
     <Form
       title="Signup"
       onSubmit={(ev) => {
         ev.preventDefault();
-        register({ name, email });
+        submitRegistration();
       }}
     >
       {isSubmitting && <Spinner />}
-      {error && <Alert color="danger">{error}</Alert>}
+      {errors.length > 0 && (
+        <Alert color="danger">
+          <ul>
+            {errors.map((err, i) => (
+              <li key={i}>{err}</li>
+            ))}
+          </ul>
+        </Alert>
+      )}
       <TextField
         label="Name"
         id="name"
@@ -68,6 +93,24 @@ function RegisterFormContent({ status, error, register, logout }: ReduxProps) {
           />
         </div>
       </Field>
+      <TextField
+        label="Password"
+        id="password"
+        type="password"
+        value={password}
+        onChangeValue={setPassword}
+        disabled={isSubmitting}
+        required
+        minLength={8}
+      />
+      <TextField
+        label="Avatar URL"
+        id="avatar"
+        value={avatar}
+        onChangeValue={setAvatar}
+        disabled={isSubmitting}
+        type="url"
+      />
       <div className="py-3">
         <Button
           color="primary"
@@ -81,17 +124,3 @@ function RegisterFormContent({ status, error, register, logout }: ReduxProps) {
     </Form>
   );
 }
-
-const mapStates = (state: RootState) => ({
-  status: selectAuthStatus(state),
-  error: selectAuthError(state),
-});
-
-const mapDispatch = {
-  register,
-  logout: attemptLogout,
-};
-
-const connector = connect(mapStates, mapDispatch);
-
-export const RegisterForm = connector(RegisterFormContent);

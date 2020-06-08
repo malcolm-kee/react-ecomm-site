@@ -13,8 +13,9 @@ declare namespace Cypress {
     }): Chainable<{
       name: string;
       email: string;
-      id: number;
-      joinedDate: number;
+      password: string;
+      avatar: string;
+      userId: string;
     }>;
 
     /**

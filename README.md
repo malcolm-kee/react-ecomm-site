@@ -21,16 +21,17 @@ You can cross-reference them and see the difference between them. I will put my 
 
 ## Backend API
 
-The backend API that supports this site uses a json file and its DB and auto-generated images. Its code is in [this repo][backend-api-repo].
+The backend API that supports this site is a NestJS application. Its API is available [here][backend-api] and its repo [here][backend-api-repo].
 
-The database will refresh everytime Heroku rebuild it, so usually you can get a clean state to test this site.
+Its database will refresh everytime Heroku restart it, so usually you can get a clean state to test this site.
 
 [nextjs]: https://nextjs.org/
 [master-branch]: https://github.com/malcolm-kee/react-ecomm-site/tree/master
 [redux-branch]: https://github.com/malcolm-kee/react-ecomm-site/tree/redux
 [mobx-branch]: https://github.com/malcolm-kee/react-ecomm-site/tree/mobx
 [nextjs-branch]: https://github.com/malcolm-kee/react-ecomm-site/tree/nextjs
-[backend-api-repo]: https://github.com/malcolm-kee/ecomm-db
+[backend-api]: https://ecomm-service.herokuapp.com/api/
+[backend-api-repo]: https://github.com/malcolm-kee/ecomm-service
 [master-preview]: https://shopit.space/
 [redux-preview]: https://redux.shopit.space/
 [mobx-preview]: https://mobx.shopit.space/

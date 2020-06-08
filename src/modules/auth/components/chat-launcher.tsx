@@ -41,7 +41,10 @@ const ChatLauncherView = (props: ConnectedProps<typeof connector>) => {
             </Button>
           </div>
           {props.user ? (
-            <ChatBox socketEndpoint={CHAT_SOCKET_URL} userId={props.user.id} />
+            <ChatBox
+              socketEndpoint={CHAT_SOCKET_URL}
+              userId={props.user.userId}
+            />
           ) : (
             <div className={styles.chatContentWrapper}>
               <LoginForm />

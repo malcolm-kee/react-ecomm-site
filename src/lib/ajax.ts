@@ -138,3 +138,32 @@ export function xFetchJson(url: string, options: FetchInit = {}) {
 
   return response;
 }
+
+export function extractError(err: any): Promise<string[]> {
+  const getErrorText = (): string[] => {
+    if (err) {
+      if (typeof err === 'string') {
+        return [err];
+      }
+      const msgField = err.message || err.messages;
+      if (msgField) {
+        if (Array.isArray(msgField)) {
+          return msgField;
+        }
+
+        if (typeof msgField === 'string') {
+          return [msgField];
+        }
+      }
+    }
+
+    return ['Unknown Error'];
+  };
+
+  return err.response
+    ? Promise.resolve()
+        .then(() => err.response.json())
+        .catch(() => err.response.text())
+        .then(extractError)
+    : Promise.resolve(getErrorText());
+}

@@ -1,20 +1,19 @@
-/* eslint-disable cypress/no-unnecessary-waiting */
-/// <reference types="Cypress" />
-/// <reference types="../support" />
-
 describe(`chat`, () => {
   it(`can launch chat for logged in user`, () => {
     cy.createUser({
       name: 'Malcolm Tee',
     }).then((user) => {
-      cy.visit('/');
+      cy.visit('/help');
       cy.findByText('Chat').click();
 
       cy.findAllByText('Login').last().click();
       cy.findByLabelText('Email').type(user.email);
+      cy.findByLabelText('Password').type(user.password);
       cy.findAllByText('Login').last().click();
 
-      cy.findByLabelText('Chat message').type('Hello there!{enter}');
+      cy.findByLabelText('Chat message', {
+        timeout: 6000,
+      }).type('Hello there!{enter}');
     });
   });
 
@@ -25,39 +24,46 @@ describe(`chat`, () => {
       cy.createUser({
         name: 'Other People',
       }).then((otherUser) => {
-        cy.connectSocket({
-          url: 'wss://ecomm-db.herokuapp.com/chat',
-        }).then((chatSocket) => {
-          cy.visit('/');
-          cy.findByText('Chat').click();
+        cy.request({
+          url: 'https://ecomm-service.herokuapp.com/chat/room',
+        }).then((roomDetails) => {
+          cy.connectSocket({
+            url: `wss://ecomm-service.herokuapp.com?roomId=${roomDetails.body._id}`,
+          }).then((chatSocket) => {
+            cy.visit('/help');
+            cy.findByText('Chat').click();
 
-          cy.findAllByText('Login').last().click();
-          cy.findByLabelText('Email').type(user.email);
-          cy.findAllByText('Login').last().click();
+            cy.findAllByText('Login').last().click();
+            cy.findByLabelText('Email').type(user.email);
+            cy.findByLabelText('Password').type(user.password);
+            cy.findAllByText('Login').last().click();
 
-          cy.findByLabelText('Chat message')
-            .type('Hello there!{enter}')
+            cy.findByLabelText('Chat message', {
+              timeout: 6000,
+            })
+              .type('Hello there!{enter}')
 
-            .then(() => {
-              chatSocket.send(
-                JSON.stringify({
-                  userId: otherUser.id,
-                  message: 'Hello from the other side',
-                })
-              );
-              chatSocket.send(
-                JSON.stringify({
-                  userId: otherUser.id,
-                  message: 'I must had said this thousand times',
-                })
-              );
-            });
+              .then(() => {
+                chatSocket.send(
+                  JSON.stringify({
+                    userId: otherUser.userId,
+                    content: 'Hello from the other side',
+                  })
+                );
+                chatSocket.send(
+                  JSON.stringify({
+                    userId: otherUser.userId,
+                    content: 'I must had said this thousand times',
+                  })
+                );
+              });
 
-          cy.findByText('Hello from the other side')
-            .should('be.visible')
-            .then(() => {
-              chatSocket.close();
-            });
+            cy.findByText('Hello from the other side')
+              .should('be.visible')
+              .then(() => {
+                chatSocket.close();
+              });
+          });
         });
       });
     });
@@ -67,14 +73,17 @@ describe(`chat`, () => {
     cy.createUser({
       name: 'Malcolm Noisy',
     }).then((user) => {
-      cy.visit('/');
+      cy.visit('/help');
       cy.findByText('Chat').click();
 
       cy.findAllByText('Login').last().click();
       cy.findByLabelText('Email').type(user.email);
+      cy.findByLabelText('Password').type(user.password);
       cy.findAllByText('Login').last().click();
 
-      cy.findByLabelText('Chat message')
+      cy.findByLabelText('Chat message', {
+        timeout: 6000,
+      })
         .type('Hello there!{enter}')
         .type('A{enter}')
         .type('B{enter}')
@@ -105,7 +114,7 @@ describe(`chat`, () => {
       cy.findByLabelText('Scroll to bottom').click();
 
       /* not doing this check as it's quite buggy at the moment, 
-      refer to https://github.com/cypress-io/cypress/issues/1242 for update */
+        refer to https://github.com/cypress-io/cypress/issues/1242 for update */
       // .findByText('M')
       // .should('be.visible');
     });
