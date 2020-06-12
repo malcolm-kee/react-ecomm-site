@@ -1,46 +1,68 @@
+import { Alert } from 'components/alert';
+import { Button } from 'components/button';
+import { Field } from 'components/field';
+import { Form } from 'components/form';
+import { Input } from 'components/input';
+import { Label } from 'components/label';
+import { Spinner } from 'components/spinner';
+import { TextField } from 'components/text-field';
+import { toast } from 'components/toast';
+import { extractError } from 'lib/ajax';
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { Alert } from '../../../components/alert';
-import { Button } from '../../../components/button';
-import { Field } from '../../../components/field';
-import { Form } from '../../../components/form';
-import { Input } from '../../../components/input';
-import { Label } from '../../../components/label';
-import { Spinner } from '../../../components/spinner';
-import { TextField } from '../../../components/text-field';
-import { attemptLogout, register } from '../auth.actions';
-import { AuthStatus } from '../auth.constants';
-import { selectAuthError, selectAuthStatus } from '../auth.selectors';
+import { Redirect } from 'react-router-dom';
+import { register } from '../auth.service';
 
-function RegisterFormContent({ status, error, register, logout }) {
+export function RegisterForm() {
   const [email, setEmail] = React.useState('');
   const [name, setName] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [avatar, setAvatar] = React.useState('');
+  const [status, setStatus] = React.useState('idle');
+  const [errors, setErrors] = React.useState([]);
+  const submitRegistration = () => {
+    setStatus('busy');
+    register({
+      email,
+      name,
+      password,
+      avatar,
+    })
+      .then(() => {
+        toast.success('You register successfully!', {
+          autoClose: 2000,
+        });
+        setStatus('success');
+      })
+      .catch((err) => {
+        extractError(err).then(setErrors);
+        setStatus('error');
+      });
+  };
 
-  if (status === AuthStatus.Authenticated) {
-    return (
-      <Alert color="success">
-        You're already login!
-        <div>
-          <Button onClick={logout} color="danger">
-            Logout
-          </Button>
-        </div>
-      </Alert>
-    );
+  if (status === 'success') {
+    return <Redirect to="/login" />;
   }
 
-  const isSubmitting = status === AuthStatus.Authenticating;
+  const isSubmitting = status === 'busy';
 
   return (
     <Form
       title="Signup"
       onSubmit={(ev) => {
         ev.preventDefault();
-        register({ name, email });
+        submitRegistration();
       }}
     >
       {isSubmitting && <Spinner />}
-      {error && <Alert color="danger">{error}</Alert>}
+      {errors.length > 0 && (
+        <Alert color="danger">
+          <ul>
+            {errors.map((err, i) => (
+              <li key={i}>{err}</li>
+            ))}
+          </ul>
+        </Alert>
+      )}
       <TextField
         label="Name"
         id="name"
@@ -66,6 +88,24 @@ function RegisterFormContent({ status, error, register, logout }) {
           />
         </div>
       </Field>
+      <TextField
+        label="Password"
+        id="password"
+        type="password"
+        value={password}
+        onChangeValue={setPassword}
+        disabled={isSubmitting}
+        required
+        minLength={8}
+      />
+      <TextField
+        label="Avatar URL"
+        id="avatar"
+        value={avatar}
+        onChangeValue={setAvatar}
+        disabled={isSubmitting}
+        type="url"
+      />
       <div className="py-3">
         <Button
           color="primary"
@@ -79,18 +119,3 @@ function RegisterFormContent({ status, error, register, logout }) {
     </Form>
   );
 }
-
-const mapStates = (state) => ({
-  status: selectAuthStatus(state),
-  error: selectAuthError(state),
-});
-
-const mapDispatch = {
-  register,
-  logout: attemptLogout,
-};
-
-export const RegisterForm = connect(
-  mapStates,
-  mapDispatch
-)(RegisterFormContent);

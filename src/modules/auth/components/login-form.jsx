@@ -1,18 +1,20 @@
+import { Alert } from 'components/alert';
+import { Button } from 'components/button';
+import { Field } from 'components/field';
+import { Form } from 'components/form';
+import { Input } from 'components/input';
+import { Label } from 'components/label';
+import { Spinner } from 'components/spinner';
+import { TextField } from 'components/text-field';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Alert } from '../../../components/alert';
-import { Button } from '../../../components/button';
-import { Field } from '../../../components/field';
-import { Form } from '../../../components/form';
-import { Input } from '../../../components/input';
-import { Label } from '../../../components/label';
-import { Spinner } from '../../../components/spinner';
 import { attemptLogin, attemptLogout } from '../auth.actions';
 import { AuthStatus } from '../auth.constants';
 import { selectAuthError, selectAuthStatus } from '../auth.selectors';
 
 function LoginFormContent({ status, error, login, logout }) {
   const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
   if (status === AuthStatus.Authenticated) {
     return (
@@ -32,9 +34,10 @@ function LoginFormContent({ status, error, login, logout }) {
   return (
     <Form
       title="Login"
+      data-testid="login-form"
       onSubmit={(ev) => {
         ev.preventDefault();
-        login(email);
+        login(email, password);
       }}
     >
       {isSubmitting && <Spinner />}
@@ -56,12 +59,21 @@ function LoginFormContent({ status, error, login, logout }) {
           />
         </div>
       </Field>
+      <TextField
+        label="Password"
+        type="password"
+        value={password}
+        onChangeValue={setPassword}
+        required
+        disabled={isSubmitting}
+      />
       <div className="py-3">
         <Button
           color="primary"
           type="submit"
           disabled={isSubmitting}
           className="w-full"
+          data-testid="submit-login"
         >
           Login
         </Button>
@@ -70,14 +82,13 @@ function LoginFormContent({ status, error, login, logout }) {
   );
 }
 
-const mapStates = (state) => ({
-  status: selectAuthStatus(state),
-  error: selectAuthError(state),
-});
-
-const mapDispatch = {
-  login: attemptLogin,
-  logout: attemptLogout,
-};
-
-export const LoginForm = connect(mapStates, mapDispatch)(LoginFormContent);
+export const LoginForm = connect(
+  (state) => ({
+    status: selectAuthStatus(state),
+    error: selectAuthError(state),
+  }),
+  {
+    login: attemptLogin,
+    logout: attemptLogout,
+  }
+)(LoginFormContent);

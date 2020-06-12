@@ -1,47 +1,35 @@
-import { fetchJson } from '../../lib/ajax';
+import { fetchJson } from 'lib/ajax';
 
-const AUTH_BASE_URL = process.env.REACT_APP_AUTH_BASE_URL;
+const LOGIN_URL = process.env.REACT_APP_LOGIN_URL;
+const REGISTER_URL = process.env.REACT_APP_REGISTER_URL;
+const PROFILE_URL = process.env.REACT_APP_PROFILE_URL;
 
-export function register({ name, email }) {
-  return fetchJson(AUTH_BASE_URL, {
-    params: {
-      email,
-    },
-  }).then(function checkEmailHasUsed(users) {
-    if (users.length === 0) {
-      return fetchJson(AUTH_BASE_URL, {
-        method: 'POST',
-        data: {
-          name,
-          email,
-          joinedDate: Date.now(),
-        },
-      });
-    }
-
-    throw new Error('Email already used');
-  });
-}
-
-export function login({ email }) {
-  return fetchJson(AUTH_BASE_URL, {
-    params: {
-      email,
-    },
-  }).then(function checkUser(users) {
-    if (users.length === 1) {
-      return users[0];
-    }
-    throw new Error('Invalid user');
-  });
-}
-
-export function update({ id, name, email }) {
-  return fetchJson(`${AUTH_BASE_URL}/${id}`, {
-    method: 'PATCH',
+export function register({ name, email, password, avatar }) {
+  return fetchJson(REGISTER_URL, {
+    method: 'POST',
     data: {
-      name,
       email,
+      name,
+      password,
+      avatar,
+    },
+  });
+}
+
+export function login({ email, password }) {
+  return fetchJson(LOGIN_URL, {
+    method: 'POST',
+    data: {
+      username: email,
+      password,
+    },
+  });
+}
+
+export function getProfile(accessToken) {
+  return fetchJson(PROFILE_URL, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
     },
   });
 }

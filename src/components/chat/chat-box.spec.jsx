@@ -1,57 +1,147 @@
-import { act, render, waitForElementToBeRemoved } from '@testing-library/react';
+import {
+  act,
+  cleanup,
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from '@testing-library/react';
 import WS from 'jest-websocket-mock';
+import { user } from 'lib/test-util';
 import * as React from 'react';
+import xhrMock, { sequence } from 'xhr-mock';
 import { ChatBox } from './chat-box';
-import { user } from '../../lib/test-util';
+
+const globalChatUrl = process.env.REACT_APP_GLOBAL_CHATROOM_URL;
 
 describe(`<ChatBox />`, () => {
+  beforeEach(() => {
+    xhrMock.setup();
+  });
+
   afterEach(() => {
     WS.clean();
+    xhrMock.teardown();
   });
 
   it(`can mount and display system message`, async () => {
-    const { endpoint, sendSystemMessage } = createMockSocketServer();
-
-    const { getByRole, getByText } = render(
-      <ChatBox socketEndpoint={endpoint} userId={5} />
+    const mockUser = {
+      _id: 'userId1',
+      name: 'User One',
+      avatar: '',
+    };
+    xhrMock.get(
+      globalChatUrl,
+      sequence([
+        {
+          status: 200,
+          body: JSON.stringify({
+            roomType: 'global',
+            participants: [],
+            _id: 'roomId',
+          }),
+        },
+        {
+          status: 200,
+          body: JSON.stringify({
+            roomType: 'global',
+            participants: [mockUser],
+            _id: 'roomId',
+          }),
+        },
+      ])
     );
-    await waitForElementToBeRemoved(() => getByRole('progressbar'));
+    const {
+      endpoint,
+      sendSystemMessage,
+      sendUserMessage,
+    } = createMockSocketServer();
+
+    render(<ChatBox socketEndpoint={endpoint} userId="userId" />);
+    await waitForElementToBeRemoved(() => screen.getByRole('progressbar'));
     const systemMessage = 'There are 1 user online.';
     sendSystemMessage(systemMessage);
-    expect(getByText(systemMessage)).toBeVisible();
+    sendUserMessage({
+      userId: mockUser._id,
+      message: 'Hello there!',
+    });
+    expect(screen.getByText(systemMessage)).toBeVisible();
+    await screen.findByText(mockUser.name);
+
+    cleanup();
   });
 
   it(`allows user to send message and receives message`, async () => {
+    const thisUser = {
+      _id: 'thisUserId',
+      name: 'Malcolm Kee',
+      avatar: '',
+    };
+
+    const otherUser = {
+      _id: 'otherUserId',
+      name: 'Pikachu',
+      avatar: '',
+    };
+
+    xhrMock.get(globalChatUrl, {
+      status: 200,
+      body: JSON.stringify({
+        roomType: 'global',
+        participants: [thisUser, otherUser],
+      }),
+    });
+
     const { endpoint, server, sendUserMessage } = createMockSocketServer();
 
-    const { getByLabelText, getByRole, getByText } = render(
-      <ChatBox socketEndpoint={endpoint} userId={5} />
-    );
-    await waitForElementToBeRemoved(() => getByRole('progressbar'));
+    render(<ChatBox socketEndpoint={endpoint} userId={thisUser._id} />);
+    await waitForElementToBeRemoved(() => screen.getByRole('progressbar'));
     await server.connected;
 
     const message = 'Hello world!';
-    await user.type(getByLabelText('Chat message'), message);
-    user.click(getByLabelText('Send'));
+    await user.type(screen.getByLabelText('Chat message'), message);
+    user.click(screen.getByLabelText('Send'));
 
     const result = await server.nextMessage;
     sendUserMessage({
-      message: result.message,
-      userId: result.userId,
-      userName: 'Malcolm Kee',
+      message: result.content,
+      userId: result.senderId,
     });
 
-    expect(getByText(message)).toBeVisible();
+    expect(screen.getByText(message)).toBeVisible();
 
     const otherUserMessage = {
       message: 'Welcome!',
-      userId: 1000,
-      userName: 'Pikachu',
+      userId: otherUser._id,
     };
 
     sendUserMessage(otherUserMessage);
 
-    expect(getByText(otherUserMessage.message)).toBeVisible();
+    expect(screen.getByText(otherUserMessage.message)).toBeVisible();
+
+    cleanup();
+  });
+
+  it(`display error message when fail to connect`, async () => {
+    xhrMock.get(globalChatUrl, {
+      status: 200,
+      body: JSON.stringify({
+        roomType: 'global',
+        participants: [],
+      }),
+    });
+    const { server, endpoint } = createMockSocketServer();
+    const { getByRole, getByText } = render(
+      <ChatBox socketEndpoint={endpoint} userId="5" />
+    );
+    await waitForElementToBeRemoved(() => getByRole('progressbar'));
+    await server.connected;
+    act(() => {
+      server.error();
+      server.close();
+    });
+    expect(getByText('Fail to connect. Please try again')).toBeVisible();
+
+    cleanup();
   });
 });
 
@@ -69,14 +159,16 @@ function createMockSocketServer() {
         });
       });
     },
-    sendUserMessage: ({ message, userId, userName }) => {
+    sendUserMessage: ({ message, userId }) => {
       act(() => {
         server.send({
           type: 'User',
           message,
-          userId,
-          userName,
-          displayedDate: new Date().toLocaleTimeString(),
+          data: {
+            content: message,
+            senderId: userId,
+            createdAt: new Date(),
+          },
         });
       });
     },

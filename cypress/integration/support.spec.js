@@ -60,7 +60,7 @@ describe(`support`, () => {
 
     cy.route({
       url: /upload$/,
-      method: 'PUT',
+      method: 'POST',
       delay: 2000,
     });
 
@@ -74,7 +74,6 @@ describe(`support`, () => {
 
     cy.findByLabelText('Upload File').attachFile('mk-icon.png', {
       subjectType: 'drag-n-drop',
-      force: true,
     });
 
     cy.findByLabelText('Remove').click();
@@ -87,7 +86,7 @@ describe(`support`, () => {
 
     cy.route({
       url: /upload$/,
-      method: 'PUT',
+      method: 'POST',
       status: 500,
       response: 'Internal Server Error',
       delay: 200,
@@ -100,7 +99,6 @@ describe(`support`, () => {
 
     cy.findByLabelText('Upload File').attachFile('mk-icon.png', {
       subjectType: 'drag-n-drop',
-      force: true,
     });
 
     cy.findByText('Failed to Upload').should('be.visible');

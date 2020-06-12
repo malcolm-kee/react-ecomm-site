@@ -8,12 +8,24 @@ import { ChatHistory } from './chat-history';
 import { ChatInput } from './chat-input';
 import { ChatMessage } from './chat-message';
 import { ChatSystemMessage } from './chat-system-message';
+import { useGlobalChatRoom } from './chat.queries';
 
 export const ChatBox = ({ height = 400, socketEndpoint, userId }) => {
+  const globalChat = useGlobalChatRoom();
   const [messages, setMessages] = React.useState([]);
-  const [status, send] = useSocket(socketEndpoint, {
-    onMessage: (data) => setMessages((msgs) => msgs.concat(data)),
-  });
+  const [status, send] = useSocket(
+    globalChat.data ? `${socketEndpoint}?roomId=${globalChat.data._id}` : null,
+    {
+      onMessage: (data) => {
+        setMessages((msgs) => msgs.concat(data));
+        if (data.type === 'System') {
+          globalChat.refetch({
+            force: true,
+          });
+        }
+      },
+    }
+  );
 
   return (
     <div className={styles.root}>
@@ -24,14 +36,24 @@ export const ChatBox = ({ height = 400, socketEndpoint, userId }) => {
       ) : null}
       <ChatHistory height={height}>
         {messages.map((message, i) => {
-          const isMe = message.userId === userId;
-          return message.type === 'System' ? (
-            <ChatSystemMessage key={i}>{message.message}</ChatSystemMessage>
-          ) : (
+          if (message.type === 'System') {
+            return (
+              <ChatSystemMessage key={i}>{message.message}</ChatSystemMessage>
+            );
+          }
+
+          const isMe = message.data.senderId === userId;
+          const sender = isMe
+            ? undefined
+            : globalChat.data.participants.find(
+                (p) => p._id === message.data.senderId
+              );
+
+          return (
             <ChatMessage
               message={message.message}
-              sendTime={message.displayedDate}
-              sender={isMe ? undefined : message.userName}
+              sendTime={message.data.createdAt}
+              sender={sender && sender.name}
               isMe={isMe}
               key={i}
             />
@@ -41,8 +63,8 @@ export const ChatBox = ({ height = 400, socketEndpoint, userId }) => {
       <ChatInput
         onSend={(message) => {
           send({
-            userId,
-            message,
+            senderId: userId,
+            content: message,
           });
         }}
         disabled={status !== 'connected'}
@@ -53,6 +75,6 @@ export const ChatBox = ({ height = 400, socketEndpoint, userId }) => {
 
 ChatBox.propTypes = {
   socketEndpoint: PropTypes.string.isRequired,
-  userId: PropTypes.number.isRequired,
+  userId: PropTypes.string.isRequired,
   height: PropTypes.number,
 };

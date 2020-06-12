@@ -99,3 +99,51 @@ const stringifyParams = (params) => {
 
   return `?${results.join('&')}`;
 };
+
+export function xFetchJson(url, options) {
+  const { xhr, fetch } = xhrX(url, {
+    json: true,
+    ...options,
+  });
+
+  const response = fetch().then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      throw new Error(res.statusText);
+    }
+  });
+
+  response.cancel = () => xhr.abort();
+
+  return response;
+}
+
+export function extractError(err) {
+  const getErrorText = () => {
+    if (err) {
+      if (typeof err === 'string') {
+        return [err];
+      }
+      const msgField = err.message || err.messages;
+      if (msgField) {
+        if (Array.isArray(msgField)) {
+          return msgField;
+        }
+
+        if (typeof msgField === 'string') {
+          return [msgField];
+        }
+      }
+    }
+
+    return ['Unknown Error'];
+  };
+
+  return err.response
+    ? Promise.resolve()
+        .then(() => err.response.json())
+        .catch(() => err.response.text())
+        .then(extractError)
+    : Promise.resolve(getErrorText());
+}

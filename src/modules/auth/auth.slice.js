@@ -27,7 +27,7 @@ const authSlice = createSlice({
     },
     authError: (state, { payload }) => {
       state.status = AuthStatus.Anonymous;
-      state.error = payload instanceof Error ? payload.message : payload;
+      state.error = payload;
     },
   },
 });
