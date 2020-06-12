@@ -6,7 +6,7 @@ export const getJobs = jest.fn(() => {
 
 export const getJob = jest.fn((jobId) => {
   return Promise.resolve({
-    id: jobId,
+    _id: 'jobId',
     title: 'Memer',
     department: 'UI / UX Design',
     level: 'experienced',

@@ -1,35 +1,23 @@
-import { fetchJson } from '../../lib/ajax';
+import { xFetchJson } from 'lib/ajax';
 
-const PRODUCT_BASE_URL =
-  process.env.REACT_APP_PRODUCT_BASE_URL ||
-  'https://ecomm-db.herokuapp.com/api/products';
-const PRODUCT_COMMENT_BASE_URL =
-  process.env.REACT_APP_PRODUCT_COMMENT_BASE_URL ||
-  'https://ecomm-db.herokuapp.com/api/comments';
+const PRODUCT_BASE_URL = process.env.REACT_APP_PRODUCT_BASE_URL;
+const PRODUCT_COMMENT_BASE_URL = process.env.REACT_APP_PRODUCT_COMMENT_BASE_URL;
 
-export function getProducts(page, limit = 12) {
-  return fetchJson(PRODUCT_BASE_URL, {
+export function getProducts({ before, limit } = {}) {
+  return xFetchJson(PRODUCT_BASE_URL, {
     params: {
-      _page: page,
-      _limit: limit,
+      before,
+      limit,
     },
   });
 }
 
 export function getProduct(productId) {
-  return fetchJson(`${PRODUCT_BASE_URL}/${productId}`);
+  return xFetchJson(`${PRODUCT_BASE_URL}/${productId}`);
 }
 
-export function getProductComments(productId) {
-  return fetchJson(PRODUCT_COMMENT_BASE_URL, {
-    params: {
-      productId,
-    },
-  });
-}
-
-export function createProductComment(comment) {
-  return fetchJson(PRODUCT_COMMENT_BASE_URL, {
+export function createProductComment(productId, comment) {
+  return xFetchJson(`${PRODUCT_COMMENT_BASE_URL}/${productId}`, {
     method: 'POST',
     data: comment,
   });

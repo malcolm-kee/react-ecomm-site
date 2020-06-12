@@ -7,25 +7,24 @@ import { TextField } from 'components/text-field';
 import { Textarea } from 'components/textarea';
 import { inject, observer } from 'mobx-react';
 import * as React from 'react';
+import { useAddProductComment } from '../product.queries';
 
-function ProductCommentFormContent({ productId, submitForm, user }) {
+function ProductCommentFormContent({ productId, user }) {
   const defaultName = (user && user.name) || '';
-  const [submitting, setSubmitting] = React.useState(false);
-  const [userName, setUserName] = React.useState(defaultName);
+  const [userName, setUserName] = React.useState(user ? user.name : '');
   const [content, setContent] = React.useState('');
   const nameInputRef = React.useRef(null);
   const contentInputRef = React.useRef(null);
+  const [mutate, { status }] = useAddProductComment(productId);
+  const submitting = status === 'loading';
 
   function handleSubmit(ev) {
     ev.preventDefault();
-    setSubmitting(true);
-    submitForm({
+    mutate({
       userName,
       content,
-      productId,
-      createdOn: Date.now(),
+      rating: 5,
     }).then(() => {
-      setSubmitting(false);
       setContent('');
       setUserName(defaultName);
       if (defaultName) {
@@ -75,21 +74,10 @@ function ProductCommentFormContent({ productId, submitForm, user }) {
   );
 }
 
-export const ProductCommentForm = inject(({ auth, product }) => ({
+export const ProductCommentForm = inject(({ auth }) => ({
   auth,
-  product,
 }))(
-  observer(function ProductCommentForm({
-    auth: { user },
-    product: { createProductComment },
-    ...restProps
-  }) {
-    return (
-      <ProductCommentFormContent
-        user={user}
-        submitForm={createProductComment}
-        {...restProps}
-      />
-    );
+  observer(function ProductCommentForm({ auth: { user }, ...restProps }) {
+    return <ProductCommentFormContent user={user} {...restProps} />;
   })
 );

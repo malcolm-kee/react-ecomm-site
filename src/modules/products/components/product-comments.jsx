@@ -1,15 +1,14 @@
 import { Spinner } from 'components/spinner';
 import format from 'date-fns/format';
-import { inject, observer } from 'mobx-react';
 import * as React from 'react';
 import { ProductCommentForm } from './product-comment-form';
 
-function ProductComment({ userName, content, createdOn }) {
+function Comment({ userName, content, createdAt }) {
   return (
     <div className="py-2">
       <div className="product-comment-info">
         <strong>{userName}</strong> reviewed on{' '}
-        {format(new Date(createdOn), 'DD MMM YY')}
+        {format(new Date(createdAt), 'DD MMM YY')}
       </div>
       <div className="whitespace-pre-wrap">
         <p>{content}</p>
@@ -18,45 +17,22 @@ function ProductComment({ userName, content, createdOn }) {
   );
 }
 
-function ProductCommentsContent({ productId, loadComments, comments }) {
-  const [isLoading, setIsLoading] = React.useState(false);
-
-  React.useEffect(() => {
-    if (comments.length === 0) {
-      setIsLoading(true);
-      loadComments(productId).then(() => setIsLoading(false));
-    }
-  }, [productId, comments.length, loadComments]);
-
-  return (
+function ProductComments({ productId, comments }) {
+  return comments ? (
     <>
-      {isLoading && <Spinner />}
       <div className="mb-3">
         {comments.map((comment) => (
-          <ProductComment {...comment} key={comment.id} />
+          <Comment {...comment} key={comment._id} />
         ))}
-        {!isLoading && comments.length === 0 && (
+        {comments.length === 0 && (
           <p>There is no review for this product yet.</p>
         )}
       </div>
       <ProductCommentForm productId={productId} />
     </>
+  ) : (
+    <Spinner />
   );
 }
-
-export const ProductComments = inject('product')(
-  observer(function ProductComments({
-    product: { getProductComments, loadProductComments },
-    productId,
-  }) {
-    return (
-      <ProductCommentsContent
-        productId={productId}
-        comments={getProductComments(productId)}
-        loadComments={loadProductComments}
-      />
-    );
-  })
-);
 
 export default ProductComments;

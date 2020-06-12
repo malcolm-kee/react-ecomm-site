@@ -9,6 +9,7 @@ import { toast } from 'components/toast';
 import { inject, observer } from 'mobx-react';
 import { ProductBoxContainer } from 'modules/products/components/product-box-container';
 import { ProductImage } from 'modules/products/components/product-image';
+import { useProductDetails } from 'modules/products/product.queries';
 import * as React from 'react';
 
 const ProductComments = React.lazy(() =>
@@ -17,13 +18,8 @@ const ProductComments = React.lazy(() =>
   )
 );
 
-function useQty(productId) {
+function useQty() {
   const [qty, setQty] = React.useState(1);
-
-  // reset qty when product id change
-  React.useEffect(() => {
-    setQty(1);
-  }, [productId]);
 
   return {
     qty,
@@ -32,20 +28,10 @@ function useQty(productId) {
   };
 }
 
-function ProductPageContent({
-  productId,
-  details,
-  loadDetails,
-  addToCart,
-  location,
-}) {
-  React.useEffect(() => {
-    if (!details) {
-      loadDetails(productId);
-    }
-  }, [productId, details, loadDetails]);
+function ProductDetails({ productId, addToCart }) {
+  const { data: details } = useProductDetails(productId);
 
-  const { qty, increment, decrement } = useQty(productId);
+  const { qty, increment, decrement } = useQty();
 
   return (
     <article className="max-w-4xl mx-auto py-2 px-4">
@@ -101,7 +87,7 @@ function ProductPageContent({
               </div>
               <div>
                 <Button
-                  onClick={() => addToCart(qty)}
+                  onClick={() => addToCart(qty, details)}
                   color="success"
                   size="lg"
                   className="mr-2"
@@ -137,7 +123,10 @@ function ProductPageContent({
               <h2 className="text-gray-700 mb-2">Reviews</h2>
               <React.Suspense fallback={<Spinner />}>
                 <ErrorBoundary>
-                  <ProductComments productId={productId} />
+                  <ProductComments
+                    productId={productId}
+                    comments={details.comments}
+                  />
                 </ErrorBoundary>
               </React.Suspense>
             </div>
@@ -150,23 +139,15 @@ function ProductPageContent({
   );
 }
 
-export const ProductPage = inject(
-  'product',
-  'cart'
-)(
-  observer(function ProductPage({
-    product: { loadProductDetail, getProduct },
-    cart: { addItem },
-    productId: productIdVal,
-    location,
-  }) {
-    const productId = Number(productIdVal);
-    const product = getProduct(productId);
+function ProductPageContent(props) {
+  return <ProductDetails {...props} key={props.productId} />;
+}
+
+export const ProductPage = inject('cart')(
+  observer(function ProductPage({ cart: { addItem }, productId }) {
     return (
       <ProductPageContent
         productId={productId}
-        details={product}
-        loadDetails={loadProductDetail}
         addToCart={(qty) => {
           toast('Added to Cart', {
             type: 'success',
@@ -174,7 +155,6 @@ export const ProductPage = inject(
           });
           addItem(productId, qty);
         }}
-        location={location}
       />
     );
   })

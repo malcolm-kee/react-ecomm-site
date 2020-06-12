@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 import styles from './product-box.module.scss';
 import { ProductImage } from './product-image';
 
-export function ProductBox({ id, name, images, price, className }) {
+export function ProductBox({ _id, name, images, price, className }) {
   return (
     <Panel
       color="default"
       className={cx(styles.productBox, className)}
       renderContainer={(props) => (
-        <Link to={`/product/${id}`} data-testid="productBox" {...props} />
+        <Link to={`/product/${_id}`} data-testid="productBox" {...props} />
       )}
     >
       <PanelHeading className={styles.name}>{name}</PanelHeading>

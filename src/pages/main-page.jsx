@@ -1,33 +1,31 @@
-import { inject, observer } from 'mobx-react';
+import { Jumbotron } from 'components/jumbotron';
+import { Seo } from 'components/seo';
+import { Spinner } from 'components/spinner';
+import { useWindowEvent } from 'hooks/use-window-event';
+import { MarketingBanner } from 'modules/marketing/components/marketing-banner';
+import { ProductBox } from 'modules/products/components/product-box';
+import { useProducts } from 'modules/products/product.queries';
 import * as React from 'react';
-import { Jumbotron } from '../components/jumbotron';
-import { Spinner } from '../components/spinner';
-import { useWindowEvent } from '../hooks/use-window-event';
-import { MarketingBanner } from '../modules/marketing/components/marketing-banner';
-import { ProductBox } from '../modules/products/components/product-box';
 import styles from './main-page.module.scss';
 
-function MainPageContent({
-  loadProducts,
-  products,
-  hasMoreProduct,
-  isLoading,
-}) {
-  React.useEffect(() => {
-    if (products.length === 0) {
-      loadProducts();
-    }
-  }, [loadProducts, products.length]);
+export function MainPage() {
+  const {
+    data: productGroups,
+    canFetchMore,
+    status,
+    isFetchingMore,
+    fetchMore,
+  } = useProducts();
 
   useWindowEvent(
     'scroll',
     () => {
       if (
-        hasMoreProduct &&
+        canFetchMore &&
         window.innerHeight + window.scrollY > document.body.clientHeight - 300
       ) {
-        if (!isLoading) {
-          loadProducts();
+        if (!isFetchingMore) {
+          fetchMore();
         }
       }
     },
@@ -36,6 +34,7 @@ function MainPageContent({
 
   return (
     <>
+      <Seo title="Shopit: Save Your Money" />
       <div className="hidden sm:block">
         <MarketingBanner />
       </div>
@@ -49,27 +48,16 @@ function MainPageContent({
           </blockquote>
         </Jumbotron>
         <div className={styles.grid}>
-          {products.map((product) => (
-            <ProductBox {...product} key={product.id} />
+          {productGroups.map((products, i) => (
+            <React.Fragment key={i}>
+              {products.map((product) => (
+                <ProductBox {...product} key={product._id} />
+              ))}
+            </React.Fragment>
           ))}
         </div>
-        <div>{hasMoreProduct && <Spinner />}</div>
+        <div>{(status === 'loading' || isFetchingMore) && <Spinner />}</div>
       </div>
     </>
   );
 }
-
-export const MainPage = inject('product')(
-  observer(function MainPage({
-    product: { products, hasMore, loadingProducts, loadProducts },
-  }) {
-    return (
-      <MainPageContent
-        products={products}
-        hasMoreProduct={hasMore}
-        isLoading={loadingProducts}
-        loadProducts={loadProducts}
-      />
-    );
-  })
-);

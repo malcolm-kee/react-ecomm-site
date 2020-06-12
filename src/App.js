@@ -32,11 +32,8 @@ function App() {
         <Switch>
           <Route
             path="/product/:productId"
-            render={({ match, location }) => (
-              <ProductPage
-                productId={match.params.productId}
-                location={location}
-              />
+            render={({ match }) => (
+              <ProductPage productId={match.params.productId} />
             )}
           />
           <Route path="/careers" component={CareersPage} />
