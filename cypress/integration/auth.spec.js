@@ -1,10 +1,11 @@
 /// <reference types="Cypress" />
 
-import { getRandomEmail } from '../test-helper';
+import faker from 'faker';
 
 describe(`auth`, () => {
   it(`allow signup and login`, () => {
-    const email = getRandomEmail();
+    const email = faker.internet.email();
+    const password = faker.internet.password(10);
 
     cy.visit('/');
 
@@ -12,32 +13,36 @@ describe(`auth`, () => {
 
     cy.findByText('Signup here').click();
 
-    cy.findByLabelText('Name').type('Malcolm Kee');
-
+    cy.findByLabelText('Name').type(faker.name.findName());
     cy.findByLabelText('Email').type(email);
+    cy.findByLabelText('Password').type(password);
 
     cy.findAllByText('Signup').last().click();
+
+    cy.findByTestId('login-form').should('be.visible');
+
+    cy.findByLabelText('Email').type(email);
+    cy.findByLabelText('Password').type(password);
+    cy.findAllByText('Login').last().click();
 
     cy.findByText(`You're already login!`).should('be.visible');
 
     cy.findAllByText('Logout').last().click();
-
-    cy.findByText('Login').click();
-
-    cy.findByLabelText('Email').type(email);
-
-    cy.findAllByText('Login').last().click();
-
-    cy.findByText(`You're already login!`).should('be.visible');
   });
 
   it(`shows error when server error`, () => {
+    const errorText = 'email must be an email';
+
     cy.server();
     cy.route({
       method: 'POST',
-      url: '**/api/users',
-      status: 503,
-      response: 'Network Error',
+      url: '**/register',
+      status: 400,
+      response: {
+        statusCode: 400,
+        message: [errorText],
+        error: 'Bad Request',
+      },
     });
 
     cy.visit('/');
@@ -45,12 +50,40 @@ describe(`auth`, () => {
 
     cy.findByText('Signup here').click();
 
-    cy.findByLabelText('Name').type('Malcolm Kee');
-    cy.findByLabelText('Email').type(getRandomEmail());
+    cy.findByLabelText('Name').type(faker.name.findName());
+    cy.findByLabelText('Email').type(faker.internet.email());
+    cy.findByLabelText('Password').type(faker.internet.password(10));
+    cy.findByLabelText('Avatar URL').type(faker.random.image());
     cy.findAllByText('Signup').last().click();
 
-    cy.findByText('Network Error', {
+    cy.findByText(errorText, {
       timeout: 10000,
+    }).should('be.visible');
+  });
+
+  it(`shows error when network error`, () => {
+    const errorText = 'Network Error';
+
+    cy.server();
+    cy.route({
+      method: 'POST',
+      url: '**/register',
+      status: 503,
+      response: errorText,
+    });
+
+    cy.visit('/');
+    cy.findByText('Login').click();
+
+    cy.findByText('Signup here').click();
+
+    cy.findByLabelText('Name').type(faker.name.findName());
+    cy.findByLabelText('Email').type(faker.internet.email());
+    cy.findByLabelText('Password').type(faker.internet.password(10));
+    cy.findAllByText('Signup').last().click();
+
+    cy.findByText(errorText, {
+      timeout: 6000,
     }).should('be.visible');
   });
 });

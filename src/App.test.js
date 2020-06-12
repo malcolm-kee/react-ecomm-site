@@ -26,15 +26,14 @@ function loadApp({ url = '/' } = {}) {
     removeCartItem: (id) => user.click(screen.getByTestId(`remove-${id}`)),
     submitForm: () =>
       user.click(document.querySelector('button[type="submit"]')),
-    logout: () => user.click(screen.getByText('Logout')),
   };
 }
 
 describe('<App />', () => {
   it('renders without crashing', () => {
-    const { getAllByText } = loadApp();
+    loadApp();
 
-    expect(getAllByText('Shopit').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Shopit').length).toBeGreaterThan(0);
 
     cleanup();
   });
@@ -59,6 +58,21 @@ describe('<App />', () => {
 
     user.click(screen.getByText('Complaint'));
     await screen.findByText('Make a Complaint');
+
+    user.selectOptions(
+      screen.getByLabelText('I want to make complain about'),
+      'deliver'
+    );
+    user.click(screen.getByText('Next'));
+
+    await user.type(
+      screen.getByLabelText('Details about the incident'),
+      'It take a year for the delivery to reach.'
+    );
+    user.click(screen.getByText('Next'));
+
+    await user.type(screen.getByLabelText('Your Full Name'), 'Malcolm Key');
+    user.click(screen.getByText('Submit'));
   });
 
   it('show page not found for invalid url', () => {
@@ -104,6 +118,7 @@ describe('<App />', () => {
     });
 
     await waitForProductPageFinishLoading();
+    user.click(screen.getByText('Share'));
     addQty();
     addQty();
     minusQty();
@@ -144,12 +159,7 @@ describe('<App />', () => {
   });
 
   it('default customer name in comment form', async () => {
-    const {
-      navigate,
-      waitForProductPageFinishLoading,
-      submitForm,
-      logout,
-    } = loadApp({
+    const { navigate, waitForProductPageFinishLoading, submitForm } = loadApp({
       url: '/login',
     });
 
@@ -167,27 +177,31 @@ describe('<App />', () => {
 
     expect(screen.getByLabelText('Your Name').value).not.toBe('');
 
-    logout();
+    user.click(screen.getByText('Logout'));
   });
 
-  it('can signup and logout', async () => {
-    const {
-      submitForm,
-      navigate,
-      getByText,
-      queryByText,
-      waitForProductPageFinishLoading,
-      logout,
-    } = loadApp({
+  it(`can signup and logout`, async () => {
+    const { container, navigate, waitForProductPageFinishLoading } = loadApp({
       url: '/signup',
     });
 
-    await screen.findByLabelText('Email');
+    const mockUser = {
+      name: 'Malcolm Kee',
+      email: 'mk@test.com',
+      password: '12345678',
+    };
 
-    await user.type(screen.getByLabelText('Name'), 'Malcolm Kee');
+    await screen.findByLabelText('Name');
+
+    await user.type(screen.getByLabelText('Name'), mockUser.name);
+    await user.type(screen.getByLabelText('Email'), mockUser.email);
+    await user.type(screen.getByLabelText('Password'), mockUser.password);
+    user.click(container.querySelector('button[type="submit"]'));
+
+    await screen.findByTestId('login-form');
     await user.type(screen.getByLabelText('Email'), 'mk@test.com');
-
-    submitForm();
+    await user.type(screen.getByLabelText('Password'), '12345678');
+    user.click(screen.getByTestId('submit-login'));
 
     await screen.findByText("You're already login!");
 
@@ -195,17 +209,17 @@ describe('<App />', () => {
 
     await waitForProductPageFinishLoading();
 
-    expect(getByText('Logout')).not.toBeNull();
-    expect(queryByText('Login')).toBeNull();
+    expect(screen.getByText('Logout')).not.toBeNull();
+    expect(screen.queryByText('Login')).toBeNull();
 
-    logout();
+    user.click(screen.getByText('Logout'));
 
-    expect(getByText('Login')).not.toBeNull();
-    expect(queryByText('Logout')).toBeNull();
+    expect(screen.getByText('Login')).not.toBeNull();
+    expect(screen.queryByText('Logout')).toBeNull();
   });
 
   it(`can update user profile`, async () => {
-    const { navigate, submitForm, logout } = loadApp({
+    const { navigate, submitForm } = loadApp({
       url: '/login',
     });
 
@@ -223,6 +237,6 @@ describe('<App />', () => {
 
     await screen.findByText('Profile Updated.');
 
-    logout();
+    user.click(screen.getByText('Logout'));
   });
 });

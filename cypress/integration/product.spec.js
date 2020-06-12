@@ -1,5 +1,6 @@
 /// <reference types="Cypress" />
 /// <reference types="../support" />
+import faker from 'faker';
 
 describe(`product`, () => {
   it(`can view product details`, () => {
@@ -58,15 +59,17 @@ describe(`product`, () => {
     }).then((user) => {
       cy.visit('/');
       cy.findByText('Login').click();
-      cy.findByLabelText('Email')
-        .type(user.email)
-        .get('form')
-        .within((subject) => {
-          cy.findByText('Login', {
-            container: subject,
-            selector: 'button',
-          }).click();
-        });
+      cy.findByLabelText('Email').type(user.email);
+      cy.findByLabelText('Password').type(user.password);
+
+      cy.get('form').within((subject) => {
+        cy.findByText('Login', {
+          container: subject,
+          selector: 'button',
+        }).click();
+      });
+
+      cy.findByText(`You're already login!`).should('be.visible');
 
       cy.findByAltText('Shopit', {
         selector: 'a',
@@ -75,12 +78,14 @@ describe(`product`, () => {
         .click();
 
       cy.findAllByTestId('productBox').eq(5).click();
+      cy.findByLabelText('Your Name').should('have.value', user.name);
 
-      cy.findByLabelText('Your Review', {
-        timeout: 6000,
-      }).type('I love honey{enter}do you?');
+      const review = faker.lorem.sentences(2);
+      cy.findByLabelText('Your Review').type(review);
       cy.findByText('Add').click();
       cy.findByLabelText('Your Review').should('be.focused');
+
+      cy.findByText(review).should('be.visible');
     });
   });
 });

@@ -1,24 +1,29 @@
+import { Alert } from 'components/alert';
 import { Button } from 'components/button';
 import { Field } from 'components/field';
 import { Form } from 'components/form';
 import { Input } from 'components/input';
 import { Label } from 'components/label';
 import { Spinner } from 'components/spinner';
+import { TextField } from 'components/text-field';
 import { inject, observer } from 'mobx-react';
 import * as React from 'react';
 
 function FormContent({ pending, error, login }) {
   const [email, setEmail] = React.useState('');
-
-  const onSubmit = (ev) => {
-    ev.preventDefault();
-    login(email);
-  };
+  const [password, setPassword] = React.useState('');
 
   return (
-    <Form title="Login" onSubmit={onSubmit}>
+    <Form
+      title="Login"
+      data-testid="login-form"
+      onSubmit={(ev) => {
+        ev.preventDefault();
+        login(email, password);
+      }}
+    >
       {pending && <Spinner />}
-      {error && <div className="alert alert-danger">{error}</div>}
+      {error && <Alert color="danger">{error}</Alert>}
       <Field>
         <Label>Email</Label>
         <div className="flex">
@@ -36,12 +41,21 @@ function FormContent({ pending, error, login }) {
           />
         </div>
       </Field>
+      <TextField
+        label="Password"
+        type="password"
+        value={password}
+        onChangeValue={setPassword}
+        required
+        disabled={pending}
+      />
       <div className="py-3">
         <Button
           color="primary"
           type="submit"
           disabled={pending}
           className="w-full"
+          data-testid="submit-login"
         >
           Login
         </Button>
@@ -55,14 +69,14 @@ function LoginFormContent({
 }) {
   if (isAuthenticated) {
     return (
-      <div className="alert alert-success">
+      <Alert color="success">
         You're already login!
         <div>
           <Button onClick={logout} color="danger">
             Logout
           </Button>
         </div>
-      </div>
+      </Alert>
     );
   }
 

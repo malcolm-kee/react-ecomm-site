@@ -1,4 +1,5 @@
 import cx from 'classnames';
+import format from 'date-fns/format';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import styles from './chat-message.module.scss';
@@ -22,7 +23,7 @@ export const ChatMessage = (props) => {
           <span className={styles.padEnd}></span>
         </div>
         <div className={styles.time}>
-          <small>{props.sendTime}</small>
+          <small>{props.sendTime && format(props.sendTime, 'HH:mm')}</small>
         </div>
       </div>
     </div>
