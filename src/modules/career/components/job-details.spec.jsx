@@ -1,4 +1,5 @@
-import { render } from '@testing-library/react';
+import { cleanup, screen } from '@testing-library/react';
+import { renderWithQuery } from 'lib/test-util';
 import * as React from 'react';
 import { getJob as getJobMock } from '../career.service';
 import { JobDetails } from './job-details';
@@ -7,12 +8,14 @@ jest.mock('../career.service');
 
 describe(`<JobDetails />`, () => {
   it(`retrieves details for provided jobId`, async () => {
-    const { findByText } = render(<JobDetails jobId={3} />);
+    renderWithQuery(<JobDetails jobId="3" />);
 
-    await findByText('Department:');
+    await screen.findByText('Department:');
 
     expect(getJobMock).toHaveBeenCalledTimes(1);
-    expect(getJobMock).toHaveBeenCalledWith(3);
+    expect(getJobMock).toHaveBeenCalledWith('3');
+
+    cleanup();
   });
 
   it(`shows error message when error`, async () => {
@@ -20,9 +23,9 @@ describe(`<JobDetails />`, () => {
       Promise.reject(new Error('Network Error'))
     );
 
-    const { findByRole } = render(<JobDetails jobId={3} />);
+    renderWithQuery(<JobDetails jobId="3" />);
 
-    const alert = await findByRole('alert');
+    const alert = await screen.findByRole('alert');
     expect(alert).toMatchInlineSnapshot(`
       <div
         class="border-2 px-3 py-2 rounded-lg border-red-500 bg-red-100 text-red-900"
@@ -31,5 +34,7 @@ describe(`<JobDetails />`, () => {
         Fails to get details.
       </div>
     `);
+
+    cleanup();
   });
 });

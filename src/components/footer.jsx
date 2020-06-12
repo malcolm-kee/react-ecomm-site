@@ -34,7 +34,6 @@ export function Footer() {
           <small>
             &copy; Copyright {currentYear} Shopit. All Rights Reserved.
           </small>
-          <small>Branch: Redux</small>
         </div>
       </div>
     </footer>

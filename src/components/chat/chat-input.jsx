@@ -1,8 +1,8 @@
 import cx from 'classnames';
+import { useId } from 'hooks/use-id';
+import { callAll } from 'lib/fn-lib';
 import PropTypes from 'prop-types';
 import * as React from 'react';
-import { useId } from '../../hooks/use-id';
-import { callAll } from '../../lib/fn-lib';
 import { Textarea } from '../textarea';
 import styles from './chat-input.module.scss';
 

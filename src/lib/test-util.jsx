@@ -3,10 +3,24 @@ import { act, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import * as React from 'react';
+import { ReactQueryConfigProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
 import { ToastContainer } from '../components/toast';
 import { rootReducer } from '../modules/root-reducer';
+
+export function renderWithQuery(ui, config = {}) {
+  return render(
+    <ReactQueryConfigProvider
+      config={{
+        retry: false,
+        ...config,
+      }}
+    >
+      {ui}
+    </ReactQueryConfigProvider>
+  );
+}
 
 export function renderWithStateMgmtAndRouter(
   ui,
@@ -31,7 +45,7 @@ export function renderWithStateMgmtAndRouter(
         history.push(to);
       });
     },
-    ...render(
+    ...renderWithQuery(
       <Router history={history}>
         <Provider store={store}>{ui}</Provider>
         <ToastContainer />
