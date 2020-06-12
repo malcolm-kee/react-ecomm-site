@@ -20,9 +20,9 @@ import { Label } from './label';
 ### Controlled Example
 
 ```jsx
-initialState = { name: '' };
+const [name, setName] = React.useState('')
 <div>
-  <div>{state.name}</div>
-  <Input value={state.name} onChangeValue={(name) => setState({ name })} />
+  <div>{name}</div>
+  <Input value={name} onChangeValue={setName} />
 </div>;
 ```

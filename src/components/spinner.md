@@ -7,16 +7,13 @@ You can set `delayShow` for delaying the spinner to appear.
 ```jsx
 import { Button } from './button';
 
-initialState = { show: true };
+const [show, setShow] = React.useState(true);
 
 <div>
-  {state.show && <Spinner delayShow={1000} />}
+  {show && <Spinner delayShow={1000} />}
   <p>This is an example of `delayShow` of 1000 (1 sec).</p>
-  <Button
-    color="primary"
-    onClick={() => setState((prevState) => ({ show: !prevState.show }))}
-  >
-    {state.show ? 'Hide' : 'Show'} Spinner
+  <Button color="primary" onClick={() => setShow((prevShow) => !prevShow)}>
+    {show ? 'Hide' : 'Show'} Spinner
   </Button>
 </div>;
 ```
