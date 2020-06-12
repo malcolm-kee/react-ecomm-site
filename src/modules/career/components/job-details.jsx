@@ -1,8 +1,8 @@
+import { Alert } from 'components/alert';
+import { Button } from 'components/button';
+import { Spinner } from 'components/spinner';
+import { scrollTo } from 'lib/scroll-to';
 import * as React from 'react';
-import { Alert } from '../../../components/alert';
-import { Button } from '../../../components/button';
-import { Spinner } from '../../../components/spinner';
-import { scrollTo } from '../../../lib/scroll-to';
 import { getJob } from '../career.service';
 
 export const JobDetails = ({ jobId }) => {

@@ -1,40 +1,31 @@
+import { Jumbotron } from 'components/jumbotron';
+import { Seo } from 'components/seo';
+import { Spinner } from 'components/spinner';
+import { useWindowEvent } from 'hooks/use-window-event';
+import { MarketingBanner } from 'modules/marketing/components/marketing-banner';
+import { ProductBox } from 'modules/products/components/product-box';
+import { useProducts } from 'modules/products/product.queries';
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { Jumbotron } from '../components/jumbotron';
-import { Seo } from '../components/seo';
-import { Spinner } from '../components/spinner';
-import { useWindowEvent } from '../hooks/use-window-event';
-import { MarketingBanner } from '../modules/marketing/components/marketing-banner';
-import { ProductBox } from '../modules/products/components/product-box';
-import { loadProducts } from '../modules/products/product.actions';
-import {
-  selectHasMoreProduct,
-  selectProductIsLoading,
-  selectProducts,
-} from '../modules/products/product.selectors';
 import styles from './main-page.module.scss';
 
-function MainPageContent({
-  loadProducts,
-  products,
-  hasMoreProduct,
-  isLoading,
-}) {
-  React.useEffect(() => {
-    if (products.length === 0) {
-      loadProducts();
-    }
-  }, [loadProducts, products.length]);
+export function MainPage() {
+  const {
+    data: productGroups,
+    canFetchMore,
+    status,
+    isFetchingMore,
+    fetchMore,
+  } = useProducts();
 
   useWindowEvent(
     'scroll',
     () => {
       if (
-        hasMoreProduct &&
+        canFetchMore &&
         window.innerHeight + window.scrollY > document.body.clientHeight - 300
       ) {
-        if (!isLoading) {
-          loadProducts();
+        if (!isFetchingMore) {
+          fetchMore();
         }
       }
     },
@@ -57,24 +48,16 @@ function MainPageContent({
           </blockquote>
         </Jumbotron>
         <div className={styles.grid}>
-          {products.map((product) => (
-            <ProductBox {...product} key={product.id} />
+          {productGroups.map((products, i) => (
+            <React.Fragment key={i}>
+              {products.map((product) => (
+                <ProductBox {...product} key={product._id} />
+              ))}
+            </React.Fragment>
           ))}
         </div>
-        <div>{hasMoreProduct && <Spinner />}</div>
+        <div>{(status === 'loading' || isFetchingMore) && <Spinner />}</div>
       </div>
     </>
   );
 }
-
-const mapStates = (state) => ({
-  products: selectProducts(state),
-  hasMoreProduct: selectHasMoreProduct(state),
-  isLoading: selectProductIsLoading(state),
-});
-
-const mapDispatch = {
-  loadProducts,
-};
-
-export const MainPage = connect(mapStates, mapDispatch)(MainPageContent);

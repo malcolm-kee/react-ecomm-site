@@ -33,9 +33,7 @@ export const CareersPage = () => {
         <Switch>
           <Route
             path="/careers/:jobId"
-            render={({ match }) => (
-              <JobDetails jobId={Number(match.params.jobId)} />
-            )}
+            render={({ match }) => <JobDetails jobId={match.params.jobId} />}
           />
           <Route component={AllJobs} />
         </Switch>

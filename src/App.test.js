@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { cleanup, screen } from '@testing-library/react';
 import * as React from 'react';
 import App from './App';
 import { renderWithStateMgmtAndRouter, user } from './lib/test-util';
@@ -32,6 +32,8 @@ describe('<App />', () => {
     loadApp();
 
     expect(screen.getAllByText('Shopit').length).toBeGreaterThan(0);
+
+    cleanup();
   });
 
   it('show login form at login url', () => {
@@ -86,6 +88,8 @@ describe('<App />', () => {
 
     await user.type(screen.getByLabelText('Your Full Name'), 'Malcolm Key');
     user.click(screen.getByText('Submit'));
+
+    cleanup();
   });
 
   it('show page not found for invalid url', () => {
@@ -110,6 +114,8 @@ describe('<App />', () => {
     user.click(jobPost);
 
     await screen.findByText('Department:');
+
+    cleanup();
   });
 
   it(`tracks product added to cart`, async () => {
@@ -168,6 +174,8 @@ describe('<App />', () => {
     await user.type(screen.getByLabelText('CVC'), '123');
     user.click(screen.getByText('Pay'));
     await screen.findByText('Paid');
+
+    cleanup();
   });
 
   it('default customer name in comment form', async () => {
@@ -189,6 +197,8 @@ describe('<App />', () => {
     expect(screen.getByLabelText('Your Name').value).not.toBe('');
 
     user.click(screen.getByText('Logout'));
+
+    cleanup();
   });
 
   it(`can signup and logout`, async () => {
@@ -227,5 +237,7 @@ describe('<App />', () => {
 
     expect(screen.getByText('Login')).not.toBeNull();
     expect(screen.queryByText('Logout')).toBeNull();
+
+    cleanup();
   });
 });

@@ -1,4 +1,4 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { cleanup, fireEvent, screen } from '@testing-library/react';
 import * as React from 'react';
 import xhrMock, { sequence } from 'xhr-mock';
 import { renderWithStateMgmtAndRouter } from '../lib/test-util';
@@ -6,18 +6,6 @@ import { PRODUCT_DB } from '../modules/products/__mocks__/product.service';
 import { MainPage } from './main-page';
 
 jest.mock('../modules/marketing/marketing.service');
-
-function loadMainPage() {
-  return {
-    ...renderWithStateMgmtAndRouter(<MainPage />),
-    scrollWindow: () =>
-      fireEvent(
-        window,
-        new UIEvent('scroll', { bubbles: false, cancelable: false })
-      ),
-    getNumberOfProducts: () => screen.getAllByTestId('productBox').length,
-  };
-}
 
 const PRODUCT_URL = process.env.REACT_APP_PRODUCT_BASE_URL;
 
@@ -31,10 +19,12 @@ describe('<MainPage />', () => {
       body: JSON.stringify([PRODUCT_DB[0]]),
     });
 
-    const { getByText, findByText } = loadMainPage();
-    expect(getByText('Shopit')).not.toBeNull();
+    renderWithStateMgmtAndRouter(<MainPage />);
+    expect(screen.getByText('Shopit')).not.toBeNull();
 
-    await findByText(PRODUCT_DB[0].name);
+    await screen.findByText(PRODUCT_DB[0].name);
+
+    cleanup();
   });
 
   it('load more products when scroll', async () => {
@@ -52,16 +42,21 @@ describe('<MainPage />', () => {
       ])
     );
 
-    const { findByText, scrollWindow, getNumberOfProducts } = loadMainPage();
+    renderWithStateMgmtAndRouter(<MainPage />);
 
-    await findByText(PRODUCT_DB[0].name);
+    await screen.findByText(PRODUCT_DB[0].name);
 
-    expect(getNumberOfProducts()).toBe(2);
+    expect(screen.getAllByTestId('productBox')).toHaveLength(2);
 
-    scrollWindow();
+    fireEvent(
+      window,
+      new UIEvent('scroll', { bubbles: false, cancelable: false })
+    );
 
-    await findByText(PRODUCT_DB[3].name);
+    await screen.findByText(PRODUCT_DB[3].name);
 
-    expect(getNumberOfProducts()).toBe(4);
+    expect(screen.getAllByTestId('productBox')).toHaveLength(4);
+
+    cleanup();
   });
 });

@@ -7,13 +7,13 @@ import { Seo } from 'components/seo';
 import { ShareButton } from 'components/share-button';
 import { Spinner } from 'components/spinner';
 import { toast } from 'components/toast';
+import PropTypes from 'prop-types';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { addProductToCart } from '../modules/cart/cart.actions';
+import { cartActions } from '../modules/cart/cart.slice';
 import { ProductBoxContainer } from '../modules/products/components/product-box-container';
 import { ProductImage } from '../modules/products/components/product-image';
-import { loadProductDetail } from '../modules/products/product.actions';
-import { selectProduct } from '../modules/products/product.selectors';
+import { useProductDetails } from '../modules/products/product.queries';
 
 const ProductComments = React.lazy(() =>
   import(
@@ -21,13 +21,8 @@ const ProductComments = React.lazy(() =>
   )
 );
 
-function useQty(productId) {
+function useQty() {
   const [qty, setQty] = React.useState(1);
-
-  // reset qty when product id change
-  React.useEffect(() => {
-    setQty(1);
-  }, [productId]);
 
   return {
     qty,
@@ -36,14 +31,10 @@ function useQty(productId) {
   };
 }
 
-function ProductPageContent({ productId, details, loadDetails, addToCart }) {
-  React.useEffect(() => {
-    if (!details) {
-      loadDetails();
-    }
-  }, [productId, details, loadDetails]);
+function ProductDetails({ productId, addToCart }) {
+  const { data: details } = useProductDetails(productId);
 
-  const { qty, increment, decrement } = useQty(productId);
+  const { qty, increment, decrement } = useQty();
 
   return (
     <article className="max-w-4xl mx-auto py-2 px-4">
@@ -105,7 +96,7 @@ function ProductPageContent({ productId, details, loadDetails, addToCart }) {
               </div>
               <div>
                 <Button
-                  onClick={() => addToCart(qty)}
+                  onClick={() => addToCart(qty, details)}
                   color="success"
                   size="lg"
                   className="mr-2"
@@ -141,7 +132,10 @@ function ProductPageContent({ productId, details, loadDetails, addToCart }) {
               <h2 className="text-gray-700 mb-2">Reviews</h2>
               <React.Suspense fallback={<Spinner />}>
                 <ErrorBoundary>
-                  <ProductComments productId={productId} />
+                  <ProductComments
+                    productId={productId}
+                    comments={details.comments}
+                  />
                 </ErrorBoundary>
               </React.Suspense>
             </div>
@@ -154,19 +148,25 @@ function ProductPageContent({ productId, details, loadDetails, addToCart }) {
   );
 }
 
-const mapStates = (state, ownProps) => ({
-  details: selectProduct(state, ownProps.productId),
-});
+function ProductPageContent(props) {
+  return <ProductDetails {...props} key={props.productId} />;
+}
 
-const mapDispatch = (dispatch, ownProps) => ({
-  loadDetails: () => dispatch(loadProductDetail(ownProps.productId)),
-  addToCart: (qty) => {
+ProductPageContent.propTypes = {
+  productId: PropTypes.string.isRequired,
+};
+
+export const ProductPage = connect(null, (dispatch) => ({
+  addToCart: (qty, product) => {
     toast('Added to Cart', {
       type: 'success',
       autoClose: 2000,
     });
-    return dispatch(addProductToCart(ownProps.productId, qty));
+    return dispatch(
+      cartActions.addItem({
+        product,
+        qty,
+      })
+    );
   },
-});
-
-export const ProductPage = connect(mapStates, mapDispatch)(ProductPageContent);
+}))(ProductPageContent);

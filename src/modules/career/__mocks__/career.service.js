@@ -1,7 +1,7 @@
 export const getJobs = jest.fn(() => {
   return Promise.resolve([
     {
-      id: 404,
+      _id: '404',
       title: 'Web Designer',
       department: 'UI / UX Design',
       level: 'experienced',
@@ -24,7 +24,7 @@ export const getJobs = jest.fn(() => {
       ],
     },
     {
-      id: 403,
+      _id: '403',
       title: 'Customer Service Agent',
       department: 'Operations',
       level: 'entry',
@@ -49,7 +49,7 @@ export const getJobs = jest.fn(() => {
       ],
     },
     {
-      id: 200,
+      _id: '200',
       title: 'Janitor',
       department: 'Health/Wellfare',
       level: 'experienced',
@@ -69,7 +69,7 @@ export const getJobs = jest.fn(() => {
       ],
     },
     {
-      id: 500,
+      _id: '500',
       title: 'GitHub Issue Commentor',
       department: 'Engineering',
       level: 'internship',
@@ -86,7 +86,7 @@ export const getJobs = jest.fn(() => {
       ],
     },
     {
-      id: 700,
+      _id: '700',
       title: 'Recruiter',
       department: 'Human Resources',
       level: 'experienced',
@@ -104,7 +104,7 @@ export const getJobs = jest.fn(() => {
       ],
     },
     {
-      id: 3,
+      _id: '3',
       title: 'Slack Chatter',
       department: 'Engineering',
       level: 'entry',
@@ -121,7 +121,7 @@ export const getJobs = jest.fn(() => {
       ],
     },
     {
-      id: 36,
+      _id: '36',
       title: 'Memer',
       department: 'UI / UX Design',
       level: 'experienced',
@@ -143,7 +143,7 @@ export const getJobs = jest.fn(() => {
 
 export const getJob = jest.fn((jobId) => {
   return Promise.resolve({
-    id: jobId,
+    _id: 'jobId',
     title: 'Memer',
     department: 'UI / UX Design',
     level: 'experienced',

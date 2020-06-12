@@ -36,9 +36,7 @@ function AppContainer({ initAuthStatus }) {
           <Route
             path="/product/:productId"
             render={({ match }) => (
-              <ProductPage
-                productId={Number(match.params && match.params.productId)}
-              />
+              <ProductPage productId={match.params && match.params.productId} />
             )}
           />
           <Route path="/careers" component={CareersPage} />

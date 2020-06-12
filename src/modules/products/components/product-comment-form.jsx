@@ -5,29 +5,27 @@ import { Label } from 'components/label';
 import { Spinner } from 'components/spinner';
 import { TextField } from 'components/text-field';
 import { Textarea } from 'components/textarea';
+import { selectUser } from 'modules/auth/auth.selectors';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { selectUser } from '../../auth/auth.selectors';
-import { submitAddProductComment } from '../product.actions';
+import { useAddProductComment } from '../product.queries';
 
-function ProductCommentFormContent({ productId, submitForm, user }) {
+function ProductCommentFormContent({ productId, user }) {
   const defaultName = (user && user.name) || '';
-  const [submitting, setSubmitting] = React.useState(false);
   const [userName, setUserName] = React.useState(user ? user.name : '');
   const [content, setContent] = React.useState('');
   const nameInputRef = React.useRef(null);
   const contentInputRef = React.useRef(null);
+  const [mutate, { status }] = useAddProductComment(productId);
+  const submitting = status === 'loading';
 
   function handleSubmit(ev) {
     ev.preventDefault();
-    setSubmitting(true);
-    submitForm({
+    mutate({
       userName,
       content,
-      productId,
-      createdOn: Date.now(),
+      rating: 5,
     }).then(() => {
-      setSubmitting(false);
       setContent('');
       setUserName(defaultName);
       if (defaultName) {
@@ -81,11 +79,4 @@ const mapStates = (state) => ({
   user: selectUser(state),
 });
 
-const mapDispatch = {
-  submitForm: submitAddProductComment,
-};
-
-export const ProductCommentForm = connect(
-  mapStates,
-  mapDispatch
-)(ProductCommentFormContent);
+export const ProductCommentForm = connect(mapStates)(ProductCommentFormContent);

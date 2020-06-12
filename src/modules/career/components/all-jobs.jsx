@@ -25,7 +25,7 @@ export const AllJobs = () => {
         variant="link"
         items={jobs.map((job) => ({
           label: job.title,
-          to: `/careers/${job.id}`,
+          to: `/careers/${job._id}`,
         }))}
       />
     </div>

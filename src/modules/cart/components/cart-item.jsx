@@ -1,25 +1,25 @@
+import { Button } from 'components/button';
+import { CloseIcon } from 'components/icon/close-icon';
+import { formatMoney } from 'lib/format';
+import { ProductImage } from 'modules/products/components/product-image';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '../../../components/button';
-import { CloseIcon } from '../../../components/icon/close-icon';
-import { formatMoney } from '../../../lib/format';
-import { ProductImage } from '../../products/components/product-image';
 
 function CartItem({ index, item, onDecrement, onIncrement, onDelete }) {
   return (
     <div className="mb-2 pb-2 border-b border-gray-300">
       <div className="flex justify-between items-center">
-        <Link className="text-blue-700" to={`/product/${item.product.id}`}>
+        <Link className="text-blue-700" to={`/product/${item.product._id}`}>
           #{index + 1} {item.product.name}
         </Link>
         <Button
           onClick={onDelete}
           size="sm"
-          aria-labelledby={`${item.product.id}-remove-label`}
+          aria-labelledby={`${item.product._id}-remove-label`}
         >
           <CloseIcon width={36} className="fill-current text-gray-500" />
         </Button>
-        <span className="sr-only" id={`${item.product.id}-remove-label`}>
+        <span className="sr-only" id={`${item.product._id}-remove-label`}>
           Remove {item.product.name}
         </span>
       </div>

@@ -1,35 +1,9 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { loadProductDetail } from '../product.actions';
-import { selectProduct } from '../product.selectors';
+import { useProductDetails } from '../product.queries';
 import { ProductBox } from './product-box';
 
-function ProductBoxContainerContent({
-  productId,
-  productDetails,
-  loadDetails,
-  className,
-}) {
-  React.useEffect(() => {
-    if (!productDetails) {
-      loadDetails();
-    }
-  }, [productId, productDetails, loadDetails]);
+export function ProductBoxContainer({ productId, className }) {
+  const { data } = useProductDetails(productId);
 
-  return productDetails ? (
-    <ProductBox className={className} {...productDetails} />
-  ) : null;
+  return data ? <ProductBox className={className} {...data} /> : null;
 }
-
-const mapStates = (state, ownProps) => ({
-  productDetails: selectProduct(state, ownProps.productId),
-});
-
-const mapDispatch = (dispatch, ownProps) => ({
-  loadDetails: () => dispatch(loadProductDetail(ownProps.productId)),
-});
-
-export const ProductBoxContainer = connect(
-  mapStates,
-  mapDispatch
-)(ProductBoxContainerContent);
