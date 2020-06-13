@@ -48,7 +48,7 @@ export function Image({
           <Spinner />
         </div>
       )}
-      {blurSrc && (
+      {blurSrc && loadStatus !== 'loaded' && (
         <img
           className={styles.blur}
           onLoad={() => setLoadStatus('loadingFullImage')}

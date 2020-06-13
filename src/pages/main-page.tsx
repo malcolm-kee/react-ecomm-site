@@ -6,7 +6,6 @@ import { MarketingBanner } from 'modules/marketing/components/marketing-banner';
 import { ProductBox } from 'modules/products/components/product-box';
 import { useProducts } from 'modules/products/product.queries';
 import * as React from 'react';
-import styles from './main-page.module.scss';
 
 export function MainPage() {
   const {
@@ -47,7 +46,7 @@ export function MainPage() {
             <small>Because you can't buy anything here.</small>
           </blockquote>
         </Jumbotron>
-        <div className={styles.grid}>
+        <div className="p-2 grid grid-cols-2 gap-2 xs:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
           {productGroups.map((products, i) => (
             <React.Fragment key={i}>
               {products.map((product) => (

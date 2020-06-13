@@ -16,6 +16,12 @@ export function useProducts() {
     'products',
     (_, before = '') => getProducts({ before }),
     {
+      onSuccess: (productGroup) => {
+        const lastGroup = productGroup[productGroup.length - 1];
+        lastGroup.forEach((product) => {
+          queryCache.setQueryData(['product', product._id], product);
+        });
+      },
       getFetchMore: (lastGroup) =>
         lastGroup.length === 0
           ? false

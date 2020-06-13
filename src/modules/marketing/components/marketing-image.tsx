@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { MarketingBanner } from '../marketing.type';
 import styles from './marketing-image.module.scss';
+import { prefetchImage } from 'lib/prefetch-image';
 
 type MarketingImageProps = {
   banner: MarketingBanner;
@@ -11,6 +12,23 @@ export function MarketingImage({ banner, onLoad }: MarketingImageProps) {
   const [loadingBlur, setIsLoading] = React.useState(
     () => typeof banner['700Blur'] === 'string'
   );
+
+  React.useEffect(() => {
+    let isCurrent = true;
+    const handleLoad = () => {
+      if (isCurrent) {
+        onLoad();
+      }
+    };
+
+    prefetchImage(banner['700Blur'] || banner['700'])
+      .then(handleLoad)
+      .catch(handleLoad);
+
+    return () => {
+      isCurrent = false;
+    };
+  }, [banner, onLoad]);
 
   function onImageLoaded() {
     setIsLoading(false);

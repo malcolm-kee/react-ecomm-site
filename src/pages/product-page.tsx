@@ -22,13 +22,8 @@ const ProductComments = React.lazy(() =>
   )
 );
 
-function useQty(productId: string) {
+function useQty() {
   const [qty, setQty] = React.useState(1);
-
-  // reset qty when product id change
-  React.useEffect(() => {
-    setQty(1);
-  }, [productId]);
 
   return {
     qty,
@@ -43,13 +38,13 @@ type ProductPageProps = {
 
 type ReduxProps = ConnectedProps<typeof connector>;
 
-function ProductPageContent({
+function ProductDetails({
   productId,
   addToCart,
 }: ProductPageProps & ReduxProps) {
   const { data: details } = useProductDetails(productId);
 
-  const { qty, increment, decrement } = useQty(productId);
+  const { qty, increment, decrement } = useQty();
 
   return (
     <article className="max-w-4xl mx-auto py-2 px-4">
@@ -70,24 +65,25 @@ function ProductPageContent({
                   blurUrl={details.images.blur}
                   alt={details.name}
                   key={details.images.standard}
+                  className="rounded-lg"
                 />
               </div>
             )}
             <div className="w-full sm:w-1/2 sm:px-4">
-              <h1 className="hidden sm:block text-3xl md:text-4xl">
-                {details.name}
-              </h1>
+              <h1 className="hidden sm:block text-3xl">{details.name}</h1>
               {details.price && (
                 <h3 className="text-3xl sm:text-xl md:text-2xl">
                   RM {details.price}
                 </h3>
               )}
               {details.descriptions && details.descriptions.length > 0 && (
-                <blockquote>{details.descriptions.join(', ')}</blockquote>
+                <blockquote className="text-gray-700">
+                  {details.descriptions.join(', ')}
+                </blockquote>
               )}
               <div>
-                <Field>
-                  <Label>Quantity</Label>
+                <Field className="flex items-center my-2">
+                  <Label className="mr-2">Quantity</Label>
                   <div className="flex py-1 w-32">
                     <Button
                       onClick={decrement}
@@ -133,7 +129,7 @@ function ProductPageContent({
               <div className="overflow-y-auto py-1 flex -mx-1 sm:-mx-2">
                 {details.related.map((productId) => (
                   <ProductBoxContainer
-                    className="mx-1 sm:mx-2 flex-shrink-0 w-40"
+                    className="flex-shrink-0 w-40"
                     productId={productId}
                     key={productId}
                   />
@@ -162,15 +158,17 @@ function ProductPageContent({
   );
 }
 
-const mapDispatch = (dispatch: ThunkDispatch) => ({
+function ProductPageContent(props: ProductPageProps & ReduxProps) {
+  return <ProductDetails {...props} key={props.productId} />;
+}
+
+const connector = connect(null, (dispatch: ThunkDispatch) => ({
   addToCart: (qty: number, product: Product) => {
     toast.success('Added to Cart', {
       autoClose: 2000,
     });
     return dispatch(cartActions.addItem({ product, qty }));
   },
-});
-
-const connector = connect(null, mapDispatch);
+}));
 
 export const ProductPage = connector(ProductPageContent);

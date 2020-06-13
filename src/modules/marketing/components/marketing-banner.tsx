@@ -13,11 +13,11 @@ export const MarketingBanner = () => {
 
   const [loadedImageNum, setLoadedImageNum] = React.useState(0);
 
-  const isAllImageLoaded = banners && loadedImageNum <= banners.length;
+  const isAllImageLoaded = banners && loadedImageNum >= banners.length;
 
-  const loadImage = () => {
+  const loadImage = React.useCallback(() => {
     setLoadedImageNum((x) => x + 1);
-  };
+  }, []);
 
   return banners ? (
     <Carousel>
