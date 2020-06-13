@@ -15,6 +15,9 @@
 /build
 /styleguide
 
+# generated
+/src/tailwind.generated.css
+
 # misc
 .DS_Store
 .env.local

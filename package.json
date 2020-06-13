@@ -22,6 +22,7 @@
     "react-transition-group": "^4.0.0",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
+    "tailwindcss": "^1.4.6",
     "xhfetch": "^1.0.2"
   },
   "scripts": {
@@ -31,7 +32,11 @@
     "test:ci": "react-scripts test --coverage --ci --watchAll=false",
     "format": "prettier --write src",
     "local": "cross-env BROWSER=none react-scripts -r @cypress/instrument-cra start",
+    "build:css": "tailwindcss build src/tailwind.css -o src/tailwind.generated.css",
+    "build:css:prod": "tailwindcss build src/tailwind.css -o src/tailwind.generated.css -c tailwind.prod.config.js",
     "deploy": "netlify deploy --dir=build",
+    "postinstall": "npm run build:css",
+    "prebuild": "npm run build:css:prod",
     "start:docs": "styleguidist server",
     "build:docs": "styleguidist build",
     "deploy:docs": "netlify deploy --dir=styleguide --prod",

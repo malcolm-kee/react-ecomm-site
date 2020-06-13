@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { ReactQueryConfigProvider } from 'react-query';
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
-import { rootReducer } from './modules/root-reducer';
 import './global.scss';
+import { rootReducer } from './modules/root-reducer';
+import './tailwind.generated.css';
 
 const reactQueryConfig = {
   staleTime: 5000,
