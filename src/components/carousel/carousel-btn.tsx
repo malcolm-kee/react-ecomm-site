@@ -1,9 +1,9 @@
 import cx from 'classnames';
+import { LeftIcon } from 'icon/left-icon';
+import { RightIcon } from 'icon/right-icon';
 import * as React from 'react';
-import { CarouselContext } from './carousel-context';
 import styles from './carousel-btn.module.scss';
-import { RightIcon } from '../icon/right-icon';
-import { LeftIcon } from '../icon/left-icon';
+import { CarouselContext } from './carousel-context';
 
 export type CarouselBtnProps = { direction: 'next' | 'prev' };
 

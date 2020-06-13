@@ -32,7 +32,7 @@
 ### Demo of `useScrollOnMount`
 
 ```jsx
-import { useScrollOnMount } from '../hooks/use-scroll-on-mount';
+import { useScrollOnMount } from 'hooks/use-scroll-on-mount';
 import { Button } from './button';
 
 const ImportantContent = () => {

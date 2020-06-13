@@ -1,12 +1,12 @@
 import cx from 'classnames';
+import { CalendarIcon } from 'icon/calendar-icon';
 import $ from 'jquery';
 import * as React from 'react';
+import { useId } from '../hooks/use-id';
+import { useLatest } from '../hooks/use-latest';
 import '../lib/jquery.datepick.package-5.1.0/js/jquery.datepick';
 import styles from './date-input.module.scss';
 import { Input, InputProps } from './input';
-import { useLatest } from '../hooks/use-latest';
-import { useId } from '../hooks/use-id';
-import { CalendarIcon } from './icon/calendar-icon';
 
 type DateInputProps = InputProps & {
   /**

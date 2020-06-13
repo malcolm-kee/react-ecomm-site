@@ -1,6 +1,8 @@
 import cx from 'classnames';
 import * as React from 'react';
-import TextareaAutosize, { TextareaAutosizeProps } from 'react-textarea-autosize';
+import TextareaAutosize, {
+  TextareaAutosizeProps,
+} from 'react-textarea-autosize';
 import { callAll } from '../lib/fn-lib';
 import { FieldContext } from './field-context';
 
@@ -37,7 +39,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     return (
       <TextareaAutosize
         className={cx(
-          'text-base block m-0 w-full border border-gray-300 rounded-lg px-3 py-1 shadow-inner text-gray-900',
+          'text-base block m-0 w-full border border-gray-300 rounded-lg px-3 py-1 shadow-inner text-gray-900 focus:border-gray-900',
           className
         )}
         minRows={minRows}

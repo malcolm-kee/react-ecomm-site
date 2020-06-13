@@ -1,9 +1,9 @@
 import { Button } from 'components/button';
-import { CloseIcon } from 'components/icon/close-icon';
+import { CloseIcon } from 'icon/close-icon';
 import { formatMoney } from 'lib/format';
+import { ProductImage } from 'modules/products/components/product-image';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { ProductImage } from '../../products/components/product-image';
 import { CartItem as CardItemType } from '../cart.type';
 
 type CartItemProps = {

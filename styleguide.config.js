@@ -15,7 +15,17 @@ const tsParser = require('react-docgen-typescript').withCustomConfig(
 );
 
 module.exports = {
-  components: 'src/components/**/*.{jsx,tsx}',
+  sections: [
+    {
+      name: 'Components',
+      components: 'src/components/**/*.{jsx,tsx}',
+    },
+    {
+      name: 'Icons',
+      content: path.resolve(__dirname, 'src', 'icon/icon.md'),
+    },
+  ],
+  require: [path.join(__dirname, 'src', 'tailwind.generated.css')],
   propsParser: (filePath, source, resolver, handlers) => {
     const { ext } = path.parse(filePath);
     return ext === '.tsx'

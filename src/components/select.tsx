@@ -3,7 +3,10 @@ import * as React from 'react';
 import { callAll } from '../lib/fn-lib';
 import { FieldContext } from './field-context';
 
-export type SelectProps = Omit<JSX.IntrinsicElements['select'], 'size'> & {
+export type SelectProps = Omit<
+  React.ComponentPropsWithoutRef<'select'>,
+  'size'
+> & {
   /**
    * callback to be invoked when input change. The parameter will
    * be the value instead of the event object
@@ -54,7 +57,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <select
         className={cx(
-          'block m-0 w-full border border-gray-300 rounded-lg px-3 shadow-inner text-gray-900',
+          'block m-0 w-full border border-gray-300 rounded-lg px-3 shadow-inner text-gray-900 focus:border-gray-900',
           size ? sizeClasses[size] : 'text-base py-1',
           className
         )}

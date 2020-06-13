@@ -1,11 +1,11 @@
+import { useId } from 'hooks/use-id';
+import { CheckIcon } from 'icon/check-icon';
+import { CloseIcon } from 'icon/close-icon';
+import { DocumentIcon } from 'icon/document-icon';
+import { ImportantIcon } from 'icon/important-icon';
 import * as React from 'react';
-import { useId } from '../hooks/use-id';
 import styles from './file-record.module.scss';
-import { CloseIcon } from './icon/close-icon';
 import { Progress } from './progress';
-import { CheckIcon } from './icon/check-icon';
-import { DocumentIcon } from './icon/document-icon';
-import { ImportantIcon } from './icon/important-icon';
 
 type FileRecordProps =
   | {

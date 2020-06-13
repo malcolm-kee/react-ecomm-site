@@ -1,19 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import cx from 'classnames';
+import { useId } from 'hooks/use-id';
+import { useLatest } from 'hooks/use-latest';
+import { useLazyRef } from 'hooks/use-lazy-ref';
+import { callAll } from 'lib/fn-lib';
+import { getId } from 'lib/id';
 import * as React from 'react';
-import { useId } from '../hooks/use-id';
-import { useLatest } from '../hooks/use-latest';
-import { useLazyRef } from '../hooks/use-lazy-ref';
-import { callAll } from '../lib/fn-lib';
-import { getId } from '../lib/id';
 import {
   cleanupFilePreviewUrl,
   getFilePreviewUrl,
   upload,
-} from '../services/file.service';
+} from 'services/file.service';
+import { Button } from './button';
 import { FileRecord } from './file-record';
 import styles from './file-upload.module.scss';
-import { Button } from './button';
 
 export type FileData =
   | {
@@ -236,7 +236,7 @@ export const FileUpload = ({
           />
           <Button
             color="primary"
-            className="my-2"
+            className="my-2 cursor-pointer"
             renderContainer={({ className, children }) => (
               <label className={className} htmlFor={id}>
                 {children}
