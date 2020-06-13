@@ -3,10 +3,15 @@ import { Provider } from 'mobx-react';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { ReactQueryConfigProvider } from 'react-query';
 import App from './App';
 import './global.scss';
 import { AuthStore } from './modules/auth/auth.store';
 import { CartStore } from './modules/cart/cart.store';
+
+const reactQueryConfig = {
+  staleTime: 5000,
+};
 
 configure({
   enforceActions: 'observed',
@@ -18,9 +23,11 @@ const cartStore = new CartStore();
 function renderApp(AppComponent) {
   return ReactDOM.render(
     <Provider auth={authStore} cart={cartStore}>
-      <Router>
-        <AppComponent />
-      </Router>
+      <ReactQueryConfigProvider config={reactQueryConfig}>
+        <Router>
+          <AppComponent />
+        </Router>
+      </ReactQueryConfigProvider>
     </Provider>,
     document.getElementById('root')
   );
