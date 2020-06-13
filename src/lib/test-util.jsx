@@ -23,21 +23,19 @@ export function renderWithQuery(ui, config = {}) {
   );
 }
 
-export function renderWithStateMgmt(
+export function renderWithStateMgmtAndRouter(
   ui,
   {
     route = '/',
     history = createMemoryHistory({
       initialEntries: [route],
     }),
-    queryConfig = {
-      retry: false,
-    },
+    queryConfig,
   } = {}
 ) {
   const authStore = new AuthStore();
   const productStore = new ProductStore();
-  const cartStore = new CartStore(productStore);
+  const cartStore = new CartStore();
 
   return {
     authStore,
@@ -48,15 +46,16 @@ export function renderWithStateMgmt(
       act(() => {
         history.push(to);
       }),
-    ...render(
-      <ReactQueryConfigProvider config={queryConfig}>
+    ...renderWithQuery(
+      <>
         <Router history={history}>
           <Provider auth={authStore} product={productStore} cart={cartStore}>
             {ui}
           </Provider>
         </Router>
         <ToastContainer />
-      </ReactQueryConfigProvider>
+      </>,
+      queryConfig
     ),
   };
 }

@@ -15,7 +15,6 @@ import { MainPage } from './pages/main-page';
 import { NotFoundPage } from './pages/not-found-page';
 import { PaymentPage } from './pages/payment-page';
 import { ProductPage } from './pages/product-page';
-import { ProfilePage } from './pages/profile-page';
 import { Signup } from './pages/signup';
 import { SiteNav } from './site-nav';
 
@@ -40,7 +39,6 @@ function App() {
           <Route path="/cart" component={CartPage} />
           <Route path="/pay" component={PaymentPage} />
           <Route path="/login" component={Login} />
-          <Route path="/profile" component={ProfilePage} />
           <Route path="/signup" component={Signup} />
           <Route path="/help" component={HelpPage} />
           <Route path="/" exact component={MainPage} />

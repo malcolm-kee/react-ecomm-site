@@ -6,8 +6,7 @@ import { isNumber } from '../../lib/is';
  * Cart MobX Store
  */
 export class CartStore {
-  constructor(productStore) {
-    this.productStore = productStore;
+  constructor() {
     this.items = [];
   }
 
@@ -26,16 +25,16 @@ export class CartStore {
     );
   }
 
-  getItemByProductId = (productId) =>
-    this.items.find((item) => item.productId === productId);
+  getItemByProduct = (product) =>
+    this.items.find((item) => item.product._id === product._id);
 
-  addItem = (productId, qty) => {
-    const item = this.getItemByProductId(productId);
+  addItem = (product, qty) => {
+    const item = this.getItemByProduct(product);
 
     if (item) {
       item.incrementQty(qty);
     } else {
-      this.items.push(new CartItem(this.productStore, productId, qty));
+      this.items.push(new CartItem(product, qty));
     }
   };
 
@@ -60,22 +59,16 @@ decorate(CartStore, {
 });
 
 class CartItem {
-  productStore = null;
-  productId = null;
+  product = null;
   qty = 0;
 
-  constructor(productStore, productId, qty = 1) {
-    this.productStore = productStore;
+  constructor(product, qty = 1) {
     this.qty = qty;
-    this.productId = productId;
+    this.product = product;
   }
 
   get canDecrement() {
     return this.qty > 1;
-  }
-
-  get product() {
-    return this.productStore.getProduct(this.productId);
   }
 
   get totalPriceValue() {
@@ -108,8 +101,7 @@ class CartItem {
 }
 
 decorate(CartItem, {
-  productId: observable,
-  product: computed,
+  product: observable,
   qty: observable,
   canDecrement: computed,
   totalPriceValue: computed,

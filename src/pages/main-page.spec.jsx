@@ -2,7 +2,7 @@ import { cleanup, fireEvent, screen } from '@testing-library/react';
 import { PRODUCT_DB } from 'modules/products/__mocks__/product.service';
 import * as React from 'react';
 import xhrMock, { sequence } from 'xhr-mock';
-import { renderWithStateMgmt } from '../lib/test-util';
+import { renderWithStateMgmtAndRouter } from '../lib/test-util';
 import { MainPage } from './main-page';
 
 jest.mock('../modules/products/product.service');
@@ -12,7 +12,7 @@ const PRODUCT_URL = process.env.REACT_APP_PRODUCT_BASE_URL;
 
 describe('<MainPage />', () => {
   it('renders without crashing', async () => {
-    renderWithStateMgmt(<MainPage />);
+    renderWithStateMgmtAndRouter(<MainPage />);
     expect(screen.getByText('Shopit')).not.toBeNull();
 
     await screen.findByText(PRODUCT_DB[0].name);
@@ -35,7 +35,7 @@ describe('<MainPage />', () => {
       ])
     );
 
-    renderWithStateMgmt(<MainPage />);
+    renderWithStateMgmtAndRouter(<MainPage />);
 
     await screen.findByText(PRODUCT_DB[0].name);
 

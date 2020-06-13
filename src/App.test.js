@@ -1,7 +1,7 @@
 import { cleanup, screen } from '@testing-library/react';
 import * as React from 'react';
 import App from './App';
-import { renderWithStateMgmt, user } from './lib/test-util';
+import { renderWithStateMgmtAndRouter, user } from './lib/test-util';
 
 jest.mock('./modules/auth/auth.service');
 jest.mock('./modules/marketing/marketing.service');
@@ -12,7 +12,7 @@ function loadApp({ url = '/' } = {}) {
   const addToCartBtnLabel = 'Add To Cart';
 
   return {
-    ...renderWithStateMgmt(<App />, {
+    ...renderWithStateMgmtAndRouter(<App />, {
       route: url,
     }),
     addProductToCart: () => user.click(screen.getByText(addToCartBtnLabel)),
@@ -178,6 +178,7 @@ describe('<App />', () => {
     const $emailInput = await screen.findByLabelText('Email');
 
     await user.type($emailInput, 'mk@test.com');
+    await user.type(screen.getByLabelText('Password'), '12345678');
 
     submitForm();
 
@@ -232,27 +233,5 @@ describe('<App />', () => {
     expect(screen.queryByText('Logout')).toBeNull();
 
     cleanup();
-  });
-
-  it(`can update user profile`, async () => {
-    const { navigate, submitForm } = loadApp({
-      url: '/login',
-    });
-
-    const $emailInput = await screen.findByLabelText('Email');
-
-    await user.type($emailInput, 'mk@test.com');
-    submitForm();
-
-    await screen.findByText("You're already login!");
-
-    navigate('/profile');
-
-    await user.type(screen.getByLabelText('Name'), 'Malcolm Key');
-    submitForm();
-
-    await screen.findByText('Profile Updated.');
-
-    user.click(screen.getByText('Logout'));
   });
 });

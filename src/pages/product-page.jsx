@@ -148,12 +148,12 @@ export const ProductPage = inject('cart')(
     return (
       <ProductPageContent
         productId={productId}
-        addToCart={(qty) => {
+        addToCart={(qty, product) => {
           toast('Added to Cart', {
             type: 'success',
             autoClose: 2000,
           });
-          addItem(productId, qty);
+          addItem(product, qty);
         }}
       />
     );

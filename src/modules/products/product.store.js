@@ -48,18 +48,6 @@ export class ProductStore {
     });
   };
 
-  loadProductComments = async (productId) => {
-    if (this.productComments.get(productId) !== undefined) {
-      return;
-    }
-
-    const comments = await productService.getProductComments(productId);
-
-    runInAction('setProductComments', () => {
-      this.productComments.set(productId, comments);
-    });
-  };
-
   createProductComment = async (comment) => {
     const returnedComment = await productService.createProductComment(comment);
     runInAction('addProductComment', () => {

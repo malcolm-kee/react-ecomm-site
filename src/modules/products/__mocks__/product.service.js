@@ -289,7 +289,7 @@ export let PRODUCT_DB = [
 ];
 
 export function getProducts({ before }) {
-  return Promise.resolve(PRODUCT_DB.slice(0, before ? 4 : 2));
+  return Promise.resolve(PRODUCT_DB.slice(before ? 2 : 0, before ? 4 : 2));
 }
 
 export function getProduct(productId) {
