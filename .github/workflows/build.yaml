@@ -1,4 +1,4 @@
-name: CI
+name: Build and Deploy
 on: ['push', 'pull_request']
 jobs:
   build:
@@ -39,3 +39,17 @@ jobs:
         run: yarn build
         env:
           CI: true
+
+      - name: Deploy
+        run: yarn deploy --prod
+        if: ${{ github.ref == 'refs/heads/master' }}
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: Deploy Branch
+        run: yarn deploy --branch=${GITHUB_REF##*/}
+        if: ${{ github.ref == 'refs/heads/redux' || github.ref == 'refs/heads/mobx' }}
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
