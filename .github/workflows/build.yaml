@@ -51,3 +51,16 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: Build Docs
+        run: yarn build:docs
+        if: ${{ github.ref == 'refs/heads/master' }}
+        env:
+          CI: true
+
+      - name: Deploy Docs
+        run: yarn deploy:docs
+        if: ${{ github.ref == 'refs/heads/master' }}
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_DOCS_SITE_ID }}
