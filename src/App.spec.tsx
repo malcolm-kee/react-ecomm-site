@@ -45,7 +45,9 @@ describe('<App />', () => {
   it('renders without crashing', async () => {
     loadApp();
 
-    await screen.findAllByText('Just Buy It.');
+    await screen.findAllByText(
+      'The best shopping site in the web that would saves you most money.'
+    );
 
     expect(screen.getAllByText('Shopit').length).toBeGreaterThan(0);
 
