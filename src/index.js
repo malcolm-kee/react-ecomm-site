@@ -7,19 +7,17 @@ import App from './App';
 import './global.scss';
 import { AuthStore } from './modules/auth/auth.store';
 import { CartStore } from './modules/cart/cart.store';
-import { ProductStore } from './modules/products/product.store';
 
 configure({
   enforceActions: 'observed',
 });
 
 const authStore = new AuthStore();
-const productStore = new ProductStore();
-const cartStore = new CartStore(productStore);
+const cartStore = new CartStore();
 
 function renderApp(AppComponent) {
   return ReactDOM.render(
-    <Provider auth={authStore} product={productStore} cart={cartStore}>
+    <Provider auth={authStore} cart={cartStore}>
       <Router>
         <AppComponent />
       </Router>

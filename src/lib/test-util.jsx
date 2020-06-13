@@ -8,7 +8,6 @@ import { Router } from 'react-router-dom';
 import { ToastContainer } from '../components/toast';
 import { AuthStore } from '../modules/auth/auth.store';
 import { CartStore } from '../modules/cart/cart.store';
-import { ProductStore } from '../modules/products/product.store';
 
 export function renderWithQuery(ui, config = {}) {
   return render(
@@ -34,12 +33,10 @@ export function renderWithStateMgmtAndRouter(
   } = {}
 ) {
   const authStore = new AuthStore();
-  const productStore = new ProductStore();
   const cartStore = new CartStore();
 
   return {
     authStore,
-    productStore,
     cartStore,
     history,
     navigate: (to) =>
@@ -49,7 +46,7 @@ export function renderWithStateMgmtAndRouter(
     ...renderWithQuery(
       <>
         <Router history={history}>
-          <Provider auth={authStore} product={productStore} cart={cartStore}>
+          <Provider auth={authStore} cart={cartStore}>
             {ui}
           </Provider>
         </Router>
