@@ -47,13 +47,14 @@ export function MainPage() {
           </blockquote>
         </Jumbotron>
         <div className="p-2 grid grid-cols-2 gap-2 xs:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
-          {productGroups.map((products, i) => (
-            <React.Fragment key={i}>
-              {products.map((product) => (
-                <ProductBox {...product} key={product._id} />
-              ))}
-            </React.Fragment>
-          ))}
+          {productGroups &&
+            productGroups.map((products, i) => (
+              <React.Fragment key={i}>
+                {products.map((product) => (
+                  <ProductBox {...product} key={product._id} />
+                ))}
+              </React.Fragment>
+            ))}
         </div>
         <div>{(status === 'loading' || isFetchingMore) && <Spinner />}</div>
       </div>

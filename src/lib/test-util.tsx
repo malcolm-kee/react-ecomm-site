@@ -9,8 +9,8 @@ import {
 } from 'react-query';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
+import { ToastContainer } from '../components/toast';
 import { rootReducer } from '../modules/root-reducer';
-import { ToastContainer } from "../components/toast";
 
 export function renderWithQuery(
   ui: React.ReactNode,
@@ -19,8 +19,11 @@ export function renderWithQuery(
   return render(
     <ReactQueryConfigProvider
       config={{
-        retry: false,
         ...config,
+        queries: {
+          retry: false,
+          ...(config.queries || {}),
+        },
       }}
     >
       {ui}
@@ -34,7 +37,9 @@ export function renderWithStateMgmtAndRouter(
     actions = [],
     route = '/',
     queryConfig = {
-      retry: false,
+      queries: {
+        retry: false,
+      },
     },
   }: {
     actions?: AnyAction[];

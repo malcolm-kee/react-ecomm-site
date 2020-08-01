@@ -17,7 +17,7 @@ function Comment({
     <div className="py-2">
       <div className="product-comment-info">
         <strong>{userName}</strong> reviewed on{' '}
-        {format(new Date(createdAt), 'DD MMM YY')}
+        {format(new Date(createdAt), 'd MMM yyyy')}
       </div>
       <div className="whitespace-pre-wrap">
         <p>{content}</p>

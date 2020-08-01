@@ -10,7 +10,9 @@ import { rootReducer } from './modules/root-reducer';
 import './tailwind.generated.css';
 
 const reactQueryConfig = {
-  staleTime: 5000,
+  queries: {
+    staleTime: 5000,
+  },
 };
 
 const store = configureStore({
