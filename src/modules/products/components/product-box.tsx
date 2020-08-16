@@ -14,7 +14,10 @@ export function ProductBox({
 }: Product & { className?: string }) {
   return (
     <Link
-      className={cx('block p-2 sm:p-4 bg-gray-100', className)}
+      className={cx(
+        'block p-2 sm:p-4 bg-gray-100 hover:shadow focus:shadow',
+        className
+      )}
       to={`/product/${_id}`}
       data-testid="productBox"
     >

@@ -43,3 +43,15 @@ export function map<OriginalItem, Result>(
 
   return result;
 }
+
+export function createArray(length: number) {
+  if (!!Array.from) {
+    return Array.from({ length });
+  }
+  const result: unknown[] = [];
+
+  for (let index = 0; index < length; index++) {
+    result.push(undefined);
+  }
+  return result;
+}

@@ -40,11 +40,11 @@ export const ChatInput = ({
       }}
       className={styles.root}
     >
-      <div className={styles.inputWrapper}>
+      <div className="relative">
         <Textarea
           required
           aria-labelledby={`${ensuredId}-label`}
-          className={cx(styles.textarea, className)}
+          className={cx('resize-none', className)}
           minRows={1}
           cacheMeasurements
           placeholder={placeholder}
@@ -64,7 +64,7 @@ export const ChatInput = ({
           onClick={() => {
             inputRef.current!.focus();
           }}
-          className={styles.btn}
+          className={`absolute focus:outline-none ${styles.btn}`}
           type="submit"
           aria-label="Send"
         >

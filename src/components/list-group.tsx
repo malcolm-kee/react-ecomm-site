@@ -63,6 +63,7 @@ export const ListGroup = (props: ListGroupProps) => {
               disabled
                 ? 'bg-gray-200 text-gray-600 cursor-not-allowed'
                 : variant && variantClasses[variant].base,
+              index === 0 && 'rounded-t-lg',
               index === allItems.length - 1 && 'rounded-b-lg',
               className
             )}

@@ -5,19 +5,9 @@
   padding: $space-2 5%;
 }
 
-.inputWrapper {
-  position: relative;
-}
-
-.textarea {
-  resize: none;
-  border-radius: $space-3;
-}
-
 .btn {
-  position: absolute;
   right: $space-1;
-  top: 1px;
+  top: 4px;
   width: 36px;
   height: 36px;
   border-radius: 50%;

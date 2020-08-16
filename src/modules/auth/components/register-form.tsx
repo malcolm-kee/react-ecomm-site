@@ -86,6 +86,7 @@ export function RegisterForm() {
             required
             rounded={false}
             className="flex-1 rounded-r-lg"
+            autoComplete="username"
           />
         </div>
       </Field>
@@ -98,6 +99,7 @@ export function RegisterForm() {
         disabled={isSubmitting}
         required
         minLength={8}
+        autoComplete="new-password"
       />
       <TextField
         label="Avatar URL"

@@ -58,6 +58,8 @@ function LoginFormContent({ status, error, login, logout }: ReduxProps) {
             disabled={isSubmitting}
             rounded={false}
             className="flex-1 rounded-r-lg"
+            autoComplete="username"
+            autoFocus
           />
         </div>
       </Field>
@@ -68,6 +70,7 @@ function LoginFormContent({ status, error, login, logout }: ReduxProps) {
         onChangeValue={setPassword}
         required
         disabled={isSubmitting}
+        autoComplete="current-password"
       />
       <div className="py-3">
         <Button
@@ -77,7 +80,7 @@ function LoginFormContent({ status, error, login, logout }: ReduxProps) {
           className="w-full"
           data-testid="submit-login"
         >
-          Login
+          LOGIN
         </Button>
       </div>
     </Form>

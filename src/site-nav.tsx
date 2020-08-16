@@ -16,11 +16,14 @@ function SiteNavContent({ status, user, logout }: ReduxProps) {
     <Navbar>
       <div className="flex items-center justify-between">
         <div className="flex items-center">
-          <Link className="text-3xl px-2" to="/">
+          <Link
+            className="text-3xl p-1 mx-2 rounded-full overflow-hidden focus:outline-none focus:shadow-outline"
+            to="/"
+          >
             <img src={siteIcon} width={45} height={45} alt="Shopit" />
           </Link>
-          <CartLink className="text-lg sm:text-xl px-2" />
-          <Link className="text-lg sm:text-xl px-2" to="/help">
+          <CartLink className="text-lg sm:text-xl px-2 mx-1" />
+          <Link className="text-lg sm:text-xl px-2 mx-1" to="/help">
             Help
           </Link>
         </div>

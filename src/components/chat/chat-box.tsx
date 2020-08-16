@@ -41,7 +41,7 @@ export const ChatBox = ({
       ) : status === 'error' || globalChat.error ? (
         <Alert color="danger">Fail to connect. Please try again</Alert>
       ) : null}
-      <ChatHistory height={height}>
+      <ChatHistory height={height} aria-live="polite" role="log">
         {messages.map((message, i) => {
           if (message.type === 'System') {
             return (

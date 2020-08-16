@@ -1,9 +1,10 @@
 import { Jumbotron } from 'components/jumbotron';
 import { Seo } from 'components/seo';
-import { Spinner } from 'components/spinner';
 import { useWindowEvent } from 'hooks/use-window-event';
+import { createArray } from 'lib/array';
 import { MarketingBanner } from 'modules/marketing/components/marketing-banner';
 import { ProductBox } from 'modules/products/components/product-box';
+import { ProductBoxSkeleton } from 'modules/products/components/product-box-skeleton';
 import { useProducts } from 'modules/products/product.queries';
 import * as React from 'react';
 
@@ -55,9 +56,11 @@ export function MainPage() {
                 ))}
               </React.Fragment>
             ))}
+          {(status === 'loading' || isFetchingMore) && skeletons}
         </div>
-        <div>{(status === 'loading' || isFetchingMore) && <Spinner />}</div>
       </div>
     </>
   );
 }
+
+const skeletons = createArray(12).map((_, index) => <ProductBoxSkeleton />);

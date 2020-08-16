@@ -17,7 +17,7 @@ export type ButtonProps = JSX.IntrinsicElements['button'] & {
   ) => JSX.Element;
 };
 
-const colorClasses: Record<NonNullable<ButtonProps['color']>, string> = {
+export const colorClasses: Record<NonNullable<ButtonProps['color']>, string> = {
   default: 'bg-white text-gray-900 shadow',
   primary: 'bg-blue-500 text-gray-100 shadow',
   success: 'bg-green-500 text-gray-100 shadow',

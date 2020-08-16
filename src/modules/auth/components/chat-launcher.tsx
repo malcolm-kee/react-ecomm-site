@@ -1,6 +1,7 @@
-import { Button } from 'components/button';
 import { ChatBox } from 'components/chat/chat-box';
+import { IconButton } from 'components/icon-button';
 import * as React from 'react';
+import { MdChatBubbleOutline, MdClose } from 'react-icons/md';
 import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from 'type';
 import { selectUser } from '../auth.selectors';
@@ -19,26 +20,25 @@ const ChatLauncherView = (props: ConnectedProps<typeof connector>) => {
 
   return (
     <>
-      <Button
-        color="info"
+      <IconButton
         className={styles.btn}
+        color="info"
+        size="large"
         onClick={() => setShowChat(true)}
         ref={btnRef}
       >
-        Chat
-      </Button>
+        <span className="sr-only">Chat</span>
+        <MdChatBubbleOutline aria-hidden className="w-6 h-6" />
+      </IconButton>
       {showChat && (
-        <div className={styles.chatWrapper}>
-          <div className="flex bg-teal-500 text-gray-100 justify-between items-center py-1 px-3">
+        <div
+          className={`rounded-t-md overflow-hidden shadow-md ${styles.chatWrapper}`}
+        >
+          <div className="flex bg-teal-500 text-gray-100 justify-between items-center py-2 px-4">
             Chat
-            <Button
-              onClick={dismissChat}
-              aria-label="Close"
-              color="info"
-              autoFocus
-            >
-              X
-            </Button>
+            <IconButton onClick={dismissChat} aria-label="Close" autoFocus>
+              <MdClose className="w-5 h-5" aria-hidden />
+            </IconButton>
           </div>
           {props.user ? (
             <ChatBox

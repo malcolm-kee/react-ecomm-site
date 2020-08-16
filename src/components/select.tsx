@@ -57,7 +57,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <select
         className={cx(
-          'block m-0 w-full border border-gray-300 rounded-lg px-3 shadow-inner text-gray-900 focus:border-gray-900',
+          'block form-select m-0 w-full rounded-lg',
           size ? sizeClasses[size] : 'text-base py-1',
           className
         )}
