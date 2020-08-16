@@ -63,4 +63,4 @@ export function MainPage() {
   );
 }
 
-const skeletons = createArray(12).map((_, index) => <ProductBoxSkeleton />);
+const skeletons = createArray(12).map((_, index) => <ProductBoxSkeleton key={index} />);
