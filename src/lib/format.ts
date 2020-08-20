@@ -10,6 +10,6 @@ export const formatMoney = (
   // solution below is copied from stack overflow:
   // https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
   const parts = valueWithDecimal.split('.');
-  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousandSeparator);
   return parts.join('.');
 };
