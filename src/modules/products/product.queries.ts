@@ -9,12 +9,11 @@ import {
   getProduct,
   getProducts,
 } from './product.service';
-import { Product } from './product.type';
 
 export function useProducts() {
-  return useInfiniteQuery<Product[], 'products', string>(
+  return useInfiniteQuery(
     'products',
-    (_, before = '') => getProducts({ before }),
+    (_, before: string = '') => getProducts({ before }),
     {
       onSuccess: (productGroup) => {
         const lastGroup = productGroup[productGroup.length - 1];
@@ -31,7 +30,7 @@ export function useProducts() {
 }
 
 export function useProductDetails(productId: string) {
-  return useQuery(['product', productId], (_, id) => getProduct(id));
+  return useQuery(['product', productId], (_, id: string) => getProduct(id));
 }
 
 export function useAddProductComment(productId: string) {

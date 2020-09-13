@@ -3,10 +3,7 @@ import { act, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import * as React from 'react';
-import {
-  ReactQueryConfigProvider,
-  ReactQueryProviderConfig,
-} from 'react-query';
+import { ReactQueryConfig, ReactQueryConfigProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
 import { ToastContainer } from '../components/toast';
@@ -14,7 +11,7 @@ import { rootReducer } from '../modules/root-reducer';
 
 export function renderWithQuery(
   ui: React.ReactNode,
-  config: ReactQueryProviderConfig = {}
+  config: ReactQueryConfig = {}
 ) {
   return render(
     <ReactQueryConfigProvider
@@ -44,7 +41,7 @@ export function renderWithStateMgmtAndRouter(
   }: {
     actions?: AnyAction[];
     route?: string;
-    queryConfig?: ReactQueryProviderConfig;
+    queryConfig?: ReactQueryConfig;
   } = {}
 ) {
   const history = createMemoryHistory({
