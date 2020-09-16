@@ -23,7 +23,7 @@ describe(`auth`, () => {
     cy.findByLabelText('Email').type(email);
     cy.findByLabelText('Password').type(password);
 
-    cy.findAllByText('Login').last().click();
+    cy.findAllByText('LOGIN').last().click();
 
     cy.findByText(`You're already login!`).should('be.visible');
 

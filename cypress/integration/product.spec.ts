@@ -57,7 +57,7 @@ describe(`product`, () => {
       cy.findByLabelText('Password').type(user.password);
 
       cy.get('form').within((subject) => {
-        cy.findByText('Login', {
+        cy.findByText('LOGIN', {
           container: subject,
           selector: 'button',
         }).click();

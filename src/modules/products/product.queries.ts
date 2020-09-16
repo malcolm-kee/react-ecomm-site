@@ -38,9 +38,7 @@ export function useAddProductComment(productId: string) {
     (data: Parameters<typeof createProductComment>[1]) =>
       createProductComment(productId, data),
     {
-      onSuccess: () => {
-        queryCache.invalidateQueries(['product', productId]);
-      },
+      onSuccess: () => queryCache.invalidateQueries(['product', productId]),
     }
   );
 }

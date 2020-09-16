@@ -4,12 +4,11 @@ describe(`chat`, () => {
       name: 'Malcolm Tee',
     }).then((user) => {
       cy.visit('/help');
-      cy.findByText('Chat').click();
+      cy.findByText('Chat').closest('button').click();
 
-      cy.findAllByText('Login').last().click();
       cy.findByLabelText('Email').type(user.email);
       cy.findByLabelText('Password').type(user.password);
-      cy.findAllByText('Login').last().click();
+      cy.findAllByText('LOGIN').last().click();
 
       cy.findByLabelText('Chat message', {
         timeout: 6000,
@@ -31,12 +30,12 @@ describe(`chat`, () => {
             url: `wss://ecomm-service.herokuapp.com?roomId=${roomDetails.body._id}`,
           }).then((chatSocket) => {
             cy.visit('/help');
-            cy.findByText('Chat').click();
+            cy.findByText('Chat').closest('button').click();
 
             cy.findAllByText('Login').last().click();
             cy.findByLabelText('Email').type(user.email);
             cy.findByLabelText('Password').type(user.password);
-            cy.findAllByText('Login').last().click();
+            cy.findAllByText('LOGIN').last().click();
 
             cy.findByLabelText('Chat message', {
               timeout: 6000,
@@ -74,12 +73,11 @@ describe(`chat`, () => {
       name: 'Malcolm Noisy',
     }).then((user) => {
       cy.visit('/help');
-      cy.findByText('Chat').click();
+      cy.findByText('Chat').closest('button').click();
 
-      cy.findAllByText('Login').last().click();
       cy.findByLabelText('Email').type(user.email);
       cy.findByLabelText('Password').type(user.password);
-      cy.findAllByText('Login').last().click();
+      cy.findAllByText('LOGIN').last().click();
 
       cy.findByLabelText('Chat message', {
         timeout: 6000,
