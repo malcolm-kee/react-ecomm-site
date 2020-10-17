@@ -14,7 +14,11 @@ const tsParser = require('react-docgen-typescript').withCustomConfig(
   }
 );
 
+/**
+ * @type {import('react-styleguidist').StyleguidistConfig}
+ */
 module.exports = {
+  webpackConfig: require('mk-scripts/config/webpack.config'),
   sections: [
     {
       name: 'Components',
@@ -25,7 +29,7 @@ module.exports = {
       content: path.resolve(__dirname, 'src', 'icon/icon.md'),
     },
   ],
-  require: [path.join(__dirname, 'src', 'tailwind.generated.css')],
+  require: [path.join(__dirname, 'src', 'tailwind.css')],
   propsParser: (filePath, source, resolver, handlers) => {
     const { ext } = path.parse(filePath);
     return ext === '.tsx'
