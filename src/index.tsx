@@ -7,7 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import './global.scss';
 import { rootReducer } from './modules/root-reducer';
-import './tailwind.generated.css';
+import './tailwind.css';
 
 const reactQueryConfig = {
   queries: {
