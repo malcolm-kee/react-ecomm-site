@@ -46,6 +46,7 @@ function CartItem({
               webpUrl={item.product.images.thumbWebp}
               blurUrl={item.product.images.thumbBlur}
               alt={item.product.name}
+              blurhash={item.product.blurhash}
               width={188}
               height={188}
             />

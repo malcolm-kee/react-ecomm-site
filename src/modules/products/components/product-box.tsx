@@ -11,6 +11,7 @@ export function ProductBox({
   price,
   className,
   department,
+  blurhash,
 }: Product & { className?: string }) {
   return (
     <Link
@@ -28,6 +29,7 @@ export function ProductBox({
               url={images.thumbStandard}
               webpUrl={images.thumbWebp}
               blurUrl={images.thumbBlur}
+              blurhash={blurhash}
               alt={name}
               width={188}
               height={188}

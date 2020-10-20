@@ -16,10 +16,11 @@ import { useProductDetails } from '../modules/products/product.queries';
 import { Product } from '../modules/products/product.type';
 import { ThunkDispatch } from '../type';
 
-const ProductComments = React.lazy(() =>
-  import(
-    /* webpackChunkName: "ProductComments" */ '../modules/products/components/product-comments'
-  )
+const ProductComments = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: "ProductComments" */ '../modules/products/components/product-comments'
+    )
 );
 
 function useQty() {
@@ -63,6 +64,7 @@ function ProductDetails({
                   url={details.images.standard}
                   webpUrl={details.images.webp}
                   blurUrl={details.images.blur}
+                  blurhash={details.blurhash}
                   alt={details.name}
                   key={details.images.standard}
                   className="rounded-lg"

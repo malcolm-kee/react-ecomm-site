@@ -8,6 +8,7 @@ export type ProductImageProps = Omit<
   url: string;
   webpUrl: string;
   blurUrl?: string;
+  blurhash?: string;
 };
 
 export function ProductImage({

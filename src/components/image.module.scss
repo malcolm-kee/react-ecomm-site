@@ -1,10 +1,5 @@
 .image {
-  display: block;
-  position: relative;
-  height: 0;
   padding-top: 100%;
-  text-align: center;
-  flex: 1;
 }
 
 .image picture,
@@ -21,15 +16,7 @@
   filter: blur(5px);
 }
 
-.spinner {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.error {
-  position: absolute;
+.center {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
