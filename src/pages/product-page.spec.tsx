@@ -1,4 +1,4 @@
-import { screen, wait } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import * as React from 'react';
 import { renderWithStateMgmtAndRouter, user } from '../lib/test-util';
 import { ProductPage } from './product-page';
@@ -12,8 +12,6 @@ describe('<ProductPage />', () => {
     const addToCartBtn = await screen.findByText('Add To Cart');
 
     user.click(addToCartBtn);
-
-    await wait(); // to suppress act() warning
   });
 
   it('allows customer to add comment', async () => {
@@ -26,6 +24,8 @@ describe('<ProductPage />', () => {
 
     user.click(screen.getByTestId('product-comment-submit-btn'));
 
-    await wait(); // to suppress act() warning
+    await waitFor(() =>
+      expect(screen.getByLabelText('Your Name')).toHaveFocus()
+    );
   });
 });

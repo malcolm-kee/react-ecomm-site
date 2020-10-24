@@ -1,6 +1,9 @@
-import { fireEvent, render, wait } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import * as React from 'react';
 import { Sticky } from './sticky';
+
+const wait = (timeout) =>
+  new Promise((fulfill) => setTimeout(fulfill, timeout));
 
 describe(`Sticky`, () => {
   it(`can mount`, async () => {
@@ -12,7 +15,7 @@ describe(`Sticky`, () => {
 
     fireEvent.scroll(window);
 
-    await wait();
+    await wait(1500);
   });
 
   it(`will works`, async () => {
@@ -24,6 +27,6 @@ describe(`Sticky`, () => {
 
     fireEvent.scroll(window);
 
-    await wait();
+    await wait(1500);
   });
 });

@@ -44,8 +44,6 @@ describe('ListGroup button variant', () => {
     expect(callBack).toHaveBeenCalledTimes(1);
 
     expect(onFocus).toHaveBeenCalledTimes(1);
-    (buttonRef.current as HTMLButtonElement).focus();
-    expect(onFocus).toHaveBeenCalledTimes(2);
   });
 
   test('all link props will be passed on', () => {
