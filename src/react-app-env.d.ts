@@ -7,6 +7,7 @@ type DatePickOption = {
   showAnim?: string;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 declare interface JQuery {
   datepick(command: 'getDate'): Date[];
   datepick(command: 'setDate', date: string | Date): JQuery;

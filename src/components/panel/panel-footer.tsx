@@ -2,9 +2,9 @@ import cx from 'classnames';
 import * as React from 'react';
 import { PanelColor, PanelContext } from './panel-context';
 
-export type PanelFooter = JSX.IntrinsicElements['div'];
+export type PanelFooterProps = JSX.IntrinsicElements['div'];
 
-export const PanelFooter = ({ className, ...divProps }: PanelFooter) => {
+export const PanelFooter = ({ className, ...divProps }: PanelFooterProps) => {
   const color = React.useContext(PanelContext);
 
   return (
