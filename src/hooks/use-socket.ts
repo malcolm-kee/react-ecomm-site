@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useLatest } from './use-latest';
+import { useCallbackProp } from './use-callback-props';
 
 type UseSocketOptions = {
   onMessage: (data: any) => void;
@@ -14,9 +14,9 @@ export const useSocket = (
   { onMessage, onOpen, onError }: UseSocketOptions
 ) => {
   const [status, setStatus] = React.useState<ConnectionStatus>('initializing');
-  const onMessageRef = useLatest(onMessage);
-  const onOpenRef = useLatest(onOpen);
-  const onErrorRef = useLatest(onError);
+  const onMessageCb = useCallbackProp(onMessage);
+  const onOpenCb = useCallbackProp(onOpen);
+  const onErrorCb = useCallbackProp(onError);
   const wsRef = React.useRef<WebSocket | null>(null);
   React.useEffect(() => {
     if (endpoint) {
@@ -25,25 +25,21 @@ export const useSocket = (
       wsRef.current = ws;
       ws.onopen = function onSocketOpen(ev) {
         setStatus('connected');
-        if (onOpenRef.current) {
-          onOpenRef.current(ev);
-        }
+        onOpenCb(ev);
       };
       ws.onerror = function onSocketError(ev) {
         setStatus('error');
-        if (onErrorRef.current) {
-          onErrorRef.current(ev);
-        }
+        onErrorCb(ev);
       };
       ws.onmessage = function onSocketMessage(event) {
         const data = JSON.parse(event.data);
-        onMessageRef.current(data);
+        onMessageCb(data);
       };
       return () => {
         ws.close();
       };
     }
-  }, [endpoint, onMessageRef, onOpenRef, onErrorRef]);
+  }, [endpoint, onMessageCb, onOpenCb, onErrorCb]);
 
   const send = React.useCallback(function sendMessage(data: any) {
     if (wsRef.current) {

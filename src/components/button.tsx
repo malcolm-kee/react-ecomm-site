@@ -36,35 +36,27 @@ const sizeClasses: Record<NonNullable<ButtonProps['size']>, string> = {
 /**
  * Button is a wrapper of `button` element.
  *
- * `ref` will be forwarded to the underlying `button` element.
- *
  * Other than specified props, any other props will be spreaded to the `button` element.
  */
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  function Button(
-    {
-      type = 'button',
-      color,
-      size,
-      className,
-      renderContainer = (providedProps) => <button {...providedProps} />,
-      disabled,
-      ...buttonProps
-    },
-    ref
-  ) {
-    return renderContainer({
-      className: cx(
-        'inline-block rounded',
-        disabled
-          ? 'bg-gray-500 text-gray-100 cursor-not-allowed'
-          : color && colorClasses[color],
-        size ? sizeClasses[size] : 'px-4 py-2',
-        className
-      ),
-      type,
-      disabled,
-      ...buttonProps,
-    });
-  }
-);
+export const Button = ({
+  type = 'button',
+  color,
+  size,
+  className,
+  renderContainer = (providedProps) => <button {...providedProps} />,
+  disabled,
+  ...buttonProps
+}: ButtonProps) =>
+  renderContainer({
+    className: cx(
+      'inline-block rounded',
+      disabled
+        ? 'bg-gray-500 text-gray-100 cursor-not-allowed'
+        : color && colorClasses[color],
+      size ? sizeClasses[size] : 'px-4 py-2',
+      className
+    ),
+    type,
+    disabled,
+    ...buttonProps,
+  });

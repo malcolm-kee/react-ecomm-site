@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useCallbackProp } from './use-callback-props';
 
 /**
  * `useInterval` is based on [Dan Abromov's blog](https://overreacted.io/making-setinterval-declarative-with-react-hooks/)
@@ -8,26 +9,19 @@ import * as React from 'react';
  * @return function to reset the current interval
  */
 export function useInterval(callback: () => void, delay: number | null) {
-  const savedCallback = React.useRef<typeof callback | null>(null);
+  const savedCallback = useCallbackProp(callback);
   const [resetCount, setResetCount] = React.useState(0);
-
-  // Remember the latest function.
-  React.useEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
 
   // Set up the interval.
   React.useEffect(() => {
     function tick() {
-      if (savedCallback.current) {
-        savedCallback.current();
-      }
+      savedCallback();
     }
     if (delay !== null) {
       let id = setInterval(tick, delay);
       return () => clearInterval(id);
     }
-  }, [delay, resetCount]);
+  }, [delay, resetCount, savedCallback]);
 
   return function reset() {
     setResetCount((lastCount) => lastCount + 1);
