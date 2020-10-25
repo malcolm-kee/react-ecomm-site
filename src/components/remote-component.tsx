@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useScript } from '../hooks/use-script';
-import { Spinner } from './spinner';
 import { Alert } from './alert';
+import { Spinner } from './spinner';
 
 export type RemoteComponentProps = {
   url: string;
@@ -10,35 +10,34 @@ export type RemoteComponentProps = {
   [otherProps: string]: any;
 };
 
+/**
+ * `<RemoteComponent />` allows us to load module federated modules in webpack 4.
+ * It achieves this by using some webpack undocumented API and monkey patching `window` object.
+ * If you want to use in production, use at your own risk. 🚨
+ */
 export const RemoteComponent = ({
   url,
   scope,
   module,
   ...otherProps
 }: RemoteComponentProps) => {
-  const loaded = !!(window as any)[scope];
-
+  // it is important to load a new set of script so `window[scope]` will be patched with a new instance.
+  // but this means potential race condition?
   const scriptStatus = useScript(url, {
-    disabled: loaded,
+    cleanup: true,
   });
 
-  if (scriptStatus === 'loading' && !loaded) {
+  if (scriptStatus === 'loading') {
     return <Spinner />;
   }
 
-  if (scriptStatus === 'error' && !loaded) {
+  if (scriptStatus === 'error') {
     return <Alert color="danger">Fail to load from {url}</Alert>;
   }
 
   const Component = React.lazy(
     () =>
       new Promise((fulfill) => {
-        // if (loaded) {
-        //   return (window as any)[scope]
-        //     .get(module)
-        //     .then((factory: any) => fulfill(factory()));
-        // }
-
         const react = require('react');
         const legacyShareScope = {
           react: {
@@ -60,9 +59,5 @@ export const RemoteComponent = ({
       })
   );
 
-  return (
-    <React.Suspense fallback={<Spinner />}>
-      <Component {...otherProps} />
-    </React.Suspense>
-  );
+  return <Component {...otherProps} />;
 };

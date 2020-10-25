@@ -23,21 +23,23 @@ export const useScript = (
     }
 
     setLoadState('loading');
-    const script = document.createElement('script');
-    script.onload = () => {
+    const $script = document.createElement('script');
+    $script.type = 'text/javascript';
+    $script.async = true;
+    $script.onload = () => {
       setLoadState('success');
       onSuccessCb();
     };
-    script.onerror = () => {
+    $script.onerror = () => {
       setLoadState('error');
       onErrorCb();
     };
-    script.src = src;
-    document.body.append(script);
+    $script.src = src;
+    document.head.appendChild($script);
 
     return cleanup
       ? () => {
-          document.body.removeChild(script);
+          document.head.removeChild($script);
         }
       : undefined;
   }, [src, onSuccessCb, onErrorCb, cleanup, disabled]);
