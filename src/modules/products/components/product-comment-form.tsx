@@ -24,19 +24,24 @@ function ProductCommentFormContent({ productId, user }: ReduxProps) {
 
   function handleSubmit(ev: React.FormEvent) {
     ev.preventDefault();
-    mutate({
-      userName,
-      content,
-      rating: 5,
-    }).then(() => {
-      setContent('');
-      setUserName(defaultName);
-      if (defaultName) {
-        contentInputRef.current?.focus();
-      } else {
-        nameInputRef.current?.focus();
+    mutate(
+      {
+        userName,
+        content,
+        rating: 5,
+      },
+      {
+        onSuccess: () => {
+          setContent('');
+          setUserName(defaultName);
+          if (defaultName) {
+            contentInputRef.current?.focus();
+          } else {
+            nameInputRef.current?.focus();
+          }
+        },
       }
-    });
+    );
   }
 
   return (

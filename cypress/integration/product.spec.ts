@@ -6,6 +6,7 @@ describe(`product`, () => {
 
     cy.findAllByTestId('productBox').first().click();
 
+    cy.wait(1000);
     cy.findByText('Share').click();
 
     cy.findByTestId('add-qty-btn').click().click();
@@ -73,6 +74,7 @@ describe(`product`, () => {
       const review = faker.lorem.sentences(2);
       cy.findByLabelText('Your Review').type(review);
       cy.findByText('Add').click();
+      cy.wait(1000);
       cy.findByLabelText('Your Review').should('be.focused');
 
       cy.findByText(review).should('be.visible');

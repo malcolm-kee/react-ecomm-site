@@ -39,7 +39,9 @@ describe(`support`, () => {
       'I say hi{enter}Then he say goodbye.'
     );
 
-    cy.findByLabelText('Upload File').attachFile('mk-icon.png', {
+    cy.findByLabelText('Upload File').attachFile({
+      filePath: 'mk-icon.png',
+      mimeType: 'image/png',
       subjectType: 'drag-n-drop',
       force: true,
     });
@@ -69,7 +71,9 @@ describe(`support`, () => {
     cy.findByLabelText('I want to make complain about').select('deliver');
     cy.findByText('Next').click();
 
-    cy.findByLabelText('Upload File').attachFile('mk-icon.png', {
+    cy.findByLabelText('Upload File').attachFile({
+      filePath: 'mk-icon.png',
+      mimeType: 'image/png',
       subjectType: 'drag-n-drop',
       force: true,
     });
@@ -95,7 +99,9 @@ describe(`support`, () => {
     cy.findByLabelText('I want to make complain about').select('deliver');
     cy.findByText('Next').click();
 
-    cy.findByLabelText('Upload File').attachFile('mk-icon.png', {
+    cy.findByLabelText('Upload File').attachFile({
+      filePath: 'mk-icon.png',
+      mimeType: 'image/png',
       subjectType: 'drag-n-drop',
       force: true,
     });
