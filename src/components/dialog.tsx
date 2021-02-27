@@ -1,16 +1,19 @@
 import * as React from 'react';
-import { DialogOverlay, DialogContent } from '@reach/dialog';
+import {
+  DialogOverlay,
+  DialogOverlayProps,
+  DialogContent,
+  DialogContentProps,
+} from '@reach/dialog';
 import '@reach/dialog/styles.css';
 import styles from './dialog.module.scss';
 
-type DialogOverlayProps = React.ComponentPropsWithRef<typeof DialogOverlay>;
-
-export type DialogProps = {
+export interface DialogProps extends DialogContentProps {
   isOpen: DialogOverlayProps['isOpen'];
   onDismiss: DialogOverlayProps['onDismiss'];
   children: React.ReactNode;
   'aria-label': string;
-} & React.ComponentPropsWithRef<typeof DialogContent>;
+}
 
 export const Dialog = ({ isOpen, onDismiss, ...props }: DialogProps) => {
   return (
