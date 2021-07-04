@@ -18,7 +18,6 @@ const tsParser = require('react-docgen-typescript').withCustomConfig(
  * @type {import('react-styleguidist').StyleguidistConfig}
  */
 module.exports = {
-  webpackConfig: require('mk-scripts/config/webpack.config'),
   sections: [
     {
       name: 'Components',
