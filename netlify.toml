@@ -1,5 +1,5 @@
 [build]
-  environment = { NODE_VERSION = "12" }
+  environment = { NODE_VERSION = "14" }
 # The following redirect is intended for use with most SPAs that handle
 # routing internally.
 [[redirects]]

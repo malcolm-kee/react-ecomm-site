@@ -41,6 +41,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <input
+        type="text"
         className={cx(
           'block form-input m-0 w-full min-w-0',
           rounded && 'rounded-lg',

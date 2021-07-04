@@ -1,4 +1,4 @@
-/// <reference types="mk-scripts" />
+/// <reference types="react-scripts" />
 
 type DatePickOption = {
   dateFormat?: string;

@@ -16,7 +16,7 @@ export function ProductBox({
   return (
     <Link
       className={cx(
-        'block p-2 sm:p-4 bg-gray-100 hover:shadow focus:shadow',
+        'block p-2 sm:p-4 bg-white hover:shadow focus:shadow',
         className
       )}
       to={`/product/${_id}`}
