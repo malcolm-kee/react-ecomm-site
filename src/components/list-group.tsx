@@ -1,9 +1,9 @@
 import cx from 'classnames';
+import { callAll } from 'lib/fn-lib';
 import * as React from 'react';
 import { LinkProps, NavLink } from 'react-router-dom';
 import { omit } from '../lib/object';
 import { isDefined } from '../lib/typecheck';
-import { callAll } from 'lib/fn-lib';
 
 type ItemBaseProps = {
   label: React.ReactNode;
@@ -41,7 +41,7 @@ export const ListGroup = (props: ListGroupProps) => {
   return props.variant === 'link' ? (
     <div
       {...omit(props, ['items', 'variant'])}
-      className={cx('rounded', props.className)}
+      className={cx('bg-white rounded', props.className)}
     >
       {props.items.map(
         (
@@ -88,7 +88,10 @@ export const ListGroup = (props: ListGroupProps) => {
       )}
     </div>
   ) : props.variant === 'button' ? (
-    <div {...omit(props, ['variant', 'items'])} className={props.className}>
+    <div
+      {...omit(props, ['variant', 'items'])}
+      className={cx('bg-white', props.className)}
+    >
       {props.items.map(
         (
           { label, active, disabled, variant, className, ...buttonProps },
@@ -120,7 +123,10 @@ export const ListGroup = (props: ListGroupProps) => {
       )}
     </div>
   ) : (
-    <ul {...omit(props, ['variant', 'items'])} className={props.className}>
+    <ul
+      {...omit(props, ['variant', 'items'])}
+      className={cx('bg-white', props.className)}
+    >
       {props.items.map(
         (
           { active, disabled, variant, label, className, ...props },
