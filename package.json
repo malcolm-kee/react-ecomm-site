@@ -101,6 +101,5 @@
   },
   "nyc": {
     "report-dir": "cypress-coverage"
-  },
-  "cypressWebpackConfigPath": "./node_modules/mk-scripts/config/webpack.config.js"
+  }
 }
