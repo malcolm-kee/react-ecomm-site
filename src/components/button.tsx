@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import * as React from 'react';
 
-export type ButtonProps = JSX.IntrinsicElements['button'] & {
+export type ButtonProps = React.ComponentPropsWithoutRef<'button'> & {
   color?:
     | 'default'
     | 'primary'
@@ -13,8 +13,8 @@ export type ButtonProps = JSX.IntrinsicElements['button'] & {
   size?: 'lg' | 'sm' | 'xs';
   children: React.ReactNode;
   renderContainer?: (
-    providedProps: JSX.IntrinsicElements['button']
-  ) => JSX.Element;
+    providedProps: React.ComponentPropsWithoutRef<'button'>
+  ) => React.ReactElement | null;
 };
 
 export const colorClasses: Record<NonNullable<ButtonProps['color']>, string> = {

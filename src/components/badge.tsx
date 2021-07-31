@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import * as React from 'react';
 
-export const Badge = (props: JSX.IntrinsicElements['span']) => (
+export const Badge = (props: React.ComponentPropsWithoutRef<'span'>) => (
   <span
     {...props}
     className={cx(

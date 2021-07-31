@@ -1,4 +1,9 @@
 const path = require('path');
+const {
+  createWebpackDevConfig,
+  createWebpackProdConfig,
+} = require('@craco/craco');
+const cracoConfig = require('./craco.config');
 
 const tsParser = require('react-docgen-typescript').withCustomConfig(
   './tsconfig.json',
@@ -18,6 +23,10 @@ const tsParser = require('react-docgen-typescript').withCustomConfig(
  * @type {import('react-styleguidist').StyleguidistConfig}
  */
 module.exports = {
+  webpackConfig:
+    process.env.NODE_ENV === 'production'
+      ? createWebpackProdConfig(cracoConfig)
+      : createWebpackDevConfig(cracoConfig),
   sections: [
     {
       name: 'Components',
