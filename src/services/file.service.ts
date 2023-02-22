@@ -1,7 +1,7 @@
 import { createRequest } from 'xhfetch';
 
-const UPLOAD_SERVICE_BASE_URL = process.env
-  .REACT_APP_UPLOAD_SERVICE_BASE_URL as string;
+const UPLOAD_SERVICE_BASE_URL = import.meta.env
+  .VITE_UPLOAD_SERVICE_BASE_URL as string;
 
 type UploadCallbacks = {
   onDone: (error: Error | null, fileUrl: string) => void;

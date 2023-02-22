@@ -1,8 +1,8 @@
 import { fetchJson } from 'lib/ajax';
 
-const LOGIN_URL = process.env.REACT_APP_LOGIN_URL as string;
-const REGISTER_URL = process.env.REACT_APP_REGISTER_URL as string;
-const PROFILE_URL = process.env.REACT_APP_PROFILE_URL as string;
+const LOGIN_URL = import.meta.env.VITE_LOGIN_URL as string;
+const REGISTER_URL = import.meta.env.VITE_REGISTER_URL as string;
+const PROFILE_URL = import.meta.env.VITE_PROFILE_URL as string;
 
 export function register({
   name,
@@ -39,9 +39,7 @@ export function login(data: {
   });
 }
 
-export function getProfile(
-  accessToken: string
-): Promise<{
+export function getProfile(accessToken: string): Promise<{
   userId: string;
   email: string;
   name: string;

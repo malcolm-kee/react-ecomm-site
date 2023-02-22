@@ -1,66 +1,62 @@
 name: Build and Deploy
-on: ['push', 'pull_request']
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
 jobs:
   build:
-    runs-on: ubuntu-latest
+    name: Build
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Branch Name
         run: echo Running on branch ${GITHUB_REF##*/}
 
       - name: Begin CI...
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Use Node 14
-        uses: actions/setup-node@v1
+      - uses: pnpm/action-setup@v2
         with:
-          node-version: 14.x
+          version: 7
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - name: Use cached node_modules
-        uses: actions/cache@v1
+      - name: Use Node 16
+        uses: actions/setup-node@v3
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: nodeModules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            nodeModules-
+          node-version: 16.x
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
-        env:
-          CI: true
+        run: pnpm install
 
       - name: Build
-        run: yarn build
+        run: pnpm run build
         env:
           CI: true
 
-      - name: Deploy
-        run: yarn deploy --prod
-        if: ${{ github.ref == 'refs/heads/master' }}
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.2
+        id: netlify-deploy
+        with:
+          publish-dir: './build'
+          netlify-config-path: ./netlify.toml
+          production-branch: master
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: 'Deploy from GitHub Actions'
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
-      - name: Deploy Branch
-        run: yarn deploy --branch=${GITHUB_REF##*/}
-        if: ${{ github.ref == 'refs/heads/redux' || github.ref == 'refs/heads/mobx' }}
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      # - name: Build Docs
+      #   run: yarn build:docs
+      #   if: ${{ github.ref == 'refs/heads/master' }}
+      #   env:
+      #     CI: true
 
-      - name: Build Docs
-        run: yarn build:docs
-        if: ${{ github.ref == 'refs/heads/master' }}
-        env:
-          CI: true
-
-      - name: Deploy Docs
-        run: yarn deploy:docs
-        if: ${{ github.ref == 'refs/heads/master' }}
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_DOCS_SITE_ID }}
+      # - name: Deploy Docs
+      #   run: yarn deploy:docs
+      #   if: ${{ github.ref == 'refs/heads/master' }}
+      #   env:
+      #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_DOCS_SITE_ID }}
