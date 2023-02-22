@@ -1,14 +1,11 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 const colors = require('tailwindcss/colors');
 
-module.exports = {
-  purge: [
-    './src/**/*.js',
-    './src/**/*.jsx',
-    './src/**/*.ts',
-    './src/**/*.tsx',
-    './public/index.html',
-  ],
+/**
+ * @type {import('tailwindcss').Config}
+ */
+const tailwindConfig = {
+  content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   theme: {
     screens: {
       xs: '550px',
@@ -16,10 +13,12 @@ module.exports = {
     },
     extend: {
       colors: {
-        teal: colors.teal
-      }
+        teal: colors.teal,
+      },
     },
   },
   variants: {},
   plugins: [require('@tailwindcss/forms')],
 };
+
+module.exports = tailwindConfig;
