@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getGlobalChatRoom } from './chat.service';
 
 export const useGlobalChatRoom = () =>

@@ -11,13 +11,8 @@ export type SlidesProps = {
  * `<Slides />` must be used within `<Carousel />` component.
  */
 export function Slides({ children }: SlidesProps) {
-  const {
-    activeIndex,
-    direction,
-    setTotalSlides,
-    pause,
-    unPause,
-  } = React.useContext(CarouselContext);
+  const { activeIndex, direction, setTotalSlides, pause, unPause } =
+    React.useContext(CarouselContext);
 
   const totalSlides = React.Children.count(children);
 
@@ -41,7 +36,7 @@ export function Slides({ children }: SlidesProps) {
           direction,
           isActive: index === activeIndex,
           'data-testid': `slide-${index}`,
-        });
+        } as any);
       })}
     </div>
   );

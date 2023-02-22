@@ -19,7 +19,7 @@ function ProductCommentFormContent({ productId, user }: ReduxProps) {
   const [content, setContent] = React.useState('');
   const nameInputRef = React.useRef<HTMLInputElement>(null);
   const contentInputRef = React.useRef<HTMLTextAreaElement>(null);
-  const [mutate, { status }] = useAddProductComment(productId);
+  const { mutate, status } = useAddProductComment(productId);
   const submitting = status === 'loading';
 
   function handleSubmit(ev: React.FormEvent) {

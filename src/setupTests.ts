@@ -1,5 +1,4 @@
-import '@testing-library/jest-dom/extend-expect';
-import { queryCache } from 'react-query';
+import '@testing-library/jest-dom';
 
 Object.defineProperty(window, 'IntersectionObserver', {
   value: class MockIntersectionObserver {
@@ -15,8 +14,4 @@ Object.defineProperty(document, 'execCommand', {
 
 Object.defineProperty(window, 'scrollTo', {
   value: jest.fn(),
-});
-
-afterEach(() => {
-  queryCache.clear();
 });

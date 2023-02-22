@@ -11,10 +11,10 @@ import * as React from 'react';
 export function MainPage() {
   const {
     data: productGroups,
-    canFetchMore,
+    hasNextPage: canFetchMore,
     status,
-    isFetchingMore,
-    fetchMore,
+    isFetchingNextPage: isFetchingMore,
+    fetchNextPage: fetchMore,
   } = useProducts();
 
   useWindowEvent(
@@ -49,7 +49,7 @@ export function MainPage() {
         </Jumbotron>
         <div className="p-2 grid grid-cols-2 gap-2 xs:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
           {productGroups &&
-            productGroups.map((products, i) => (
+            productGroups.pages.map((products, i) => (
               <React.Fragment key={i}>
                 {products.map((product) => (
                   <ProductBox {...product} key={product._id} />
@@ -63,4 +63,6 @@ export function MainPage() {
   );
 }
 
-const skeletons = createArray(12).map((_, index) => <ProductBoxSkeleton key={index} />);
+const skeletons = createArray(12).map((_, index) => (
+  <ProductBoxSkeleton key={index} />
+));

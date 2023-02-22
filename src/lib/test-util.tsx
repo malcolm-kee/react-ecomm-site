@@ -1,9 +1,13 @@
 import { AnyAction, configureStore } from '@reduxjs/toolkit';
+import {
+  QueryClient,
+  QueryClientConfig,
+  QueryClientProvider,
+} from '@tanstack/react-query';
 import { act, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import * as React from 'react';
-import { ReactQueryConfig, ReactQueryConfigProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
 import { ToastContainer } from '../components/toast';
@@ -11,20 +15,21 @@ import { rootReducer } from '../modules/root-reducer';
 
 export function renderWithQuery(
   ui: React.ReactNode,
-  config: ReactQueryConfig = {}
+  config: QueryClientConfig = {}
 ) {
+  const queryClient = new QueryClient({
+    ...config,
+    defaultOptions: {
+      ...(config.defaultOptions || {}),
+      queries: {
+        retry: false,
+        ...((config.defaultOptions && config.defaultOptions.queries) || {}),
+      },
+    },
+  });
+
   return render(
-    <ReactQueryConfigProvider
-      config={{
-        ...config,
-        queries: {
-          retry: false,
-          ...(config.queries || {}),
-        },
-      }}
-    >
-      {ui}
-    </ReactQueryConfigProvider>
+    <QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>
   );
 }
 
@@ -34,14 +39,16 @@ export function renderWithStateMgmtAndRouter(
     actions = [],
     route = '/',
     queryConfig = {
-      queries: {
-        retry: false,
+      defaultOptions: {
+        queries: {
+          retry: false,
+        },
       },
     },
   }: {
     actions?: AnyAction[];
     route?: string;
-    queryConfig?: ReactQueryConfig;
+    queryConfig?: QueryClientConfig;
   } = {}
 ) {
   const history = createMemoryHistory({
@@ -52,6 +59,8 @@ export function renderWithStateMgmtAndRouter(
   });
   actions.forEach((action) => store.dispatch(action));
 
+  const queryClient = new QueryClient(queryConfig);
+
   return {
     store,
     history,
@@ -60,13 +69,14 @@ export function renderWithStateMgmtAndRouter(
         history.push(to);
       });
     },
+    queryClient,
     ...render(
-      <ReactQueryConfigProvider config={queryConfig}>
+      <QueryClientProvider client={queryClient}>
         <Router history={history}>
           <Provider store={store}>{ui}</Provider>
         </Router>
         <ToastContainer />
-      </ReactQueryConfigProvider>
+      </QueryClientProvider>
     ),
   };
 }

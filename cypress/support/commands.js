@@ -1,6 +1,6 @@
 import '@testing-library/cypress/add-commands';
 import 'cypress-file-upload';
-import * as faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 Cypress.Commands.add(
   'createUser',

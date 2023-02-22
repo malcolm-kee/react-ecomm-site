@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import ReactDOM from 'react-dom';
-import { ReactQueryConfigProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import 'tailwindcss/tailwind.css';
@@ -8,11 +9,13 @@ import App from './App';
 import './global.scss';
 import { rootReducer } from './modules/root-reducer';
 
-const reactQueryConfig = {
-  queries: {
-    staleTime: 5000,
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5000,
+    },
   },
-};
+});
 
 const store = configureStore({
   reducer: rootReducer,
@@ -21,11 +24,12 @@ const store = configureStore({
 function renderApp(AppComponent: typeof App) {
   return ReactDOM.render(
     <Provider store={store}>
-      <ReactQueryConfigProvider config={reactQueryConfig}>
+      <QueryClientProvider client={queryClient}>
         <Router>
           <AppComponent />
         </Router>
-      </ReactQueryConfigProvider>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
     </Provider>,
     document.getElementById('root')
   );
