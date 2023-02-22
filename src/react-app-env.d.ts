@@ -1,4 +1,4 @@
-/// <reference types="react-scripts" />
+/// <reference types="vite/client" />
 
 type DatePickOption = {
   dateFormat?: string;
@@ -74,6 +74,7 @@ declare module 'react-helmet' {
     title?: string;
     titleAttributes?: Object;
     titleTemplate?: string;
+    children?: React.ReactNode;
   }
 
   export class Helmet extends React.Component<HelmetProps> {
@@ -82,4 +83,8 @@ declare module 'react-helmet' {
     static renderStatic(): HelmetData;
     static canUseDOM: boolean;
   }
+}
+
+declare module 'history' {
+  export function createMemoryHistory(options: any): any;
 }

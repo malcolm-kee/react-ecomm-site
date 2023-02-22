@@ -1,9 +1,9 @@
 import {
-  queryCache,
+  useQueryClient,
   useInfiniteQuery,
   useMutation,
   useQuery,
-} from 'react-query';
+} from '@tanstack/react-query';
 import {
   createProductComment,
   getProduct,
@@ -11,34 +11,34 @@ import {
 } from './product.service';
 
 export function useProducts() {
-  return useInfiniteQuery(
-    'products',
-    (_, before: string = '') => getProducts({ before }),
-    {
-      onSuccess: (productGroup) => {
-        const lastGroup = productGroup[productGroup.length - 1];
-        lastGroup.forEach((product) => {
-          queryCache.setQueryData(['product', product._id], product);
-        });
-      },
-      getFetchMore: (lastGroup) =>
-        lastGroup.length === 0
-          ? false
-          : lastGroup && lastGroup[lastGroup.length - 1].createdAt,
-    }
-  );
+  return useInfiniteQuery({
+    queryKey: ['products'],
+    queryFn: ({ pageParam: before }: { pageParam?: string }) =>
+      getProducts({ before }),
+    getNextPageParam: (lastPage) =>
+      lastPage.length === 0
+        ? undefined
+        : lastPage[lastPage.length - 1].createdAt,
+  });
 }
 
 export function useProductDetails(productId: string) {
-  return useQuery(['product', productId], (_, id: string) => getProduct(id));
+  // const queryClient = useQueryClient();
+
+  return useQuery({
+    queryKey: ['product', productId],
+    queryFn: () => getProduct(productId),
+  });
 }
 
 export function useAddProductComment(productId: string) {
+  const queryClient = useQueryClient();
+
   return useMutation(
     (data: Parameters<typeof createProductComment>[1]) =>
       createProductComment(productId, data),
     {
-      onSuccess: () => queryCache.invalidateQueries(['product', productId]),
+      onSuccess: () => queryClient.invalidateQueries(['product', productId]),
     }
   );
 }

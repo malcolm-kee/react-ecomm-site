@@ -6,7 +6,7 @@ export const useScrollTopOnNavigate = () => {
 
   React.useEffect(
     () =>
-      history.listen((_, action) => {
+      history.listen((_: unknown, action: string) => {
         if (action !== 'POP') {
           window.scrollTo(0, 0);
         }

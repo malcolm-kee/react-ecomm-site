@@ -1,4 +1,4 @@
-import * as faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 export function register({ name, email }: any) {
   return login({ email });

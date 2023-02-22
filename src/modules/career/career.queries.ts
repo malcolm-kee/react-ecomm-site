@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getJobs, getJob } from './career.service';
 
 export function useJobs() {
@@ -6,5 +6,5 @@ export function useJobs() {
 }
 
 export function useJob(jobId: string) {
-  return useQuery(['job', jobId], (_, id: string) => getJob(id));
+  return useQuery(['job', jobId], () => getJob(jobId));
 }

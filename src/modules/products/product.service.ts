@@ -1,9 +1,9 @@
 import { xFetchJson } from 'lib/ajax';
 import { Product, ProductComment } from './product.type';
 
-const PRODUCT_BASE_URL = process.env.REACT_APP_PRODUCT_BASE_URL as string;
-const PRODUCT_COMMENT_BASE_URL = process.env
-  .REACT_APP_PRODUCT_COMMENT_BASE_URL as string;
+const PRODUCT_BASE_URL = import.meta.env.VITE_PRODUCT_BASE_URL as string;
+const PRODUCT_COMMENT_BASE_URL = import.meta.env
+  .VITE_PRODUCT_COMMENT_BASE_URL as string;
 
 export function getProducts({
   before,

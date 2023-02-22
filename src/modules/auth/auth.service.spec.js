@@ -1,4 +1,4 @@
-import * as faker from 'faker';
+import { faker } from '@faker-js/faker';
 import { fetchJson as fetchJsonMock } from '../../lib/ajax';
 import { login, register } from './auth.service';
 

@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import ReactDOM from 'react-dom';
-import { ReactQueryConfigProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import 'tailwindcss/tailwind.css';
@@ -8,40 +9,29 @@ import App from './App';
 import './global.scss';
 import { rootReducer } from './modules/root-reducer';
 
-const reactQueryConfig = {
-  queries: {
-    staleTime: 5000,
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5000,
+    },
   },
-};
+});
 
 const store = configureStore({
   reducer: rootReducer,
 });
 
 function renderApp(AppComponent: typeof App) {
-  return ReactDOM.render(
+  return createRoot(document.getElementById('root')!).render(
     <Provider store={store}>
-      <ReactQueryConfigProvider config={reactQueryConfig}>
+      <QueryClientProvider client={queryClient}>
         <Router>
           <AppComponent />
         </Router>
-      </ReactQueryConfigProvider>
-    </Provider>,
-    document.getElementById('root')
+        <ReactQueryDevtools />
+      </QueryClientProvider>
+    </Provider>
   );
 }
 
 renderApp(App);
-
-/* istanbul ignore next */
-if (module.hot) {
-  module.hot.accept('./App', () => {
-    const NextApp = require('./App').default;
-    renderApp(NextApp);
-  });
-
-  module.hot.accept('./modules/root-reducer', () => {
-    const nextReducer = require('./modules/root-reducer').rootReducer;
-    store.replaceReducer(nextReducer);
-  });
-}
